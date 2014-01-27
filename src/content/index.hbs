@@ -1,0 +1,35 @@
+---
+layout: layout.hbs
+title: Adam Beres-Deak - software developer, JavaScript enthusiast
+---
+
+{{!<div style="padding-bottom: 25%; position: relative; min-height: 200px; border-bottom: 1px solid #ccc; margin-bottom: 32px;">}}
+<div class="index-head">
+    <div></div>
+    <h1 class="site-title">
+        Adam Beres-Deak<br/>
+        <small>software developer, JavaScript enthusiast</small>
+    </h1>
+</div>
+{{!
+<blockquote class="center">
+    <p>Everything should be made as simple as possible, but not simpler.</p>
+    <small>Albert Einstein</small>
+</blockquote>
+}}
+
+<div class="container">
+    <h3 class="center">Recent blog posts</h3>
+    <hr/>
+    {{#filterPostsDesc pages}}
+        <article>
+            <h2 class="center"><a href="/{{ relativeLink }}">{{data.title}}</a></h2>
+            <p class="muted center">{{formatdate data.date "Do MMMM YYYY"}}</p>
+            <p>
+                {{ data.abstract }}
+            </p>
+            <a href="/{{ relativeLink }}">read more</a>
+        </article>
+        {{#unless last}}<hr/>{{/unless}}
+    {{/filterPostsDesc}}
+</div>

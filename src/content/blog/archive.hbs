@@ -1,0 +1,22 @@
+---
+title: Archive
+layout: layout.hbs
+date: 2000-01-01
+---
+
+{{#filterPostsDesc pages}}
+    <p>
+        {{data.date}}
+        <a href="/{{filename}}">{{data.title}}</a>
+    </p>
+{{/filterPostsDesc}}
+
+<br>----<br/>
+{{#withSort pages "data.date" }}
+    {{#contains src 'posts' }}
+    <p>
+        {{data.date}}
+        <a href="/{{filename}}">{{data.title}}</a>
+    </p>
+    {{/contains}}
+{{/withSort}}

@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>A simple PubSub module in JavaScript</title>
+    
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+    <link href="../../../../static/main.css" rel="stylesheet"/>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <a class="brand" href="/">bdadam.com</a>
+        <div class="pull-right">
+            <a href="/">Home</a>
+            
+            <a href="/about.html">Contact</a>
+        </div>
+    </div>
+</nav>
+
+
+<article class="container full-post">
+    <h1>A simple PubSub module in JavaScript</h1>
+    <p class="legal">
+        3rd January 2014
+        | <a href="/about.html">Adam Beres-Deak</a>
+        
+            | <i class="fa fa-tags"></i> javascript,  modules 
+        
+        | <a href="#comments">comments</a>
+    </p>
+    <hr/>
+    <p>I have always been a fan of simple things, such as the PubSub pattern. A few weeks ago I discovered this pattern again, when I was looking for a way to separate some JavaScript modules which don&#x27;t really have to know about each other but have to have some sort of communication.</p>
+
+    <h2 id="tldr">TLDR</h2>
+<p>I believe that publish/subscribe (PubSub) is a very powerfull pattern. Therefore I have recently open sourced my implementation of it in JavaScript. The full source code can be found on GitHub: <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">github.com/bdadam/PubSub</a>.
+It&#39;s completely dependency-free and very small (under 1kb).</p>
+<h2 id="what-is-pubsub-">What is PubSub?</h2>
+<blockquote>
+<p>In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers. Instead, published messages are characterized into classes, without knowledge of what, if any, subscribers there may be. Similarly, subscribers express interest in one or more classes, and only receive messages that are of interest, without knowledge of what, if any, publishers there are.
+Pub/sub is a sibling of the message queue paradigm, and is typically one part of a larger message-oriented middleware system.
+<small>Source: <a href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Wikipedia</a></small></p>
+</blockquote>
+<h2 id="differences-between-dom-events-and-pubsub">Differences between DOM events and PubSub</h2>
+<p>PubSub is very similar to the DOM events, except: there is only one object which fires events and accepts listeners.
+When using DOM events, a listener is registered on the DOM node which fires the event.</p>
+<pre class="prettyprint lang-js"><code>document.getElementById('someId').addEventListener('click', function() { /* event listener */ });
+</code></pre>
+
+<p>In a <em>PubSub</em> architecture a publisher doesn&#39;t know its subscribers and a message receiver doesn&#39;t know where the message comes from. Both parties only know a mediator object which handles the broadcasting of the messages.</p>
+<pre class="prettyprint lang-js"><code>// PubSub is the global mediator object
+
+PubSub.subscribe('anEvent', function(eventName, eventData) {
+    console.log(eventName); // "anEvent"
+    console.log(eventData.something); // 1
+    console.log(eventData.someOtherThing); // 2
+});
+
+PubSub.publish('anEvent', { something: 1, someOtherThing: 2 });
+</code></pre>
+
+<h2 id="the-power-of-pubsub">The power of PubSub</h2>
+<p>This pattern allows us to decouple modules from each other. E.g. think of an online shop, where users can add products to their carts. When adding a product, the website usually has to do some things:</p>
+<ul>
+<li>update number of items</li>
+<li>update total price</li>
+<li>do some tracking (e.g. Google Analytics)</li>
+<li>highlight the newly added product</li>
+<li>maybe play a small animation or even some sound effect (don&#39;t do it)</li>
+<li>etc.</li>
+</ul>
+<p>If a customer clicks on the &quot;Add to cart&quot; button, the button sends a message with the corresponding product as a payload. All the other components can listen to this event and act accordingly (update shopping cart, play animation, track it in Google Analytics and so on).</p>
+<h2 id="are-there-any-disadvantages-">Are there any disadvantages?</h2>
+<p>Yes, there are indeed. All the disadvantages come from the main advantage: publishers are decoupled from subscribers. This means:</p>
+<ol>
+<li>There is no guarantee that a message is delivered. PubSub is a fire and forget pattern.</li>
+<li>The publisher doesn&#39;t know, when a subscriber stops working.</li>
+</ol>
+<h2 id="what-does-all-this-look-like-in-javascript-code-">What does all this look like in JavaScript code?</h2>
+<pre class="prettyprint lang-js"><code >// What the button does
+$("#addProductButton").click(function() {
+    PubSub.publish("productAdded", {
+        product: {
+            id: 1234,
+            name: 'A Super Product',
+            price: 9900 // in cents
+        },
+        user: {
+            country: "DE",
+            loggedIn: true,
+            membershipStatus: "premium"
+        }
+    });
+});
+
+// Total price module increases the displayed total price when a product is added
+PubSub.subscribe('productAdded', function(eventData) {
+    increaseTotalPrice(eventData.product.price);
+});
+
+// Play the sound when Mario collects a coin
+PubSub.subscribe('productAdded', function() {
+    playSound('mario-coin');
+});
+
+// Tracking module
+PubSub.subscribe('productAdded', function(eventData) {
+    _gaq.push([
+        '_trackEvent',
+        'Products',
+        'Buy',
+        eventData.product.name,
+        eventData.product.price
+    ]);
+});
+</code></pre>
+
+<h2 id="how-to-install-it-">How to install it?</h2>
+<p>If you use bower, just execute <code>bower install pubsub</code> and then include pubsub.min.js in your code. E.g:  <code>&lt;script src=&quot;/bower_components/pubsub/pubsub.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>If you don&#39;t use bower then you can download <a href="https://raw.github.com/bdadam/PubSub/master/pubsub.min.js">pubsub.min.js</a> and include it. E.g.:
+<code>&lt;script src=&quot;/libs/pubsub/pubsub.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>You can also use it with require-js:</p>
+<pre><code class="language-javascript">require([<span class="string">'pubsub'</span>], <span class="function"><span class="keyword">function</span><span class="params">(PubSub)</span> {</span>
+    console.log(<span class="keyword">typeof</span> PubSub.publish); <span class="comment">// "function"</span>
+    console.log(<span class="keyword">typeof</span> PubSub.subscribe); <span class="comment">// "function"</span>
+    console.log(<span class="keyword">typeof</span> PubSub.unsubscribe); <span class="comment">// "function"</span>
+
+    <span class="comment">/* Please note: when using require js, the PubSub module doesn't register itself as a global object */</span>
+    console.log(<span class="keyword">typeof</span> window.PubSub); <span class="comment">// "undefined"</span>
+});</code></pre>
+<p>I think I am not the only one, who loves the simplicity and elegance of PubSub. If you do it as well, please consider using my implementation.
+It&#39;s free and it&#39;s published under the MIT license.</p>
+
+
+    <hr/>
+    <a id="comments"></a>
+    <div id="disqus_thread"></div>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+<script>
+    var disqus_shortname = 'bdadamcom';
+    (function() {
+        var d = document.createElement('script'); d.async = true;
+        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(d, s);
+    }());
+</script>
+
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014</p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    if (location.hostname !== 'localhost') {
+        ga('create', 'UA-47485340-1', 'bdadam.com');
+        ga('send', 'pageview');
+    }
+</script>
+</body>
+</html>

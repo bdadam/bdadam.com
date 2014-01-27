@@ -1,0 +1,33 @@
+---
+layout: layout.hbs
+---
+<article class="container full-post">
+    <h1>{{ title }}</h1>
+    <p class="legal">
+        {{formatdate date "Do MMMM YYYY"}}
+        | <a href="/about.html">Adam Beres-Deak</a>
+        {{#if page.tags}}
+            | <i class="fa fa-tags"></i> {{#each page.tags}}{{this}}{{#unless @last}}, {{/unless}} {{/each}}
+        {{/if}}
+        | <a href="#comments">comments</a>
+    </p>
+    <hr/>
+    {{#if abstract }}<p>{{ abstract }}</p>{{/if}}
+
+    {{#markdown}}{{ body }}{{/markdown}}
+
+    <hr/>
+    <a id="comments"></a>
+    <div id="disqus_thread"></div>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+<script>
+    var disqus_shortname = 'bdadamcom';
+    (function() {
+        var d = document.createElement('script'); d.async = true;
+        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(d, s);
+    }());
+</script>
+
