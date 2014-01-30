@@ -6,6 +6,27 @@
         <description>Blog</description>
         
         <item>
+            <title>Serve - a practical command line webserver</title>
+            <link>http://bdadam.com/blog/serve-a-practical-command-line-webserver.html</link>
+            <description>
+                <![CDATA[
+                <p>A few weeks ago I found a very amazing tool - it's called "serve".</p>
+                <h2 id="what-can-it-do-for-you-">What can it do for you?</h2>
+<p>Just simply serve you files over <code>http://</code> protocol. Besides static files it supports jade templates, stylus and less.
+I usually use it, when I need an ad-hoc web server, like when downloading some sources from github and I want to check out the examples.
+They sometimes need a &#39;real web server&#39;, because of the limitations of the <code>file://</code> protocol.</p>
+<h2 id="how-to-use-it-">How to use it?</h2>
+<p>Install it the usual way with <code>npm install -g serve</code> and you should be fine.
+Then just simply <code>cd</code> into the directory which you want to be able to access from <code>http://localhost</code> and run <code>serve</code>.
+Default port is 3000 but, as many things, it&#39;s configurable.
+That&#39;s it.</p>
+<p>For more documentation visit the <a href="https://github.com/visionmedia/serve" rel="external,nofollow">github/serve</a> project page.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Fat arrows for JavaScript</title>
             <link>http://bdadam.com/blog/fat-arrows-for-javascript.html</link>
             <description>
