@@ -1,0 +1,22 @@
+---
+layout: false
+---<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Adam Beres-Deak</title>
+        <link>http://bdadam.com/</link>
+        <description>Blog</description>
+        {{#filterPostsDesc pages}}
+        <item>
+            <title>{{data.title}}</title>
+            <link>http://bdadam.com/{{ relativeLink }}</link>
+            <description>
+                <![CDATA[
+                <p>{{{data.abstract}}}</p>
+                {{#markdown}}{{{page}}}{{/markdown}}
+                ]]>
+            </description>
+        </item>
+        {{/filterPostsDesc}}
+    </channel>
+</rss>

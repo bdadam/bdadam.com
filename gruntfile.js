@@ -22,9 +22,20 @@ module.exports = function(grunt) {
                     expand: true,
                     flatten: false,
                     cwd: 'src/content/',
-                    src: ['**/*.{md,hbs,html}'],
+                    src: ['**/*.{md,hbs,html,xml}'],
                     dest: '<%= dest %>'
                 }]
+            }
+        },
+
+        rename: {
+            rss: {
+                src: '<%= dest %>/rss.html',
+                dest: '<%= dest %>/rss.xml'
+            },
+            sitemap: {
+                src: '<%= dest %>/sitemap.html',
+                dest: '<%= dest %>/sitemap.xml'
             }
         },
 
@@ -41,6 +52,17 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/static/main.css': 'src/less/main.less'
+                }
+            }
+        },
+
+        uncss: {
+            options: {
+                csspath: '/dist/static/'
+            },
+            dist: {
+                files: {
+                    'dist/static/main.min.css': ['dist/**/*.html']
                 }
             }
         },
@@ -70,13 +92,13 @@ module.exports = function(grunt) {
             },
 
             assemble: {
-                files: ['src/**/*.{hbs,html,md}'],
-                tasks: ['assemble']
+                files: ['src/**/*.{hbs,html,md,xml}'],
+                tasks: ['assemble', 'rename']
             }
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'assemble']);
+    grunt.registerTask('build', ['clean', 'less', 'assemble', 'rename']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');

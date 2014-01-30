@@ -5,9 +5,9 @@
     <title>Why I chose to statically generate my website</title>
     <meta name="description" content="Advantages and disadvantages of statically generated websites"/>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
-    <link href="../../../../static/main.css" rel="stylesheet"/>
-    
+    <link href="/static/main.css" rel="stylesheet"/>
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
     <meta name="viewport" content="width=device-width"/>
@@ -103,7 +103,7 @@ Therefore I think I will build my own static website generator.</p>
 
 
 <footer>
-    <p>Adam Beres-Deak &copy; 2014</p>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
     <p class="legal container">
         Except where otherwise noted, content on this site is licensed under a
         <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
@@ -120,6 +120,35 @@ Therefore I think I will build my own static website generator.</p>
         ga('create', 'UA-47485340-1', 'bdadam.com');
         ga('send', 'pageview');
     }
+
+    (function() {
+        function loadCss(url) {
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = url;
+            document.getElementsByTagName("head")[0].appendChild(link);
+        }
+
+        function loadScript(src) {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = src;
+            var sc = document.getElementsByTagName('script')[0];
+            sc.parentNode.insertBefore(s, sc);
+        }
+
+        loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+        loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
+        loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
+
+        (function hlj() {
+            if (typeof hljs === 'undefined') {
+                return setTimeout(hlj, 100);
+            }
+
+            hljs.initHighlightingOnLoad();
+        }());
+    }());
 </script>
 </body>
 </html>

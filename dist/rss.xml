@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Adam Beres-Deak</title>
+        <link>http://bdadam.com/</link>
+        <description>Blog</description>
+        
+        <item>
+            <title>Fat arrows for JavaScript</title>
+            <link>http://bdadam.com/blog/fat-arrows-for-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>I have to admit, I have completely overseen, that fat arrows ( => ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.</p>
+                <p>I have to say one thing I really like, when I&#39;m working with C#, is LINQ and the lambda expressions. If you don&#39;t know what they are, here is an example:</p>
+<pre><code class="language-C#">var areThereAnySportsCars = cars.Where(x =&gt; x.HorsePower &gt; 300 &amp;&amp; x.Seats == 2).Any(y =&gt; y.Color == &#39;RED&#39;);</code></pre>
+<p>I think it&#39;s very easy to see what this expression does: it filters the <code>cars</code> array for cars which have more than 300 HP and exactly 2 seats,
+then checks whether there are any red ones.</p>
+<h2 id="how-does-it-look-like-in-javascript-">How does it look like in JavaScript?</h2>
+<pre><code class="language-JavaScript">var sportsCars = cars.where(x =&gt; x.horsePower &gt; 300 &amp;&amp; x.seats === 2).any(y =&gt; y.Color === &#39;RED&#39;);</code></pre>
+<p>Do you notice any differences (besides triple = signs and casing)? No there isn&#39;t.</p>
+<h2 id="where-is-the-catch-">Where is the catch?</h2>
+<p>Unfortunately there is a catch:
+Currently this syntax is only supported in Firefox.
+Althought Firefox has been supporting it for more than a year now (almost two), its support is completely missing in Chrome.
+But the syntax is in the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:arrow_function_syntax" rel="external,nofollow">ES6 Draft</a>,
+so we can hope that Google also decides to support it.</p>
+<h2 id="more-examples">More examples</h2>
+<pre><code class="language-JavaScript">var sqaure = function(x) { return x * x; };
+var squareNew = x =&gt; x * x;
+
+var sum = function(a, b) {return a + b};
+var sumNew = (a, b) =&gt; a + b;
+
+domElement.addEventListener(&#39;click&#39;, function(event) { handleEvent(event.target); });
+domElement.addEventListener(&#39;click&#39;, event =&gt; handleEvent(event.target));
+
+[1,2,3].map(function(x) { return x + 1; });
+[1,2,3].map(x =&gt; x + 1);</code></pre>
+<h2 id="what-s-this-">What&#39;s <code>this</code>?</h2>
+<p>One of the most complicated things when teaching people JavaScript is to teach what is the value of <code>this</code>.
+With fat arrows we get a function expression which has some limitations:</p>
+<ol>
+<li><code>this</code> is bound to the context, where you use the fat arrow</li>
+<li>they cannot be used as a constructor (they throw an error)</li>
+</ol>
+<p>Some examples:</p>
+<pre><code class="language-JavaScript">// With conventional function definitions
+var obj = {
+    logThis: function() {
+        console.log(this); //this is obj
+        var log = function() {
+            console.log(this); //this is the global object (window)
+        };
+
+        log();
+    }
+};
+
+myObj.logThis();
+/*
+This call logs:
+Object { logThis=function() }
+Window
+*/
+
+// With fat arrows
+var obj = {
+    logThis: function() {
+        console.log(this); //this is obj
+        var log = () =&gt; console.log(this); //this is also obj
+
+        log();
+    }
+};
+
+obj.logThis();
+/*
+This call logs:
+Object { logThis=function() }
+Object { logThis=function() }
+*/
+
+var X = a =&gt; a*3;
+
+new X(); // TypeError: X is not a constructor</code></pre>
+<h2 id="ok-but-where-is-linq-">OK - but where is LINQ?</h2>
+<p>There have always been many LINQ-like implementations in JavaScript. They usually simply take a function expression as a parameter,
+so it&#39;s not a big deal to use fat arrows instead of conventional function expressions.</p>
+<pre><code class="language-JavaScript">var isThereAnySportsCar = cars.where(function(car) { return car.horsePower &gt; 300; }).any(function(c) { return c.seats === 2; });
+
+var isThereAnySportsCar = cars.where(car =&gt; car.horsePower &gt; 300).any(c =&gt; c.seats === 2);</code></pre>
+<p>But LINQ is not just about the syntax. In LINQ every item of the original array goes through the whole pipeline, so that the original array is only iterated once.
+In plain old JavaScript (ECMAScript 3) this was impossible. In ES6 generators are coming, which are solving this issue.
+I&#39;m not going to go into details now, lets have it for another blog post.</p>
+<p>There is <a rel="external,nofollow" href="https://github.com/aaronpowell/linq-in-javascript/">one LINQ implementation</a> which I really like.
+It&#39;s far awy from feature completeness, but it shows how it should be done.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Why I chose to statically generate my website</title>
+            <link>http://bdadam.com/blog/why-i-chose-a-statically-generated-website.html</link>
+            <description>
+                <![CDATA[
+                <p>I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn't want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don't really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative.</p>
+                <h2 id="what-did-i-need-">What did I need?</h2>
+<p>I wanted to have a website where I can show, who I am. I also wanted to write some articles and then publish them.
+I wanted to have some sort of statistics about my users. That&#39;s all, not that much.</p>
+<h2 id="lets-take-a-look-at-what-i-was-planning">Lets take a look at what I was planning</h2>
+<p>I knew I wanted to have some static pages like &#39;about me&#39;, &#39;contact&#39; and some dynamic pages like blog posts. So I need a database, right?
+Lets get one instance at <a href="http://mongolab.com" rel="external,nofollow">MongoLab</a>.</p>
+<p>Then I was sure I need some continuous integration (CI) environment and a LIVE environment. That was fine, since I already have a web server.
+So I knew I wanted to write and edit my articles. So I need a &#39;members area&#39;, with an editor, with https connection and authentication?
+Then I thought it&#39;s too much for this small site. Lets look for something smaller.</p>
+<h2 id="first-i-found-markdown-again">First I found markdown again</h2>
+<p>I always knew that markdown is very convenient (at least for a coder). Then I came across <a href="http://stackedit.io" rel="external,nofollow">stackedit.io</a>.
+It the best markdown editor I have ever seen. Maybe better then a plain text editor.
+So I was sure I wanted to write my articles in markdown. So I don&#39;t need to have an editor myself, Stackedit does the job for me.</p>
+<h2 id="i-remembered-i-saw-something">I remembered I saw something</h2>
+<p>This thing was called <a href="http://wintersmith.io/" rel="external,nofollow">Wintersmith</a>. A static website generator for node.js.
+Unfortunately written in CoffeeScript. What a shame. But I started to use it. It was almost working but I didn&#39;t like it.</p>
+<p>So I was looking for alternatives. And then I found <a href="http://assemble.io">Assemble</a>.
+It is also a static website generator, actually a GruntJS task. But I liked it better and for templating it uses handlebars instead of Jade.</p>
+<h2 id="here-i-am-now">Here I am now</h2>
+<p>Now I am using Assemble to generate my site. But I am not absolutely happy with it. I am missing some features, which I&#39;m going to need in a few weeks.
+Therefore I think I will build my own static website generator.</p>
+<h2 id="what-are-the-benefits-of-statically-generating-this-site-">What are the benefits of statically generating this site?</h2>
+<ol>
+<li>It&#39;s fast. Every page is generated once on my desktop computer and then hosting is cheap and easy. No more surprises when a blog post accidentally hits the top of Hackernews.</li>
+<li>Deployment is also very easy. I just have to copy some files over SCP and that&#39;s it.</li>
+<li>Less things can be hacked. :)</li>
+<li>No need for caching. Almost every web-server does this for us out of the box.</li>
+<li>In the end less things can go wrong.</li>
+</ol>
+<h2 id="there-are-also-some-tradeoffs">There are also some tradeoffs</h2>
+<p>Editing and publishing is definitely more complex than just hitting a button called &quot;Publish&quot;. I cannot do them conveniently over my smart phone, I need my laptop.</p>
+<h2 id="how-does-my-workflow-look-like-">How does my workflow look like?</h2>
+<ol>
+<li>I write my article in markdown.</li>
+<li>I (re)generate the html files.</li>
+<li>Then I push the changes to <a href="http://github.com/bdadam/bdadam.com" rel="external,nofollow">my code repository</a></li>
+<li>At last I copy the files to my webserver and check whether everything is fine. That&#39;s all.</li>
+</ol>
+<h2 id="why-is-my-code-repository-publicly-available-on-github-">Why is my code repository publicly available on GitHub?</h2>
+<ol>
+<li>I don&#39;t need to hide it in a private repository, since every page in this blog is public.</li>
+<li>It is a good example for others who are also using (or planning to use) Assemble and are looking for some examples.</li>
+<li>It doesn&#39;t cost a thing.</li>
+</ol>
+<p>So I think this is the best for my tiny blog. But I am not affraid of changes. I definitely will change everything.</p>
+<p>Do you also like static site generation?</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>A simple PubSub module in JavaScript</title>
+            <link>http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>I have always been a fan of simple things, such as the PubSub pattern. A few weeks ago I discovered this pattern again, when I was looking for a way to separate some JavaScript modules which don't really have to know about each other but have to have some sort of communication.</p>
+                <h2 id="tldr">TLDR</h2>
+<p>I believe that publish/subscribe (PubSub) is a very powerfull pattern. Therefore I have recently open sourced my implementation of it in JavaScript. The full source code can be found on GitHub: <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">github.com/bdadam/PubSub</a>.
+It&#39;s completely dependency-free and very small (under 1kb).</p>
+<h2 id="what-is-pubsub-">What is PubSub?</h2>
+<blockquote>
+<p>In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers. Instead, published messages are characterized into classes, without knowledge of what, if any, subscribers there may be. Similarly, subscribers express interest in one or more classes, and only receive messages that are of interest, without knowledge of what, if any, publishers there are.
+Pub/sub is a sibling of the message queue paradigm, and is typically one part of a larger message-oriented middleware system.
+<small>Source: <a href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Wikipedia</a></small></p>
+</blockquote>
+<h2 id="differences-between-dom-events-and-pubsub">Differences between DOM events and PubSub</h2>
+<p>PubSub is very similar to the DOM events, except: there is only one object which fires events and accepts listeners.
+When using DOM events, a listener is registered on the DOM node which fires the event.</p>
+<pre class="prettyprint lang-js"><code>document.getElementById('someId').addEventListener('click', function() { /* event listener */ });
+</code></pre>
+
+<p>In a <em>PubSub</em> architecture a publisher doesn&#39;t know its subscribers and a message receiver doesn&#39;t know where the message comes from. Both parties only know a mediator object which handles the broadcasting of the messages.</p>
+<pre class="prettyprint lang-js"><code>// PubSub is the global mediator object
+
+PubSub.subscribe('anEvent', function(eventName, eventData) {
+    console.log(eventName); // "anEvent"
+    console.log(eventData.something); // 1
+    console.log(eventData.someOtherThing); // 2
+});
+
+PubSub.publish('anEvent', { something: 1, someOtherThing: 2 });
+</code></pre>
+
+<h2 id="the-power-of-pubsub">The power of PubSub</h2>
+<p>This pattern allows us to decouple modules from each other. E.g. think of an online shop, where users can add products to their carts. When adding a product, the website usually has to do some things:</p>
+<ul>
+<li>update number of items</li>
+<li>update total price</li>
+<li>do some tracking (e.g. Google Analytics)</li>
+<li>highlight the newly added product</li>
+<li>maybe play a small animation or even some sound effect (don&#39;t do it)</li>
+<li>etc.</li>
+</ul>
+<p>If a customer clicks on the &quot;Add to cart&quot; button, the button sends a message with the corresponding product as a payload. All the other components can listen to this event and act accordingly (update shopping cart, play animation, track it in Google Analytics and so on).</p>
+<h2 id="are-there-any-disadvantages-">Are there any disadvantages?</h2>
+<p>Yes, there are indeed. All the disadvantages come from the main advantage: publishers are decoupled from subscribers. This means:</p>
+<ol>
+<li>There is no guarantee that a message is delivered. PubSub is a fire and forget pattern.</li>
+<li>The publisher doesn&#39;t know, when a subscriber stops working.</li>
+</ol>
+<h2 id="what-does-all-this-look-like-in-javascript-code-">What does all this look like in JavaScript code?</h2>
+<pre class="prettyprint lang-js"><code >// What the button does
+$("#addProductButton").click(function() {
+    PubSub.publish("productAdded", {
+        product: {
+            id: 1234,
+            name: 'A Super Product',
+            price: 9900 // in cents
+        },
+        user: {
+            country: "DE",
+            loggedIn: true,
+            membershipStatus: "premium"
+        }
+    });
+});
+
+// Total price module increases the displayed total price when a product is added
+PubSub.subscribe('productAdded', function(eventData) {
+    increaseTotalPrice(eventData.product.price);
+});
+
+// Play the sound when Mario collects a coin
+PubSub.subscribe('productAdded', function() {
+    playSound('mario-coin');
+});
+
+// Tracking module
+PubSub.subscribe('productAdded', function(eventData) {
+    _gaq.push([
+        '_trackEvent',
+        'Products',
+        'Buy',
+        eventData.product.name,
+        eventData.product.price
+    ]);
+});
+</code></pre>
+
+<h2 id="how-to-install-it-">How to install it?</h2>
+<p>If you use bower, just execute <code>bower install pubsub</code> and then include pubsub.min.js in your code. E.g:  <code>&lt;script src=&quot;/bower_components/pubsub/pubsub.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>If you don&#39;t use bower then you can download <a href="https://raw.github.com/bdadam/PubSub/master/pubsub.min.js">pubsub.min.js</a> and include it. E.g.:
+<code>&lt;script src=&quot;/libs/pubsub/pubsub.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>You can also use it with require-js:</p>
+<pre><code class="language-javascript">require([<span class="string">'pubsub'</span>], <span class="function"><span class="keyword">function</span><span class="params">(PubSub)</span> {</span>
+    console.log(<span class="keyword">typeof</span> PubSub.publish); <span class="comment">// "function"</span>
+    console.log(<span class="keyword">typeof</span> PubSub.subscribe); <span class="comment">// "function"</span>
+    console.log(<span class="keyword">typeof</span> PubSub.unsubscribe); <span class="comment">// "function"</span>
+
+    <span class="comment">/* Please note: when using require js, the PubSub module doesn't register itself as a global object */</span>
+    console.log(<span class="keyword">typeof</span> window.PubSub); <span class="comment">// "undefined"</span>
+});</code></pre>
+<p>I think I am not the only one, who loves the simplicity and elegance of PubSub. If you do it as well, please consider using my implementation.
+It&#39;s free and it&#39;s published under the MIT license.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Wow, I started a blog</title>
+            <link>http://bdadam.com/blog/wow-i-started-a-blog.html</link>
+            <description>
+                <![CDATA[
+                <p>So the new year has come and I decided to start a blog. I try to learn new things every day. Here I want to collect my thoughts and document what I have learned so far, so that I don't forget them and don't have to learn them again later.</p>
+                
+                ]]>
+            </description>
+        </item>
+        
+    </channel>
+</rss>
