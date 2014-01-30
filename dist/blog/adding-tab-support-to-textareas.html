@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>Adding tab support to textareas</title>
+    <meta name="description" content="Some example JavaScript code which detects when user presses TAB or SHIFT+TAB"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/static/main.css" rel="stylesheet"/>
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <a class="brand" href="/">bdadam.com</a>
+        <div class="pull-right">
+            <a href="/">Home</a>
+            
+            <a href="/about.html">Contact</a>
+        </div>
+    </div>
+</nav>
+
+
+<article class="container full-post">
+    <h1>Adding tab support to textareas</h1>
+    <p class="legal">
+        30th January 2014
+        | <a href="/about.html">Adam Beres-Deak</a>
+        
+            | <i class="fa fa-tags"></i> javascript,  browser 
+        
+        | <a href="#comments">comments</a>
+    </p>
+    <hr/>
+    <p>Have you ever wondered how is it possible to support tabs in a textarea? Normally when you press the tab key, the focus jumps to the next element. But with some JavaScript &#x27;magic&#x27; it&#x27;s possible to indent or unindent the text.</p>
+
+    <p>The code detects when the user presses TAB or SHIFT+TAB - the current line gets indented or unindented.
+Source code for the example can be found here: <a href="https://gist.github.com/bdadam/8721698" rel="external,nofollow">gist.github.com/bdadam/8721698</a>.</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta name=&quot;charset&quot; content=&quot;utf-8&quot;/&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt;
+    &lt;meta name=&quot;author&quot; content=&quot;Adam Beres-Deak&quot;/&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;/&gt;
+    &lt;style&gt;
+        body {
+            padding: 40px;
+        }
+        textarea {
+            width: 100%;
+            height: 350px;
+            font-family: CourierNew, Courier;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;textarea id=&quot;tx&quot;&gt;&lt;/textarea&gt;
+    &lt;script&gt;
+    function enableTab(id) {
+        var shiftPressed = false;
+        var ctrlPressed = false;
+        var tabChar = &#39;    &#39;;
+
+        function checkSpecialKeys(e) {
+            switch(e.keyCode) {
+                case 16:
+                    shiftPressed = !shiftPressed;
+                    break;
+                case 17:
+                    ctrlPressed = !ctrlPressed;
+            }
+        }
+
+        document.addEventListener(&#39;keydown&#39;, checkSpecialKeys);
+        document.addEventListener(&#39;keyup&#39;, checkSpecialKeys);
+
+        function addTab(textarea) {
+            // caching some values, because they are changing as text changes
+            var value = textarea.value,
+                start = textarea.selectionStart,
+                end = textarea.selectionEnd;
+
+            // adding tab character to actual cursor position
+            textarea.value = value.substring(0, start) + tabChar + value.substring(end);
+
+            // putting cursor back to its original position
+            textarea.selectionStart = textarea.selectionEnd = start + tabChar.length;
+        }
+
+        function removeTab(textarea) {
+            var curPos = textarea.selectionStart,
+                lines = textarea.value.split(&#39;\n&#39;),
+                newValue = &#39;&#39;,
+                done = false,
+                cnt = 0;
+
+            for (var i = 0, l = lines.length; i &lt; l; i++) {
+                // iterating through each line
+                var line = lines[i];
+                cnt += line.length;
+                if (cnt &gt;= curPos &amp;&amp; !done) {
+                    // cursor is in this line
+                    var newLine = line.replace(new RegExp(&#39;^&#39; + tabChar, &#39;&#39;), &#39;&#39;);
+
+                    if (newLine !== line) {
+                        // there was a tab at the beginning of the line, replace was succesfull, cursor must be moved backwards some
+                        line = newLine;
+                        curPos -=tabChar.length;
+                    }
+
+                    done = true; // only one substitution per run
+                }
+
+                newValue += line + &#39;\n&#39;;
+            }
+
+            // setting new value
+            textarea.value = newValue;
+
+            // putting cursor back to its original position
+            textarea.selectionStart = textarea.selectionEnd = curPos;
+        }
+
+        var textArea = document.getElementById(id);
+        textArea.addEventListener(&#39;keydown&#39;, function(e) {
+            if (e.keyCode === 9) {
+
+                if (!shiftPressed) {
+                    addTab(this);
+                } else {
+                    removeTab(this);
+                }
+
+                return false; // preventing losing focus
+            }
+        });
+    }
+
+    enableTab(&#39;tx&#39;);
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+
+
+    <hr/>
+    <a id="comments"></a>
+    <div id="disqus_thread"></div>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+<script>
+    var disqus_shortname = 'bdadamcom';
+    (function() {
+        var d = document.createElement('script'); d.async = true;
+        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(d, s);
+    }());
+</script>
+
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    if (location.hostname !== 'localhost') {
+        ga('create', 'UA-47485340-1', 'bdadam.com');
+        ga('send', 'pageview');
+    }
+
+    (function() {
+        function loadCss(url) {
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = url;
+            document.getElementsByTagName("head")[0].appendChild(link);
+        }
+
+        function loadScript(src) {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = src;
+            var sc = document.getElementsByTagName('script')[0];
+            sc.parentNode.insertBefore(s, sc);
+        }
+
+        loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+        loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
+        loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
+
+        (function hlj() {
+            if (typeof hljs === 'undefined') {
+                return setTimeout(hlj, 100);
+            }
+
+            hljs.initHighlightingOnLoad();
+        }());
+    }());
+</script>
+</body>
+</html>

@@ -6,6 +6,124 @@
         <description>Blog</description>
         
         <item>
+            <title>Adding tab support to textareas</title>
+            <link>http://bdadam.com/blog/adding-tab-support-to-textareas.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever wondered how is it possible to support tabs in a textarea? Normally when you press the tab key, the focus jumps to the next element. But with some JavaScript 'magic' it's possible to indent or unindent the text.</p>
+                <p>The code detects when the user presses TAB or SHIFT+TAB - the current line gets indented or unindented.
+Source code for the example can be found here: <a href="https://gist.github.com/bdadam/8721698" rel="external,nofollow">gist.github.com/bdadam/8721698</a>.</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta name=&quot;charset&quot; content=&quot;utf-8&quot;/&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt;
+    &lt;meta name=&quot;author&quot; content=&quot;Adam Beres-Deak&quot;/&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;/&gt;
+    &lt;style&gt;
+        body {
+            padding: 40px;
+        }
+        textarea {
+            width: 100%;
+            height: 350px;
+            font-family: CourierNew, Courier;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;textarea id=&quot;tx&quot;&gt;&lt;/textarea&gt;
+    &lt;script&gt;
+    function enableTab(id) {
+        var shiftPressed = false;
+        var ctrlPressed = false;
+        var tabChar = &#39;    &#39;;
+
+        function checkSpecialKeys(e) {
+            switch(e.keyCode) {
+                case 16:
+                    shiftPressed = !shiftPressed;
+                    break;
+                case 17:
+                    ctrlPressed = !ctrlPressed;
+            }
+        }
+
+        document.addEventListener(&#39;keydown&#39;, checkSpecialKeys);
+        document.addEventListener(&#39;keyup&#39;, checkSpecialKeys);
+
+        function addTab(textarea) {
+            // caching some values, because they are changing as text changes
+            var value = textarea.value,
+                start = textarea.selectionStart,
+                end = textarea.selectionEnd;
+
+            // adding tab character to actual cursor position
+            textarea.value = value.substring(0, start) + tabChar + value.substring(end);
+
+            // putting cursor back to its original position
+            textarea.selectionStart = textarea.selectionEnd = start + tabChar.length;
+        }
+
+        function removeTab(textarea) {
+            var curPos = textarea.selectionStart,
+                lines = textarea.value.split(&#39;\n&#39;),
+                newValue = &#39;&#39;,
+                done = false,
+                cnt = 0;
+
+            for (var i = 0, l = lines.length; i &lt; l; i++) {
+                // iterating through each line
+                var line = lines[i];
+                cnt += line.length;
+                if (cnt &gt;= curPos &amp;&amp; !done) {
+                    // cursor is in this line
+                    var newLine = line.replace(new RegExp(&#39;^&#39; + tabChar, &#39;&#39;), &#39;&#39;);
+
+                    if (newLine !== line) {
+                        // there was a tab at the beginning of the line, replace was succesfull, cursor must be moved backwards some
+                        line = newLine;
+                        curPos -=tabChar.length;
+                    }
+
+                    done = true; // only one substitution per run
+                }
+
+                newValue += line + &#39;\n&#39;;
+            }
+
+            // setting new value
+            textarea.value = newValue;
+
+            // putting cursor back to its original position
+            textarea.selectionStart = textarea.selectionEnd = curPos;
+        }
+
+        var textArea = document.getElementById(id);
+        textArea.addEventListener(&#39;keydown&#39;, function(e) {
+            if (e.keyCode === 9) {
+
+                if (!shiftPressed) {
+                    addTab(this);
+                } else {
+                    removeTab(this);
+                }
+
+                return false; // preventing losing focus
+            }
+        });
+    }
+
+    enableTab(&#39;tx&#39;);
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Serve - a practical command line webserver</title>
             <link>http://bdadam.com/blog/serve-a-practical-command-line-webserver.html</link>
             <description>
