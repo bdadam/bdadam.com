@@ -58,12 +58,28 @@ module.exports = function(grunt) {
 
         uncss: {
             options: {
-                csspath: '/dist/static/'
+                csspath: '/static/',
+                stylesheets: ['main.css'],
+                compress: true,
+                timeout: 3
             },
             dist: {
                 files: {
                     'dist/static/main.min.css': ['dist/**/*.html']
                 }
+            }
+        },
+
+        hashres: {
+            options: {
+                fileNameFormat: '${name}.${ext}?${hash}',
+                renameFiles: false
+            },
+            dist: {
+                options: {
+                },
+                src: ['dist/static/main.css'],
+                dest: 'dist/**/*.html'
             }
         },
 
@@ -88,17 +104,17 @@ module.exports = function(grunt) {
 
             less: {
                 files: ['src/**/*.less'],
-                tasks: ['less']
+                tasks: ['less', 'hashres']
             },
 
             assemble: {
                 files: ['src/**/*.{hbs,html,md,xml}'],
-                tasks: ['assemble', 'rename']
+                tasks: ['assemble', 'rename', 'hashres']
             }
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'assemble', 'rename']);
+    grunt.registerTask('build', ['clean', 'less', 'assemble', 'rename', 'hashres']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');
