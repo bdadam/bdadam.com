@@ -6,6 +6,76 @@
         <description>Blog</description>
         
         <item>
+            <title>Error handling in JavaScript</title>
+            <link>http://bdadam.com/blog/error-handling-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever wondered, what's the proper way of throwing JavaScript errors? And how to handle them? Here we'll see some examples and we'll define some custom error types.</p>
+                <p><em>Additional bonus: the following code examples also work in node.js not just in the browsers.</em></p>
+<h2 id="throwing-errors">Throwing Errors</h2>
+<p>Throwing errors is very simple, we just need the <code>throw</code> statement.</p>
+<pre><code class="language-JavaScript">function throwsAnError() {
+    throw new Error(&#39;An error occured&#39;);
+}
+
+try {
+    throwsAnError();
+} catch(ex) {
+    console.log(ex.message); // An error occured
+}</code></pre>
+<p>Theoretically it&#39;s possible to throw any kind of object, but it&#39;s not really recommended throwing anything else than <code>Error</code> or one of its derived (custom) types.
+The reason for this is, that browsers not always work as you would expect.
+Some of them (IE, Safari) only show &quot;uncaught exception&quot; and don&#39;t show the object which was thrown.</p>
+<h2 id="default-error-types-in-javascript">Default error types in JavaScript</h2>
+<p>There are six predefined error types in JavaScript:</p>
+<ul>
+<li>EvalError: when an error occurs in the <code>eval()</code> function</li>
+<li>RangeError: when a parameter or variable is not in its valid numeric range</li>
+<li>ReferenceError: when an invalid reference is de-referenced (e.g. using a variable which has not been defined)</li>
+<li>SyntaxError: when there is a syntax error in some scripts</li>
+<li>TypeError: when a parameter or variable is not of a valid type</li>
+<li>URIError: when passing invalid parameters to URI function (<code>encodeURI()</code> or <code>decodeURI()</code>)</li>
+</ul>
+<h2 id="handling-specific-errors">Handling specific errors</h2>
+<p>Here comes the <code>instanceof</code> operator handy, when our codes runs into a catch. With its help we can check which type does the exception belong to.</p>
+<pre><code class="language-JavaScript">try {
+    // doSomethingWithNumbersAndURIs();
+} catch (ex) {
+    if (ex instanceof RangeError) {
+        alert(&#39;Value not in range!&#39;);
+    } else if (ex instanceof URIError) {
+        alert(&#39;Value not an URI!&#39;);
+    } else {
+        // some basic error handling
+    }
+}</code></pre>
+<h2 id="throwing-custom-errors">Throwing custom errors</h2>
+<p>This is also very simple, we just have to create a constructor for our error type which is derived from <code>Error</code>.
+There&#39;s one little catch though, line numbers are shown incorrectly.</p>
+<pre><code class="language-JavaScript">function CustomError(message) {
+  this.name = &quot;CustomError&quot;;
+  this.message = message || &quot;Some default message&quot;;
+}
+CustomError.prototype = new Error();
+CustomError.prototype.constructor = CustomError;
+
+try {
+    throw new CustomError(&#39;An error occured!&#39;);
+} catch(ex) {
+    console.log(ex.name); // CustomError
+    console.log(ex.message); // Ann error occured!
+}</code></pre>
+<p>If you are interested in more details:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error" rel="external,nofollow">Mozilla Developer Network Documentation</a></li>
+<li><a href="http://www.nczonline.net/blog/2009/03/10/the-art-of-throwing-javascript-errors-part-2/" rel="external,nofollow">NCZOnline</a></li>
+</ol>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Adding tab support to textareas</title>
             <link>http://bdadam.com/blog/adding-tab-support-to-textareas.html</link>
             <description>

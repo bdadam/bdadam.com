@@ -4,7 +4,9 @@
 @import "../bower_components/bootstrap/less/normalize.less";
 @import "../bower_components/bootstrap/less/print.less";
 @import "../bower_components/bootstrap/less/scaffolding.less";
+
 @import "../bower_components/bootstrap/less/type.less";
+
 @import "../bower_components/bootstrap/less/code.less";
 @import "../bower_components/bootstrap/less/grid.less";
 //@import "tables.less";
@@ -24,9 +26,33 @@ body {
 */
 
 body {
-  font-size: 16px;
-  font-family: Verdana;
+  font-size: 20px;
+  font-family: Georgia;
   line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  margin: 0;
+  margin: 1em 0 .6em;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
 }
 
 .container {
@@ -99,7 +125,7 @@ h1.site-title {
 
 h2 {
   font-weight: bold;
-  font-size: 20px;
+  //font-size: 20px;
 
   a, a:link, a:visited, a:hover, a:active {
     color: #333;
