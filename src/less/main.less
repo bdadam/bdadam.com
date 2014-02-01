@@ -34,7 +34,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   margin: 0;
-  margin: 1em 0 .6em;
+  margin: 1em 0 .4em;
 }
 
 h1 {
@@ -94,9 +94,20 @@ footer {
   font-size: 14px;
 }
 
+pre {
+  padding: 0;
+  background-color: transparent;
+  font-size: 14px;
+
+  code {
+    padding: 0.5em;
+    display: block;
+  }
+}
+
 .legal {
   color: #999;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .muted {
@@ -105,6 +116,62 @@ footer {
 
 .center {
   text-align: center;
+}
+
+.share-bar {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 4px 0;
+  line-height: 1;
+  min-height: 52px;
+  //text-align: center;
+}
+
+.btn-share {
+  padding: 6px 12px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 12px;
+  margin: 8px 12px 8px 0;
+  font-size: 14px;
+
+  &:link, &:visited, &:hover, &:active {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:hover, &:active {
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .85);
+    box-shadow: 0 0 3px rgba(127, 127, 127, .65);
+  }
+
+  .fa {
+    font-size: 14px;
+    padding-right:3px;
+    border-right: 1px solid #fff;
+  }
+
+  &.fb {
+    //background-color: #45c;
+    background-color: #3b5998;
+  }
+
+  &.tw {
+    //background-color: #959;
+    background-color: #00aced;
+  }
+
+  &.li {
+    background-color: #007bb6;
+  }
+
+  &.gp {
+    background-color: #dd4b39;
+  }
+
+  &.cm {
+    background-color: #959;
+  }
 }
 
 h1.site-title {

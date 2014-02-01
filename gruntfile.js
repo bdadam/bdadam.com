@@ -40,8 +40,7 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            html: ['dist/**/*.html'],
-            css: ['dist/static/main.css']
+            html: ['dist/**/*.html', 'dist/static/main.css', 'dist/static/main.js', 'dist/**/(!browserconfig).xml']
         },
 
         less: {
@@ -52,6 +51,17 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'dist/static/main.css': 'src/less/main.less'
+                }
+            }
+        },
+
+        browserify: {
+            dist: {
+                options: {
+                    transform: ['brfs', 'uglifyify']
+                },
+                files: {
+                    'dist/static/main.js': ['src/js/main.js']
                 }
             }
         },
@@ -78,7 +88,7 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                 },
-                src: ['dist/static/main.css'],
+                src: ['dist/static/main.css', 'dist/static/main.js'],
                 dest: 'dist/**/*.html'
             }
         },
@@ -107,6 +117,11 @@ module.exports = function(grunt) {
                 tasks: ['less', 'hashres']
             },
 
+            browserify: {
+                files: ['src/js/**/*.js'],
+                tasks: ['browserify', 'hashres']
+            },
+
             assemble: {
                 files: ['src/**/*.{hbs,html,md,xml}'],
                 tasks: ['assemble', 'rename', 'hashres']
@@ -114,7 +129,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'assemble', 'rename', 'hashres']);
+    grunt.registerTask('build', ['clean', 'less', 'browserify', 'assemble', 'rename', 'hashres']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');

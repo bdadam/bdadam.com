@@ -4,22 +4,39 @@
     <meta name="charset" content="utf-8"/>
     <title>Why I chose to statically generate my website</title>
     <meta name="description" content="Advantages and disadvantages of statically generated websites"/>
-    <link href="/static/main.css?e7879522" rel="stylesheet"/>
-
+    <meta property="og:description" content="I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn&#x27;t want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don&#x27;t really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative."/>
+    <link href="/static/main.css?7ecaf2f8" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
     <meta name="viewport" content="width=device-width"/>
+    <script src="/static/main.js?08e621b0" async></script>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
+    <link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
+    <link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
+    <meta name="msapplication-TileColor" content="#aa2211"/>
+    <meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
 </head>
 <body>
 <nav>
     <div class="container">
-        <a class="brand" href="/">bdadam.com</a>
         <div class="pull-right">
             <a href="/">Home</a>
             
             <a href="/about.html">Contact</a>
         </div>
+        <a class="brand" href="/">bdadam.com</a>
     </div>
 </nav>
 
@@ -28,13 +45,14 @@
     <h1>Why I chose to statically generate my website</h1>
     <p class="legal">
         26th January 2014
-        | <a href="/about.html">Adam Beres-Deak</a>
+        | by <a href="/about.html">Adam Beres-Deak</a>
         
             | <i class="fa fa-tags"></i> blogging,  static website,  assemble,  grunt 
         
         | <a href="#comments">comments</a>
     </p>
-    <hr/>
+    <p class="share-bar"></p>
+
     <p>I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn&#x27;t want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don&#x27;t really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative.</p>
 
     <h2 id="what-did-i-need-">What did I need?</h2>
@@ -85,10 +103,9 @@ Therefore I think I will build my own static website generator.</p>
 <p>Do you also like static site generation?</p>
 
 
-    <hr/>
+    <p class="share-bar"></p>
     <a id="comments"></a>
     <div id="disqus_thread"></div>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </article>
 <script>
     var disqus_shortname = 'bdadamcom';
@@ -109,45 +126,5 @@ Therefore I think I will build my own static website generator.</p>
         Code samples are licensed under the MIT license.
     </p>
 </footer>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    if (location.hostname !== 'localhost') {
-        ga('create', 'UA-47485340-1', 'bdadam.com');
-        ga('send', 'pageview');
-    }
-
-    (function() {
-        function loadCss(url) {
-            var link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = url;
-            document.getElementsByTagName("head")[0].appendChild(link);
-        }
-
-        function loadScript(src) {
-            var s = document.createElement('script');
-            s.async = true;
-            s.src = src;
-            var sc = document.getElementsByTagName('script')[0];
-            sc.parentNode.insertBefore(s, sc);
-        }
-
-        loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-        loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
-        loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
-
-        (function hlj() {
-            if (typeof hljs === 'undefined') {
-                return setTimeout(hlj, 100);
-            }
-
-            hljs.initHighlightingOnLoad();
-        }());
-    }());
-</script>
 </body>
 </html>

@@ -5,21 +5,21 @@ layout: layout.hbs
     <h1>{{ title }}</h1>
     <p class="legal">
         {{formatdate date "Do MMMM YYYY"}}
-        | <a href="/about.html">Adam Beres-Deak</a>
+        | by <a href="/about.html">Adam Beres-Deak</a>
         {{#if page.tags}}
             | <i class="fa fa-tags"></i> {{#each page.tags}}{{this}}{{#unless @last}}, {{/unless}} {{/each}}
         {{/if}}
         | <a href="#comments">comments</a>
     </p>
-    <hr/>
+    <p class="share-bar"></p>
+
     {{#if abstract }}<p>{{ abstract }}</p>{{/if}}
 
     {{#markdown}}{{ body }}{{/markdown}}
 
-    <hr/>
+    <p class="share-bar"></p>
     <a id="comments"></a>
     <div id="disqus_thread"></div>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </article>
 <script>
     var disqus_shortname = 'bdadamcom';
