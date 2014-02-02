@@ -6,6 +6,36 @@
         <description>Blog</description>
         
         <item>
+            <title>Strong caching with NGINX</title>
+            <link>http://bdadam.com/blog/strong-caching-with-nginx.html</link>
+            <description>
+                <![CDATA[
+                <p>Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.</p>
+                <pre><code class="language-nginx">server {
+    location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+        root /var/www/mysite;
+        expires max;
+        add_header Cache-Control &quot;public&quot;;
+        access_log off;
+        break;
+    }
+}</code></pre>
+<p>Of course after modifying the config file we have to reload the configs (e. g. on Ubuntu we have to type <code>sudo /etc/init.d/nginx reload</code>)</p>
+<p>There are a few things to note here:</p>
+<ul>
+<li>we set the &quot;expires&quot; header to max age, which means these resources can stay in the browser cache &#39;forever&#39;</li>
+<li>we are setting the &quot;Cache-Control&quot; header to &quot;public&quot;, which means that the resource &quot;may be cached in public shared caches&quot;</li>
+<li>we turn off access logging here, because these requests are in many cases not that important</li>
+<li>if you set expiration to max-age, you have to be sure that the requested resources really never change (some kind of cache busting)</li>
+<li>these settings can live in the <code>location</code> section or in the <code>server</code> section of an nginx config file</li>
+</ul>
+<p>Have you already enabled strong caching for yout asset files?</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Error handling in JavaScript</title>
             <link>http://bdadam.com/blog/error-handling-in-javascript.html</link>
             <description>
