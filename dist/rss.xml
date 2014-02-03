@@ -10,7 +10,8 @@
             <link>http://bdadam.com/blog/how-to-register-a-bower-package.html</link>
             <description>
                 <![CDATA[
-                <p>A few weeks ago I posted about my [PubSub module](http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html). Since then I registered it as a bower package. It was actually my first bower package. I am going to show you how easy it was.</p>
+                <p>A few weeks ago I posted about my <a href="http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html">PubSub module</a>. Since then I registered it as a bower package. It was actually my first bower package. I am going to show you how easy it was.</p>
+
                 <p>Installing bower is as simple as typing <code>npm install -g bower</code>.
 If you don&#39;t know bower, here is what the <a href="https://github.com/bower/bower" rel="external,nofollow">docs say</a> about it:</p>
 <blockquote>
@@ -42,7 +43,8 @@ For a more detailed example you can take a look at my <a href="https://github.co
             <link>http://bdadam.com/blog/demistifying-angularjs-dependency-injection.html</link>
             <description>
                 <![CDATA[
-                <p>Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn't any magic. I'll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.</p>
+                <p>Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#39;t any magic. I&#39;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.</p>
+
                 <p>If you don&#39;t know what does dependency injection look like with AngularJS, here is an example:</p>
 <pre><code class="language-html">&lt;div ng-controller=&quot;GreetCtrl&quot;&gt;
     Hello {{name}}!
@@ -124,7 +126,8 @@ inject(sum, {
             <link>http://bdadam.com/blog/hosting-static-web-pages-and-assets-with-google-drive.html</link>
             <description>
                 <![CDATA[
-                <p>Have you ever needed to quickly deploy a website somewhere? Maybe to show a client some demo content? Or to show a buddy your newest static web app? Here's the solution.</p>
+                <p>Have you ever needed to quickly deploy a website somewhere? Maybe to show a client some demo content? Or to show a buddy your newest static web app? Here&#39;s the solution.</p>
+
                 <p>Google Drive officially supports hosting static files (like web pages and their assets).
 According to a discussion on Stack Exchange it doesn&#39;t violate the TOC when hotlinking these resources (free CDN?).</p>
 <h2 id="here-is-what-to-do-">Here is what to do:</h2>
@@ -154,6 +157,7 @@ According to a discussion on Stack Exchange it doesn&#39;t violate the TOC when 
             <description>
                 <![CDATA[
                 <p>Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.</p>
+
                 <pre><code class="language-nginx">server {
     location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
         root /var/www/mysite;
@@ -186,7 +190,8 @@ It has a reason to be there: this way the regex engine doesn&#39;t create a capt
             <link>http://bdadam.com/blog/error-handling-in-javascript.html</link>
             <description>
                 <![CDATA[
-                <p>Have you ever wondered, what's the proper way of throwing JavaScript errors? And how to handle them? Here we'll see some examples and we'll define some custom error types.</p>
+                <p>Have you ever wondered, what&#39;s the proper way of throwing JavaScript errors? And how to handle them? Here we&#39;ll see some examples and we&#39;ll define some custom error types.</p>
+
                 <p><em>Additional bonus: the following code examples also work in node.js not just in the browsers.</em></p>
 <h2 id="throwing-errors">Throwing Errors</h2>
 <p>Throwing errors is very simple, we just need the <code>throw</code> statement.</p>
@@ -256,7 +261,8 @@ try {
             <link>http://bdadam.com/blog/adding-tab-support-to-textareas.html</link>
             <description>
                 <![CDATA[
-                <p>Have you ever wondered how is it possible to support tabs in a textarea? Normally when you press the tab key, the focus jumps to the next element. But with some JavaScript 'magic' it's possible to indent or unindent the text.</p>
+                <p>Have you ever wondered how is it possible to support tabs in a textarea? Normally when you press the tab key, the focus jumps to the next element. But with some JavaScript &#39;magic&#39; it&#39;s possible to indent or unindent the text.</p>
+
                 <p>The code detects when the user presses TAB or SHIFT+TAB - the current line gets indented or unindented.
 Source code for the example can be found here: <a href="https://gist.github.com/bdadam/8721698" rel="external,nofollow">gist.github.com/bdadam/8721698</a>.</p>
 <pre><code class="language-html">&lt;!doctype html&gt;
@@ -374,7 +380,8 @@ Source code for the example can be found here: <a href="https://gist.github.com/
             <link>http://bdadam.com/blog/serve-a-practical-command-line-webserver.html</link>
             <description>
                 <![CDATA[
-                <p>A few weeks ago I found a very amazing tool - it's called "serve".</p>
+                <p>A few weeks ago I found a very amazing tool - it&#39;s called &quot;serve&quot;.</p>
+
                 <h2 id="what-can-it-do-for-you-">What can it do for you?</h2>
 <p>Just simply serve you files over <code>http://</code> protocol. Besides static files it supports jade templates, stylus and less.
 I usually use it, when I need an ad-hoc web server, like when downloading some sources from github and I want to check out the examples.
@@ -395,7 +402,8 @@ That&#39;s it.</p>
             <link>http://bdadam.com/blog/fat-arrows-for-javascript.html</link>
             <description>
                 <![CDATA[
-                <p>I have to admit, I have completely overseen, that fat arrows ( => ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.</p>
+                <p>I have to admit, I have completely overseen, that fat arrows ( =&gt; ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.</p>
+
                 <p>I have to say one thing I really like, when I&#39;m working with C#, is LINQ and the lambda expressions. If you don&#39;t know what they are, here is an example:</p>
 <pre><code class="language-C#">var areThereAnySportsCars = cars.Where(x =&gt; x.HorsePower &gt; 300 &amp;&amp; x.Seats == 2).Any(y =&gt; y.Color == &#39;RED&#39;);</code></pre>
 <p>I think it&#39;s very easy to see what this expression does: it filters the <code>cars</code> array for cars which have more than 300 HP and exactly 2 seats,
@@ -489,7 +497,8 @@ It&#39;s far awy from feature completeness, but it shows how it should be done.<
             <link>http://bdadam.com/blog/why-i-chose-a-statically-generated-website.html</link>
             <description>
                 <![CDATA[
-                <p>I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn't want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don't really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative.</p>
+                <p>I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn&#39;t want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don&#39;t really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative.</p>
+
                 <h2 id="what-did-i-need-">What did I need?</h2>
 <p>I wanted to have a website where I can show, who I am. I also wanted to write some articles and then publish them.
 I wanted to have some sort of statistics about my users. That&#39;s all, not that much.</p>
@@ -546,7 +555,8 @@ Therefore I think I will build my own static website generator.</p>
             <link>http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html</link>
             <description>
                 <![CDATA[
-                <p>I have always been a fan of simple things, such as the PubSub pattern. A few weeks ago I discovered this pattern again, when I was looking for a way to separate some JavaScript modules which don't really have to know about each other but have to have some sort of communication.</p>
+                <p>I have always been a fan of simple things, such as the PubSub pattern. A few weeks ago I discovered this pattern again, when I was looking for a way to separate some JavaScript modules which don&#39;t really have to know about each other but have to have some sort of communication.</p>
+
                 <h2 id="tldr">TLDR</h2>
 <p>I believe that publish/subscribe (PubSub) is a very powerfull pattern. Therefore I have recently open sourced my implementation of it in JavaScript. The full source code can be found on GitHub: <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">github.com/bdadam/PubSub</a>.
 It&#39;s completely dependency-free and very small (under 1kb).</p>
@@ -655,7 +665,8 @@ It&#39;s free and it&#39;s published under the MIT license.</p>
             <link>http://bdadam.com/blog/wow-i-started-a-blog.html</link>
             <description>
                 <![CDATA[
-                <p>So the new year has come and I decided to start a blog. I try to learn new things every day. Here I want to collect my thoughts and document what I have learned so far, so that I don't forget them and don't have to learn them again later.</p>
+                <p>So the new year has come and I decided to start a blog. I try to learn new things every day. Here I want to collect my thoughts and document what I have learned so far, so that I don&#39;t forget them and don&#39;t have to learn them again later.</p>
+
                 
                 ]]>
             </description>

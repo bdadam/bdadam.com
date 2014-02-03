@@ -12,7 +12,7 @@ layout: false
             <link>http://bdadam.com/{{ relativeLink }}</link>
             <description>
                 <![CDATA[
-                <p>{{{data.abstract}}}</p>
+                {{#markdown}}{{{data.abstract}}}{{/markdown}}
                 {{#markdown}}{{{page}}}{{/markdown}}
                 ]]>
             </description>
