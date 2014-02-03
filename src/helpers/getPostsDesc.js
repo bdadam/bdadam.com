@@ -7,8 +7,8 @@ module.exports.register = function (Handlebars, options, params)  {
             return item.src.indexOf('/blog/') >= 0 && item.data.layout === 'post.hbs';
         });
 
-        context = context.sort(function(a, b) {
-            return Date.parse(a.data.date) < Date.parse(b.data.date);
+        context = _.sortBy(context, function(post) {
+            return -Date.parse(post.data.date);
         });
 
         var ret = "";

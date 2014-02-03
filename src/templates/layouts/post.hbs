@@ -12,7 +12,7 @@ layout: layout.hbs
     </p>
     <p class="share-bar"></p>
 
-    {{#if abstract }}<p>{{ abstract }}</p>{{/if}}
+    {{#markdown}}{{ abstract }}{{/markdown}}
 
     {{#markdown}}{{ body }}{{/markdown}}
 
