@@ -3,6 +3,10 @@
     <url><loc>http://bdadam.com/</loc></url>
     <url><loc>http://bdadam.com/about.html</loc></url>
     
+    <url><loc>http://bdadam.com/blog/demistifying-angularjs-dependency-injection.html</loc></url>
+    
+    <url><loc>http://bdadam.com/blog/hosting-static-web-pages-and-assets-with-google-drive.html</loc></url>
+    
     <url><loc>http://bdadam.com/blog/strong-caching-with-nginx.html</loc></url>
     
     <url><loc>http://bdadam.com/blog/error-handling-in-javascript.html</loc></url>

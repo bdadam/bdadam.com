@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>Demystifying AngularJS&#x27; dependency injection</title>
+    <meta name="description" content="Dependency injection in JavaScript - the AngularJS way"/>
+    <meta property="og:description" content="Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#x27;t any magic. I&#x27;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS."/>
+    <link href="/static/main.css?7ecaf2f8" rel="stylesheet"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+    <script src="/static/main.js?08e621b0" async></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
+<meta name="msapplication-TileColor" content="#aa2211"/>
+<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="pull-right">
+            <a href="/">Home</a>
+            
+            <a href="/about.html">Contact</a>
+        </div>
+        <a class="brand" href="/">bdadam.com</a>
+    </div>
+</nav>
+
+
+<article class="container full-post">
+    <h1>Demystifying AngularJS&#x27; dependency injection</h1>
+    <p class="legal">
+        2nd February 2014
+        | by <a href="/about.html">Adam Beres-Deak</a>
+        
+            | <i class="fa fa-tags"></i> javascript,  angularjs,  dependency injection 
+        
+    </p>
+    <p class="share-bar"></p>
+
+    <p>Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#x27;t any magic. I&#x27;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.</p>
+
+    <p>If you don&#39;t know what does dependency injection look like with AngularJS, here is an example:</p>
+<pre><code class="language-html">&lt;div ng-controller=&quot;GreetCtrl&quot;&gt;
+    Hello !
+&lt;/div&gt;
+&lt;script&gt;
+function GreetCtrl($scope, $rootScope) {
+    $scope.name = &#39;World&#39;;
+    $rootScope.department = &#39;Angular&#39;;
+}
+&lt;/script&gt;</code></pre>
+<p>We just have to put <code>$scope</code> and <code>$rootScope</code> into the function arguments, and when Angular calls the controller (<code>GreetCtrl</code>)
+it knows with parameters it has to call the function.</p>
+<h2 id="how-do-they-do-it-">How do they do it?</h2>
+<p>It&#39;s fairly easy in JavaScript to get the source code of the every function. We just have to call the <code>.toString()</code> method of the function objects.</p>
+<pre><code class="language-JavaScript">function sum(x, y) {
+    alert(x + y);
+}
+
+console.log(sum.toString()); // prints the complete code of the function</code></pre>
+<p>Here we go. We just have to find a way to extract the argument list of our function.</p>
+<pre><code class="language-JavaScript">// The following simplified code is partly taken from the AngularJS source code:
+// https://github.com/angular/angular.js/blob/master/src/auto/injector.js#L63
+
+function inject(fn, variablesToInject) {
+    var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
+    var FN_ARG_SPLIT = /,/;
+    var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
+    var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+
+    if (typeof fn === &#39;function&#39; &amp;&amp; fn.length) {
+        var fnText = fn.toString(); // getting the source code of the function
+        fnText = fnText.replace(STRIP_COMMENTS, &#39;&#39;); // stripping comments like function(/*string*/ a) {}
+
+        var matches = fnText.match(FN_ARGS); // finding arguments
+        var argNames = matches[1].split(FN_ARG_SPLIT); // finding each argument name
+
+        var newArgs = [];
+        for (var i = 0, l = argNames.length; i &lt; l; i++) {
+            var argName = argNames[i].trim();
+
+            if (!variablesToInject.hasOwnProperty(argName)) {
+                // the argument cannot be injected
+                throw new Error(&quot;Unknown argument: &#39;&quot; + argName + &quot;&#39;. This cannot be injected.&quot;);
+            }
+
+            newArgs.push(variablesToInject[argName]);
+        }
+
+        fn.apply(window, newArgs);
+    }
+}
+
+function sum(x, y) {
+    console.log(x + y);
+}
+
+inject(sum, {
+    x: 5,
+    y: 6
+}); // should print 11
+
+inject(sum, {
+    x: 13,
+    y: 45
+}); // should print 58
+
+inject(sum, {
+    x: 33,
+    z: 1 // we are missing &#39;y&#39;
+}); // should throw an error: Unknown argument: &#39;y&#39;. This cannot be injected.</code></pre>
+<p>So it&#39;s really not a big deal, is it?</p>
+
+
+    <p class="share-bar"></p>
+    <a id="comments"></a>
+    <div id="disqus_thread"></div>
+</article>
+<script>
+    var disqus_shortname = 'bdadamcom';
+    (function() {
+        var d = document.createElement('script'); d.async = true;
+        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(d, s);
+    }());
+</script>
+
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+</body>
+</html>

@@ -33,3 +33,7 @@ There are a few things to note here:
 * these settings can live in the `location` section or in the `server` section of an nginx config file
 
 Have you already enabled strong caching for yout asset files?
+
+** Update:**
+Maybe you noticed the lookahead in the regex.
+It has a reason to be there: this way the regex engine doesn't create a capture group (no $1) so it has better performance.

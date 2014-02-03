@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Strong caching with NGINX</title>
-    <meta name="description" content="Enabling strong caching for assets is very important, here is an example how to do it with nginx for static files"/>
+    <title>Demystifying dependency injection in JavaScript</title>
+    
     <meta property="og:description" content="Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images."/>
     <link href="/static/main.css?7ecaf2f8" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
@@ -41,41 +41,19 @@
 
 
 <article class="container full-post">
-    <h1>Strong caching with NGINX</h1>
+    <h1>Demystifying dependency injection in JavaScript</h1>
     <p class="legal">
         2nd February 2014
         | by <a href="/about.html">Adam Beres-Deak</a>
         
-            | <i class="fa fa-tags"></i> nginx,  caching 
+            | <i class="fa fa-tags"></i> javascript,  angular.js,  dependency injection 
         
     </p>
     <p class="share-bar"></p>
 
     <p>Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.</p>
 
-    <pre><code class="language-nginx">server {
-    location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
-        root /var/www/mysite;
-        expires max;
-        add_header Cache-Control &quot;public&quot;;
-        access_log off;
-        break;
-    }
-}</code></pre>
-<p>Of course after modifying the config file we have to reload the configs (e. g. on Ubuntu we have to type <code>sudo /etc/init.d/nginx reload</code>)</p>
-<p>There are a few things to note here:</p>
-<ul>
-<li>we set the &quot;expires&quot; header to max age, which means these resources can stay in the browser cache &#39;forever&#39;</li>
-<li>we are setting the &quot;Cache-Control&quot; header to &quot;public&quot;, which means that the resource &quot;may be cached in public shared caches&quot;</li>
-<li>we turn off access logging here, because these requests are in many cases not that important</li>
-<li>if you set expiration to max-age, you have to be sure that the requested resources really never change (some kind of cache busting)</li>
-<li>these settings can live in the <code>location</code> section or in the <code>server</code> section of an nginx config file</li>
-</ul>
-<p>Have you already enabled strong caching for yout asset files?</p>
-<p><strong> Update:</strong>
-Maybe you noticed the lookahead in the regex.
-It has a reason to be there: this way the regex engine doesn&#39;t create a capture group (no $1) so it has better performance.</p>
-
+    
 
     <p class="share-bar"></p>
     <a id="comments"></a>
