@@ -23,9 +23,7 @@ title: Adam Beres-Deak - software developer, JavaScript enthusiast
         <article>
             <h2 class="center"><a href="/{{ relativeLink }}">{{data.title}}</a></h2>
             <p class="muted center">{{formatdate data.date "Do MMMM YYYY"}}</p>
-            <p>
-                {{ data.abstract }}
-            </p>
+            {{#markdown}}{{ data.abstract }}{{/markdown}}
             <a href="/{{ relativeLink }}">read more</a>
         </article>
         {{#unless last}}<hr/>{{/unless}}
