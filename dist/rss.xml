@@ -6,6 +6,73 @@
         <description>Blog</description>
         
         <item>
+            <title>How to redirect www to naked domain and vice versa with NGINX?</title>
+            <link>http://bdadam.com/blog/how-to-redirect-www-to-naked-domain-and-vice-versa-with-nginx.html</link>
+            <description>
+                <![CDATA[
+                <p>One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#39;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.</p>
+
+                <h2 id="redirecting-www-to-non-www-with-if-statement">Redirecting www to non-www with <code>if</code> statement</h2>
+<pre><code class="language-nginx"><span class="title">server</span> {
+    <span class="title">listen</span> <span class="number">80</span>;
+
+    <span class="title">server_name</span> www.example.com example.com;
+
+    <span class="title">if</span> (<span class="variable">$host</span> = <span class="string">'www.example.com'</span> ) {
+        <span class="comment"># redirecting www.example.com to example.com</span>
+        <span class="comment"># path, query string are retained</span>
+        <span class="title">rewrite</span> <span class="regexp"> ^/(.*)$</span>  <span class="url">http://example.com/$1</span>  <span class="built_in">permanent</span>;
+    }
+}</code></pre>
+<p>Please note that <code>if</code> is <a href="http://wiki.nginx.org/IfIsEvil" rel="external,nofollow">considered evil</a> inside NGINX configuration,
+but it is perfectly OK in this case. The official docs say, that there are two cases when <code>if</code> is &quot;100% safe&quot;:</p>
+<ul>
+<li>redirect (our case)</li>
+<li>return</li>
+</ul>
+<pre><code class="language-nginx"><span class="title">if</span> (<span class="variable">$request_method</span> = POST ) {
+    <span class="title">return</span> <span class="number">405</span>;
+}
+<span class="title">if</span> (<span class="variable">$args</span> <span class="regexp">~ post=140)</span>{
+    <span class="title">rewrite</span><span class="regexp"> ^</span> <span class="url">http://example.com/</span> <span class="built_in">permanent</span>;
+}</code></pre>
+<h2 id="redirecting-www-to-non-www-without-if-statement">Redirecting www to non-www without <code>if</code> statement</h2>
+<p>The trick in this case is that we have to define two server blocks.</p>
+<pre><code class="language-nginx">server {
+    listen       80;
+    server_name  www.example.com;
+
+    # redirecting www.example.com to example.com
+    # path, query string are retained
+    return       301 http://example.com$request_uri;
+}
+
+server {
+    listen       80;
+    server_name  example.com;
+    ...
+}</code></pre>
+<h2 id="redirecting-non-www-to-www">Redirecting non-www to www</h2>
+<pre><code class="language-nginx">server {
+    listen       80;
+    server_name  example.com;
+
+    # redirecting example.com to www.example.com
+    # path, query string are retained
+    return       301 http://www.example.com$request_uri;
+}
+
+server {
+    listen       80;
+    server_name  www.example.com;
+    ...
+}</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>How to register a bower package</title>
             <link>http://bdadam.com/blog/how-to-register-a-bower-package.html</link>
             <description>

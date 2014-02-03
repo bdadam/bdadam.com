@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>How to redirect www to naked domain and vice versa with NGINX?</title>
+    <meta name="description" content="Redirection www to non-www and vice versa"/>
+    <meta property="og:description" content="One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#x27;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX."/>
+    <link href="/static/main.css?7ecaf2f8" rel="stylesheet"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+    <script src="/static/main.js?08e621b0" async></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
+<meta name="msapplication-TileColor" content="#aa2211"/>
+<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="pull-right">
+            <a href="/">Home</a>
+            
+            <a href="/about.html">Contact</a>
+        </div>
+        <a class="brand" href="/">bdadam.com</a>
+    </div>
+</nav>
+
+
+<article class="container full-post">
+    <h1>How to redirect www to naked domain and vice versa with NGINX?</h1>
+    <p class="legal">
+        3rd February 2014
+        | by <a href="/about.html">Adam Beres-Deak</a>
+        
+            | <i class="fa fa-tags"></i> nginx,  redirection 
+        
+    </p>
+    <p class="share-bar"></p>
+
+    <p>One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#x27;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.</p>
+
+
+    <pre><code class="language-nginx"><span class="title">server</span> {
+    <span class="title">listen</span> <span class="number">80</span>;
+
+    <span class="title">server_name</span> www.example.com example.com;
+
+    <span class="title">if</span> (<span class="variable">$host</span> = <span class="string">'www.example.com'</span> ) {
+        <span class="title">rewrite</span> <span class="regexp"> ^/(.*)$</span>  <span class="url">http://example.com/$1</span>  <span class="built_in">permanent</span>;
+    }
+}</code></pre>
+<p>Please note that <code>if</code> is considered evil inside NGINX configuration, but it is in this case perfectly OK.
+The official docs say, that there are two cases when <code>if</code> is &quot;100% safe&quot;:</p>
+<ul>
+<li>redirect</li>
+<li>return<pre><code class="language-nginx"><span class="title">if</span> (<span class="variable">$request_method</span> = POST ) {
+  <span class="title">return</span> <span class="number">405</span>;
+}
+<span class="title">if</span> (<span class="variable">$args</span> <span class="regexp">~ post=140)</span>{
+  <span class="title">rewrite</span><span class="regexp"> ^</span> <span class="url">http://example.com/</span> <span class="built_in">permanent</span>;
+}</code></pre>
+</li>
+</ul>
+
+
+    <p class="share-bar"></p>
+    <a id="comments"></a>
+    <div id="disqus_thread"></div>
+</article>
+<script>
+    var disqus_shortname = 'bdadamcom';
+    (function() {
+        var d = document.createElement('script'); d.async = true;
+        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(d, s);
+    }());
+</script>
+
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+</body>
+</html>
