@@ -27,3 +27,4 @@ If you don't know bower, here is what the <a href="https://github.com/bower/bowe
 1. When everything goes fine, the package should be registered now
 
 At the end of the process everybody should be able to install your package with `bower install packageName`.
+For a more detailed example you can take a look at my <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">PubSub package</a>.

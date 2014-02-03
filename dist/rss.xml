@@ -30,7 +30,8 @@ If you don&#39;t know bower, here is what the <a href="https://github.com/bower/
 <li>Register your package with calling <code>bower register packageName git://packageRepository-url</code></li>
 <li>When everything goes fine, the package should be registered now</li>
 </ol>
-<p>At the end of the process everybody should be able to install your package with <code>bower install packageName</code>.</p>
+<p>At the end of the process everybody should be able to install your package with <code>bower install packageName</code>.
+For a more detailed example you can take a look at my <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">PubSub package</a>.</p>
 
                 ]]>
             </description>
