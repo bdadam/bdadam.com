@@ -6,6 +6,46 @@
         <description>Blog</description>
         
         <item>
+            <title>Building desktop apps with node.js and web technologies</title>
+            <link>http://bdadam.com/blog/building-desktop-apps-with-node-js-and-web-technologies.html</link>
+            <description>
+                <![CDATA[
+                <p>Native apps with web technologies are not a mobile-only thing anymore. The node-webkit project makes it possible to write standalone desktop apps with JavaScript, HTML5 and CSS3. The coolest thing about this is, that both server side (node.js) and client side (jQuery, AngularJS, etc.) JavaScript libraries can be used.</p>
+
+                <p><img src="/static/article-assets/node-webkit-screen.png"/></p>
+<p class="legal center">Screenshot of a hello world app created with node-webkit</p>
+
+<p>A few hours ago I found this project called <a href="https://github.com/rogerwang/node-webkit" rel="external,nofollow">node-webkit</a>.
+It seems to be living and mature enough to use it. But since I don&#39;t need it now, I blog about it, so that I can remember it in the appropriate moment.</p>
+<h2 id="how-does-it-work-">How does it work?</h2>
+<ol>
+<li>Write your application.</li>
+<li>Create a zip file of all your assets (call it package.nw).</li>
+<li>You can just ship this file along with the node-webkit executable file</li>
+<li>Alternatively you can create an executable file from the package with a few dll files along</li>
+<li>If you want to have a single executable file, it&#39;s recommended to box the files with <a href="http://enigmaprotector.com/en/aboutvb.html" rel="external,nofollow">Enigma Virtual Box</a></li>
+</ol>
+<h2 id="attack-of-the-contexts">Attack of the contexts</h2>
+<p>There is a concept which might be a little crazy at first sight. There are different contexts with different global object for node modules and UI windows.
+In the web context we have a <code>window</code> object (or many if we have multiple windows), which we don&#39;t have in a node module.
+If we have to reach the window object of the current UI context, we have to pass it to the node module.
+We get most of the problem with <code>instanceof</code> because the constructors like <code>Array</code> or <code>Date</code> are children of the context-dependent global object.
+After just quickly building a &quot;hello world&quot; app I can&#39;t really tell to what extent this can be a problem or difficulty.</p>
+<h2 id="supported-platforms">Supported platforms</h2>
+<p>There are prebuilt binaries for Windows, OSX and Linux.</p>
+<p><strong>References:</strong></p>
+<ul>
+<li>For more details and docs take a look at the <a href="https://github.com/rogerwang/node-webkit" rel="external,nofollow">project&#39;s Github site</a>.
+The features are well-documented.</li>
+<li><a href="http://strongloop.com/strongblog/creating-desktop-applications-with-node-webkit/" rel="external,nofollow">Creating Desktop Applications With node-webkit </a></li>
+<li><a href="http://oldgeeksguide.github.io/presentations/html5devconf2013/wtod.html#/" rel="external,nofollow">WebApp to DesktopApp with Node-Webkit</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>How to redirect www to naked domain and vice versa with NGINX?</title>
             <link>http://bdadam.com/blog/how-to-redirect-www-to-naked-domain-and-vice-versa-with-nginx.html</link>
             <description>
