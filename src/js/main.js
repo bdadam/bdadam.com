@@ -16,6 +16,7 @@ function loadScript(src) {
     sc.parentNode.insertBefore(s, sc);
 }
 
+loadCss('//fonts.googleapis.com/css?family=Open+Sans:400,700');
 loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
 loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
