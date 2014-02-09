@@ -6,6 +6,125 @@
         <description>Blog</description>
         
         <item>
+            <title>Defining properties in JavaScript</title>
+            <link>http://bdadam.com/blog/defining-properties-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types.</p>
+
+                <h2 id="defining-properties-on-objects-with-object-defineproperty-">Defining properties on objects with Object.defineProperty()</h2>
+<pre><code class="language-JavaScript">var obj = {};
+
+Object.defineProperty(obj, &quot;myProperty&quot;, {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: 13
+});</code></pre>
+<p>The first two arguments are very obvious, but the third one is where all the magic happens. This argument is a property descriptor. Let&#39;s see what we can do with it.</p>
+<h3 id="enumerable">Enumerable</h3>
+<p>This attribute simply tells whether the property should show up in enumerations like <code>for ... in</code> loops or in <code>Object.keys()</code>.</p>
+<p>Defaults to <code>false</code>.</p>
+<h3 id="configurable">Configurable</h3>
+<p>This attribute sets whether the property can be reconfigured at a later point in the code or whether it can be deleted from the object.</p>
+<p>Defaults to <code>false</code>.</p>
+<h3 id="writable">Writable</h3>
+<p>This attribute sets whether a property is read-only or not.</p>
+<p>Defaults to <code>false</code> except in Google Chrome.</p>
+<h3 id="value">Value</h3>
+<p>The value of a property can be anything, any valid JavaScript value (Number, Date, Array, Function, etc.).</p>
+<p>Defaults to <code>undefined</code>.</p>
+<h2 id="defining-getter-and-or-setter-functions">Defining getter and/or setter functions</h2>
+<p>It is also very easy to define getter and setter functions. Let&#39;s take a look at the example below:</p>
+<pre><code class="language-JavaScript">var obj = {};
+var propValue = 100;
+Object.defineProperty(obj, &quot;prop&quot;, {
+    get: function(){ return propValue; },
+    set: function(newValue){ propValue = newValue; },
+    enumerable : true,
+    configurable : true
+});</code></pre>
+<h2 id="invalid-cases">Invalid cases</h2>
+<pre><code class="language-JavaScript">var obj = {};
+Object.defineProperty(obj, &#39;undeletable&#39;, { value: 100, configurable: false });
+console.log(obj.undeletable); // 100
+delete obj.undeletable;
+console.log(obj.undeletable); // 100
+
+var obj = {};
+Object.defineProperty(obj, &#39;notWorking&#39;, {
+    value: 100,
+    get: function() { return 300; }
+});
+// TypeError: Invalid property. A property cannot both have accessors and be writable or have a value, #&lt;Object&gt;
+
+var obj = {};
+Object.defineProperty(obj, &#39;notWorking&#39;, {
+    get: function() { return 300; },
+    writable: true
+});
+// TypeError: Invalid property. A property cannot both have accessors and be writable or have a value, #&lt;Object&gt;</code></pre>
+<h2 id="defining-multiple-properties-on-the-same-object">Defining multiple properties on the same object</h2>
+<pre><code class="language-JavaScript">var obj = {};
+
+Object.defineProperties(obj, {
+    &quot;hello&quot;: {
+        value: &quot;Hello&quot;,
+        writable: true
+    },
+    &quot;world&quot;: {
+        value: &quot;World!&quot;,
+        writable: false
+    }
+});</code></pre>
+<h2 id="browser-support">Browser support</h2>
+<p>Good news, the <code>Object.defineProperty()</code> is supported in all modern browsers.
+The only problematic one is Internet Explorer 8, which only allows to define properties on DOM objects).</p>
+<h2 id="performance">Performance</h2>
+<p>At the moment, using <code>Object.defineProperty()</code> is definitely slower than using basic properties like in the old days - but not that much.
+For more detailed performance tests take a look at <a href="http://jsperf.com/object-defineproperty-vs-definegetter-vs-normal" rel="external,nofollow">jsperf.com</a>.</p>
+<h2 id="resources-">Resources:</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" rel="external,nofollow">Object.defineProperty() on MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" rel="external,nofollow">Object.defineProperties() on MDN</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Playing Mario in the browser</title>
+            <link>http://bdadam.com/blog/playing-mario-in-the-browser.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you enjoyed playing Mario in the old days? Me too. If you want to play with it again, you just have to follow some simple steps and the game is ready to be played right in your browser. Let&#39;s try it.</p>
+
+                <p><img src="/static/article-assets/mario.png" alt="Screenshot from the game"/></p>
+<p class="legal center">Screenshot from the game</p>
+
+<p>I found a very interesting project on Github: <a href="https://github.com/Diogenesthecynic/FullScreenMario" rel="external,nofollow">FullScreenMario</a>.
+As the creator says:</p>
+<blockquote>
+<p>An HTML5 remake of the original Super Mario Brothers - expanded for wide screens.</p>
+</blockquote>
+<p>The official website of the game is not working anymore, since Nintendo complained about copyright infridgement.</p>
+<h2 id="good-news">Good news</h2>
+<p>We can still play the game. We just have to download the sources (or clone the repository), start a webserver locally and navigate to the local url.</p>
+<ol>
+<li>Download this: <a href="https://github.com/Diogenesthecynic/FullScreenMario/archive/master.zip" rel="external,nofollow">master.zip</a></li>
+<li>Extract the files</li>
+<li><code>cd path/to/files</code></li>
+<li>Start a webserver (e. g. <code>serve</code> <a href="/blog/serve-a-practical-command-line-webserver.html">serve</a>)</li>
+<li>Navigate to the game</li>
+</ol>
+<p><strong>Have fun!</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Building desktop apps with node.js and web technologies</title>
             <link>http://bdadam.com/blog/building-desktop-apps-with-node-js-and-web-technologies.html</link>
             <description>
