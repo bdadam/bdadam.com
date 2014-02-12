@@ -2,7 +2,7 @@
 layout:         post.hbs
 date:           2014-02-10 23:00
 title:          Strange error when installing npm package globally on Ubuntu
-description:    I ran into some preoblems when I tried to install the pm2 package globally on Ubuntu. Using the unsafe-perm flag solved the problem.
+description:    I ran into some problems when I tried to install the pm2 package globally on Ubuntu. Using the unsafe-perm flag solved the problem.
 abstract:       Installing modules globally has never been a problem for me, neither on Windows nor on Ubuntu.
                 At least until today, when I ran into a somewhat strange problem.
 tags:

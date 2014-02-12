@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
     <meta name="viewport" content="width=device-width"/>
-    <script src="/static/main.js?58e5477f" async></script>
+    <script src="/static/main.js?de4d2c88" async></script>
     <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
 <link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
 <link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
@@ -51,6 +51,41 @@
 <div class="container">
     <h3 class="center">Recent blog posts</h3>
     <hr/>
+    
+        <article>
+            <h2 class="center"><a href="/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html">One more reason to check for strict equality in JavaScript</a></h2>
+            <p class="muted center">12th February 2014</p>
+            
+            
+                <p>Some JavaScript fun without further explanation.</p>
+<pre><code class="language-JavaScript">var a = [0, 1, 2, 3, 4, 5, 6];
+console.log(a[3]); // 3
+console.log(a[[3]]); // 3
+console.log(a[[[3]]]); // 3
+console.log(a[[[[3]]]]); // 3
+console.log(a[[[[[3]]]]]); // 3
+console.log(a[&quot;3&quot;]); // 3
+
+console.log(3 == [3]); // true
+console.log(3 == [[3]]); // true
+
+console.log(3 === [[3]]); // false
+
+3 === Number([3].valueOf().toString()) // true
+console.log([3].valueOf()) // [3]
+console.log([3].valueOf().toString()) // 3
+console.log(Number(&quot;3&quot;)) // 3
+// therefore:
+3 === Number([3].valueOf().toString()) // true</code></pre>
+<p>Resources - questions on Stack Overflow:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1995113/strangest-language-feature/2008728#2008728" rel="external,nofollow">Strangest language feature</a></li>
+<li><a href="http://stackoverflow.com/a/1724551" rel="external,nofollow">Why does 2 == [2] in JavaScript?</a></li>
+</ul>
+
+            
+        </article>
+        <hr/>
     
         <article>
             <h2 class="center"><a href="/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html">Finally always wins, unless you crash your computer meanwhile</a></h2>

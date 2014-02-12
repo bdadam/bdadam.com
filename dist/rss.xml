@@ -6,6 +6,42 @@
         <description>Blog</description>
         
         <item>
+            <title>One more reason to check for strict equality in JavaScript</title>
+            <link>http://bdadam.com/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                
+                <p>Some JavaScript fun without further explanation.</p>
+<pre><code class="language-JavaScript">var a = [0, 1, 2, 3, 4, 5, 6];
+console.log(a[3]); // 3
+console.log(a[[3]]); // 3
+console.log(a[[[3]]]); // 3
+console.log(a[[[[3]]]]); // 3
+console.log(a[[[[[3]]]]]); // 3
+console.log(a[&quot;3&quot;]); // 3
+
+console.log(3 == [3]); // true
+console.log(3 == [[3]]); // true
+
+console.log(3 === [[3]]); // false
+
+3 === Number([3].valueOf().toString()) // true
+console.log([3].valueOf()) // [3]
+console.log([3].valueOf().toString()) // 3
+console.log(Number(&quot;3&quot;)) // 3
+// therefore:
+3 === Number([3].valueOf().toString()) // true</code></pre>
+<p>Resources - questions on Stack Overflow:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1995113/strangest-language-feature/2008728#2008728" rel="external,nofollow">Strangest language feature</a></li>
+<li><a href="http://stackoverflow.com/a/1724551" rel="external,nofollow">Why does 2 == [2] in JavaScript?</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Finally always wins, unless you crash your computer meanwhile</title>
             <link>http://bdadam.com/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html</link>
             <description>

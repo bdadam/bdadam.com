@@ -21,10 +21,24 @@ loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
 loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
 
-(function hlj() {
-    if (typeof window.hljs === 'undefined') {
-        return setTimeout(hlj, 100);
+function addEventListener(obj, event, fn) {
+    if (obj.addEventListener) {
+        obj.addEventListener(event, fn, false);
     }
+    else if (obj.attachEvent) {
+        obj.attachEvent(event, fn);
+    }
+}
 
-    window.hljs.initHighlightingOnLoad();
-}());
+addEventListener(window, 'load', function() {
+    (function hlj() {
+        if (typeof window.hljs === 'undefined') {
+            return setTimeout(hlj, 100);
+        }
+
+        var blocks = document.querySelectorAll('pre code');//.each(function(i, e) {hljs.highlightBlock(e)});
+        for (var i = 0, l = blocks.length; i < l; i++) {
+            hljs.highlightBlock(blocks[i]);
+        }
+    }());
+});
