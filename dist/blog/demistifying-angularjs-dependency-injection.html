@@ -5,7 +5,7 @@
     <title>Demystifying AngularJS&#x27; dependency injection</title>
     <meta name="description" content="Dependency injection in JavaScript - the AngularJS way"/>
     <meta property="og:description" content="Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#x27;t any magic. I&#x27;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS."/>
-    <link href="/static/main.css?9efde8bb" rel="stylesheet"/>
+    <link href="/static/main.css?4433bf4b" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
@@ -40,21 +40,22 @@
 </nav>
 
 
-<article class="container full-post">
-    <h1>Demystifying AngularJS&#x27; dependency injection</h1>
-    <p class="legal">
-        2nd February 2014
-        | by <a href="/about.html">Adam Beres-Deak</a>
-        
-            | <i class="fa fa-tags"></i> javascript,  angularjs,  dependency injection 
-        
-    </p>
-    <p class="share-bar"></p>
+<div class="container">
+    <article class="full-post">
+        <h1>Demystifying AngularJS&#x27; dependency injection</h1>
+        <p class="legal">
+            2nd February 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> javascript,  angularjs,  dependency injection 
+            
+        </p>
+        <p class="share-bar"></p>
 
-    <p>Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#x27;t any magic. I&#x27;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.</p>
+        <p>Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#x27;t any magic. I&#x27;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.</p>
 
 
-    <p>If you don&#39;t know what does dependency injection look like with AngularJS, here is an example:</p>
+        <p>If you don&#39;t know what does dependency injection look like with AngularJS, here is an example:</p>
 <pre><code class="language-html">&lt;div ng-controller=&quot;GreetCtrl&quot;&gt;
     Hello !
 &lt;/div&gt;
@@ -127,20 +128,20 @@ inject(sum, {
 <p>So it&#39;s really not a big deal, is it?</p>
 
 
-    <p class="share-bar"></p>
-    <a id="comments"></a>
-    <div id="disqus_thread"></div>
-</article>
-<script>
-    var disqus_shortname = 'bdadamcom';
-    (function() {
-        var d = document.createElement('script'); d.async = true;
-        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(d, s);
-    }());
-</script>
-
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
+</div>
 
 <footer>
     <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>

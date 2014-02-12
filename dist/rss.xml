@@ -6,6 +6,57 @@
         <description>Blog</description>
         
         <item>
+            <title>Finally always wins, unless you crash your computer meanwhile</title>
+            <link>http://bdadam.com/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html</link>
+            <description>
+                <![CDATA[
+                
+                <p>In JavaScript it is perfectly valid to have a return statement in a finally block. But this doesn&#39;t mean, you should really put it in there.
+Consider the following code:</p>
+<pre><code class="language-JavaScript">function whatDoesThisReturn() {
+    try {
+        return false;
+    } finally {
+        return true;
+    }
+}
+
+console.log(whatDoesThisReturn());</code></pre>
+<p>Basically the <code>finally</code> block is called after the <code>try</code> block, therefore it overrides the return value.</p>
+<p><em>So this function returns <code>true</code>.</em></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Strange error when installing npm package globally on Ubuntu</title>
+            <link>http://bdadam.com/blog/strange-error-when-installing-npm-package-globally-on-ubuntu.html</link>
+            <description>
+                <![CDATA[
+                <p>Installing modules globally has never been a problem for me, neither on Windows nor on Ubuntu. At least until today, when I ran into a somewhat strange problem.</p>
+
+                <p>I tried to install the pm2 package on an Ubuntu 12.04 Server (<code>sudo npm install -g pm2@latest</code>),
+but the package just didn&#39;t want to install correctly.
+I kept getting gyp error messages and this one: &quot;OSError: [Errno 13] Permission denied&quot;.
+I thought it was impossible to get this error since I was running the install command as root (sudo).</p>
+<h2 id="installing-modules-with-the-unsafe-perm-flag">Installing modules with the unsafe-perm flag</h2>
+<p>And after a while I found the solution: using the unsafe-perm flag.
+<code>sudo npm install -g pm2@latest --unsafe-perm</code></p>
+<p>What the docs say about this flag:</p>
+<blockquote>
+<p>If npm was invoked with root privileges, then it will change the uid to the user account or uid specified by the user config, which defaults to nobody.
+Set the unsafe-perm flag to run scripts with root privileges.</p>
+</blockquote>
+<p><em>And it worked for me like a charm!</em></p>
+<p>Honestly, I have to admit, that it is not 100% clear to me, why it made any difference in this case.
+I suspect that it was because of gyp. Does anybody maybe have a better explanation?</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Defining properties in JavaScript</title>
             <link>http://bdadam.com/blog/defining-properties-in-javascript.html</link>
             <description>

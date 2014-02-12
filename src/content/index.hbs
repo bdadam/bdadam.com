@@ -10,12 +10,6 @@ title: Adam Beres-Deak - software developer, JavaScript enthusiast
         <small>software developer, JavaScript enthusiast</small>
     </h1>
 </div>
-{{!
-<blockquote class="center">
-    <p>Everything should be made as simple as possible, but not simpler.</p>
-    <small>Albert Einstein</small>
-</blockquote>
-}}
 <div class="container">
     <h3 class="center">Recent blog posts</h3>
     <hr/>
@@ -24,7 +18,11 @@ title: Adam Beres-Deak - software developer, JavaScript enthusiast
             <h2 class="center"><a href="/{{ relativeLink }}">{{data.title}}</a></h2>
             <p class="muted center">{{formatdate data.date "Do MMMM YYYY"}}</p>
             {{#markdown}}{{ data.abstract }}{{/markdown}}
-            <a href="/{{ relativeLink }}">read more</a>
+            {{#if data.showfullpost}}
+                {{#markdown}}{{{ page }}}{{/markdown}}
+            {{ else }}
+                <a href="/{{ relativeLink }}" class="btn btn-primary">read more</a>
+            {{/if}}
         </article>
         {{#unless last}}<hr/>{{/unless}}
     {{/filterPostsDesc}}

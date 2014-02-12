@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Adam Beres-Deak</title>
-    <meta name="description" content="Adam Beres-Deak is a Hungarian software developer currently living in Munich, Germany."/>
+    <title>Finally always wins, unless you crash your computer meanwhile</title>
+    <meta name="description" content="JavaScript is a funny language"/>
     
     <link href="/static/main.css?4433bf4b" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
@@ -40,15 +40,50 @@
 </nav>
 
 
-
 <div class="container">
-<h1 id="adam-beres-deak">Adam Beres-Deak</h1>
-<p>software developer</p>
-<p><a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i> E-mail</a>&nbsp;&nbsp;
-<a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i> github/bdadam</a>&nbsp;&nbsp;
-<a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i> Find me on XING</a></p>
+    <article class="full-post">
+        <h1>Finally always wins, unless you crash your computer meanwhile</h1>
+        <p class="legal">
+            11th February 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> javascript,  fun 
+            
+        </p>
+        <p class="share-bar"></p>
 
+        
+
+        <p>In JavaScript it is perfectly valid to have a return statement in a finally block. But this doesn&#39;t mean, you should really put it in there.
+Consider the following code:</p>
+<pre><code class="language-JavaScript">function whatDoesThisReturn() {
+    try {
+        return false;
+    } finally {
+        return true;
+    }
+}
+
+console.log(whatDoesThisReturn());</code></pre>
+<p>Basically the <code>finally</code> block is called after the <code>try</code> block, therefore it overrides the return value.</p>
+<p><em>So this function returns <code>true</code>.</em></p>
+
+
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
 </div>
+
 <footer>
     <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
     <p class="legal container">

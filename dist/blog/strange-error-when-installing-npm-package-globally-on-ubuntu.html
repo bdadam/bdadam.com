@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Adam Beres-Deak</title>
-    <meta name="description" content="Adam Beres-Deak is a Hungarian software developer currently living in Munich, Germany."/>
-    
+    <title>Strange error when installing npm package globally on Ubuntu</title>
+    <meta name="description" content="I ran into some preoblems when I tried to install the pm2 package globally on Ubuntu. Using the unsafe-perm flag solved the problem."/>
+    <meta property="og:description" content="Installing modules globally has never been a problem for me, neither on Windows nor on Ubuntu. At least until today, when I ran into a somewhat strange problem."/>
     <link href="/static/main.css?4433bf4b" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -40,15 +40,53 @@
 </nav>
 
 
-
 <div class="container">
-<h1 id="adam-beres-deak">Adam Beres-Deak</h1>
-<p>software developer</p>
-<p><a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i> E-mail</a>&nbsp;&nbsp;
-<a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i> github/bdadam</a>&nbsp;&nbsp;
-<a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i> Find me on XING</a></p>
+    <article class="full-post">
+        <h1>Strange error when installing npm package globally on Ubuntu</h1>
+        <p class="legal">
+            10th February 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> npm,  ubuntu,  node.js 
+            
+        </p>
+        <p class="share-bar"></p>
 
+        <p>Installing modules globally has never been a problem for me, neither on Windows nor on Ubuntu. At least until today, when I ran into a somewhat strange problem.</p>
+
+
+        <p>I tried to install the pm2 package on an Ubuntu 12.04 Server (<code>sudo npm install -g pm2@latest</code>),
+but the package just didn&#39;t want to install correctly.
+I kept getting gyp error messages and this one: &quot;OSError: [Errno 13] Permission denied&quot;.
+I thought it was impossible to get this error since I was running the install command as root (sudo).</p>
+<h2 id="installing-modules-with-the-unsafe-perm-flag">Installing modules with the unsafe-perm flag</h2>
+<p>And after a while I found the solution: using the unsafe-perm flag.
+<code>sudo npm install -g pm2@latest --unsafe-perm</code></p>
+<p>What the docs say about this flag:</p>
+<blockquote>
+<p>If npm was invoked with root privileges, then it will change the uid to the user account or uid specified by the user config, which defaults to nobody.
+Set the unsafe-perm flag to run scripts with root privileges.</p>
+</blockquote>
+<p><em>And it worked for me like a charm!</em></p>
+<p>Honestly, I have to admit, that it is not 100% clear to me, why it made any difference in this case.
+I suspect that it was because of gyp. Does anybody maybe have a better explanation?</p>
+
+
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
 </div>
+
 <footer>
     <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
     <p class="legal container">

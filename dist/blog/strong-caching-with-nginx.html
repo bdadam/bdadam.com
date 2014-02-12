@@ -5,7 +5,7 @@
     <title>Strong caching with NGINX</title>
     <meta name="description" content="Enabling strong caching for assets is very important, here is an example how to do it with nginx for static files"/>
     <meta property="og:description" content="Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images."/>
-    <link href="/static/main.css?9efde8bb" rel="stylesheet"/>
+    <link href="/static/main.css?4433bf4b" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
@@ -40,21 +40,22 @@
 </nav>
 
 
-<article class="container full-post">
-    <h1>Strong caching with NGINX</h1>
-    <p class="legal">
-        2nd February 2014
-        | by <a href="/about.html">Adam Beres-Deak</a>
-        
-            | <i class="fa fa-tags"></i> nginx,  caching 
-        
-    </p>
-    <p class="share-bar"></p>
+<div class="container">
+    <article class="full-post">
+        <h1>Strong caching with NGINX</h1>
+        <p class="legal">
+            2nd February 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> nginx,  caching 
+            
+        </p>
+        <p class="share-bar"></p>
 
-    <p>Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.</p>
+        <p>Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.</p>
 
 
-    <pre><code class="language-nginx">server {
+        <pre><code class="language-nginx">server {
     location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
         root /var/www/mysite;
         expires max;
@@ -78,20 +79,20 @@ Maybe you noticed the lookahead in the regex.
 It has a reason to be there: this way the regex engine doesn&#39;t create a capture group (no $1) so it has better performance.</p>
 
 
-    <p class="share-bar"></p>
-    <a id="comments"></a>
-    <div id="disqus_thread"></div>
-</article>
-<script>
-    var disqus_shortname = 'bdadamcom';
-    (function() {
-        var d = document.createElement('script'); d.async = true;
-        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(d, s);
-    }());
-</script>
-
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
+</div>
 
 <footer>
     <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>

@@ -10,3 +10,9 @@ software developer
 <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i> github/bdadam</a>&nbsp;&nbsp;
 <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i> Find me on XING</a>
 
+{{!
+<blockquote class="center">
+    <p>Everything should be made as simple as possible, but not simpler.</p>
+    <small>Albert Einstein</small>
+</blockquote>
+}}
