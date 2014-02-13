@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Playing Mario in the browser</title>
-    <meta name="description" content="Remake of the original Super Mario Brothers for the browser with web technologies (HTML5, JavaScript)"/>
-    <meta property="og:description" content="Have you enjoyed playing Mario in the old days? Me too. If you want to play with it again, you just have to follow some simple steps and the game is ready to be played right in your browser. Let&#x27;s try it."/>
+    <title>Comparison helper for Handlebars.js</title>
+    <meta name="description" content="A useful Handlebars helper to compare to variables almost like in plain JavaScript"/>
+    <meta property="og:description" content="Personally, I was always missing some sort of comparison helper in Handlebars.js. I know, I know, it&#x27;s sort of being against the philosophy of Handlebars - being logicless. But I still wanted to have it."/>
     <link href="/static/main.css?b5e2d1a1" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -42,38 +42,51 @@
 
 <div class="container">
     <article class="full-post">
-        <h1>Playing Mario in the browser</h1>
+        <h1>Comparison helper for Handlebars.js</h1>
         <p class="legal">
-            5th February 2014
+            12th February 2014
             | by <a href="/about.html">Adam Beres-Deak</a>
             
-                | <i class="fa fa-tags"></i> game,  browser,  javascript 
+                | <i class="fa fa-tags"></i> javascript,  templating,  handlebars 
             
         </p>
         <p class="share-bar"></p>
 
-        <p>Have you enjoyed playing Mario in the old days? Me too. If you want to play with it again, you just have to follow some simple steps and the game is ready to be played right in your browser. Let&#x27;s try it.</p>
+        <p>Personally, I was always missing some sort of comparison helper in Handlebars.js. I know, I know, it&#x27;s sort of being against the philosophy of Handlebars - being logicless. But I still wanted to have it.</p>
 
 
-        <p><img src="/static/article-assets/mario.png" alt="Screenshot from the game"/></p>
-<p class="legal center">Screenshot from the game</p>
-
-<p>I found a very interesting project on Github: <a href="https://github.com/Diogenesthecynic/FullScreenMario" rel="external,nofollow">FullScreenMario</a>.
-As the creator says:</p>
-<blockquote>
-<p>An HTML5 remake of the original Super Mario Brothers - expanded for wide screens.</p>
-</blockquote>
-<p>The official website of the game is not working anymore, since Nintendo complained about copyright infridgement.</p>
-<h2 id="good-news">Good news</h2>
-<p>We can still play the game. We just have to download the sources (or clone the repository), start a webserver locally and navigate to the local url.</p>
-<ol>
-<li>Download this: <a href="https://github.com/Diogenesthecynic/FullScreenMario/archive/master.zip" rel="external,nofollow">master.zip</a></li>
-<li>Extract the files</li>
-<li><code>cd path/to/files</code></li>
-<li>Start a webserver (e. g. <code>serve</code> <a href="/blog/serve-a-practical-command-line-webserver.html">serve</a>)</li>
-<li>Navigate to the game</li>
-</ol>
-<p><strong>Have fun!</strong></p>
+        <h2 id="comparing-two-variables-almost-like-in-plain-javascript">Comparing two variables almost like in plain JavaScript</h2>
+<p>Thankfully I found a similar <a href="http://stackoverflow.com/a/16315366/2374649" rel="external,nofollow">question on Stack and a superb answer from a user called Jim</a>.</p>
+<pre><code class="language-JavaScript">Handlebars.registerHelper(&#39;ifCond&#39;, function (v1, operator, v2, options) {
+    switch (operator) {
+        case &#39;==&#39;:
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case &#39;===&#39;:
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case &#39;!==&#39;:
+            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&lt;&#39;:
+            return (v1 &lt; v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&lt;=&#39;:
+            return (v1 &lt;= v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&gt;&#39;:
+            return (v1 &gt; v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&gt;=&#39;:
+            return (v1 &gt;= v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&amp;&amp;&#39;:
+            return (v1 &amp;&amp; v2) ? options.fn(this) : options.inverse(this);
+        case &#39;||&#39;:
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});</code></pre>
+<p>Here is how one would use it:</p>
+<pre><code class="language-html">{{#ifCond value &quot;===&quot; value2}}
+    Values are equal!
+{{else}}
+    Values are different!
+{{/ifCond}}</code></pre>
 
 
         <p class="share-bar"></p>
@@ -92,8 +105,6 @@ As the creator says:</p>
 
     <h4>Latest blog posts</h4>
     
-        
-            <p><a href="/blog/comparison-helper-for-handlebars.html">Comparison helper for Handlebars.js <span class="muted"><small>12th February 2014</small></span></a></p>
         
     
         
