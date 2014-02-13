@@ -30,4 +30,11 @@ layout: layout.hbs
             }());
         </script>
     </article>
+
+    <h4>Latest blog posts</h4>
+    {{#latestPosts pages max=5}}
+        {{#ifCond data.title "!==" ../title}}
+            <p><a href="/blog/{{ relativeLink }}">{{data.title}} <span class="muted"><small>{{formatdate data.date "Do MMMM YYYY"}}</small></span></a></p>
+        {{/ifCond}}
+    {{/latestPosts}}
 </div>

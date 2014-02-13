@@ -4,7 +4,7 @@ layout: false
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>http://bdadam.com/</loc></url>
     <url><loc>http://bdadam.com/about.html</loc></url>
-    {{#filterPostsDesc pages}}
+    {{#latestPosts pages}}
     <url><loc>http://bdadam.com/{{ relativeLink }}</loc></url>
-    {{/filterPostsDesc}}
+    {{/latestPosts}}
 </urlset>

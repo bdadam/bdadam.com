@@ -4,12 +4,12 @@ layout: layout.hbs
 date: 2000-01-01
 ---
 
-{{#filterPostsDesc pages}}
+{{#latestPosts pages}}
     <p>
         {{data.date}}
         <a href="/{{filename}}">{{data.title}}</a>
     </p>
-{{/filterPostsDesc}}
+{{/latestPosts}}
 
 <br>----<br/>
 {{#withSort pages "data.date" }}

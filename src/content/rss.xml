@@ -6,7 +6,7 @@ layout: false
         <title>Adam Beres-Deak</title>
         <link>http://bdadam.com/</link>
         <description>Blog</description>
-        {{#filterPostsDesc pages}}
+        {{#latestPosts pages}}
         <item>
             <title>{{data.title}}</title>
             <link>http://bdadam.com/{{ relativeLink }}</link>
@@ -17,6 +17,6 @@ layout: false
                 ]]>
             </description>
         </item>
-        {{/filterPostsDesc}}
+        {{/latestPosts}}
     </channel>
 </rss>

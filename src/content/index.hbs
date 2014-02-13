@@ -13,7 +13,7 @@ title: Adam Beres-Deak - software developer, JavaScript enthusiast
 <div class="container">
     <h3 class="center">Recent blog posts</h3>
     <hr/>
-    {{#filterPostsDesc pages}}
+    {{#latestPosts pages}}
         <article>
             <h2 class="center"><a href="/{{ relativeLink }}">{{data.title}}</a></h2>
             <p class="muted center">{{formatdate data.date "Do MMMM YYYY"}}</p>
@@ -25,5 +25,5 @@ title: Adam Beres-Deak - software developer, JavaScript enthusiast
             {{/if}}
         </article>
         {{#unless last}}<hr/>{{/unless}}
-    {{/filterPostsDesc}}
+    {{/latestPosts}}
 </div>
