@@ -1,5 +1,4 @@
 require('./tracking').load();
-require('./social').buildShareButtons();
 
 function loadCss(url) {
     var link = document.createElement("link");
@@ -31,6 +30,8 @@ function addEventListener(obj, event, fn) {
 }
 
 addEventListener(window, 'load', function() {
+    require('./social').buildShareButtons();
+
     (function hlj() {
         if (typeof window.hljs === 'undefined') {
             return setTimeout(hlj, 100);
