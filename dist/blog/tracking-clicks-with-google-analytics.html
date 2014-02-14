@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>Tracking clicks with Google Analytics</title>
+    <meta name="description" content="Clicktracking and monitoring user behaviour is very important in nowadays websites. They are also essential for A/B testing."/>
+    <meta property="og:description" content="Every website has some links or buttons, users are clicking on them. But do webmasters know which ones do users click most often? Are there maybe some, which are not clicked at all? Maybe you just built a shiny new navigation and you may ask &quot;do users use it?&quot;. Clicktracking gives you the answer. When using Google Analytics the results are just shown on your dashboard."/>
+    <link href="/static/main.css?b5e2d1a1" rel="stylesheet"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+    <script src="/static/main.js?1655fbc9" async></script>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
+<meta name="msapplication-TileColor" content="#aa2211"/>
+<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="pull-right">
+            <a href="/">Home</a>
+            
+            <a href="/about.html">Contact</a>
+        </div>
+        <a class="brand" href="/">bdadam.com</a>
+    </div>
+</nav>
+
+
+<div class="container">
+    <article class="full-post">
+        <h1>Tracking clicks with Google Analytics</h1>
+        <p class="legal">
+            14th February 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> javascript,  tracking,  google analytics 
+            
+        </p>
+        <p class="share-bar"></p>
+
+        <p>Every website has some links or buttons, users are clicking on them. But do webmasters know which ones do users click most often? Are there maybe some, which are not clicked at all? Maybe you just built a shiny new navigation and you may ask &quot;do users use it?&quot;. Clicktracking gives you the answer. When using Google Analytics the results are just shown on your dashboard.</p>
+
+
+        <h2 id="why-would-you-track-clicks-on-a-website-">Why would you track clicks on a website?</h2>
+<p>I think the answer to this question is very easy: to know, what users are clicking and where they are clicking.
+You maybe have questions like these:</p>
+<ul>
+<li>Are users using the breadcrumbs?</li>
+<li>Are users clicking on &#39;back to&#39; links?</li>
+<li>Do they click on the images in the gallery?</li>
+<li>What works better, a button or a link?</li>
+<li>Are red buttons working better than green buttons on a specific page?</li>
+<li>etc.</li>
+</ul>
+<h2 id="let-s-find-the-answers">Let&#39;s find the answers</h2>
+<pre><code class="language-html">&lt;button id=&quot;playVideo&quot;&gt;Play video&lt;/button&gt;
+&lt;script&gt;
+    $(&#39;#playVideo&#39;).click(function() {
+        video.play(); // doing some work
+
+        _gaq.push([&#39;_trackEvent&#39;, &#39;Videos&#39;, &#39;Play&#39;, video.title]); // the &#39;old&#39; way, when using the old tracking code
+        /* or */
+        ga(&#39;send&#39;, &#39;event&#39;, &#39;Videos&#39;, &#39;Play&#39;, video.title); // when using Universal Analytics
+    });
+&lt;/script&gt;</code></pre>
+<p>This way you track events in Google Analytics which show up under Behaviour &gt; Events on your Dashboard.
+In the example above we are always generating an event when somebody clicks on the play button.
+With these events we also store what really happened: category=Videos, action=Play, label=&#39;title of video&#39;.</p>
+<h2 id="which-link-was-clicked-">Which link was clicked?</h2>
+<p>We just have to set the arguments properly, and then we exactly know which link was clicked.</p>
+<pre><code class="language-html">&lt;a href=&quot;/my-cool-page.html&quot; class=&quot;greenButton&quot;&gt;Go to my cool page&lt;/a&gt;
+...
+&lt;a href=&quot;/my-cool-page.html&quot; class=&quot;redButton&quot;&gt;Go to my cool page&lt;/a&gt;
+...
+&lt;a href=&quot;/my-cool-page.html&quot; class=&quot;blueButton&quot;&gt;Go to my cool page&lt;/a&gt;
+
+&lt;script&gt;
+$(&#39;.greenButton, .redButton, .blueButton&#39;).click(function() {
+    var className = this.className;
+
+    _gaq.push([&#39;_trackEvent&#39;, &#39;Click&#39;, &#39;Link&#39;, className]); // the &#39;old&#39; way, when using the old tracking code
+    /* or */
+    ga(&#39;send&#39;, &#39;event&#39;, &#39;Click&#39;, &#39;Link&#39;, className); // when using Universal Analytics
+});
+&lt;/script&gt;</code></pre>
+<p>This method is also perfectly suitable for A/B testing. We just have to take care of displaying each variant equally for the visitors of our site.</p>
+<h2 id="what-the-docs-don-t-say">What the docs don&#39;t say</h2>
+<p>The modern browsers are quite fast. When users click on links, it happens quite often, that Google Analytics has not finished tracking the event.
+But the browser navigates away from the page, and at the end the event doesn&#39;t get registered at all.</p>
+<p><em>What to do?</em></p>
+<p>With listening to <code>mousedown</code> event, we can reduce the number of lost events:</p>
+<pre><code class="language-JavaScript">$(&#39;.myButton&#39;).mousedown(function() {
+    // track click
+});</code></pre>
+<p>Or using a little hack, we can track even more events. But this one has a tradeoff:
+the user has to wait more till the new page is loaded. In some situations it is maybe acceptable, but try to avoid this because
+slower loading pages usually mean worse user experience. Which means less pageviews, more frustrated users and <em>less conversion</em>.</p>
+<p>Here is the hack:</p>
+<pre><code class="language-JavaScript">$(&#39;.myLink&#39;).click(function() {
+    var href = this.href; // getting the URL of the next page
+
+    setTimeout(function() {
+        window.location.href = href; // after a timeout of 250ms we navigate to the URL, where the user wanted to go
+    }, 250);
+
+    return false; // preventing default behaviour, so that the browser doesn&#39;t navigate away
+});</code></pre>
+<p>References:</p>
+<ul>
+<li><a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/events" rel="external,nofollow">Event tracking with Universal Analytics</a></li>
+<li><a href="https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide" rel="external,nofollow">Event tracking with ga.js</a></li>
+</ul>
+
+
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
+
+    <h4>Latest blog posts</h4>
+    
+        
+    
+        
+            <p><a href="/blog/comparison-helper-for-handlebars.html">Comparison helper for Handlebars.js <span class="muted"><small>13th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html">One more reason to check for strict equality in JavaScript <span class="muted"><small>12th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html">Finally always wins, unless you crash your computer meanwhile <span class="muted"><small>11th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/strange-error-when-installing-npm-package-globally-on-ubuntu.html">Strange error when installing npm package globally on Ubuntu <span class="muted"><small>10th February 2014</small></span></a></p>
+        
+    
+</div>
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+</body>
+</html>

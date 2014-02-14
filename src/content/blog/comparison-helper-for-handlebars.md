@@ -51,7 +51,7 @@ Here is how one would use it:
 ```
 
 ## Update
-As Eugene Mirotin pointed out, this solution could be much DRYer, so here is an improved variant of the code which does the same:
+As Eugene Mirotin pointed out, this solution could be much DRYer, so here is an improved variant of the code which does the same thing:
 ```JavaScript
 (function() {
     function checkCondition(v1, operator, v2) {
