@@ -1,6 +1,7 @@
 ---
 layout:         post.hbs
 date:           2014-02-13 23:00
+updated:        2014-02-14 23:00
 title:          Comparison helper for Handlebars.js
 description:    A useful Handlebars helper to compare to variables almost like in plain JavaScript
 abstract:       Personally, I was always missing some sort of comparison helper in Handlebars.js.
@@ -47,4 +48,41 @@ Here is how one would use it:
 \{{else}}
     Values are different!
 \{{/ifCond}}
+```
+
+## Update
+As Eugene Mirotin pointed out, this solution could be much DRYer, so here is an improved variant of the code which does the same:
+```JavaScript
+(function() {
+    function checkCondition(v1, operator, v2) {
+        switch(operator) {
+            case '==':
+                return (v1 == v2);
+            case '===':
+                return (v1 === v2);
+            case '!==':
+                return (v1 !== v2);
+            case '<':
+                return (v1 < v2);
+            case '<=':
+                return (v1 <= v2);
+            case '>':
+                return (v1 > v2);
+            case '>=':
+                return (v1 >= v2);
+            case '&&':
+                return (v1 && v2);
+            case '||':
+                return (v1 || v2);
+            default:
+                return false;
+        }
+    }
+
+    Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+        return checkCondition(v1, operator, v2)
+                    ? options.fn(this)
+                    : options.inverse(this);
+    });
+}());
 ```

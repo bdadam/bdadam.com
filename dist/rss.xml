@@ -44,6 +44,40 @@
 \{{else}}
     Values are different!
 \{{/ifCond}}</code></pre>
+<h2 id="update">Update</h2>
+<p>As Eugene Mirotin pointed out, this solution could be much DRYer, so here is an improved variant of the code which does the same:</p>
+<pre><code class="language-JavaScript">(function() {
+    function checkCondition(v1, operator, v2) {
+        switch(operator) {
+            case &#39;==&#39;:
+                return (v1 == v2);
+            case &#39;===&#39;:
+                return (v1 === v2);
+            case &#39;!==&#39;:
+                return (v1 !== v2);
+            case &#39;&lt;&#39;:
+                return (v1 &lt; v2);
+            case &#39;&lt;=&#39;:
+                return (v1 &lt;= v2);
+            case &#39;&gt;&#39;:
+                return (v1 &gt; v2);
+            case &#39;&gt;=&#39;:
+                return (v1 &gt;= v2);
+            case &#39;&amp;&amp;&#39;:
+                return (v1 &amp;&amp; v2);
+            case &#39;||&#39;:
+                return (v1 || v2);
+            default:
+                return false;
+        }
+    }
+
+    Handlebars.registerHelper(&#39;ifCond&#39;, function (v1, operator, v2, options) {
+        return checkCondition(v1, operator, v2)
+                    ? options.fn(this)
+                    : options.inverse(this);
+    });
+}());</code></pre>
 
                 ]]>
             </description>
