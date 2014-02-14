@@ -1,6 +1,6 @@
 ---
 layout:         post.hbs
-date:           2014-02-12 23:00
+date:           2014-02-13 23:00
 title:          Comparison helper for Handlebars.js
 description:    A useful Handlebars helper to compare to variables almost like in plain JavaScript
 abstract:       Personally, I was always missing some sort of comparison helper in Handlebars.js.
