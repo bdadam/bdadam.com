@@ -1,3 +1,4 @@
+require('./social').buildShareButtons();
 require('./tracking').load();
 
 function loadCss(url) {
@@ -15,31 +16,17 @@ function loadScript(src) {
     sc.parentNode.insertBefore(s, sc);
 }
 
-loadCss('//fonts.googleapis.com/css?family=Open+Sans:400,700');
 loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
 loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
 loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
 
-function addEventListener(obj, event, fn) {
-    if (obj.addEventListener) {
-        obj.addEventListener(event, fn, false);
+(function hlj() {
+    if (typeof window.hljs === 'undefined') {
+        return setTimeout(hlj, 100);
     }
-    else if (obj.attachEvent) {
-        obj.attachEvent(event, fn);
+
+    var blocks = document.querySelectorAll('pre code');
+    for (var i = 0, l = blocks.length; i < l; i++) {
+        hljs.highlightBlock(blocks[i]);
     }
-}
-
-addEventListener(window, 'load', function() {
-    require('./social').buildShareButtons();
-
-    (function hlj() {
-        if (typeof window.hljs === 'undefined') {
-            return setTimeout(hlj, 100);
-        }
-
-        var blocks = document.querySelectorAll('pre code');//.each(function(i, e) {hljs.highlightBlock(e)});
-        for (var i = 0, l = blocks.length; i < l; i++) {
-            hljs.highlightBlock(blocks[i]);
-        }
-    }());
-});
+}());

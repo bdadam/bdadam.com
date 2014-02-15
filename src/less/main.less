@@ -2,14 +2,14 @@
 @import "../bower_components/bootstrap/less/variables.less";
 @import "../bower_components/bootstrap/less/mixins.less";
 @import "../bower_components/bootstrap/less/normalize.less";
-@import "../bower_components/bootstrap/less/print.less";
+//@import "../bower_components/bootstrap/less/print.less";
 @import "../bower_components/bootstrap/less/scaffolding.less";
 
 @import "../bower_components/bootstrap/less/type.less";
 
 @import "../bower_components/bootstrap/less/code.less";
-@import "../bower_components/bootstrap/less/grid.less";
-//@import "tables.less";
+//@import "../bower_components/bootstrap/less/grid.less";
+//@import "../bower_components/bootstrap/less/tables.less";
 //@import "forms.less";
 @import "../bower_components/bootstrap/less/buttons.less";
 
@@ -17,22 +17,30 @@
 @import "../bower_components/bootstrap/less/utilities.less";
 @import "../bower_components/bootstrap/less/responsive-utilities.less";
 
-/*
-body {
-  padding: 0;
-  margin: 0;
+// Inlined from //fonts.googleapis.com/css?family=Open+Sans:400,700
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
-
-.container {
-  max-width: 1170px;
-  margin: 0 auto;
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v7/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
-*/
 
 body {
   font-size: 18px;
   font-family: 'Open Sans', Georgia, sans-serif;
   line-height: 1.6;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1040px;
+  padding: 0 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -57,10 +65,6 @@ hr {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
-}
-
-.container {
-  max-width: 1000px;
 }
 
 img {

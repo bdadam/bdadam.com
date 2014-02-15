@@ -6,6 +6,175 @@
         <description>Blog</description>
         
         <item>
+            <title>Finding a random document in MongoDB (with benchmarks)</title>
+            <link>http://bdadam.com/blog/finding-a-random-document-in-mongodb.html</link>
+            <description>
+                <![CDATA[
+                <p>Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial.</p>
+
+                <h2 id="finding-one-random-document-method-1">Finding one random document - Method 1</h2>
+<ol>
+<li><p>First of all you have to count how many documents you have in the collection.
+Optionally you can provide a filter condition (query).</p>
+<p><code>N = db.myCollection.count(query)</code></p>
+</li>
+<li><p>Then you have to generate a random number which is less than the number you counted before.</p>
+<p><code>R = Math.floor(Math.random() * N)</code></p>
+</li>
+<li><p>Then skip that many records and retrieve the next one.
+If you provided a query at the first step, here you have to use it as well.</p>
+<p><code>db.collection.find(query).limit(1).skip(R))</code></p>
+</li>
+</ol>
+<h3 id="let-s-see-an-example">Let&#39;s see an example</h3>
+<pre><code class="language-JavaScript">var query = { state: &#39;OK&#39; };
+var n = db.myCollection.count(query);
+var r = Math.floor(Math.random() * n);
+var randomElement = db.myCollection.find(query).limit(1).skip(r);</code></pre>
+<h3 id="pro-">Pro:</h3>
+<p>The data can be intact, no preparation is needed.</p>
+<h3 id="con-">Con:</h3>
+<ul>
+<li>This one is the slowest method.
+But this approach may still be OK, depending on the case. It definitely has tradeoffs when the collection has a large amount of documents:
+The <code>skip</code> command has to scan at least <code>R</code> number of documents.
+If the number of documents retrieved by the query is large, the random number <code>R</code> is also going to be large.</li>
+</ul>
+<h2 id="finding-one-random-document-method-2">Finding one random document - Method 2</h2>
+<p>For this method to work, the data has too meet some constraints:</p>
+<ul>
+<li>Each document should have a field with a random number, e.g. when saving <code>db.myCollection.save({ name: &#39;name&#39;, ..., rnd: Math.random() })</code></li>
+<li>The collection should have an index on this field, e.g. <code>db.myCollection.ensureIndex({ rnd: 1 })</code></li>
+</ul>
+<p>When the data is all set up, querying is rather easy:</p>
+<pre><code class="language-JavaScript">var query = {
+    state: &#39;OK&#39;,
+    rnd: {
+        $gte: Math.random()
+    }
+};
+
+var randomElement = db.myCollection.findOne({ $query: query, $orderby: { rnd: 1 } });</code></pre>
+<h3 id="pro-">Pro:</h3>
+<ul>
+<li>Not having to skip any document.</li>
+</ul>
+<h3 id="con-">Con:</h3>
+<ul>
+<li>Data has to have field with a random number stored in it</li>
+<li>This random field should also have an index</li>
+<li>Sorting reduces performance</li>
+</ul>
+<h2 id="finding-one-random-document-method-2-5">Finding one random document - Method 2.5</h2>
+<p>There is a simpler variant of the second method. It doesn&#39;t retrieve a truly random document, but it may be enough for the specific case.</p>
+<pre><code class="language-JavaScript">var query = {
+    state: &#39;OK&#39;,
+    rnd: {
+        $gte: Math.random()
+    }
+};
+
+var randomElement = db.myCollection.findOne(query);</code></pre>
+<p>Please note that there is no <code>$orderby</code>. This can improve performance. The price is that documents are sorted in &quot;find order&quot; rather than &quot;random order&quot;.
+But this could be fine in many cases.</p>
+<h3 id="pro-">Pro:</h3>
+<ul>
+<li>Not having to skip any document</li>
+<li>Performance</li>
+</ul>
+<h3 id="con-">Con:</h3>
+<ul>
+<li>Not truly random document</li>
+<li>Data has to have a field with a random number stored in it</li>
+<li>This field also should have an index</li>
+</ul>
+<h2 id="benchmarks">Benchmarks</h2>
+<p>I created a very simple benchmark. The setup looks like this:</p>
+<pre><code class="language-JavaScript">var i = 1000000;
+while(i) {
+    db.test.save({
+        name: &quot;some lorem ipsum not important&quot;,
+        rnd: Math.random()
+    });
+    i--;
+}
+db.test.ensureIndex({ rnd: 1 });</code></pre>
+<p>Then I ran all the three methods on my computer with a local database, 10000 times each.</p>
+<pre><code class="language-JavaScript">var startDate = new Date();
+var i = 10000;
+while (i) {
+    var n = db.test.count();
+    var r = Math.floor(Math.random() * n);
+    var randomElement = db.test.find().limit(1).skip(r);
+    i--;
+}
+var t1 = new Date() - startDate;
+
+
+var startDate = new Date();
+var i = 10000;
+while (i) {
+    var query = {
+        rnd: {
+            $gte: Math.random()
+        }
+    };
+
+    var randomElement = db.myCollection.findOne({ $query: query, $orderby: { rnd: 1 } });
+    i--;
+}
+var t2 = new Date() - startDate;
+
+
+var startDate = new Date();
+var i = 10000;
+while (i) {
+    var query = {
+        rnd: {
+            $gte: Math.random()
+        }
+    };
+
+    var randomElement = db.myCollection.findOne(query);
+    i--;
+}
+var t3 = new Date() - startDate;
+
+
+print(t1, t2, t3);</code></pre>
+<h2 id="and-the-winner-is-method-2-5-">And the winner is &quot;Method 2.5&quot;</h2>
+<p>Here are my benchmark results:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:right">Time for 10,000 runs (seconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Method 2.5</td>
+<td style="text-align:right">2.234</td>
+</tr>
+<tr>
+<td style="text-align:left">Method 2</td>
+<td style="text-align:right">2.297</td>
+</tr>
+<tr>
+<td style="text-align:left">Method 1</td>
+<td style="text-align:right">2.813</td>
+</tr>
+</tbody>
+</table>
+<p>Though the differences are not quite big, the winner is definitely &quot;Method 2.5&quot;.
+I think, when using more realistic data, the differences are also going to be much larger.</p>
+<p>Do you have your own benchmark results with different data? Please feel free to comment it.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Tracking clicks with Google Analytics</title>
             <link>http://bdadam.com/blog/tracking-clicks-with-google-analytics.html</link>
             <description>
