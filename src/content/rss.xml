@@ -1,6 +1,7 @@
 ---
 layout: false
 ---<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/css" href="http://bdadam.com/static/main.css" ?>
 <rss version="2.0">
     <channel>
         <title>Adam Beres-Deak</title>

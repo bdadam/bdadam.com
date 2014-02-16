@@ -164,7 +164,7 @@ Here are my benchmark results:
 | Method 2      |                       2.297 |
 | Method 1      |                       2.813 |
 
-Though the differences are not quite big, the winner is definitely "Method 2.5".
+Although the differences are not quite big, the winner is definitely "Method 2.5".
 I think, when using more realistic data, the differences are also going to be much larger.
 
 Do you have your own benchmark results with different data? Please feel free to comment it.
