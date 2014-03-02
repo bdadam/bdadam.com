@@ -27,3 +27,4 @@ console.log(whatDoesThisReturn());
 Basically the `finally` block is called after the `try` block, therefore it overrides the return value.
 
 *So this function returns `true`.*
+

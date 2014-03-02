@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>Panning and scrolling background images using the canvas element</title>
+    <meta name="description" content="Animated background for canvas based games"/>
+    <meta property="og:description" content="I&#x27;m planning to create a simple 2D game in plain JavaScript. As the first step I would like to show, how to animate (pan or scroll) a background image using the canvas element. I am also going to show some basic setup code in order to have a loop where we can draw the frames."/>
+
+    <link href="/static/main.css?11275b9f" rel="stylesheet"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
+<meta name="msapplication-TileColor" content="#aa2211"/>
+<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="pull-right">
+            <a href="/javascript-goodies.html">JavaScript Goodies</a>
+            <a href="/about.html">Contact</a>
+        </div>
+        <a class="brand" href="/">bdadam.com</a>
+    </div>
+</nav>
+
+
+<div class="container">
+    <article class="full-post">
+        <h1>Panning and scrolling background images using the canvas element</h1>
+        <p class="legal">
+            1st March 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> javascript,  canvas,  tutorial 
+            
+        </p>
+        <p class="share-bar"></p>
+
+        <p>I&#x27;m planning to create a simple 2D game in plain JavaScript. As the first step I would like to show, how to animate (pan or scroll) a background image using the canvas element. I am also going to show some basic setup code in order to have a loop where we can draw the frames.</p>
+
+
+        <p>There are two common scenarios for simple 2D games:</p>
+<ul>
+<li>There is a huge background image for the entire level. All the activities have this same background image, but the viewport&#39;s position is chaging</li>
+<li>There is a small image which is scrolled all the time (tipically from right to left) as the player advances</li>
+</ul>
+<h2 id="panning-the-viewport-inside-the-background-image">Panning the viewport inside the background image</h2>
+<iframe src="/figures/panning-background.html" style="width: 100%; height: 230px;"></iframe>
+
+<h2 id="demo">Demo</h2>
+<p>Please click on the button to start the animation.</p>
+<iframe src="/samples/canvas-background-panning.html" style="width: 100%; height: 370px; border: none;"></iframe>
+
+<h2 id="how-it-works">How it works</h2>
+<p>We have a function which is called for every frame our game draws.
+In this method we calculate the position of the viewport. For this basic example I chose to derive the position from the elapsed time.
+Therefore the camera takes an elliptical path.</p>
+<pre><code class="language-JavaScript">function draw(delta) {
+    totalSeconds += delta;
+    var x = -1 * (img.width - canvas.width) / 2 * (1 + Math.cos(totalSeconds / Math.PI));
+    var y = -1 * (img.height - canvas.height) / 2 * (1 + -Math.sin(totalSeconds / Math.PI));
+
+    context.drawImage(img, x, y);
+}</code></pre>
+<h2 id="scrolling-the-background-image-infinitely">Scrolling the background image infinitely</h2>
+<p>In the second case the background image is scrolling infinitely as time and the player advances.
+It&#39;s like when playing Mario, but the camera is centered on Mario the whole time.</p>
+<iframe src="/figures/scrolling-background.html" style="width: 100%; height: 180px;"></iframe>
+
+<p>In the animation above we can see, that for this effect we need at least 2 images (can be the same) or more, depending on the viewport size.</p>
+<h2 id="demo">Demo</h2>
+<p>Please click on the button to start the animation.
+The vertical black lines mean the edges of the single images.
+For this example I&#39;m using the same image and we have a constant speed of 100 pixels/sec.</p>
+<iframe src="/samples/canvas-background-scrolling.html" style="width: 100%; height: 370px; border: none;"></iframe>
+
+<h2 id="how-it-works">How it works</h2>
+<p>The background position is also derived from the elapsed time (constant speed).</p>
+<ol>
+<li>We calculate how many images are needed to cover the viewport: <code>Math.ceil(canvas.width / img.width) + 1</code></li>
+<li>We calculate the current X-position: <code>totalSeconds * vx % img.width</code>. Please note the modulo operator here.</li>
+<li>We store the current context state and translate our canvas to make the drawing easier.</li>
+<li>We draw the images - one after the other.</li>
+<li><p>We restore the context&#39;s state.</p>
+<pre><code class="language-JavaScript">function draw(delta) {
+ totalSeconds += delta;
+
+ var vx = 100; // the background scrolls with a speed of 100 pixels/sec
+ var numImages = Math.ceil(canvas.width / img.width) + 1;
+ var xpos = totalSeconds * vx % img.width;
+
+ context.save();
+ context.translate(-xpos, 0);
+ for (var i = 0; i &lt; numImages; i++) {
+     context.drawImage(img, i * img.width, 0);
+ }
+ context.restore();
+}</code></pre>
+</li>
+</ol>
+<h2 id="all-the-code-which-calls-our-daw-functions">All the code which calls our <code>daw()</code> functions</h2>
+<p>In order for this to work, we have some more work to do. This is the setup code I used for these examples.</p>
+<ol>
+<li>I used some basic <code>requestAnimationFrame</code> polyfill</li>
+<li>The animation gets only started after the image is loaded successfully (onload).</li>
+<li>Some start/stop logic and button</li>
+<li>And the <code>loop()</code> function which gets called in every frame when our animation is running. Here we need <code>requestAnimationFrame()</code>.</li>
+</ol>
+<pre><code class="language-JavaScript">(function() {
+    window.requestAnimationFrame = window.requestAnimationFrame
+            || window.webkitRequestAnimationFrame
+            || window.mozRequestAnimationFrame
+            || function(callback) { window.setTimeout(callback, 1000 / 60); };
+
+    var canvas = document.getElementById(&#39;bg&#39;);
+    var context = canvas.getContext(&#39;2d&#39;);
+    var looping = false;
+    var totalSeconds = 0;
+
+    var img = new Image();
+    img.onload = imageLoaded;
+    img.src = &#39;IMG_SOURCE&#39;;
+
+    function imageLoaded() {
+        draw(0);
+
+        var btn = document.getElementById(&#39;btnStart&#39;);
+        btn.addEventListener(&#39;click&#39;, function() {
+            startStop();
+        });
+    }
+
+    var lastFrameTime = 0;
+
+    function startStop() {
+        looping = !looping;
+
+        if (looping) {
+            lastFrameTime = Date.now();
+            requestAnimationFrame(loop);
+        }
+    }
+
+    function loop() {
+        if (!looping) {
+            return;
+        }
+
+        requestAnimationFrame(loop);
+
+        var now = Date.now();
+        var deltaSeconds = (now - lastFrameTime) / 1000;
+        lastFrameTime = now;
+        draw(deltaSeconds);
+    }
+
+
+    function draw(delta) {
+        /* Here happens some magic. */
+    }
+}());</code></pre>
+<p><strong>In order to see the full source code, please view these pages</strong></p>
+<ol>
+<li><a href="/samples/canvas-background-panning.html" rel="noindex,nofollow" target="_blank">Panning the viewport inside the background image</a></li>
+<li><a href="/samples/canvas-background-scrolling.html" rel="noindex,nofollow" target="_blank">Scrolling the background image</a></li>
+</ol>
+
+
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
+
+    <h4>Latest blog posts</h4>
+    
+        
+            <p><a href="/blog/switching-background-color-with-gimp.html">Switching background color of an image with Gimp <span class="muted"><small>2nd March 2014</small></span></a></p>
+        
+    
+        
+    
+        
+            <p><a href="/blog/finding-a-random-document-in-mongodb.html">Finding a random document in MongoDB (with benchmarks) <span class="muted"><small>15th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/tracking-clicks-with-google-analytics.html">Tracking clicks with Google Analytics <span class="muted"><small>14th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/comparison-helper-for-handlebars.html">Comparison helper for Handlebars.js <span class="muted"><small>13th February 2014</small></span></a></p>
+        
+    
+</div>
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+<script src="/static/main.js?175a1b8b" async></script>
+</body>
+</html>

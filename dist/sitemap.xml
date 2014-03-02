@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>http://bdadam.com/</loc></url>
     <url><loc>http://bdadam.com/about.html</loc></url>
+    <url><loc>http://bdadam.com/javascript-goodies.html</loc></url>
+    
+    <url><loc>http://bdadam.com/blog/switching-background-color-with-gimp.html</loc></url>
+    
+    <url><loc>http://bdadam.com/blog/panning-and-scrolling-background-images-using-the-canvas-element.html</loc></url>
     
     <url><loc>http://bdadam.com/blog/finding-a-random-document-in-mongodb.html</loc></url>
     

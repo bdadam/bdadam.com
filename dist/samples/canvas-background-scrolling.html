@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Demo page to show background image panning with canvas</title>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="robots" content="noindex,follow"/>
+    <link href="/static/main.css?11275b9f" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        div {
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #bg {
+            display: block;
+            margin: 0 auto 16px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <canvas id="bg" width="640" height="320"></canvas>
+    <button id="btnStart" class="btn btn-default">Start/stop animation</button>
+</div>
+<script>
+    (function() {
+        window.requestAnimationFrame = window.requestAnimationFrame
+                || window.webkitRequestAnimationFrame
+                || window.mozRequestAnimationFrame
+                || function(callback) { window.setTimeout(callback, 1000 / 60); };
+
+        var canvas = document.getElementById('bg');
+        var context = canvas.getContext('2d');
+        var looping = false;
+        var totalSeconds = 0;
+
+        var img = new Image();
+        img.onload = imageLoaded;
+        img.src = '/static/article-assets/background-to-scroll.jpg';
+
+        function imageLoaded() {
+            draw(0);
+
+            var btn = document.getElementById('btnStart');
+            btn.addEventListener('click', function() {
+                startStop();
+            });
+        }
+
+        var lastFrameTime = 0;
+
+        function startStop() {
+            looping = !looping;
+
+            if (looping) {
+                lastFrameTime = Date.now();
+                requestAnimationFrame(loop);
+            }
+        }
+
+        function loop() {
+            if (!looping) {
+                return;
+            }
+
+            requestAnimationFrame(loop);
+
+            var now = Date.now();
+            var deltaSeconds = (now - lastFrameTime) / 1000;
+            lastFrameTime = now;
+            draw(deltaSeconds);
+        }
+
+        function draw(delta) {
+            totalSeconds += delta;
+
+            var vx = 100; // the background scrolls with a speed of 100 pixels/sec
+            var numImages = Math.ceil(canvas.width / img.width) + 1;
+            var xpos = totalSeconds * vx % img.width;
+
+            context.save();
+            context.translate(-xpos, 0);
+            for (var i = 0; i < numImages; i++) {
+                context.drawImage(img, i * img.width, 0);
+            }
+            context.restore();
+        }
+    }());
+</script>
+</body>
+</html>

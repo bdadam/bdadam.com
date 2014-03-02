@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="charset" content="utf-8"/>
+    <title>Switching background color of an image with Gimp</title>
+    <meta name="description" content="Design task - changing the background color of a pattern with Gimp"/>
+    <meta property="og:description" content="As a web developers we sometimes come across some tasks which are not that strictly related to development, but rather to design. For me such a task was a few days ago, when I found a neat background pattern, but the color just didn&#x27;t fit the site I was working on."/>
+
+    <link href="/static/main.css?11275b9f" rel="stylesheet"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="Adam Beres-Deak"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
+<meta name="msapplication-TileColor" content="#aa2211"/>
+<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <div class="pull-right">
+            <a href="/javascript-goodies.html">JavaScript Goodies</a>
+            <a href="/about.html">Contact</a>
+        </div>
+        <a class="brand" href="/">bdadam.com</a>
+    </div>
+</nav>
+
+
+<div class="container">
+    <article class="full-post">
+        <h1>Switching background color of an image with Gimp</h1>
+        <p class="legal">
+            2nd March 2014
+            | by <a href="/about.html">Adam Beres-Deak</a>
+            
+                | <i class="fa fa-tags"></i> design,  gimp,  color,  tutorial 
+            
+        </p>
+        <p class="share-bar"></p>
+
+        <p>As a web developers we sometimes come across some tasks which are not that strictly related to development, but rather to design. For me such a task was a few days ago, when I found a neat background pattern, but the color just didn&#x27;t fit the site I was working on.</p>
+
+
+        <p>For this mini tutorial I&#39;m using this <a href="http://subtlepatterns.com/food/" rel="external,nofollow">pattern from subtlepatterns.com</a></p>
+<div class="text-center">
+    <img src="/static/article-assets/gimp-background-change/food.png" alt="Original background pattern"/>
+    &nbsp;
+    <img src="/static/article-assets/gimp-background-change/food_blue.png" alt="Modified pattern with different background color"/>
+    <p>Before on the left, after on the right</p>
+</div>
+
+<h2 id="here-is-what-to-do-">Here is what to do:</h2>
+<ol>
+<li>Open the picture in Gimp</li>
+<li>Get the hex code of the color, which you want to switch (in this case fac564)</li>
+<li>Then go to Colors &gt; Color to Alpha... (If it&#39;s grayed out, just switch the Image &gt; Mode from Indexed to <strong>RGB</strong>)</li>
+<li>After this you should see the same image, just with transparent background color. So now we create a new background layer with the desired color.</li>
+<li>At the end just export the new image and have fun</li>
+</ol>
+<h2 id="the-steps-as-images">The steps as images</h2>
+<p><img src="/static/article-assets/gimp-background-change/gimp-capture-color-code.jpg" alt="Capturing color code" title="Capturing color code"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha-grayed-out.jpg" alt="Color to Alpha grayed out" title="Color to Alpha grayed out"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-change-mode-to-rgb.jpg" alt="Image mode to RGB" title="Image mode to RGB"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha.jpg" alt="Color to Alpha" title="Color to Alpha"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha-window.jpg" alt="Color to Alpha window" title="Color to Alpha window"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-new-background-layer.jpg" alt="Final step - creating new background layer with desired color" title="Final step - creating new background layer with desired color"/></p>
+
+
+        <p class="share-bar"></p>
+        <a id="comments"></a>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_shortname = 'bdadamcom';
+            (function() {
+                var d = document.createElement('script'); d.async = true;
+                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(d, s);
+            }());
+        </script>
+    </article>
+
+    <h4>Latest blog posts</h4>
+    
+        
+    
+        
+            <p><a href="/blog/panning-and-scrolling-background-images-using-the-canvas-element.html">Panning and scrolling background images using the canvas element <span class="muted"><small>1st March 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/finding-a-random-document-in-mongodb.html">Finding a random document in MongoDB (with benchmarks) <span class="muted"><small>15th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/tracking-clicks-with-google-analytics.html">Tracking clicks with Google Analytics <span class="muted"><small>14th February 2014</small></span></a></p>
+        
+    
+        
+            <p><a href="/blog/comparison-helper-for-handlebars.html">Comparison helper for Handlebars.js <span class="muted"><small>13th February 2014</small></span></a></p>
+        
+    
+</div>
+
+<footer>
+    <p>Adam Beres-Deak &copy; 2014 | <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p>
+    <p class="legal container">
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
+        Code samples are licensed under the MIT license.
+    </p>
+</footer>
+<script src="/static/main.js?175a1b8b" async></script>
+</body>
+</html>

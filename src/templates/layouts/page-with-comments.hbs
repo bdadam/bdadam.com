@@ -1,0 +1,26 @@
+---
+layout: layout.hbs
+---
+
+<div class="container">
+    <h1>{{ page.data.title }}</h1>
+    <p>
+        On this page I am collecting some interesting,
+        funny or tricky JavaScript snippets, which are interesting enough to write about,
+        but are too small for an own blog post.
+    </p>
+    <p class="share-bar"></p>
+    {{#markdown}}{{ body }}{{/markdown}}
+    <p class="share-bar"></p>
+    <a id="comments"></a>
+    <div id="disqus_thread"></div>
+</div>
+<script>
+    var disqus_shortname = 'bdadamcom';
+    (function() {
+        var d = document.createElement('script'); d.async = true;
+        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(d, s);
+    }());
+</script>
