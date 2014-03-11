@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Switching background color of an image with Gimp</title>
-    <meta name="description" content="Design task - changing the background color of a pattern with Gimp"/>
-    <meta property="og:description" content="As a web developers we sometimes come across some tasks which are not that strictly related to development, but rather to design. For me such a task was a few days ago, when I found a neat background pattern, but the color just didn&#x27;t fit the site I was working on."/>
+    <title>Automatically loading Grunt tasks with matchdep</title>
+    <meta name="description" content="Matchdep is a handy tool for filtering dependencies in node.js projects"/>
+    <meta property="og:description" content="Have you ever installed a new GruntJS-plugin and then forgotten to load it as a task in the gruntfile.js? Matchdep is a handy tool, which can solve this issue."/>
 
     <link href="/static/main.css?11275b9f" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
@@ -41,42 +41,30 @@
 
 <div class="container">
     <article class="full-post">
-        <h1>Switching background color of an image with Gimp</h1>
+        <h1>Automatically loading Grunt tasks with matchdep</h1>
         <p class="legal">
-            2nd March 2014
+            11th March 2014
             | by <a href="/about.html">Adam Beres-Deak</a>
             
-                | <i class="fa fa-tags"></i> design,  gimp,  color,  tutorial 
+                | <i class="fa fa-tags"></i> javascript,  node.js,  grunt 
             
         </p>
         <p class="share-bar"></p>
 
-        <p>As a web developers we sometimes come across some tasks which are not that strictly related to development, but rather to design. For me such a task was a few days ago, when I found a neat background pattern, but the color just didn&#x27;t fit the site I was working on.</p>
+        <p>Have you ever installed a new GruntJS-plugin and then forgotten to load it as a task in the gruntfile.js? Matchdep is a handy tool, which can solve this issue.</p>
 
 
-        <p>For this mini tutorial I&#39;m using this <a href="http://subtlepatterns.com/food/" rel="external,nofollow">pattern from subtlepatterns.com</a></p>
-<div class="text-center">
-    <img src="/static/article-assets/gimp-background-change/food.png" alt="Original background pattern"/>
-    &nbsp;
-    <img src="/static/article-assets/gimp-background-change/food_blue.png" alt="Modified pattern with different background color"/>
-    <p>Before on the left, after on the right</p>
-</div>
-
-<h2 id="here-is-what-to-do-">Here is what to do:</h2>
-<ol>
-<li>Open the picture in Gimp</li>
-<li>Get the hex code of the color, which you want to switch (in this case fac564)</li>
-<li>Then go to Colors &gt; Color to Alpha... (If it&#39;s grayed out, just switch the Image &gt; Mode from Indexed to <strong>RGB</strong>)</li>
-<li>After this you should see the same image, just with transparent background color. So now we create a new background layer with the desired color.</li>
-<li>At the end just export the new image and have fun</li>
-</ol>
-<h2 id="the-steps-as-images">The steps as images</h2>
-<p><img src="/static/article-assets/gimp-background-change/gimp-capture-color-code.jpg" alt="Capturing color code" title="Capturing color code"/></p>
-<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha-grayed-out.jpg" alt="Color to Alpha grayed out" title="Color to Alpha grayed out"/></p>
-<p><img src="/static/article-assets/gimp-background-change/gimp-change-mode-to-rgb.jpg" alt="Image mode to RGB" title="Image mode to RGB"/></p>
-<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha.jpg" alt="Color to Alpha" title="Color to Alpha"/></p>
-<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha-window.jpg" alt="Color to Alpha window" title="Color to Alpha window"/></p>
-<p><img src="/static/article-assets/gimp-background-change/gimp-new-background-layer.jpg" alt="Final step - creating new background layer with desired color" title="Final step - creating new background layer with desired color"/></p>
+        <h2 id="what-is-matchdep-">What is matchdep?</h2>
+<p>Matchdep is a tool which can filter node.js dependencies, which are in the <code>package.json</code> file.</p>
+<p>Installing it is very easy: <code>npm install --save matchdep</code></p>
+<h2 id="automatically-loading-gruntjs-tasks">Automatically loading GruntJS tasks</h2>
+<pre><code class="language-JavaScript">require(&#39;matchdep&#39;).filterDev(&#39;grunt-*&#39;).forEach(grunt.loadNpmTasks);</code></pre>
+<p>What we are doing here is: basically reading all (dev)dependencies from the <code>package.json</code> and filtering those out which begin with &#39;grunt-&#39;.
+These are tasks like all Grunt contrib tasks (<code>grunt-contrib-concat</code>, <code>grunt-contrib-less</code>, <code>grunt-contrib-copy</code>, etc.)
+and other Grunt specific tasks (like <code>grunt-browserify</code> or <code>grunt-hashres</code>).
+After filtering we load them as tasks.</p>
+<h2 id="what-can-matchdep-be-used-for-besides-loading-grunt-tasks-">What can <code>matchdep</code> be used for besides loading Grunt tasks?</h2>
+<p>Honestly I must say, I have no idea. But this is still pretty cool, that we don&#39;t have to include each grunt plugin individually.</p>
 
 
         <p class="share-bar"></p>
@@ -96,13 +84,13 @@
     <h4>Latest blog posts</h4>
     
         
-            <p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p>
-        
     
         
             <p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p>
         
     
+        
+            <p><a href="/blog/switching-background-color-with-gimp.html">Switching background color of an image with Gimp <span class="muted"><small>2nd March 2014</small></span></a></p>
         
     
         

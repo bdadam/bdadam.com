@@ -7,6 +7,144 @@
         <description>Blog</description>
         
         <item>
+            <title>Automatically loading Grunt tasks with matchdep</title>
+            <link>http://bdadam.com/blog/automatically-loading-grunt-tasks-with-matchdep.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever installed a new GruntJS-plugin and then forgotten to load it as a task in the gruntfile.js? Matchdep is a handy tool, which can solve this issue.</p>
+
+                <h2 id="what-is-matchdep-">What is matchdep?</h2>
+<p>Matchdep is a tool which can filter node.js dependencies, which are in the <code>package.json</code> file.</p>
+<p>Installing it is very easy: <code>npm install --save matchdep</code></p>
+<h2 id="automatically-loading-gruntjs-tasks">Automatically loading GruntJS tasks</h2>
+<pre><code class="language-JavaScript">require(&#39;matchdep&#39;).filterDev(&#39;grunt-*&#39;).forEach(grunt.loadNpmTasks);</code></pre>
+<p>What we are doing here is: basically reading all (dev)dependencies from the <code>package.json</code> and filtering those out which begin with &#39;grunt-&#39;.
+These are tasks like all Grunt contrib tasks (<code>grunt-contrib-concat</code>, <code>grunt-contrib-less</code>, <code>grunt-contrib-copy</code>, etc.)
+and other Grunt specific tasks (like <code>grunt-browserify</code> or <code>grunt-hashres</code>).
+After filtering we load them as tasks.</p>
+<h2 id="what-can-matchdep-be-used-for-besides-loading-grunt-tasks-">What can <code>matchdep</code> be used for besides loading Grunt tasks?</h2>
+<p>Honestly I must say, I have no idea. But this is still pretty cool, that we don&#39;t have to include each grunt plugin individually.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>A simple usability trick for Google Maps</title>
+            <link>http://bdadam.com/blog/simple-usability-trick-for-google-maps.html</link>
+            <description>
+                <![CDATA[
+                <p>Embedding Google Maps in a website is very easy with its JavaScript API. A simple trick can improve the usability of large maps when users scroll with the mouse wheel over them.</p>
+
+                <h2 id="usability-problem">Usability problem</h2>
+<p>If you embed Google Maps via its JavaScript API, there is usually a usability question:
+<em>What should happen, when the users scrolls over the map with their mouse wheels?</em>
+The API defaults say: the user should zoom the map.</p>
+<p>But that&#39;s in many cases not what users would expect. Especially when the map is large.
+Sometimes they just want to scroll the page without zooming the map or having any interaction with it at all.</p>
+<h2 id="how-to-solve-it">How to solve it</h2>
+<p>There is a possible solution which is very easy and works for many users:</p>
+<ol>
+<li>Before they had any interaction with the map, disable zooming with the mouse wheel</li>
+<li>After they had an interaction, enable zooming with the mouse wheel</li>
+<li>When they click away, or interact with other parts of the page, disable zooming with mouse wheel again</li>
+</ol>
+<h2 id="demo">Demo</h2>
+<ol>
+<li>Just scroll with the mouse wheel over the map</li>
+<li>Click onto the map</li>
+<li>Start zooming in and out with the mouse wheel</li>
+<li>Click somewhere outside of the map</li>
+<li>Scroll with mouse wheel over the map to just scroll the page</li>
+<li>Repeat these steps [at most a few times - no endless loop :)]</li>
+</ol>
+<p><div id="map" style="width: 100%; height: 350px; position: relative;"></div></p>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+    $(function() {
+        var el = $('#map');
+        var map;
+
+        function enableScrollingWithMouseWheel() {
+            map.setOptions({ scrollwheel: true });
+        }
+
+        function disableScrollingWithMouseWheel() {
+            map.setOptions({ scrollwheel: false });
+        }
+
+        function init() {
+            map = new google.maps.Map(el[0], {
+                zoom: 10,
+                center: new google.maps.LatLng(47.49840560, 19.04075779),
+                scrollwheel: false // disableScrollingWithMouseWheel as default
+            });
+
+            google.maps.event.addListener(map, 'click', function(){
+                enableScrollingWithMouseWheel()
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', init);
+
+        $('body').on('click', function(event) {
+            var clickedInsideMap = $(event.target).parents('#map').length > 0;
+
+            if(!clickedInsideMap) {
+                disableScrollingWithMouseWheel();
+            }
+        });
+
+        $(window).scroll(function() {
+            disableScrollingWithMouseWheel();
+        });
+    });
+</script>
+
+<h2 id="source-code">Source code</h2>
+<pre><code class="language-JavaScript">var el = $(&#39;#map&#39;);
+var map;
+
+function enableScrollingWithMouseWheel() {
+    map.setOptions({ scrollwheel: true });
+}
+
+function disableScrollingWithMouseWheel() {
+    map.setOptions({ scrollwheel: false });
+}
+
+function init() {
+    map = new google.maps.Map(el[0], {
+        zoom: 10,
+        center: new google.maps.LatLng(47.49840560, 19.04075779),
+        scrollwheel: false // disableScrollingWithMouseWheel as default
+    });
+
+    google.maps.event.addListener(map, &#39;click&#39;, function(){
+        enableScrollingWithMouseWheel()
+    });
+}
+
+google.maps.event.addDomListener(window, &#39;load&#39;, init);
+
+$(&#39;body&#39;).on(&#39;click&#39;, function(event) {
+    var clickedInsideMap = $(event.target).parents(&#39;#map&#39;).length &gt; 0;
+
+    if(!clickedInsideMap) {
+        disableScrollingWithMouseWheel();
+    }
+});
+
+$(window).scroll(function() {
+    disableScrollingWithMouseWheel();
+});</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Switching background color of an image with Gimp</title>
             <link>http://bdadam.com/blog/switching-background-color-with-gimp.html</link>
             <description>
