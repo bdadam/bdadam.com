@@ -77,7 +77,7 @@ function draw(delta) {
 }
 ```
 
-## All the code which calls our `daw()` functions
+## All the code which calls our `draw()` function
 In order for this to work, we have some more work to do. This is the setup code I used for these examples.
 1. I used some basic `requestAnimationFrame` polyfill
 1. The animation gets only started after the image is loaded successfully (onload).
