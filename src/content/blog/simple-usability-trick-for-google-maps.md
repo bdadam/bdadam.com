@@ -12,7 +12,7 @@ tags:
 ---
 ## Usability problem
 If you embed Google Maps via its JavaScript API, there is usually a usability question:
-*What should happen, when the users scrolls over the map with their mouse wheels?*
+*What should happen, when the users scroll over the map with their mouse wheels?*
 The API defaults say: the user should zoom the map.
 
 But that's in many cases not what users would expect. Especially when the map is large.
@@ -55,14 +55,14 @@ There is a possible solution which is very easy and works for many users:
                 scrollwheel: false // disableScrollingWithMouseWheel as default
             });
 
-            google.maps.event.addListener(map, 'click', function(){
+            google.maps.event.addListener(map, 'mousedown', function(){
                 enableScrollingWithMouseWheel()
             });
         }
 
         google.maps.event.addDomListener(window, 'load', init);
 
-        $('body').on('click', function(event) {
+        $('body').on('mousedown', function(event) {
             var clickedInsideMap = $(event.target).parents('#map').length > 0;
 
             if(!clickedInsideMap) {
@@ -75,6 +75,10 @@ There is a possible solution which is very easy and works for many users:
         });
     });
 </script>
+
+## Update (16/03/2014)
+I edited the source code to use `mousedown` event instead of `click`.
+This helps when the user drags the map - dragging counts also as an interaction with the map.
 
 ## Source code
 ```JavaScript
@@ -96,14 +100,14 @@ function init() {
         scrollwheel: false // disableScrollingWithMouseWheel as default
     });
 
-    google.maps.event.addListener(map, 'click', function(){
+    google.maps.event.addListener(map, 'mousedown', function(){
         enableScrollingWithMouseWheel()
     });
 }
 
 google.maps.event.addDomListener(window, 'load', init);
 
-$('body').on('click', function(event) {
+$('body').on('mousedown', function(event) {
     var clickedInsideMap = $(event.target).parents('#map').length > 0;
 
     if(!clickedInsideMap) {

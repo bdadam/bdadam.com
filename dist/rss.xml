@@ -38,7 +38,7 @@ After filtering we load them as tasks.</p>
 
                 <h2 id="usability-problem">Usability problem</h2>
 <p>If you embed Google Maps via its JavaScript API, there is usually a usability question:
-<em>What should happen, when the users scrolls over the map with their mouse wheels?</em>
+<em>What should happen, when the users scroll over the map with their mouse wheels?</em>
 The API defaults say: the user should zoom the map.</p>
 <p>But that&#39;s in many cases not what users would expect. Especially when the map is large.
 Sometimes they just want to scroll the page without zooming the map or having any interaction with it at all.</p>
@@ -81,14 +81,14 @@ Sometimes they just want to scroll the page without zooming the map or having an
                 scrollwheel: false // disableScrollingWithMouseWheel as default
             });
 
-            google.maps.event.addListener(map, 'click', function(){
+            google.maps.event.addListener(map, 'mousedown', function(){
                 enableScrollingWithMouseWheel()
             });
         }
 
         google.maps.event.addDomListener(window, 'load', init);
 
-        $('body').on('click', function(event) {
+        $('body').on('mousedown', function(event) {
             var clickedInsideMap = $(event.target).parents('#map').length > 0;
 
             if(!clickedInsideMap) {
@@ -102,6 +102,9 @@ Sometimes they just want to scroll the page without zooming the map or having an
     });
 </script>
 
+<h2 id="update-16-03-2014-">Update (16/03/2014)</h2>
+<p>I edited the source code to use <code>mousedown</code> event instead of <code>click</code>.
+This helps when the user drags the map - dragging counts also as an interaction with the map.</p>
 <h2 id="source-code">Source code</h2>
 <pre><code class="language-JavaScript">var el = $(&#39;#map&#39;);
 var map;
@@ -121,14 +124,14 @@ function init() {
         scrollwheel: false // disableScrollingWithMouseWheel as default
     });
 
-    google.maps.event.addListener(map, &#39;click&#39;, function(){
+    google.maps.event.addListener(map, &#39;mousedown&#39;, function(){
         enableScrollingWithMouseWheel()
     });
 }
 
 google.maps.event.addDomListener(window, &#39;load&#39;, init);
 
-$(&#39;body&#39;).on(&#39;click&#39;, function(event) {
+$(&#39;body&#39;).on(&#39;mousedown&#39;, function(event) {
     var clickedInsideMap = $(event.target).parents(&#39;#map&#39;).length &gt; 0;
 
     if(!clickedInsideMap) {
