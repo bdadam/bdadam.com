@@ -1,8 +1,9 @@
 ---
 layout: layout.hbs
 ---
-<div class="container">
-    <article class="full-post">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<article class="full-post">
+    <div class="container">
         <h1>{{ title }}</h1>
         <p class="legal">
             {{formatdate date "Do MMMM YYYY"}}
@@ -13,8 +14,15 @@ layout: layout.hbs
         </p>
         <p class="share-bar"></p>
 
+        <div class="abstract">
         {{#markdown}}{{ abstract }}{{/markdown}}
+        </div>
+    </div>
 
+    <div class="post-ad-container"><ins class="adsbygoogle post-ad" data-ad-client="ca-pub-5929668271730964" data-ad-slot="5667957726"></ins></div>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+    <div class="container">
         {{#markdown}}{{ body }}{{/markdown}}
 
         <p class="share-bar"></p>
@@ -29,12 +37,13 @@ layout: layout.hbs
                 s.parentNode.insertBefore(d, s);
             }());
         </script>
-    </article>
 
-    <h4>Latest blog posts</h4>
-    {{#latestPosts pages max=5}}
-        {{#ifCond data.title "!==" ../title}}
-            <p><a href="/blog/{{ relativeLink }}">{{data.title}} <span class="muted"><small>{{formatdate data.date "Do MMMM YYYY"}}</small></span></a></p>
-        {{/ifCond}}
-    {{/latestPosts}}
-</div>
+        <h4>Latest blog posts</h4>
+        {{#latestPosts pages max=5}}
+            {{#ifCond data.title "!==" ../title}}
+                <p><a href="/blog/{{ relativeLink }}">{{data.title}} <span class="muted"><small>{{formatdate data.date "Do MMMM YYYY"}}</small></span></a></p>
+            {{/ifCond}}
+        {{/latestPosts}}
+    </div>
+</article>
+

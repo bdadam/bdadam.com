@@ -8,6 +8,9 @@ module.exports = {
         if (location.hostname !== 'localhost') {
             ga('create', 'UA-47485340-1', 'bdadam.com');
             ga('send', 'pageview');
+
+            ga('create', 'UA-49233936-1', 'bdadam.com', { name: 'x'});
+            ga('x.send', 'pageview');
         }
     },
     trackEvent: function(category, action, label, value) {
