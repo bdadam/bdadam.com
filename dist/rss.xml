@@ -7,6 +7,53 @@
         <description>Blog</description>
         
         <item>
+            <title>Boilerplate for static site generation</title>
+            <link>http://bdadam.com/blog/static-site-generation-boilerplate.html</link>
+            <description>
+                <![CDATA[
+                <p>As I already mentioned before, I really like simple things like static webpages. To speed things up, I created a boilerplate, which can be used by anybody to generate static websites.</p>
+
+                <p><a href="/blog/why-i-chose-a-statically-generated-website.html">This blog is also statically generated.</a>
+Statically generating websites has many advantages. Some of these are</p>
+<ol>
+<li>These sites can be hosted everywhere</li>
+<li>No backend to be hacked</li>
+<li>Outstanding performance</li>
+<li>etc.</li>
+</ol>
+<p>The boilerplate code can be found on GitHub: <a href="https://github.com/bdadam/static-site-boilerplate">bdadam/static-site-boilerplate</a></p>
+<h2 id="what-can-this-boilerplate-do-for-you-">What can this boilerplate do for you?</h2>
+<ol>
+<li>It generates html from markdown files with the help of <a href="http://assemble.io/">Assemble</a>.</li>
+<li>It generates minified and optimized css file(s) with less and uncss</li>
+<li>It generates minified and optimized JavaScript files with RequireJS</li>
+<li>During development the affected files are regenerated when something changes (GruntJS watch task)</li>
+<li>Local webserver with Livereload to immediately see what changes and what does it look like</li>
+</ol>
+<h2 id="how-to-use-it-">How to use it?</h2>
+<ol>
+<li>Clone this repository <code>git clone https://github.com/bdadam/static-site-boilerplate</code></li>
+<li>Install node dependencies <code>npm install</code></li>
+<li>Install bower dependencies <code>bower install</code></li>
+<li>Simply run <code>grunt build</code> to see that everything works</li>
+<li>Run <code>grunt</code> for starting &quot;development mode&quot;</li>
+<li>Then edit some files in the <code>content</code> folder and watch the html being regenerated and automatically refreshed in the browser</li>
+</ol>
+<h2 id="what-is-planned-for-future-releases-">What is planned for future releases?</h2>
+<ol>
+<li>Automatically running JavaScript unit tests with Jasmine</li>
+<li>Supporting <code>browserify</code> for building JavaScript files</li>
+<li>Adding some Handlebars helpers</li>
+<li>Maybe some more partials and templates</li>
+<li>Some real examples where you can see it in action</li>
+</ol>
+<p><strong>I would be glad to hear your feedback in the comments.</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Automatically loading Grunt tasks with matchdep</title>
             <link>http://bdadam.com/blog/automatically-loading-grunt-tasks-with-matchdep.html</link>
             <description>

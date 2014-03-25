@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Building desktop apps with node.js and web technologies</title>
-    <meta name="description" content="The node-webkit project makes it possible to write standalone desktop apps with JavaScript, HTML5 and CSS3"/>
-    <meta property="og:description" content="Native apps with web technologies are not a mobile-only thing anymore. The node-webkit project makes it possible to write standalone desktop apps with JavaScript, HTML5 and CSS3. The coolest thing about this is, that both server side (node.js) and client side (jQuery, AngularJS, etc.) JavaScript libraries can be used."/>
+    <title>Boilerplate for static site generation</title>
+    <meta name="description" content="Boilerplate code for generating static websites with node.js, GruntJS and Assembe."/>
+    <meta property="og:description" content="As I already mentioned before, I really like simple things like static webpages. To speed things up, I created a boilerplate, which can be used by anybody to generate static websites."/>
 
     <link href="/static/main.css?4421eeb7" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
@@ -42,18 +42,18 @@
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <article class="full-post">
     <div class="container">
-        <h1>Building desktop apps with node.js and web technologies</h1>
+        <h1>Boilerplate for static site generation</h1>
         <p class="legal">
-            4th February 2014
+            25th March 2014
             | by <a href="/about.html">Adam Beres-Deak</a>
             
-                | <i class="fa fa-tags"></i> node.js,  webkit,  desktop apps 
+                | <i class="fa fa-tags"></i> static website,  boilerplate 
             
         </p>
         <p class="share-bar"></p>
 
         <div class="abstract">
-        <p>Native apps with web technologies are not a mobile-only thing anymore. The node-webkit project makes it possible to write standalone desktop apps with JavaScript, HTML5 and CSS3. The coolest thing about this is, that both server side (node.js) and client side (jQuery, AngularJS, etc.) JavaScript libraries can be used.</p>
+        <p>As I already mentioned before, I really like simple things like static webpages. To speed things up, I created a boilerplate, which can be used by anybody to generate static websites.</p>
 
         </div>
     </div>
@@ -62,34 +62,41 @@
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
     <div class="container">
-        <p><img src="/static/article-assets/node-webkit-screen.png"/></p>
-<p class="legal center">Screenshot of a hello world app created with node-webkit</p>
-
-<p>A few hours ago I found this project called <a href="https://github.com/rogerwang/node-webkit" rel="external,nofollow">node-webkit</a>.
-It seems to be living and mature enough to use it. But since I don&#39;t need it now, I blog about it, so that I can remember it in the appropriate moment.</p>
-<h2 id="how-does-it-work-">How does it work?</h2>
+        <p><a href="/blog/why-i-chose-a-statically-generated-website.html">This blog is also statically generated.</a>
+Statically generating websites has many advantages. Some of these are</p>
 <ol>
-<li>Write your application.</li>
-<li>Create a zip file of all your assets (call it package.nw).</li>
-<li>You can just ship this file along with the node-webkit executable file</li>
-<li>Alternatively you can create an executable file from the package with a few dll files along</li>
-<li>If you want to have a single executable file, it&#39;s recommended to box the files with <a href="http://enigmaprotector.com/en/aboutvb.html" rel="external,nofollow">Enigma Virtual Box</a></li>
+<li>These sites can be hosted everywhere</li>
+<li>No backend to be hacked</li>
+<li>Outstanding performance</li>
+<li>etc.</li>
 </ol>
-<h2 id="attack-of-the-contexts">Attack of the contexts</h2>
-<p>There is a concept which might be a little crazy at first sight. There are different contexts with different global object for node modules and UI windows.
-In the web context we have a <code>window</code> object (or many if we have multiple windows), which we don&#39;t have in a node module.
-If we have to reach the window object of the current UI context, we have to pass it to the node module.
-We get most of the problem with <code>instanceof</code> because the constructors like <code>Array</code> or <code>Date</code> are children of the context-dependent global object.
-After just quickly building a &quot;hello world&quot; app I can&#39;t really tell to what extent this can be a problem or difficulty.</p>
-<h2 id="supported-platforms">Supported platforms</h2>
-<p>There are prebuilt binaries for Windows, OSX and Linux.</p>
-<p><strong>References:</strong></p>
-<ul>
-<li>For more details and docs take a look at the <a href="https://github.com/rogerwang/node-webkit" rel="external,nofollow">project&#39;s Github site</a>.
-The features are well-documented.</li>
-<li><a href="http://strongloop.com/strongblog/creating-desktop-applications-with-node-webkit/" rel="external,nofollow">Creating Desktop Applications With node-webkit </a></li>
-<li><a href="http://oldgeeksguide.github.io/presentations/html5devconf2013/wtod.html#/" rel="external,nofollow">WebApp to DesktopApp with Node-Webkit</a></li>
-</ul>
+<p>The boilerplate code can be found on GitHub: <a href="https://github.com/bdadam/static-site-boilerplate">bdadam/static-site-boilerplate</a></p>
+<h2 id="what-can-this-boilerplate-do-for-you-">What can this boilerplate do for you?</h2>
+<ol>
+<li>It generates html from markdown files with the help of <a href="http://assemble.io/">Assemble</a>.</li>
+<li>It generates minified and optimized css file(s) with less and uncss</li>
+<li>It generates minified and optimized JavaScript files with RequireJS</li>
+<li>During development the affected files are regenerated when something changes (GruntJS watch task)</li>
+<li>Local webserver with Livereload to immediately see what changes and what does it look like</li>
+</ol>
+<h2 id="how-to-use-it-">How to use it?</h2>
+<ol>
+<li>Clone this repository <code>git clone https://github.com/bdadam/static-site-boilerplate</code></li>
+<li>Install node dependencies <code>npm install</code></li>
+<li>Install bower dependencies <code>bower install</code></li>
+<li>Simply run <code>grunt build</code> to see that everything works</li>
+<li>Run <code>grunt</code> for starting &quot;development mode&quot;</li>
+<li>Then edit some files in the <code>content</code> folder and watch the html being regenerated and automatically refreshed in the browser</li>
+</ol>
+<h2 id="what-is-planned-for-future-releases-">What is planned for future releases?</h2>
+<ol>
+<li>Automatically running JavaScript unit tests with Jasmine</li>
+<li>Supporting <code>browserify</code> for building JavaScript files</li>
+<li>Adding some Handlebars helpers</li>
+<li>Maybe some more partials and templates</li>
+<li>Some real examples where you can see it in action</li>
+</ol>
+<p><strong>I would be glad to hear your feedback in the comments.</strong></p>
 
 
         <p class="share-bar"></p>
@@ -107,8 +114,6 @@ The features are well-documented.</li>
 
         <h4>Latest blog posts</h4>
         
-            
-                <p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p>
             
         
             
