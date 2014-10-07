@@ -20,10 +20,6 @@ nav {
   display: block;
   position: relative;
   background-color: #34495E;
-  //background-color: #272727;
-  //background-color: #3eaacc;
-  
-  z-index: 2;
   vertical-align: middle;
   text-transform: uppercase;
 
@@ -45,18 +41,36 @@ nav {
     display: inline-block;
     vertical-align: middle;
     padding: 1rem 0;
+
+    &:hover, &:active {
+      color: #fff;
+    }
   }
 }
 
 .btn-readmore {
+  @bg-color: #0095d5;
+
   display: block;
   text-align: center;
   padding: 5px 12px;
   border-radius: 4px;
-  background-color: #0095d5;
+  background-color: @bg-color;
   color: #fff;
 
   text-transform: uppercase;
+
+  &:hover {
+    text-decoration: none;
+    background-color: darken(@bg-color, 10%);
+    color: #fff;
+  }
+
+  &:active {
+    text-decoration: none;
+    background-color: darken(@bg-color, 20%);
+    color: #fff;
+  }
 }
 
 footer {
@@ -148,9 +162,9 @@ h2 {
   position: relative;
   height: 280px;
   border-bottom: 1px solid #dedede;
-  //margin-bottom: 32px;
   background-image: url(/static/img/bg_480.jpg);
   background-position: center top;
+  background-repeat: no-repeat;
 }
 
 .abstract {
@@ -160,3 +174,33 @@ h2 {
 .social-links {
   display: block;
 }
+
+@media screen and (min-width: 480px) {
+  .index-head {
+    background-image: url(/static/img/bg_1024.jpg);
+
+  }
+}
+
+@media screen and (min-width: 768px) {
+  nav {
+    .menu-icon {
+      display: none;
+    }
+
+    #menu {
+      display: inline-block;
+      a {
+        display: inline-block;
+        margin-left: 32px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .index-head {
+    background-image: url(/static/img/bg_1920.jpg);
+  }
+}
+
