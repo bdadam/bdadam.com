@@ -6,8 +6,36 @@
     <meta name="description" content="JavaScript supports modern properties. Let&#x27;s take a look at how to define and use them."/>
     <meta property="og:description" content="JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types."/>
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&subset=latin,latin-ext' rel='stylesheet'>
-    <link href="/static/main.css?39a9030d" rel="stylesheet"/>
+    <script>
+    (function(){
+        function addFont() {
+            var style = document.createElement('style');
+            style.textContent = localStorage.sourceSansPro;
+            style.rel = 'stylesheet';
+            document.head.appendChild(style);
+        }
+
+        try {
+            if (localStorage.sourceSansPro) {
+                addFont();
+            } else {
+                var request = new XMLHttpRequest();
+                request.open('GET', '/static/source-sans-pro.woff.css', true);
+
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 400) {
+                        localStorage.sourceSansPro = request.responseText;
+                        addFont();
+                    }
+                }
+
+                request.send();
+            }
+        } catch(ex) {}
+    }());
+    </script>
+
+    <link href="/static/main.css?e53ce377" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
@@ -146,6 +174,10 @@ For more detailed performance tests take a look at <a href="http://jsperf.com/ob
     <h4>Latest blog posts</h4>
     
         
+            <p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p>
+        
+    
+        
             <p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p>
         
     
@@ -159,10 +191,6 @@ For more detailed performance tests take a look at <a href="http://jsperf.com/ob
     
         
             <p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/switching-background-color-with-gimp.html">Switching background color of an image with Gimp <span class="muted"><small>2nd March 2014</small></span></a></p>
         
     
 </article>

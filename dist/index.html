@@ -6,8 +6,36 @@
     
     
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&subset=latin,latin-ext' rel='stylesheet'>
-    <link href="/static/main.css?39a9030d" rel="stylesheet"/>
+    <script>
+    (function(){
+        function addFont() {
+            var style = document.createElement('style');
+            style.textContent = localStorage.sourceSansPro;
+            style.rel = 'stylesheet';
+            document.head.appendChild(style);
+        }
+
+        try {
+            if (localStorage.sourceSansPro) {
+                addFont();
+            } else {
+                var request = new XMLHttpRequest();
+                request.open('GET', '/static/source-sans-pro.woff.css', true);
+
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 400) {
+                        localStorage.sourceSansPro = request.responseText;
+                        addFont();
+                    }
+                }
+
+                request.send();
+            }
+        } catch(ex) {}
+    }());
+    </script>
+
+    <link href="/static/main.css?e53ce377" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>
@@ -54,6 +82,17 @@
 </p>
 
 <div class="container main">
+    
+        <article>
+            <h2 class="center"><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io</a></h2>
+            <p class="silent center">8th October 2014</p>
+            <p>There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work. Fortunately there is also a very handy tool, which makes use of this trick and does a great job.</p>
+
+            
+                <a href="/blog/optimistic-page-loading-with-instantclick-io.html" class="btn-readmore">read more</a>
+            
+        </article>
+        <hr/>
     
         <article>
             <h2 class="center"><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript</a></h2>

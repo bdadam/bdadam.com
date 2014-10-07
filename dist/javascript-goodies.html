@@ -6,8 +6,36 @@
     <meta name="description" content="My collection of small JavaScript snippets, which are interesting enough to write about, but too small for a blog post"/>
     
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&subset=latin,latin-ext' rel='stylesheet'>
-    <link href="/static/main.css?39a9030d" rel="stylesheet"/>
+    <script>
+    (function(){
+        function addFont() {
+            var style = document.createElement('style');
+            style.textContent = localStorage.sourceSansPro;
+            style.rel = 'stylesheet';
+            document.head.appendChild(style);
+        }
+
+        try {
+            if (localStorage.sourceSansPro) {
+                addFont();
+            } else {
+                var request = new XMLHttpRequest();
+                request.open('GET', '/static/source-sans-pro.woff.css', true);
+
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 400) {
+                        localStorage.sourceSansPro = request.responseText;
+                        addFont();
+                    }
+                }
+
+                request.send();
+            }
+        } catch(ex) {}
+    }());
+    </script>
+
+    <link href="/static/main.css?e53ce377" rel="stylesheet"/>
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="author" content="Adam Beres-Deak"/>

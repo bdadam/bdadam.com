@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta name="charset" content="utf-8"/>
-    <title>Generating sound effects with client side JavaScript</title>
-    <meta name="description" content="The easy way to generate simple 8-bit sound effects for games and apps in JavaScript"/>
-    <meta property="og:description" content="A few years ago I came across a simple library with which we can easily generate 8-bit sound effects for JavaScript games and apps. This library is very handy for hackathons or weekend coding sessions."/>
+    <title>Loading web pages really fast - optimistic page loading with Instantclick.io</title>
+    <meta name="description" content="How to turn traditional websites into single page apps with Instantclick.io"/>
+    <meta property="og:description" content="There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work. Fortunately there is also a very handy tool, which makes use of this trick and does a great job."/>
 
     <script>
     (function(){
@@ -71,57 +71,41 @@
 
 
 <article class="container main full-post">
-    <h1>Generating sound effects with client side JavaScript</h1>
+    <h1>Loading web pages really fast - optimistic page loading with Instantclick.io</h1>
     <p class="silent">
-        6th April 2014
+        8th October 2014
         | by <a href="/about.html">Adam Beres-Deak</a>
         
-            | <i class="fa fa-tags"></i> javascript,  sound,  client side 
+            | <i class="fa fa-tags"></i> javascript,  single page app,  click,  perfmatters 
         
     </p>
 
     <div class="abstract">
-    <p>A few years ago I came across a simple library with which we can easily generate 8-bit sound effects for JavaScript games and apps. This library is very handy for hackathons or weekend coding sessions.</p>
+    <p>There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work. Fortunately there is also a very handy tool, which makes use of this trick and does a great job.</p>
 
     </div>
 
-    <p>This small library is called <a href="https://github.com/egonelbre/jsfx">jsfx</a>. Info on usage and a demo site can be found on its GitHub page.</p>
-<h2 id="how-does-it-work-">How does it work?</h2>
-<p>This lib generates wave files as data URIs and then feeds them to an &lt;audio&gt; element.</p>
-<h2 id="demo">Demo</h2>
-<p>Just click on the buttons to play the corresponding sound effects.</p>
-<button id="btnPickup">Pick up a coin</button>
-<button id="btnLaser">Laser</button>
-<button id="btnJump">Jump</button>
-<button id="btnShoot">Shoot</button>
+    <p>As web developers we usually want to anything to load pages faster for the user. What about if started loading a page, before the user clicks a link?</p>
+<h2 id="optimistic-page-loading">Optimistic page loading</h2>
+<p>It is absolutely possible to make the user experience much better by loading content much faster.
+The trick is, to start (optimistically) loading the page when the user only just hovers over a link.
+There is a significant delay between hovering and clicking - usually more then 100 ms.
+We can use this time to prefetch the next page which is behind the link, so that we can show it right after the click event was fired.</p>
+<p>You can see this trick in action for example on this blog. Just click on some links on the page.</p>
+<h2 id="instantclick-io">Instantclick.io</h2>
+<p>You can get this tool here: <a href="http://instantclick.io/" rel="external,nofollow"><a href="http://instantclick.io/">http://instantclick.io/</a></a>.</p>
+<p>Just put a single script into your page and you should be almost fine. Maybe you need some blacklisting/whitelisting,
+so that some links are not prefetched automatically. Or maybe you want some scripts to execute on every request.
+Everything is easily doable. Just head over to the downloads section. There are some useful information about the integration.</p>
+<p>They also have a test page, where you can measure how much time you can shave off of the load time.
+It measures the time difference between mosuedown event and click event - and also between touchstart event and click event.</p>
+<h2 id="mousedown-instead-of-hover">Mousedown instead of hover</h2>
+<p>If a web page has many links, it is better to only prefetch when the user really pressed the mouse button.
+It still gives a decent advantage over the traditional way.</p>
+<h2 id="touch-support">Touch support</h2>
+<p>The library comes with touch support out of the box.</p>
+<p><strong>Do you like it?</strong> Do you already use this library? Tell me about your experience in the comments.</p>
 
-<script src="/static/article-assets/jsfx/audio.js"></script>
-<script src="/static/article-assets/jsfx/jsfx.js"></script>
-<script src="/static/article-assets/jsfx/jsfxlib.js"></script>
-<script>
-    (function load() {
-        if (!window.jsfxlib) {
-            return setTimeout(load, 100);
-        }
-
-        try {
-            function setup(id, params) {
-                var wave = jsfxlib.createWave(params);
-                document.getElementById(id).addEventListener('click', function() {
-                    wave.play();
-                });
-            }
-
-            setup('btnPickup', ["square",0.0000,0.4000,0.0000,0.0140,0.3900,0.3420,20.0000,1371.0000,2400.0000,0.0000,0.0000,0.0000,0.0100,0.0003,0.0000,0.3380,0.1920,0.0000,0.0000,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.0000,0.0000]);
-            setup('btnJump', ["square",0.0000,0.4000,0.0000,0.3680,0.0000,0.1460,20.0000,454.0000,2400.0000,0.3840,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.2210,0.0000,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.0000,0.0000]);
-            setup('btnShoot', ["saw",0.0000,0.4000,0.0000,0.2040,0.0000,0.3180,20.0000,951.0000,2400.0000,-0.5880,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.3440,0.1860,0.0000,0.1540,0.0100,1.0000,0.0000,0.0000,0.0390,0.0000]);
-            setup('btnLaser', ["square",0.0000,0.4000,0.0000,0.2100,0.0000,0.1840,20.0000,1180.0000,2400.0000,-0.5180,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.4990,-0.2120,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.1340,0.0000]);
-        }
-        catch(ex) {
-            setTimeout(load, 100);
-        }
-    }());
-</script>
 
     <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>
 
@@ -134,9 +118,9 @@
     <h4>Latest blog posts</h4>
     
         
-            <p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p>
-        
     
+        
+            <p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p>
         
     
         
