@@ -1,32 +1,50 @@
-require('./social').buildShareButtons();
-require('./tracking').load();
+'use strict';
 
-function loadCss(url) {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = url;
-    document.getElementsByTagName("head")[0].appendChild(link);
-}
+function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
 
-function loadScript(src) {
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = src;
-    var sc = document.getElementsByTagName('script')[0];
-    sc.parentNode.insertBefore(s, sc);
-}
-
-loadCss('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-loadCss('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
-loadScript('http://yandex.st/highlightjs/8.0/highlight.min.js');
-
-(function hlj() {
-    if (typeof window.hljs === 'undefined') {
-        return setTimeout(hlj, 100);
+function loadJS( src, cb ){
+    "use strict";
+    var ref = window.document.getElementsByTagName( "script" )[ 0 ];
+    var script = window.document.createElement( "script" );
+    script.src = src;
+    ref.parentNode.insertBefore( script, ref );
+    if (cb) {
+        script.onload = cb;
     }
+    return script;
+}
 
+function startCodeHighlighting() {
     var blocks = document.querySelectorAll('pre code');
     for (var i = 0, l = blocks.length; i < l; i++) {
         hljs.highlightBlock(blocks[i]);
     }
-}());
+}
+
+var disqusLoaded = false;
+
+var ic = require('./instantclick');
+
+ic.on('change', function(initialPageview) {
+
+    require('./menu').setup();
+    require('./social').buildShareButtons();
+
+    loadCSS('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+    loadCSS('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
+    loadJS('//yandex.st/highlightjs/8.0/highlight.min.js', startCodeHighlighting);
+
+    var disqusHasToLoad = !!document.getElementById('comments');
+
+    if (disqusLoaded && disqusHasToLoad) {
+        window.DISQUS && document.getElementById('comments') && window.DISQUS.reset({ reload: true });
+    }
+
+    if (!disqusLoaded && disqusHasToLoad) {
+        window.disqus_shortname = 'bdadamcom';
+        loadJS('//' + disqus_shortname + '.disqus.com/embed.js');
+        disqusLoaded = true;
+    }
+});
+
+ic.init();

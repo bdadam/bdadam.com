@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         clean: {
             static: ['dist/static/main.{css,js}'],
             xml: ['dist/{rss,sitemap}.xml'],
-            html: ['dist/**/*.html', '!dist/google*.html']
+            html: ['dist/**/*.html', '!dist/google*.html', '!dist/static/**/*.html']
         },
 
         less: {

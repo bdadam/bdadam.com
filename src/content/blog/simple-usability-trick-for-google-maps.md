@@ -34,46 +34,64 @@ There is a possible solution which is very easy and works for many users:
 
 <div id="map" style="width: 100%; height: 350px; position: relative;"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
-    $(function() {
-        var el = $('#map');
-        var map;
-
-        function enableScrollingWithMouseWheel() {
-            map.setOptions({ scrollwheel: true });
+    function loadScript() {
+        if (window.google && window.google.maps) {
+            window.loadMap();
+            return;
         }
 
-        function disableScrollingWithMouseWheel() {
-            map.setOptions({ scrollwheel: false });
+        var script = document.createElement('script');
+        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=loadMap';
+        document.body.appendChild(script);
+    }
+
+    window.loadMap = function() {
+        if (!window.$ || !window.google || !window.google) {
+            return setTimeout(loadMap, 100);
         }
 
-        function init() {
-            map = new google.maps.Map(el[0], {
-                zoom: 10,
-                center: new google.maps.LatLng(47.49840560, 19.04075779),
-                scrollwheel: false // disableScrollingWithMouseWheel as default
-            });
+        $(function() {
+            var el = $('#map');
+            var map;
 
-            google.maps.event.addListener(map, 'mousedown', function(){
-                enableScrollingWithMouseWheel()
-            });
-        }
-
-        google.maps.event.addDomListener(window, 'load', init);
-
-        $('body').on('mousedown', function(event) {
-            var clickedInsideMap = $(event.target).parents('#map').length > 0;
-
-            if(!clickedInsideMap) {
-                disableScrollingWithMouseWheel();
+            function enableScrollingWithMouseWheel() {
+                map.setOptions({ scrollwheel: true });
             }
-        });
 
-        $(window).scroll(function() {
-            disableScrollingWithMouseWheel();
+            function disableScrollingWithMouseWheel() {
+                map.setOptions({ scrollwheel: false });
+            }
+
+            function init() {
+                map = new google.maps.Map(el[0], {
+                    zoom: 10,
+                    center: new google.maps.LatLng(47.49840560, 19.04075779),
+                    scrollwheel: false // disableScrollingWithMouseWheel as default
+                });
+
+                google.maps.event.addListener(map, 'mousedown', function(){
+                    enableScrollingWithMouseWheel()
+                });
+            }
+
+            init();
+
+            $('body').on('mousedown', function(event) {
+                var clickedInsideMap = $(event.target).parents('#map').length > 0;
+
+                if(!clickedInsideMap) {
+                    disableScrollingWithMouseWheel();
+                }
+            });
+
+            $(window).scroll(function() {
+                disableScrollingWithMouseWheel();
+            });
         });
-    });
+    };
+
+    loadScript();
 </script>
 
 ## Update (16/03/2014)

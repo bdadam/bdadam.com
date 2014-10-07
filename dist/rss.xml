@@ -7,6 +7,54 @@
         <description>Blog</description>
         
         <item>
+            <title>Generating sound effects with client side JavaScript</title>
+            <link>http://bdadam.com/blog/generating-sound-effects-with-client-side-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>A few years ago I came across a simple library with which we can easily generate 8-bit sound effects for JavaScript games and apps. This library is very handy for hackathons or weekend coding sessions.</p>
+
+                <p>This small library is called <a href="https://github.com/egonelbre/jsfx">jsfx</a>. Info on usage and a demo site can be found on its GitHub page.</p>
+<h2 id="how-does-it-work-">How does it work?</h2>
+<p>This lib generates wave files as data URIs and then feeds them to an &lt;audio&gt; element.</p>
+<h2 id="demo">Demo</h2>
+<p>Just click on the buttons to play the corresponding sound effects.</p>
+<button id="btnPickup">Pick up a coin</button>
+<button id="btnLaser">Laser</button>
+<button id="btnJump">Jump</button>
+<button id="btnShoot">Shoot</button>
+
+<script src="/static/article-assets/jsfx/audio.js"></script>
+<script src="/static/article-assets/jsfx/jsfx.js"></script>
+<script src="/static/article-assets/jsfx/jsfxlib.js"></script>
+<script>
+    (function load() {
+        if (!window.jsfxlib) {
+            return setTimeout(load, 100);
+        }
+
+        try {
+            function setup(id, params) {
+                var wave = jsfxlib.createWave(params);
+                document.getElementById(id).addEventListener('click', function() {
+                    wave.play();
+                });
+            }
+
+            setup('btnPickup', ["square",0.0000,0.4000,0.0000,0.0140,0.3900,0.3420,20.0000,1371.0000,2400.0000,0.0000,0.0000,0.0000,0.0100,0.0003,0.0000,0.3380,0.1920,0.0000,0.0000,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.0000,0.0000]);
+            setup('btnJump', ["square",0.0000,0.4000,0.0000,0.3680,0.0000,0.1460,20.0000,454.0000,2400.0000,0.3840,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.2210,0.0000,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.0000,0.0000]);
+            setup('btnShoot', ["saw",0.0000,0.4000,0.0000,0.2040,0.0000,0.3180,20.0000,951.0000,2400.0000,-0.5880,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.3440,0.1860,0.0000,0.1540,0.0100,1.0000,0.0000,0.0000,0.0390,0.0000]);
+            setup('btnLaser', ["square",0.0000,0.4000,0.0000,0.2100,0.0000,0.1840,20.0000,1180.0000,2400.0000,-0.5180,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.4990,-0.2120,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.1340,0.0000]);
+        }
+        catch(ex) {
+            setTimeout(load, 100);
+        }
+    }());
+</script>
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Boilerplate for static site generation</title>
             <link>http://bdadam.com/blog/static-site-generation-boilerplate.html</link>
             <description>
@@ -107,46 +155,64 @@ Sometimes they just want to scroll the page without zooming the map or having an
 </ol>
 <p><div id="map" style="width: 100%; height: 350px; position: relative;"></div></p>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
-    $(function() {
-        var el = $('#map');
-        var map;
-
-        function enableScrollingWithMouseWheel() {
-            map.setOptions({ scrollwheel: true });
+    function loadScript() {
+        if (window.google && window.google.maps) {
+            window.loadMap();
+            return;
         }
 
-        function disableScrollingWithMouseWheel() {
-            map.setOptions({ scrollwheel: false });
+        var script = document.createElement('script');
+        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=loadMap';
+        document.body.appendChild(script);
+    }
+
+    window.loadMap = function() {
+        if (!window.$ || !window.google || !window.google) {
+            return setTimeout(loadMap, 100);
         }
 
-        function init() {
-            map = new google.maps.Map(el[0], {
-                zoom: 10,
-                center: new google.maps.LatLng(47.49840560, 19.04075779),
-                scrollwheel: false // disableScrollingWithMouseWheel as default
-            });
+        $(function() {
+            var el = $('#map');
+            var map;
 
-            google.maps.event.addListener(map, 'mousedown', function(){
-                enableScrollingWithMouseWheel()
-            });
-        }
-
-        google.maps.event.addDomListener(window, 'load', init);
-
-        $('body').on('mousedown', function(event) {
-            var clickedInsideMap = $(event.target).parents('#map').length > 0;
-
-            if(!clickedInsideMap) {
-                disableScrollingWithMouseWheel();
+            function enableScrollingWithMouseWheel() {
+                map.setOptions({ scrollwheel: true });
             }
-        });
 
-        $(window).scroll(function() {
-            disableScrollingWithMouseWheel();
+            function disableScrollingWithMouseWheel() {
+                map.setOptions({ scrollwheel: false });
+            }
+
+            function init() {
+                map = new google.maps.Map(el[0], {
+                    zoom: 10,
+                    center: new google.maps.LatLng(47.49840560, 19.04075779),
+                    scrollwheel: false // disableScrollingWithMouseWheel as default
+                });
+
+                google.maps.event.addListener(map, 'mousedown', function(){
+                    enableScrollingWithMouseWheel()
+                });
+            }
+
+            init();
+
+            $('body').on('mousedown', function(event) {
+                var clickedInsideMap = $(event.target).parents('#map').length > 0;
+
+                if(!clickedInsideMap) {
+                    disableScrollingWithMouseWheel();
+                }
+            });
+
+            $(window).scroll(function() {
+                disableScrollingWithMouseWheel();
+            });
         });
-    });
+    };
+
+    loadScript();
 </script>
 
 <h2 id="update-16-03-2014-">Update (16/03/2014)</h2>

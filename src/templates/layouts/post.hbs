@@ -1,49 +1,35 @@
 ---
 layout: layout.hbs
 ---
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<article class="full-post">
-    <div class="container">
-        <h1>{{ title }}</h1>
-        <p class="legal">
-            {{formatdate date "Do MMMM YYYY"}}
-            | by <a href="/about.html">Adam Beres-Deak</a>
-            {{#if page.tags}}
-                | <i class="fa fa-tags"></i> {{#each page.tags}}{{this}}{{#unless @last}}, {{/unless}} {{/each}}
-            {{/if}}
-        </p>
-        <p class="share-bar"></p>
+<article class="container main full-post">
+    <h1>{{ title }}</h1>
+    <p class="silent">
+        {{formatdate date "Do MMMM YYYY"}}
+        | by <a href="/about.html">Adam Beres-Deak</a>
+        {{#if page.tags}}
+            | <i class="fa fa-tags"></i> {{#each page.tags}}{{this}}{{#unless @last}}, {{/unless}} {{/each}}
+        {{/if}}
+    </p>
 
-        <div class="abstract">
-        {{#markdown}}{{ abstract }}{{/markdown}}
-        </div>
+    <div class="abstract">
+    {{#markdown}}{{ abstract }}{{/markdown}}
     </div>
 
-    <div class="post-ad-container"><ins class="adsbygoogle post-ad" data-ad-client="ca-pub-5929668271730964" data-ad-slot="5667957726"></ins></div>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    {{#markdown}}{{ body }}{{/markdown}}
 
-    <div class="container">
-        {{#markdown}}{{ body }}{{/markdown}}
+    <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>
 
-        <p class="share-bar"></p>
-        <a id="comments"></a>
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_shortname = 'bdadamcom';
-            (function() {
-                var d = document.createElement('script'); d.async = true;
-                d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(d, s);
-            }());
-        </script>
+    <p class="share-bar"></p>
 
-        <h4>Latest blog posts</h4>
-        {{#latestPosts pages max=5}}
-            {{#ifCond data.title "!==" ../title}}
-                <p><a href="/blog/{{ relativeLink }}">{{data.title}} <span class="muted"><small>{{formatdate data.date "Do MMMM YYYY"}}</small></span></a></p>
-            {{/ifCond}}
-        {{/latestPosts}}
-    </div>
+    <a id="comments"></a>
+
+    <div id="disqus_thread"></div>
+
+    <h4>Latest blog posts</h4>
+    {{#latestPosts pages max=5}}
+        {{#ifCond data.title "!==" ../title}}
+            <p><a href="/blog/{{ relativeLink }}">{{data.title}} <span class="muted"><small>{{formatdate data.date "Do MMMM YYYY"}}</small></span></a></p>
+        {{/ifCond}}
+    {{/latestPosts}}
 </article>
 
