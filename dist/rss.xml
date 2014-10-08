@@ -7,29 +7,32 @@
         <description>Blog</description>
         
         <item>
-            <title>Loading webfonts the most efficiently on responsive sites</title>
-            <link>http://bdadam.com/blog/loading-webfonts-the-most-efficiently.html</link>
+            <title>Loading webfonts with high performance on responsive websites</title>
+            <link>http://bdadam.com/blog/loading-webfonts-with-high-performance.html</link>
             <description>
                 <![CDATA[
-                <p>The times are over when every website just used Arial, Verdana, Garamond or Times New Roman for rendering the text, because these were the only reliable fonts which were installed on almost any computer. Nowadays webfonts are spread all over the internet, but we still don&#39;t really know, how to load them efficiently. Here is a case study about loading Source Sans Pro the most efficiently.</p>
+                <p>Once upon a time every website was only using Arial, Verdana, Garamond or Times New Roman for rendering the text, because these font were the only ones reliably installed on almost any computer. But these times are over. Webfonts are spread all over the internet, but we still don&#39;t really know, how to load them efficiently.</p>
 
-                <h2 id="tldr">TLDR</h2>
+                <p>Here is my simple guide on what to do, to offer the optimal user experience without having to avoid the expensive accessories (aka webfonts).</p>
+<h2 id="0-tldr">0. TLDR</h2>
+<p>The essence of the technique:</p>
 <ol>
 <li>Only serve fonts in woff format</li>
 <li>Other browsers get the old &quot;websafe&quot; fonts</li>
-<li>Download the font, optimize it</li>
+<li>Download the font in &quot;binary&quot; format and optimize it</li>
 <li>Serve the fonts yourself</li>
 <li>Serve them as CSS files - base64 encoded data URIs</li>
 <li>If the user doesn&#39;t have the font, load it asynchronously and store in localStorage</li>
 <li>Otherwise load it from localStorage without accessing the server</li>
 <li>Have fun because your site renders much faster and your users have a much better usability experience</li>
 </ol>
+<p>For those who are still reading here are my explanations for the points above.</p>
 <h2 id="1-browser-support">1. Browser support</h2>
 <p>According to <a href="http://caniuse.com/#search=woff">caniuse</a>, 84% of users&#39; browsers support <code>woff</code> format.
 The only exceptions are the usual old browsers - IE8 and old stock android browsers.
-Therefore it is mostly enough to only provide webfonts for those browsers which support the <code>woff</code> format.
-The old browsers should only show a fallback font like the ones mentioned above.
-They will also be thankful for having better performance browsing your website. Just try to find something which fits in your design.</p>
+Therefore it is mostly enough to only provide webfonts for the modern browsers which support the <code>woff</code> format.
+The old ones should only show a fallback font (e.g. Arial).
+The users will also be thankful for having better performance browsing your website. Just try to find something which fits in your design.</p>
 <h2 id="2-don-t-use-external-providers-like-google-fonts-or-typekit">2. Don&#39;t use external providers like Google Fonts or Typekit</h2>
 <p>They either cause many extra blocking requests or annoying blinking if loading asynchronously.
 We&#39;ll see shortly that there is a much better way of serving webfonts.</p>
@@ -45,16 +48,19 @@ Is your content in chineese? Then you most probably need everything.</p>
 <p>It is important to choose the option to generate CSS files which contains the base64 encoded fonts. This file is what we really need.</p>
 <h2 id="5-serving-the-css-file">5. Serving the CSS file</h2>
 <p>This file is going to be quite large (up to 100-300 kB) depending on your choice on charsets and the other options.
-Therefore it is important to gzip it correctly and setting strong cacheability.</p>
+Therefore it is important to gzip it correctly and setting strong cacheability when serving it to the users.</p>
 <p>Fortunately you are going to serve this file only once for your visitors.
-The first time, when the user doesn&#39;t have the font file, you download it asynchronously and store it in localStorage.
+The first time, when the user doesn&#39;t have the font file, their browser downloads it asynchronously and stores it in localStorage.
 This time users with slower connections can see when the browsers repaints the fallback fonts with your webfonts, but it only happens at most once.
 Many users won&#39;t notice anything at all.</p>
-<p>From the second page load on you just load the CSS file from the localStorage. Which is reasonably fast.
+<p>From the second page load on you just load the CSS file from the localStorage. Which is reasonably fast (5-50ms).
 The users won&#39;t see any blinking, because all the operations are synchronous, but only take a couple of milliseconds.</p>
 <h2 id="6-show-me-the-code">6. Show me the code</h2>
 <p>Since we store the file in localStorage this technique only needs client side code. Here you are.</p>
-<pre><code class="language-JavaScript">(function(){
+<pre><code class="language-html">&lt;head&gt;
+...
+&lt;script&gt;
+(function(){
     function addFont() {
         var style = document.createElement(&#39;style&#39;);
         style.textContent = localStorage.sourceSansPro;
@@ -83,17 +89,25 @@ The users won&#39;t see any blinking, because all the operations are synchronous
 
             request.send();
         }
-    } catch(ex) {}
-}());</code></pre>
+    } catch(ex) {
+        // maybe load the font synchronously for woff-capable browsers
+        // to avoid blinking on every request when localStorage is not available
+    }
+}());
+&lt;/script&gt;
+...
+&lt;/head&gt;</code></pre>
 <h2 id="7-what-did-we-achieve">7. What did we achieve</h2>
 <ol>
-<li>Eliminated at least one, but usually many blocking requests</li>
-<li>No blinking for the user when the fallback font gets replaced by the wbfont</li>
+<li>Eliminated at least one - but typically many - blocking requests</li>
+<li>At most one blinking for the user when the fallback font gets replaced by the webfont (first visit, first request)</li>
 <li>Faster render time on the first page request</li>
 <li>Better score on Google Page Speed Insights and WebPageTest.org</li>
 </ol>
 <h2 id="8-see-it-in-action">8. See it in action</h2>
 <p>This technique is used on my blog. You can test it with your smartphone, tablet or laptop. It&#39;s fast, I promise. :)</p>
+<p><strong>There are still some fine details which are missing from this post.
+If you have questions or feedback, you are welcome to leave a <a href="#comments">comment</a>.</strong></p>
 
                 ]]>
             </description>

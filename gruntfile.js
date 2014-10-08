@@ -111,23 +111,19 @@ module.exports = function(grunt) {
                 spawn: false
             },
 
-            /*grunt: {
-                files: ['Gruntfile.js']
-            },*/
-
             less: {
                 files: ['src/**/*.less'],
-                tasks: ['less', 'hashres']
+                tasks: ['less', 'copy', 'assemble']
             },
 
             browserify: {
                 files: ['src/js/**/*.js'],
-                tasks: ['browserify', 'hashres']
+                tasks: ['browserify', 'copy', 'assemble']
             },
 
             assemble: {
                 files: ['src/**/*.{hbs,html,md,xml}'],
-                tasks: ['assemble', 'rename', 'hashres', 'htmlmin']
+                tasks: ['assemble', 'rename', 'htmlmin']
             }
         },
 
@@ -145,10 +141,19 @@ module.exports = function(grunt) {
                     ext: '.html'
                 }]
             }
+        },
+
+        copy: {
+            staticToPartial: {
+                files: {
+                    'src/templates/partials/main.css.hbs': 'dist/static/main.css',
+                    'src/templates/partials/main.js.hbs': 'dist/static/main.js'
+                }
+            }
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'browserify', 'assemble', 'rename', 'hashres']);
+    grunt.registerTask('build', ['clean', 'less', 'browserify', 'copy', 'assemble', 'rename', 'htmlmin']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');

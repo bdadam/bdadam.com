@@ -15,6 +15,10 @@ layout: layout.hbs
     {{#markdown}}{{ abstract }}{{/markdown}}
     </div>
 
+    {{#if image}}
+    <img src="{{image}}?w=320" class="article-image">
+    {{/if}}
+
     {{#markdown}}{{ body }}{{/markdown}}
 
     <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>

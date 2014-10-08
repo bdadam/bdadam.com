@@ -1,29 +1,27 @@
 var tracking = require('./tracking');
 
 var links = [
-    '<a class="btn-share fb" href="https://www.facebook.com/sharer/sharer.php?u={{url}}" target="_blank"><i class="fa fa-facebook"></i> Share</a>',
-    '<a class="btn-share tw" href="http://twitter.com/share?url={{url}}" target="_blank"><i class="fa fa-twitter"></i> Tweet</a>',
-    '<a class="btn-share gp" href="https://plus.google.com/share?url={{url}}" target="_blank"><i class="fa fa-google-plus"></i> Share</a>',
-    '<a class="btn-share li" href="http://www.linkedin.com/shareArticle?mini=true&url={{url}}" target="_blank"><i class="fa fa-linkedin"></i> Share</a>',
+    '<a class="btn-share fb" href="https://www.facebook.com/sharer/sharer.php?u=##url##" target="_blank"><i class="fa fa-facebook"></i> Share</a>',
+    '<a class="btn-share tw" href="http://twitter.com/share?url=##url##" target="_blank"><i class="fa fa-twitter"></i> Tweet</a>',
+    '<a class="btn-share gp" href="https://plus.google.com/share?url=##url##" target="_blank"><i class="fa fa-google-plus"></i> Share</a>',
+    '<a class="btn-share li" href="http://www.linkedin.com/shareArticle?mini=true&url=##url##" target="_blank"><i class="fa fa-linkedin"></i> Share</a>',
     '<a class="btn-share cm" href="#comments"><i class="fa fa-comment"></i> Comment</a>'
 ];
 
 function buildShareBar(el) {
-    var href = document.location.protocol + '//' + document.location.host + document.location.pathname;
-    var encodedHref = encodeURIComponent(href);
+    var encodedHref = encodeURIComponent(document.location.href.replace(document.location.search, ""));
     var html = '';
 
     for (var  i = 0, l = links.length; i < l; i++) {
         var link = links[i];
-        html += link.replace('{{url}}', encodedHref);
+        html += link.replace('##url##', encodedHref);
     }
 
     el.innerHTML = html;
 }
 
 function addListener(element, type, callback) {
-    if (element.addEventListener) element.addEventListener(type, callback);
-    else if (element.attachEvent) element.attachEvent('on' + type, callback);
+    element.addEventListener(type, callback);
 }
 
 module.exports = {

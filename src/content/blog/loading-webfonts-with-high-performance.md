@@ -1,33 +1,44 @@
 ---
 layout:         post.hbs
-title:          Loading webfonts the most efficiently on responsive sites
+title:          Loading webfonts with high performance on responsive websites
 date:           2014-10-08 21:00
-abstract:       The times are over when every website just used Arial, Verdana, Garamond or Times New Roman for rendering the text,
-                because these were the only reliable fonts which were installed on almost any computer.
-                Nowadays webfonts are spread all over the internet, but we still don't really know, how to load them efficiently.
-                Here is a case study about loading Source Sans Pro the most efficiently.
+
+description:    Optimally loading webfonts is not a trivial taks. Here is a simple guide, how to do it. No blinking, no blocking.
+
+abstract:       Once upon a time every website was only using Arial, Verdana, Garamond or Times New Roman for rendering the text,
+                because these font were the only ones reliably installed on almost any computer.
+                But these times are over.
+                Webfonts are spread all over the internet, but we still don't really know, how to load them efficiently.
+
+image:          /static/article-assets/pagespeed99.jpg
 tags:
+- localStorage
 - webfonts
 - loading
 - perfmatters
 ---
 
-## TLDR
+Here is my simple guide on what to do, to offer the optimal user experience without having to avoid the expensive accessories (aka webfonts).
+
+## 0. TLDR
+The essence of the technique:
 1. Only serve fonts in woff format
 1. Other browsers get the old "websafe" fonts
-1. Download the font, optimize it
+1. Download the font in "binary" format and optimize it
 1. Serve the fonts yourself
 1. Serve them as CSS files - base64 encoded data URIs
 1. If the user doesn't have the font, load it asynchronously and store in localStorage
 1. Otherwise load it from localStorage without accessing the server
 1. Have fun because your site renders much faster and your users have a much better usability experience
 
+For those who are still reading here are my explanations for the points above.
+
 ## 1. Browser support
 According to [caniuse](http://caniuse.com/#search=woff), 84% of users' browsers support `woff` format.
 The only exceptions are the usual old browsers - IE8 and old stock android browsers.
-Therefore it is mostly enough to only provide webfonts for those browsers which support the `woff` format.
-The old browsers should only show a fallback font like the ones mentioned above.
-They will also be thankful for having better performance browsing your website. Just try to find something which fits in your design.
+Therefore it is mostly enough to only provide webfonts for the modern browsers which support the `woff` format.
+The old ones should only show a fallback font (e.g. Arial).
+The users will also be thankful for having better performance browsing your website. Just try to find something which fits in your design.
 
 ## 2. Don't use external providers like Google Fonts or Typekit
 They either cause many extra blocking requests or annoying blinking if loading asynchronously.
@@ -49,20 +60,23 @@ It is important to choose the option to generate CSS files which contains the ba
 
 ## 5. Serving the CSS file
 This file is going to be quite large (up to 100-300 kB) depending on your choice on charsets and the other options.
-Therefore it is important to gzip it correctly and setting strong cacheability.
+Therefore it is important to gzip it correctly and setting strong cacheability when serving it to the users.
 
 Fortunately you are going to serve this file only once for your visitors.
-The first time, when the user doesn't have the font file, you download it asynchronously and store it in localStorage.
+The first time, when the user doesn't have the font file, their browser downloads it asynchronously and stores it in localStorage.
 This time users with slower connections can see when the browsers repaints the fallback fonts with your webfonts, but it only happens at most once.
 Many users won't notice anything at all.
 
-From the second page load on you just load the CSS file from the localStorage. Which is reasonably fast.
+From the second page load on you just load the CSS file from the localStorage. Which is reasonably fast (5-50ms).
 The users won't see any blinking, because all the operations are synchronous, but only take a couple of milliseconds.
 
 ## 6. Show me the code
 Since we store the file in localStorage this technique only needs client side code. Here you are.
 
-```JavaScript
+```html
+<head>
+...
+<script>
 (function(){
     function addFont() {
         var style = document.createElement('style');
@@ -92,17 +106,25 @@ Since we store the file in localStorage this technique only needs client side co
 
             request.send();
         }
-    } catch(ex) {}
+    } catch(ex) {
+        // maybe load the font synchronously for woff-capable browsers
+        // to avoid blinking on every request when localStorage is not available
+    }
 }());
-
+</script>
+...
+</head>
 ```
 
 ## 7. What did we achieve
 
-1. Eliminated at least one, but usually many blocking requests
-1. No blinking for the user when the fallback font gets replaced by the wbfont
+1. Eliminated at least one - but typically many - blocking requests
+1. At most one blinking for the user when the fallback font gets replaced by the webfont (first visit, first request)
 1. Faster render time on the first page request
 1. Better score on Google Page Speed Insights and WebPageTest.org
 
 ## 8. See it in action
 This technique is used on my blog. You can test it with your smartphone, tablet or laptop. It's fast, I promise. :)
+
+**There are still some fine details which are missing from this post.
+If you have questions or feedback, you are welcome to leave a [comment](#comments).**
