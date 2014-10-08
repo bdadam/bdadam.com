@@ -1,124 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Defining properties in JavaScript</title>
-    <meta name="description" content="JavaScript supports modern properties. Let&#x27;s take a look at how to define and use them.">
-    <meta property="og:description" content="JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types.">
-
-    <script>
-    (function(){
-        function addFont() {
-            var style = document.createElement('style');
-            style.textContent = localStorage.sourceSansPro;
-            style.rel = 'stylesheet';
-            document.head.appendChild(style);
-        }
-
-        try {
-            if (localStorage.sourceSansPro) {
-                addFont();
-            } else {
-                var request = new XMLHttpRequest();
-                request.open('GET', '/static/source-sans-pro.woff.css', true);
-
-                request.onload = function() {
-                    if (request.status >= 200 && request.status < 400) {
-                        localStorage.sourceSansPro = request.responseText;
-                        addFont();
-                    }
-                }
-
-                request.send();
-            }
-        } catch(ex) {}
-    }());
-    </script>
-
-    <link href="/static/main.css?e53ce377" rel="stylesheet">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="author" content="Adam Beres-Deak">
-    <meta name="viewport" content="width=device-width">
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
-<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
-<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
-<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
-<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
-<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
-<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
-<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
-<meta name="msapplication-TileColor" content="#aa2211"/>
-<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
-</head>
-<body>
-<nav>
-    <div class="container main">
-        <a class="brand" href="/">bdadam.com</a>
-        <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a>
-
-        <div id="menu">
-            <a href="/javascript-goodies.html">JavaScript Goodies</a>
-            <a href="/about.html">Contact</a>
-        </div>
-    </div>
-</nav>
-
-
-<article class="container main full-post">
-    <h1>Defining properties in JavaScript</h1>
-    <p class="silent">
-        9th February 2014
-        | by <a href="/about.html">Adam Beres-Deak</a>
-        
-            | <i class="fa fa-tags"></i> javascript 
-        
-    </p>
-
-    <div class="abstract">
-    <p>JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types.</p>
-
-    </div>
-
-    <h2 id="defining-properties-on-objects-with-object-defineproperty-">Defining properties on objects with Object.defineProperty()</h2>
-<pre><code class="language-JavaScript">var obj = {};
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Defining properties in JavaScript</title><meta name="description" content="JavaScript supports modern properties. Let&#x27;s take a look at how to define and use them."><meta property="og:description" content="JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types."><script>!function(){function e(){var e=document.createElement("style")
+e.textContent=localStorage.sourceSansPro,e.rel="stylesheet",document.head.appendChild(e)}try{if(localStorage.sourceSansPro)e()
+else{var t=new XMLHttpRequest
+t.open("GET","/static/source-sans-pro.woff.css",!0),t.onload=function(){t.status>=200&&t.status<400&&(localStorage.sourceSansPro=t.responseText,e())},t.send()}}catch(o){}}()</script><link href="/static/main.css?e53ce377" rel="stylesheet"><link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="author" content="Adam Beres-Deak"><meta name="viewport" content="width=device-width"><link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"><link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"><link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"><link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"><meta name="msapplication-TileColor" content="#aa2211"><meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"></head><body><nav><div class="container main"><a class="brand" href="/">bdadam.com</a> <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a><div id="menu"><a href="/javascript-goodies.html">JavaScript Goodies</a> <a href="/about.html">Contact</a></div></div></nav><article class="container main full-post"><h1>Defining properties in JavaScript</h1><p class="silent">9th February 2014 | by <a href="/about.html">Adam Beres-Deak</a> | <i class="fa fa-tags"></i> javascript</p><div class="abstract"><p>JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types.</p></div><h2 id="defining-properties-on-objects-with-object-defineproperty-">Defining properties on objects with Object.defineProperty()</h2><pre><code class="language-JavaScript">var obj = {};
 
 Object.defineProperty(obj, &quot;myProperty&quot;, {
     enumerable: false,
     configurable: false,
     writable: false,
     value: 13
-});</code></pre>
-<p>The first two arguments are very obvious, but the third one is where all the magic happens. This argument is a property descriptor. Let&#39;s see what we can do with it.</p>
-<h3 id="enumerable">Enumerable</h3>
-<p>This attribute simply tells whether the property should show up in enumerations like <code>for ... in</code> loops or in <code>Object.keys()</code>.</p>
-<p>Defaults to <code>false</code>.</p>
-<h3 id="configurable">Configurable</h3>
-<p>This attribute sets whether the property can be reconfigured at a later point in the code or whether it can be deleted from the object.</p>
-<p>Defaults to <code>false</code>.</p>
-<h3 id="writable">Writable</h3>
-<p>This attribute sets whether a property is read-only or not.</p>
-<p>Defaults to <code>false</code> except in Google Chrome.</p>
-<h3 id="value">Value</h3>
-<p>The value of a property can be anything, any valid JavaScript value (Number, Date, Array, Function, etc.).</p>
-<p>Defaults to <code>undefined</code>.</p>
-<h2 id="defining-getter-and-or-setter-functions">Defining getter and/or setter functions</h2>
-<p>It is also very easy to define getter and setter functions. Let&#39;s take a look at the example below:</p>
-<pre><code class="language-JavaScript">var obj = {};
+});</code></pre><p>The first two arguments are very obvious, but the third one is where all the magic happens. This argument is a property descriptor. Let&#39;s see what we can do with it.</p><h3 id="enumerable">Enumerable</h3><p>This attribute simply tells whether the property should show up in enumerations like <code>for ... in</code> loops or in <code>Object.keys()</code>.</p><p>Defaults to <code>false</code>.</p><h3 id="configurable">Configurable</h3><p>This attribute sets whether the property can be reconfigured at a later point in the code or whether it can be deleted from the object.</p><p>Defaults to <code>false</code>.</p><h3 id="writable">Writable</h3><p>This attribute sets whether a property is read-only or not.</p><p>Defaults to <code>false</code> except in Google Chrome.</p><h3 id="value">Value</h3><p>The value of a property can be anything, any valid JavaScript value (Number, Date, Array, Function, etc.).</p><p>Defaults to <code>undefined</code>.</p><h2 id="defining-getter-and-or-setter-functions">Defining getter and/or setter functions</h2><p>It is also very easy to define getter and setter functions. Let&#39;s take a look at the example below:</p><pre><code class="language-JavaScript">var obj = {};
 var propValue = 100;
 Object.defineProperty(obj, &quot;prop&quot;, {
     get: function(){ return propValue; },
     set: function(newValue){ propValue = newValue; },
     enumerable : true,
     configurable : true
-});</code></pre>
-<h2 id="invalid-cases">Invalid cases</h2>
-<pre><code class="language-JavaScript">var obj = {};
+});</code></pre><h2 id="invalid-cases">Invalid cases</h2><pre><code class="language-JavaScript">var obj = {};
 Object.defineProperty(obj, &#39;undeletable&#39;, { value: 100, configurable: false });
 console.log(obj.undeletable); // 100
 delete obj.undeletable;
@@ -136,9 +33,7 @@ Object.defineProperty(obj, &#39;notWorking&#39;, {
     get: function() { return 300; },
     writable: true
 });
-// TypeError: Invalid property. A property cannot both have accessors and be writable or have a value, #&lt;Object&gt;</code></pre>
-<h2 id="defining-multiple-properties-on-the-same-object">Defining multiple properties on the same object</h2>
-<pre><code class="language-JavaScript">var obj = {};
+// TypeError: Invalid property. A property cannot both have accessors and be writable or have a value, #&lt;Object&gt;</code></pre><h2 id="defining-multiple-properties-on-the-same-object">Defining multiple properties on the same object</h2><pre><code class="language-JavaScript">var obj = {};
 
 Object.defineProperties(obj, {
     &quot;hello&quot;: {
@@ -149,83 +44,10 @@ Object.defineProperties(obj, {
         value: &quot;World!&quot;,
         writable: false
     }
-});</code></pre>
-<h2 id="browser-support">Browser support</h2>
-<p>Good news, the <code>Object.defineProperty()</code> is supported in all modern browsers.
-The only problematic one is Internet Explorer 8, which only allows to define properties on DOM objects).</p>
-<h2 id="performance">Performance</h2>
-<p>At the moment, using <code>Object.defineProperty()</code> is definitely slower than using basic properties like in the old days - but not that much.
-For more detailed performance tests take a look at <a href="http://jsperf.com/object-defineproperty-vs-definegetter-vs-normal" rel="external,nofollow">jsperf.com</a>.</p>
-<h2 id="resources-">Resources:</h2>
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" rel="external,nofollow">Object.defineProperty() on MDN</a></li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" rel="external,nofollow">Object.defineProperties() on MDN</a></li>
-</ul>
-
-
-    <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>
-
-    <p class="share-bar"></p>
-
-    <a id="comments"></a>
-
-    <div id="disqus_thread"></div>
-
-    <h4>Latest blog posts</h4>
-    
-        
-            <p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p>
-        
-    
-</article>
-
-
-<footer>
-    <p>
-        Adam Beres-Deak &copy; 2014
-
-        <span class="social-links">
-            <a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp;
-            <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp;
-            <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
-            <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp;
-            <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a>
-        </span>
-
-        <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a>
-    </p>
-    <p class="silent container">
-        Except where otherwise noted, content on this site is licensed under a
-        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
-        Code samples are licensed under the MIT license.
-    </p>
-</footer>
-<script data-no-instant src="/static/main.js?43c58e8a" async></script>
-<script data-no-instant async>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script>
-<script>
-if (location.hostname !== 'localhost') {
+});</code></pre><h2 id="browser-support">Browser support</h2><p>Good news, the <code>Object.defineProperty()</code> is supported in all modern browsers. The only problematic one is Internet Explorer 8, which only allows to define properties on DOM objects).</p><h2 id="performance">Performance</h2><p>At the moment, using <code>Object.defineProperty()</code> is definitely slower than using basic properties like in the old days - but not that much. For more detailed performance tests take a look at <a href="http://jsperf.com/object-defineproperty-vs-definegetter-vs-normal" rel="external,nofollow">jsperf.com</a>.</p><h2 id="resources-">Resources:</h2><ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" rel="external,nofollow">Object.defineProperty() on MDN</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" rel="external,nofollow">Object.defineProperties() on MDN</a></li></ul><a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a><p class="share-bar"></p><a id="comments"></a><div id="disqus_thread"></div><h4>Latest blog posts</h4><p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p><p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p><p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p><p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p><p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p></article><footer><p>Adam Beres-Deak &copy; 2014 <span class="social-links"><a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp; <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp; <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp; <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp; <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a></span> <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p><p class="silent container">Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>. Code samples are licensed under the MIT license.</p></footer><script data-no-instant src="/static/main.js?43c58e8a" async></script><script data-no-instant>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script><script>if (location.hostname !== 'localhost') {
     ga('create', 'UA-47485340-1', 'bdadam.com');
     ga('send', 'pageview', location.pathname + location.search);
 
     ga('create', 'UA-49233936-1', 'bdadam.com', { name: 'x'});
     ga('x.send', 'pageview', location.pathname + location.search);
-}
-</script>
-</body>
-</html>
+}</script></body></html>

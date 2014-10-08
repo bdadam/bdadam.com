@@ -1,92 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>How to redirect www to naked domain and vice versa with NGINX?</title>
-    <meta name="description" content="Redirection www to non-www and vice versa with NGINX">
-    <meta property="og:description" content="One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#x27;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.">
-
-    <script>
-    (function(){
-        function addFont() {
-            var style = document.createElement('style');
-            style.textContent = localStorage.sourceSansPro;
-            style.rel = 'stylesheet';
-            document.head.appendChild(style);
-        }
-
-        try {
-            if (localStorage.sourceSansPro) {
-                addFont();
-            } else {
-                var request = new XMLHttpRequest();
-                request.open('GET', '/static/source-sans-pro.woff.css', true);
-
-                request.onload = function() {
-                    if (request.status >= 200 && request.status < 400) {
-                        localStorage.sourceSansPro = request.responseText;
-                        addFont();
-                    }
-                }
-
-                request.send();
-            }
-        } catch(ex) {}
-    }());
-    </script>
-
-    <link href="/static/main.css?e53ce377" rel="stylesheet">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="author" content="Adam Beres-Deak">
-    <meta name="viewport" content="width=device-width">
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
-<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
-<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
-<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
-<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
-<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
-<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
-<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
-<meta name="msapplication-TileColor" content="#aa2211"/>
-<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
-</head>
-<body>
-<nav>
-    <div class="container main">
-        <a class="brand" href="/">bdadam.com</a>
-        <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a>
-
-        <div id="menu">
-            <a href="/javascript-goodies.html">JavaScript Goodies</a>
-            <a href="/about.html">Contact</a>
-        </div>
-    </div>
-</nav>
-
-
-<article class="container main full-post">
-    <h1>How to redirect www to naked domain and vice versa with NGINX?</h1>
-    <p class="silent">
-        3rd February 2014
-        | by <a href="/about.html">Adam Beres-Deak</a>
-        
-            | <i class="fa fa-tags"></i> nginx,  redirection 
-        
-    </p>
-
-    <div class="abstract">
-    <p>One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#x27;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.</p>
-
-    </div>
-
-    <h2 id="redirecting-www-to-non-www-with-if-statement">Redirecting www to non-www with <code>if</code> statement</h2>
-<pre><code class="language-nginx"><span class="title">server</span> {
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>How to redirect www to naked domain and vice versa with NGINX?</title><meta name="description" content="Redirection www to non-www and vice versa with NGINX"><meta property="og:description" content="One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#x27;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX."><script>!function(){function e(){var e=document.createElement("style")
+e.textContent=localStorage.sourceSansPro,e.rel="stylesheet",document.head.appendChild(e)}try{if(localStorage.sourceSansPro)e()
+else{var t=new XMLHttpRequest
+t.open("GET","/static/source-sans-pro.woff.css",!0),t.onload=function(){t.status>=200&&t.status<400&&(localStorage.sourceSansPro=t.responseText,e())},t.send()}}catch(o){}}()</script><link href="/static/main.css?e53ce377" rel="stylesheet"><link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="author" content="Adam Beres-Deak"><meta name="viewport" content="width=device-width"><link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"><link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"><link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"><link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"><meta name="msapplication-TileColor" content="#aa2211"><meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"></head><body><nav><div class="container main"><a class="brand" href="/">bdadam.com</a> <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a><div id="menu"><a href="/javascript-goodies.html">JavaScript Goodies</a> <a href="/about.html">Contact</a></div></div></nav><article class="container main full-post"><h1>How to redirect www to naked domain and vice versa with NGINX?</h1><p class="silent">3rd February 2014 | by <a href="/about.html">Adam Beres-Deak</a> | <i class="fa fa-tags"></i> nginx, redirection</p><div class="abstract"><p>One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#x27;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.</p></div><h2 id="redirecting-www-to-non-www-with-if-statement">Redirecting www to non-www with <code>if</code> statement</h2><pre><code class="language-nginx"><span class="title">server</span> {
     <span class="title">listen</span> <span class="number">80</span>;
 
     <span class="title">server_name</span> www.example.com example.com;
@@ -96,22 +11,12 @@
         <span class="comment"># path, query string are retained</span>
         <span class="title">rewrite</span> <span class="regexp"> ^/(.*)$</span>  <span class="url">http://example.com/$1</span>  <span class="built_in">permanent</span>;
     }
-}</code></pre>
-<p>Please note that <code>if</code> is <a href="http://wiki.nginx.org/IfIsEvil" rel="external,nofollow">considered evil</a> inside NGINX configuration,
-but it is perfectly OK in this case. The official docs say, that there are two cases when <code>if</code> is &quot;100% safe&quot;:</p>
-<ul>
-<li>redirect (our case)</li>
-<li>return</li>
-</ul>
-<pre><code class="language-nginx"><span class="title">if</span> (<span class="variable">$request_method</span> = POST ) {
+}</code></pre><p>Please note that <code>if</code> is <a href="http://wiki.nginx.org/IfIsEvil" rel="external,nofollow">considered evil</a> inside NGINX configuration, but it is perfectly OK in this case. The official docs say, that there are two cases when <code>if</code> is &quot;100% safe&quot;:</p><ul><li>redirect (our case)</li><li>return</li></ul><pre><code class="language-nginx"><span class="title">if</span> (<span class="variable">$request_method</span> = POST ) {
     <span class="title">return</span> <span class="number">405</span>;
 }
 <span class="title">if</span> (<span class="variable">$args</span> <span class="regexp">~ post=140)</span>{
     <span class="title">rewrite</span><span class="regexp"> ^</span> <span class="url">http://example.com/</span> <span class="built_in">permanent</span>;
-}</code></pre>
-<h2 id="redirecting-www-to-non-www-without-if-statement">Redirecting www to non-www without <code>if</code> statement</h2>
-<p>The trick in this case is that we have to define two server blocks.</p>
-<pre><code class="language-nginx">server {
+}</code></pre><h2 id="redirecting-www-to-non-www-without-if-statement">Redirecting www to non-www without <code>if</code> statement</h2><p>The trick in this case is that we have to define two server blocks.</p><pre><code class="language-nginx">server {
     listen       80;
     server_name  www.example.com;
 
@@ -124,9 +29,7 @@ server {
     listen       80;
     server_name  example.com;
     ...
-}</code></pre>
-<h2 id="redirecting-non-www-to-www">Redirecting non-www to www</h2>
-<pre><code class="language-nginx">server {
+}</code></pre><h2 id="redirecting-non-www-to-www">Redirecting non-www to www</h2><pre><code class="language-nginx">server {
     listen       80;
     server_name  example.com;
 
@@ -139,72 +42,10 @@ server {
     listen       80;
     server_name  www.example.com;
     ...
-}</code></pre>
-
-
-    <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>
-
-    <p class="share-bar"></p>
-
-    <a id="comments"></a>
-
-    <div id="disqus_thread"></div>
-
-    <h4>Latest blog posts</h4>
-    
-        
-            <p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p>
-        
-    
-</article>
-
-
-<footer>
-    <p>
-        Adam Beres-Deak &copy; 2014
-
-        <span class="social-links">
-            <a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp;
-            <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp;
-            <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
-            <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp;
-            <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a>
-        </span>
-
-        <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a>
-    </p>
-    <p class="silent container">
-        Except where otherwise noted, content on this site is licensed under a
-        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
-        Code samples are licensed under the MIT license.
-    </p>
-</footer>
-<script data-no-instant src="/static/main.js?43c58e8a" async></script>
-<script data-no-instant async>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script>
-<script>
-if (location.hostname !== 'localhost') {
+}</code></pre><a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a><p class="share-bar"></p><a id="comments"></a><div id="disqus_thread"></div><h4>Latest blog posts</h4><p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p><p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p><p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p><p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p><p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p></article><footer><p>Adam Beres-Deak &copy; 2014 <span class="social-links"><a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp; <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp; <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp; <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp; <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a></span> <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p><p class="silent container">Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>. Code samples are licensed under the MIT license.</p></footer><script data-no-instant src="/static/main.js?43c58e8a" async></script><script data-no-instant>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script><script>if (location.hostname !== 'localhost') {
     ga('create', 'UA-47485340-1', 'bdadam.com');
     ga('send', 'pageview', location.pathname + location.search);
 
     ga('create', 'UA-49233936-1', 'bdadam.com', { name: 'x'});
     ga('x.send', 'pageview', location.pathname + location.search);
-}
-</script>
-</body>
-</html>
+}</script></body></html>

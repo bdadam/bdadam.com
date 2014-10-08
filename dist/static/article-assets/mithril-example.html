@@ -1,21 +1,10 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <style>
-            nav a {
+<!doctype html><html lang="en"><head><style>nav a {
                 margin-right: 16px;
             }
 
             a.selected {
                 background-color: #eee;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="container"></div>
-        <script src="//cdn.jsdelivr.net/mithril/0.1.6/mithril.min.js"></script>
-        <script>
-            var app = {};
+            }</style></head><body><div id="container"></div><script src="//cdn.jsdelivr.net/mithril/0.1.6/mithril.min.js"></script><script>var app = {};
 
             app.navigation = {
                 controller: function() {},
@@ -73,7 +62,4 @@
                 '/': app.home,
                 '/:category': app.category,
                 '/:category/:id': app.details
-            });
-        </script>
-    </body>
-</html>
+            });</script></body></html>

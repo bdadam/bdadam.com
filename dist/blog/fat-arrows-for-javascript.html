@@ -1,103 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Fat arrows for JavaScript</title>
-    <meta name="description" content="LINQ and C# like lambda expressions are almost there in JavaScript.">
-    <meta property="og:description" content="I have to admit, I have completely overseen, that fat arrows ( =&gt; ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.">
-
-    <script>
-    (function(){
-        function addFont() {
-            var style = document.createElement('style');
-            style.textContent = localStorage.sourceSansPro;
-            style.rel = 'stylesheet';
-            document.head.appendChild(style);
-        }
-
-        try {
-            if (localStorage.sourceSansPro) {
-                addFont();
-            } else {
-                var request = new XMLHttpRequest();
-                request.open('GET', '/static/source-sans-pro.woff.css', true);
-
-                request.onload = function() {
-                    if (request.status >= 200 && request.status < 400) {
-                        localStorage.sourceSansPro = request.responseText;
-                        addFont();
-                    }
-                }
-
-                request.send();
-            }
-        } catch(ex) {}
-    }());
-    </script>
-
-    <link href="/static/main.css?e53ce377" rel="stylesheet">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="author" content="Adam Beres-Deak">
-    <meta name="viewport" content="width=device-width">
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
-<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
-<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
-<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
-<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
-<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
-<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
-<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
-<meta name="msapplication-TileColor" content="#aa2211"/>
-<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
-</head>
-<body>
-<nav>
-    <div class="container main">
-        <a class="brand" href="/">bdadam.com</a>
-        <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a>
-
-        <div id="menu">
-            <a href="/javascript-goodies.html">JavaScript Goodies</a>
-            <a href="/about.html">Contact</a>
-        </div>
-    </div>
-</nav>
-
-
-<article class="container main full-post">
-    <h1>Fat arrows for JavaScript</h1>
-    <p class="silent">
-        29th January 2014
-        | by <a href="/about.html">Adam Beres-Deak</a>
-        
-    </p>
-
-    <div class="abstract">
-    <p>I have to admit, I have completely overseen, that fat arrows ( =&gt; ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.</p>
-
-    </div>
-
-    <p>I have to say one thing I really like, when I&#39;m working with C#, is LINQ and the lambda expressions. If you don&#39;t know what they are, here is an example:</p>
-<pre><code class="language-C#">var areThereAnySportsCars = cars.Where(x =&gt; x.HorsePower &gt; 300 &amp;&amp; x.Seats == 2).Any(y =&gt; y.Color == &#39;RED&#39;);</code></pre>
-<p>I think it&#39;s very easy to see what this expression does: it filters the <code>cars</code> array for cars which have more than 300 HP and exactly 2 seats,
-then checks whether there are any red ones.</p>
-<h2 id="how-does-it-look-like-in-javascript-">How does it look like in JavaScript?</h2>
-<pre><code class="language-JavaScript">var sportsCars = cars.where(x =&gt; x.horsePower &gt; 300 &amp;&amp; x.seats === 2).any(y =&gt; y.Color === &#39;RED&#39;);</code></pre>
-<p>Do you notice any differences (besides triple = signs and casing)? No there isn&#39;t.</p>
-<h2 id="where-is-the-catch-">Where is the catch?</h2>
-<p>Unfortunately there is a catch:
-Currently this syntax is only supported in Firefox.
-Althought Firefox has been supporting it for more than a year now (almost two), its support is completely missing in Chrome.
-But the syntax is in the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:arrow_function_syntax" rel="external,nofollow">ES6 Draft</a>,
-so we can hope that Google also decides to support it.</p>
-<h2 id="more-examples">More examples</h2>
-<pre><code class="language-JavaScript">var sqaure = function(x) { return x * x; };
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Fat arrows for JavaScript</title><meta name="description" content="LINQ and C# like lambda expressions are almost there in JavaScript."><meta property="og:description" content="I have to admit, I have completely overseen, that fat arrows ( =&gt; ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world."><script>!function(){function e(){var e=document.createElement("style")
+e.textContent=localStorage.sourceSansPro,e.rel="stylesheet",document.head.appendChild(e)}try{if(localStorage.sourceSansPro)e()
+else{var t=new XMLHttpRequest
+t.open("GET","/static/source-sans-pro.woff.css",!0),t.onload=function(){t.status>=200&&t.status<400&&(localStorage.sourceSansPro=t.responseText,e())},t.send()}}catch(o){}}()</script><link href="/static/main.css?e53ce377" rel="stylesheet"><link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="author" content="Adam Beres-Deak"><meta name="viewport" content="width=device-width"><link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"><link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"><link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"><link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"><meta name="msapplication-TileColor" content="#aa2211"><meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"></head><body><nav><div class="container main"><a class="brand" href="/">bdadam.com</a> <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a><div id="menu"><a href="/javascript-goodies.html">JavaScript Goodies</a> <a href="/about.html">Contact</a></div></div></nav><article class="container main full-post"><h1>Fat arrows for JavaScript</h1><p class="silent">29th January 2014 | by <a href="/about.html">Adam Beres-Deak</a></p><div class="abstract"><p>I have to admit, I have completely overseen, that fat arrows ( =&gt; ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.</p></div><p>I have to say one thing I really like, when I&#39;m working with C#, is LINQ and the lambda expressions. If you don&#39;t know what they are, here is an example:</p><pre><code class="language-C#">var areThereAnySportsCars = cars.Where(x =&gt; x.HorsePower &gt; 300 &amp;&amp; x.Seats == 2).Any(y =&gt; y.Color == &#39;RED&#39;);</code></pre><p>I think it&#39;s very easy to see what this expression does: it filters the <code>cars</code> array for cars which have more than 300 HP and exactly 2 seats, then checks whether there are any red ones.</p><h2 id="how-does-it-look-like-in-javascript-">How does it look like in JavaScript?</h2><pre><code class="language-JavaScript">var sportsCars = cars.where(x =&gt; x.horsePower &gt; 300 &amp;&amp; x.seats === 2).any(y =&gt; y.Color === &#39;RED&#39;);</code></pre><p>Do you notice any differences (besides triple = signs and casing)? No there isn&#39;t.</p><h2 id="where-is-the-catch-">Where is the catch?</h2><p>Unfortunately there is a catch: Currently this syntax is only supported in Firefox. Althought Firefox has been supporting it for more than a year now (almost two), its support is completely missing in Chrome. But the syntax is in the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:arrow_function_syntax" rel="external,nofollow">ES6 Draft</a>, so we can hope that Google also decides to support it.</p><h2 id="more-examples">More examples</h2><pre><code class="language-JavaScript">var sqaure = function(x) { return x * x; };
 var squareNew = x =&gt; x * x;
 
 var sum = function(a, b) {return a + b};
@@ -107,16 +11,7 @@ domElement.addEventListener(&#39;click&#39;, function(event) { handleEvent(event
 domElement.addEventListener(&#39;click&#39;, event =&gt; handleEvent(event.target));
 
 [1,2,3].map(function(x) { return x + 1; });
-[1,2,3].map(x =&gt; x + 1);</code></pre>
-<h2 id="what-s-this-">What&#39;s <code>this</code>?</h2>
-<p>One of the most complicated things when teaching people JavaScript is to teach what is the value of <code>this</code>.
-With fat arrows we get a function expression which has some limitations:</p>
-<ol>
-<li><code>this</code> is bound to the context, where you use the fat arrow</li>
-<li>they cannot be used as a constructor (they throw an error)</li>
-</ol>
-<p>Some examples:</p>
-<pre><code class="language-JavaScript">// With conventional function definitions
+[1,2,3].map(x =&gt; x + 1);</code></pre><h2 id="what-s-this-">What&#39;s <code>this</code>?</h2><p>One of the most complicated things when teaching people JavaScript is to teach what is the value of <code>this</code>. With fat arrows we get a function expression which has some limitations:</p><ol><li><code>this</code> is bound to the context, where you use the fat arrow</li><li>they cannot be used as a constructor (they throw an error)</li></ol><p>Some examples:</p><pre><code class="language-JavaScript">// With conventional function definitions
 var obj = {
     logThis: function() {
         console.log(this); //this is obj
@@ -154,83 +49,12 @@ Object { logThis=function() }
 
 var X = a =&gt; a*3;
 
-new X(); // TypeError: X is not a constructor</code></pre>
-<h2 id="ok-but-where-is-linq-">OK - but where is LINQ?</h2>
-<p>There have always been many LINQ-like implementations in JavaScript. They usually simply take a function expression as a parameter,
-so it&#39;s not a big deal to use fat arrows instead of conventional function expressions.</p>
-<pre><code class="language-JavaScript">var isThereAnySportsCar = cars.where(function(car) { return car.horsePower &gt; 300; }).any(function(c) { return c.seats === 2; });
+new X(); // TypeError: X is not a constructor</code></pre><h2 id="ok-but-where-is-linq-">OK - but where is LINQ?</h2><p>There have always been many LINQ-like implementations in JavaScript. They usually simply take a function expression as a parameter, so it&#39;s not a big deal to use fat arrows instead of conventional function expressions.</p><pre><code class="language-JavaScript">var isThereAnySportsCar = cars.where(function(car) { return car.horsePower &gt; 300; }).any(function(c) { return c.seats === 2; });
 
-var isThereAnySportsCar = cars.where(car =&gt; car.horsePower &gt; 300).any(c =&gt; c.seats === 2);</code></pre>
-<p>But LINQ is not just about the syntax. In LINQ every item of the original array goes through the whole pipeline, so that the original array is only iterated once.
-In plain old JavaScript (ECMAScript 3) this was impossible. In ES6 generators are coming, which are solving this issue.
-I&#39;m not going to go into details now, lets have it for another blog post.</p>
-<p>There is <a rel="external,nofollow" href="https://github.com/aaronpowell/linq-in-javascript/">one LINQ implementation</a> which I really like.
-It&#39;s far awy from feature completeness, but it shows how it should be done.</p>
-
-
-    <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>
-
-    <p class="share-bar"></p>
-
-    <a id="comments"></a>
-
-    <div id="disqus_thread"></div>
-
-    <h4>Latest blog posts</h4>
-    
-        
-            <p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p>
-        
-    
-</article>
-
-
-<footer>
-    <p>
-        Adam Beres-Deak &copy; 2014
-
-        <span class="social-links">
-            <a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp;
-            <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp;
-            <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
-            <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp;
-            <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a>
-        </span>
-
-        <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a>
-    </p>
-    <p class="silent container">
-        Except where otherwise noted, content on this site is licensed under a
-        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
-        Code samples are licensed under the MIT license.
-    </p>
-</footer>
-<script data-no-instant src="/static/main.js?43c58e8a" async></script>
-<script data-no-instant async>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script>
-<script>
-if (location.hostname !== 'localhost') {
+var isThereAnySportsCar = cars.where(car =&gt; car.horsePower &gt; 300).any(c =&gt; c.seats === 2);</code></pre><p>But LINQ is not just about the syntax. In LINQ every item of the original array goes through the whole pipeline, so that the original array is only iterated once. In plain old JavaScript (ECMAScript 3) this was impossible. In ES6 generators are coming, which are solving this issue. I&#39;m not going to go into details now, lets have it for another blog post.</p><p>There is <a rel="external,nofollow" href="https://github.com/aaronpowell/linq-in-javascript/">one LINQ implementation</a> which I really like. It&#39;s far awy from feature completeness, but it shows how it should be done.</p><a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a><p class="share-bar"></p><a id="comments"></a><div id="disqus_thread"></div><h4>Latest blog posts</h4><p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p><p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p><p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p><p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p><p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p></article><footer><p>Adam Beres-Deak &copy; 2014 <span class="social-links"><a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp; <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp; <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp; <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp; <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a></span> <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p><p class="silent container">Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>. Code samples are licensed under the MIT license.</p></footer><script data-no-instant src="/static/main.js?43c58e8a" async></script><script data-no-instant>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script><script>if (location.hostname !== 'localhost') {
     ga('create', 'UA-47485340-1', 'bdadam.com');
     ga('send', 'pageview', location.pathname + location.search);
 
     ga('create', 'UA-49233936-1', 'bdadam.com', { name: 'x'});
     ga('x.send', 'pageview', location.pathname + location.search);
-}
-</script>
-</body>
-</html>
+}</script></body></html>

@@ -1,14 +1,4 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Demo page to show background image panning with canvas</title>
-    <meta name="viewport" content="width=device-width"/>
-    <meta name="robots" content="noindex,follow"/>
-    <link href="/static/main.css?e53ce377" rel="stylesheet"/>
-    <style>
-        body {
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Demo page to show background image panning with canvas</title><meta name="viewport" content="width=device-width"><meta name="robots" content="noindex,follow"><link href="/static/main.css?e53ce377" rel="stylesheet"><style>body {
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -23,19 +13,7 @@
         #bg {
             display: block;
             margin: 0 auto 16px;
-        }
-    </style>
-</head>
-<body>
-<div>
-    <canvas id="bg" width="640" height="320"></canvas>
-    <button id="btnStart" class="btn btn-default">Start/stop animation</button>
-    <span class="pull-right legal">
-        <a title="by Richard Bartz via Wikimedia Commons (CC-BY-SA-3.0)" href="http://commons.wikimedia.org/wiki/File%3APonta_de_S%C3%A3o_Louren%C3%A7o_north_north_east.jpg">Original photo</a>
-    </span>
-</div>
-<script>
-    (function() {
+        }</style></head><body><div><canvas id="bg" width="640" height="320"></canvas><button id="btnStart" class="btn btn-default">Start/stop animation</button> <span class="pull-right legal"><a title="by Richard Bartz via Wikimedia Commons (CC-BY-SA-3.0)" href="http://commons.wikimedia.org/wiki/File%3APonta_de_S%C3%A3o_Louren%C3%A7o_north_north_east.jpg">Original photo</a></span></div><script>(function() {
         window.requestAnimationFrame = window.requestAnimationFrame
                 || window.webkitRequestAnimationFrame
                 || window.mozRequestAnimationFrame
@@ -91,7 +69,4 @@
 
             context.drawImage(img, x, y);
         }
-    }());
-</script>
-</body>
-</html>
+    }());</script></body></html>

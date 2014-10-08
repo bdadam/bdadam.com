@@ -1,169 +1,24 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Finding a random document in MongoDB (with benchmarks)</title>
-    <meta name="description" content="Some tricks for retrieving a random element from a collection using MongoDB - with benchmarks.">
-    <meta property="og:description" content="Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial.">
-
-    <script>
-    (function(){
-        function addFont() {
-            var style = document.createElement('style');
-            style.textContent = localStorage.sourceSansPro;
-            style.rel = 'stylesheet';
-            document.head.appendChild(style);
-        }
-
-        try {
-            if (localStorage.sourceSansPro) {
-                addFont();
-            } else {
-                var request = new XMLHttpRequest();
-                request.open('GET', '/static/source-sans-pro.woff.css', true);
-
-                request.onload = function() {
-                    if (request.status >= 200 && request.status < 400) {
-                        localStorage.sourceSansPro = request.responseText;
-                        addFont();
-                    }
-                }
-
-                request.send();
-            }
-        } catch(ex) {}
-    }());
-    </script>
-
-    <link href="/static/main.css?e53ce377" rel="stylesheet">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="author" content="Adam Beres-Deak">
-    <meta name="viewport" content="width=device-width">
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"/>
-<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"/>
-<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"/>
-<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"/>
-<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"/>
-<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"/>
-<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"/>
-<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"/>
-<link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"/>
-<meta name="msapplication-TileColor" content="#aa2211"/>
-<meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"/>
-</head>
-<body>
-<nav>
-    <div class="container main">
-        <a class="brand" href="/">bdadam.com</a>
-        <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a>
-
-        <div id="menu">
-            <a href="/javascript-goodies.html">JavaScript Goodies</a>
-            <a href="/about.html">Contact</a>
-        </div>
-    </div>
-</nav>
-
-
-<article class="container main full-post">
-    <h1>Finding a random document in MongoDB (with benchmarks)</h1>
-    <p class="silent">
-        15th February 2014
-        | by <a href="/about.html">Adam Beres-Deak</a>
-        
-            | <i class="fa fa-tags"></i> mongodb,  random 
-        
-    </p>
-
-    <div class="abstract">
-    <p>Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial.</p>
-
-    </div>
-
-    <h2 id="finding-one-random-document-method-1">Finding one random document - Method 1</h2>
-<ol>
-<li><p>First of all you have to count how many documents you have in the collection.
-Optionally you can provide a filter condition (query).</p>
-<p><code>N = db.myCollection.count(query)</code></p>
-</li>
-<li><p>Then you have to generate a random number which is less than the number you counted before.</p>
-<p><code>R = Math.floor(Math.random() * N)</code></p>
-</li>
-<li><p>Then skip that many records and retrieve the next one.
-If you provided a query at the first step, here you have to use it as well.</p>
-<p><code>db.collection.find(query).limit(1).skip(R))</code></p>
-</li>
-</ol>
-<h3 id="let-s-see-an-example">Let&#39;s see an example</h3>
-<pre><code class="language-JavaScript">var query = { state: &#39;OK&#39; };
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Finding a random document in MongoDB (with benchmarks)</title><meta name="description" content="Some tricks for retrieving a random element from a collection using MongoDB - with benchmarks."><meta property="og:description" content="Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial."><script>!function(){function e(){var e=document.createElement("style")
+e.textContent=localStorage.sourceSansPro,e.rel="stylesheet",document.head.appendChild(e)}try{if(localStorage.sourceSansPro)e()
+else{var t=new XMLHttpRequest
+t.open("GET","/static/source-sans-pro.woff.css",!0),t.onload=function(){t.status>=200&&t.status<400&&(localStorage.sourceSansPro=t.responseText,e())},t.send()}}catch(o){}}()</script><link href="/static/main.css?e53ce377" rel="stylesheet"><link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/bdadamcom"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="author" content="Adam Beres-Deak"><meta name="viewport" content="width=device-width"><link rel="apple-touch-icon" sizes="57x57" href="/static/img/favico/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="114x114" href="/static/img/favico/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="72x72" href="/static/img/favico/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="144x144" href="/static/img/favico/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="60x60" href="/static/img/favico/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="120x120" href="/static/img/favico/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="76x76" href="/static/img/favico/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="152x152" href="/static/img/favico/apple-touch-icon-152x152.png"><link rel="icon" type="image/png" href="/static/img/favico/favicon-196x196.png" sizes="196x196"><link rel="icon" type="image/png" href="/static/img/favico/favicon-160x160.png" sizes="160x160"><link rel="icon" type="image/png" href="/static/img/favico/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/png" href="/static/img/favico/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/static/img/favico/favicon-16x16.png" sizes="16x16"><meta name="msapplication-TileColor" content="#aa2211"><meta name="msapplication-TileImage" content="/static/img/favico/mstile-144x144.png"></head><body><nav><div class="container main"><a class="brand" href="/">bdadam.com</a> <a class="menu-icon" href="#"><span class="menu-icon">menu</span></a><div id="menu"><a href="/javascript-goodies.html">JavaScript Goodies</a> <a href="/about.html">Contact</a></div></div></nav><article class="container main full-post"><h1>Finding a random document in MongoDB (with benchmarks)</h1><p class="silent">15th February 2014 | by <a href="/about.html">Adam Beres-Deak</a> | <i class="fa fa-tags"></i> mongodb, random</p><div class="abstract"><p>Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial.</p></div><h2 id="finding-one-random-document-method-1">Finding one random document - Method 1</h2><ol><li><p>First of all you have to count how many documents you have in the collection. Optionally you can provide a filter condition (query).</p><p><code>N = db.myCollection.count(query)</code></p></li><li><p>Then you have to generate a random number which is less than the number you counted before.</p><p><code>R = Math.floor(Math.random() * N)</code></p></li><li><p>Then skip that many records and retrieve the next one. If you provided a query at the first step, here you have to use it as well.</p><p><code>db.collection.find(query).limit(1).skip(R))</code></p></li></ol><h3 id="let-s-see-an-example">Let&#39;s see an example</h3><pre><code class="language-JavaScript">var query = { state: &#39;OK&#39; };
 var n = db.myCollection.count(query);
 var r = Math.floor(Math.random() * n);
-var randomElement = db.myCollection.find(query).limit(1).skip(r);</code></pre>
-<h3 id="pro-">Pro:</h3>
-<p>The data can be intact, no preparation is needed.</p>
-<h3 id="con-">Con:</h3>
-<ul>
-<li>This one is the slowest method.
-But this approach may still be OK, depending on the case. It definitely has tradeoffs when the collection has a large amount of documents:
-The <code>skip</code> command has to scan at least <code>R</code> number of documents.
-If the number of documents retrieved by the query is large, the random number <code>R</code> is also going to be large.</li>
-</ul>
-<h2 id="finding-one-random-document-method-2">Finding one random document - Method 2</h2>
-<p>For this method to work, the data has too meet some constraints:</p>
-<ul>
-<li>Each document should have a field with a random number, e.g. when saving <code>db.myCollection.save({ name: &#39;name&#39;, ..., rnd: Math.random() })</code></li>
-<li>The collection should have an index on this field, e.g. <code>db.myCollection.ensureIndex({ rnd: 1 })</code></li>
-</ul>
-<p>When the data is all set up, querying is rather easy:</p>
-<pre><code class="language-JavaScript">var query = {
+var randomElement = db.myCollection.find(query).limit(1).skip(r);</code></pre><h3 id="pro-">Pro:</h3><p>The data can be intact, no preparation is needed.</p><h3 id="con-">Con:</h3><ul><li>This one is the slowest method. But this approach may still be OK, depending on the case. It definitely has tradeoffs when the collection has a large amount of documents: The <code>skip</code> command has to scan at least <code>R</code> number of documents. If the number of documents retrieved by the query is large, the random number <code>R</code> is also going to be large.</li></ul><h2 id="finding-one-random-document-method-2">Finding one random document - Method 2</h2><p>For this method to work, the data has too meet some constraints:</p><ul><li>Each document should have a field with a random number, e.g. when saving <code>db.myCollection.save({ name: &#39;name&#39;, ..., rnd: Math.random() })</code></li><li>The collection should have an index on this field, e.g. <code>db.myCollection.ensureIndex({ rnd: 1 })</code></li></ul><p>When the data is all set up, querying is rather easy:</p><pre><code class="language-JavaScript">var query = {
     state: &#39;OK&#39;,
     rnd: {
         $gte: Math.random()
     }
 };
 
-var randomElement = db.myCollection.findOne({ $query: query, $orderby: { rnd: 1 } });</code></pre>
-<h3 id="pro-">Pro:</h3>
-<ul>
-<li>Not having to skip any document.</li>
-</ul>
-<h3 id="con-">Con:</h3>
-<ul>
-<li>Data has to have field with a random number stored in it</li>
-<li>This random field should also have an index</li>
-<li>Sorting reduces performance</li>
-</ul>
-<h2 id="finding-one-random-document-method-2-5">Finding one random document - Method 2.5</h2>
-<p>There is a simpler variant of the second method. It doesn&#39;t retrieve a truly random document, but it may be enough for the specific case.</p>
-<pre><code class="language-JavaScript">var query = {
+var randomElement = db.myCollection.findOne({ $query: query, $orderby: { rnd: 1 } });</code></pre><h3 id="pro-">Pro:</h3><ul><li>Not having to skip any document.</li></ul><h3 id="con-">Con:</h3><ul><li>Data has to have field with a random number stored in it</li><li>This random field should also have an index</li><li>Sorting reduces performance</li></ul><h2 id="finding-one-random-document-method-2-5">Finding one random document - Method 2.5</h2><p>There is a simpler variant of the second method. It doesn&#39;t retrieve a truly random document, but it may be enough for the specific case.</p><pre><code class="language-JavaScript">var query = {
     state: &#39;OK&#39;,
     rnd: {
         $gte: Math.random()
     }
 };
 
-var randomElement = db.myCollection.findOne(query);</code></pre>
-<p>Please note that there is no <code>$orderby</code>. This can improve performance. The price is that documents are sorted in &quot;find order&quot; rather than &quot;random order&quot;.
-But this could be fine in many cases.</p>
-<h3 id="pro-">Pro:</h3>
-<ul>
-<li>Not having to skip any document</li>
-<li>Performance</li>
-</ul>
-<h3 id="con-">Con:</h3>
-<ul>
-<li>Not truly random document</li>
-<li>Data has to have a field with a random number stored in it</li>
-<li>This field also should have an index</li>
-</ul>
-<h2 id="benchmarks">Benchmarks</h2>
-<p>I created a very simple benchmark. The setup looks like this:</p>
-<pre><code class="language-JavaScript">var i = 1000000;
+var randomElement = db.myCollection.findOne(query);</code></pre><p>Please note that there is no <code>$orderby</code>. This can improve performance. The price is that documents are sorted in &quot;find order&quot; rather than &quot;random order&quot;. But this could be fine in many cases.</p><h3 id="pro-">Pro:</h3><ul><li>Not having to skip any document</li><li>Performance</li></ul><h3 id="con-">Con:</h3><ul><li>Not truly random document</li><li>Data has to have a field with a random number stored in it</li><li>This field also should have an index</li></ul><h2 id="benchmarks">Benchmarks</h2><p>I created a very simple benchmark. The setup looks like this:</p><pre><code class="language-JavaScript">var i = 1000000;
 while(i) {
     db.test.save({
         name: &quot;some lorem ipsum not important&quot;,
@@ -171,9 +26,7 @@ while(i) {
     });
     i--;
 }
-db.test.ensureIndex({ rnd: 1 });</code></pre>
-<p>Then I ran all the three methods on my computer with a local database, 10000 times each.</p>
-<pre><code class="language-JavaScript">var startDate = new Date();
+db.test.ensureIndex({ rnd: 1 });</code></pre><p>Then I ran all the three methods on my computer with a local database, 10000 times each.</p><pre><code class="language-JavaScript">var startDate = new Date();
 var i = 10000;
 while (i) {
     var n = db.test.count();
@@ -214,99 +67,10 @@ while (i) {
 var t3 = new Date() - startDate;
 
 
-print(t1, t2, t3);</code></pre>
-<h2 id="and-the-winner-is-method-2-5-">And the winner is &quot;Method 2.5&quot;</h2>
-<p>Here are my benchmark results:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Method</th>
-<th style="text-align:right">Time for 10,000 runs (seconds)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Method 2.5</td>
-<td style="text-align:right">2.234</td>
-</tr>
-<tr>
-<td style="text-align:left">Method 2</td>
-<td style="text-align:right">2.297</td>
-</tr>
-<tr>
-<td style="text-align:left">Method 1</td>
-<td style="text-align:right">2.813</td>
-</tr>
-</tbody>
-</table>
-<p>Although the differences are not quite big, the winner is definitely &quot;Method 2.5&quot;.
-I think, when using more realistic data, the differences are also going to be much larger.</p>
-<p>Do you have your own benchmark results with different data? Please feel free to comment it.</p>
-
-
-    <a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a>
-
-    <p class="share-bar"></p>
-
-    <a id="comments"></a>
-
-    <div id="disqus_thread"></div>
-
-    <h4>Latest blog posts</h4>
-    
-        
-            <p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p>
-        
-    
-        
-            <p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p>
-        
-    
-</article>
-
-
-<footer>
-    <p>
-        Adam Beres-Deak &copy; 2014
-
-        <span class="social-links">
-            <a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp;
-            <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp;
-            <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp;
-            <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp;
-            <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a>
-        </span>
-
-        <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a>
-    </p>
-    <p class="silent container">
-        Except where otherwise noted, content on this site is licensed under a
-        <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>.
-        Code samples are licensed under the MIT license.
-    </p>
-</footer>
-<script data-no-instant src="/static/main.js?43c58e8a" async></script>
-<script data-no-instant async>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script>
-<script>
-if (location.hostname !== 'localhost') {
+print(t1, t2, t3);</code></pre><h2 id="and-the-winner-is-method-2-5-">And the winner is &quot;Method 2.5&quot;</h2><p>Here are my benchmark results:</p><table><thead><tr><th style="text-align:left">Method</th><th style="text-align:right">Time for 10,000 runs (seconds)</th></tr></thead><tbody><tr><td style="text-align:left">Method 2.5</td><td style="text-align:right">2.234</td></tr><tr><td style="text-align:left">Method 2</td><td style="text-align:right">2.297</td></tr><tr><td style="text-align:left">Method 1</td><td style="text-align:right">2.813</td></tr></tbody></table><p>Although the differences are not quite big, the winner is definitely &quot;Method 2.5&quot;. I think, when using more realistic data, the differences are also going to be much larger.</p><p>Do you have your own benchmark results with different data? Please feel free to comment it.</p><a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a><p class="share-bar"></p><a id="comments"></a><div id="disqus_thread"></div><h4>Latest blog posts</h4><p><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io <span class="muted"><small>8th October 2014</small></span></a></p><p><a href="/blog/generating-sound-effects-with-client-side-javascript.html">Generating sound effects with client side JavaScript <span class="muted"><small>6th April 2014</small></span></a></p><p><a href="/blog/static-site-generation-boilerplate.html">Boilerplate for static site generation <span class="muted"><small>25th March 2014</small></span></a></p><p><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep <span class="muted"><small>11th March 2014</small></span></a></p><p><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps <span class="muted"><small>10th March 2014</small></span></a></p></article><footer><p>Adam Beres-Deak &copy; 2014 <span class="social-links"><a href="mailto:me@bdadam.com"><i class="fa fa-envelope"></i></a>&nbsp;&nbsp; <a href="http://github.com/bdadam" rel="external,nofollow"><i class="fa fa-github"></i></a>&nbsp;&nbsp; <a href="https://twitter.com/bdadamm" rel="external,nofollow"><i class="fa fa-twitter"></i></a>&nbsp;&nbsp; <a href="https://www.xing.com/profile/Adam_BeresDeak" rel="external,nofollow"><i class="fa fa-xing"></i></a>&nbsp;&nbsp; <a href="https://plus.google.com/116380265342833844173?rel=author"><i class="fa fa-google-plus-square"></i></a></span> <a rel="external" href="http://feeds.feedburner.com/bdadamcom">RSS</a></p><p class="silent container">Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="external,noindex,nofollow">Creative Commons Attribution 4.0 International license</a>. Code samples are licensed under the MIT license.</p></footer><script data-no-instant src="/static/main.js?43c58e8a" async></script><script data-no-instant>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');</script><script>if (location.hostname !== 'localhost') {
     ga('create', 'UA-47485340-1', 'bdadam.com');
     ga('send', 'pageview', location.pathname + location.search);
 
     ga('create', 'UA-49233936-1', 'bdadam.com', { name: 'x'});
     ga('x.send', 'pageview', location.pathname + location.search);
-}
-</script>
-</body>
-</html>
+}</script></body></html>

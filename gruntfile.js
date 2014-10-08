@@ -127,12 +127,37 @@ module.exports = function(grunt) {
 
             assemble: {
                 files: ['src/**/*.{hbs,html,md,xml}'],
-                tasks: ['assemble', 'rename', 'hashres']
+                tasks: ['assemble', 'rename', 'hashres', 'htmlmin']
+            }
+        },
+
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'dist/',
+                    src: ['**/*.html'],
+                    dest: 'dist',
+                    ext: '.html'
+                }]
+            }
+        },
+
+        inline: {
+            dist: {
+                options: {
+                    tag: 'main.css'
+                },
+                src: ['dist/**/*.html']
             }
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'browserify', 'assemble', 'rename', 'hashres']);
+    grunt.registerTask('build', ['clean', 'less', 'browserify', 'assemble', 'rename', 'hashres', 'htmlmin']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');
