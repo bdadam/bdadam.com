@@ -145,15 +145,6 @@ module.exports = function(grunt) {
                     ext: '.html'
                 }]
             }
-        },
-
-        inline: {
-            dist: {
-                options: {
-                    tag: 'main.css'
-                },
-                src: ['dist/**/*.html']
-            }
         }
     });
 
