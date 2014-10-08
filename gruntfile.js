@@ -148,7 +148,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'browserify', 'assemble', 'rename', 'hashres', 'htmlmin']);
+    grunt.registerTask('build', ['clean', 'less', 'browserify', 'assemble', 'rename', 'hashres']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');
