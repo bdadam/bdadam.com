@@ -7,6 +7,99 @@
         <description>Blog</description>
         
         <item>
+            <title>Loading webfonts the most efficiently on responsive sites</title>
+            <link>http://bdadam.com/blog/loading-webfonts-the-most-efficiently.html</link>
+            <description>
+                <![CDATA[
+                <p>The times are over when every website just used Arial, Verdana, Garamond or Times New Roman for rendering the text, because these were the only reliable fonts which were installed on almost any computer. Nowadays webfonts are spread all over the internet, but we still don&#39;t really know, how to load them efficiently. Here is a case study about loading Source Sans Pro the most efficiently.</p>
+
+                <h2 id="tldr">TLDR</h2>
+<ol>
+<li>Only serve fonts in woff format</li>
+<li>Other browsers get the old &quot;websafe&quot; fonts</li>
+<li>Download the font, optimize it</li>
+<li>Serve the fonts yourself</li>
+<li>Serve them as CSS files - base64 encoded data URIs</li>
+<li>If the user doesn&#39;t have the font, load it asynchronously and store in localStorage</li>
+<li>Otherwise load it from localStorage without accessing the server</li>
+<li>Have fun because your site renders much faster and your users have a much better usability experience</li>
+</ol>
+<h2 id="1-browser-support">1. Browser support</h2>
+<p>According to <a href="http://caniuse.com/#search=woff">caniuse</a>, 84% of users&#39; browsers support <code>woff</code> format.
+The only exceptions are the usual old browsers - IE8 and old stock android browsers.
+Therefore it is mostly enough to only provide webfonts for those browsers which support the <code>woff</code> format.
+The old browsers should only show a fallback font like the ones mentioned above.
+They will also be thankful for having better performance browsing your website. Just try to find something which fits in your design.</p>
+<h2 id="2-don-t-use-external-providers-like-google-fonts-or-typekit">2. Don&#39;t use external providers like Google Fonts or Typekit</h2>
+<p>They either cause many extra blocking requests or annoying blinking if loading asynchronously.
+We&#39;ll see shortly that there is a much better way of serving webfonts.</p>
+<h2 id="3-the-licence-matters">3. The licence matters</h2>
+<p>Choose a webfont which you can serve yourself. Unfortunately not every licence allows this.
+Fortunately there are many which do - like the open source ones. Some of them are Open Sans or Source Sans Pro.
+When you found your font, download the &quot;binary&quot; files (otf or ttf).</p>
+<h2 id="4-optimizing-reducing-size-generating-the-css">4. Optimizing, reducing size, generating the CSS</h2>
+<p>Head on over to the <a href="http://www.fontsquirrel.com/tools/webfont-generator">Font Squirrel Webfont Generator</a>.</p>
+<p>When choosing expert mode we can choose to remove some charsets.
+You have to decide which character sets you really need. Is your content only in english? Then you just need a basic subset.
+Is your content in chineese? Then you most probably need everything.</p>
+<p>It is important to choose the option to generate CSS files which contains the base64 encoded fonts. This file is what we really need.</p>
+<h2 id="5-serving-the-css-file">5. Serving the CSS file</h2>
+<p>This file is going to be quite large (up to 100-300 kB) depending on your choice on charsets and the other options.
+Therefore it is important to gzip it correctly and setting strong cacheability.</p>
+<p>Fortunately you are going to serve this file only once for your visitors.
+The first time, when the user doesn&#39;t have the font file, you download it asynchronously and store it in localStorage.
+This time users with slower connections can see when the browsers repaints the fallback fonts with your webfonts, but it only happens at most once.
+Many users won&#39;t notice anything at all.</p>
+<p>From the second page load on you just load the CSS file from the localStorage. Which is reasonably fast.
+The users won&#39;t see any blinking, because all the operations are synchronous, but only take a couple of milliseconds.</p>
+<h2 id="6-show-me-the-code">6. Show me the code</h2>
+<p>Since we store the file in localStorage this technique only needs client side code. Here you are.</p>
+<pre><code class="language-JavaScript">(function(){
+    function addFont() {
+        var style = document.createElement(&#39;style&#39;);
+        style.textContent = localStorage.sourceSansPro;
+        style.rel = &#39;stylesheet&#39;;
+        document.head.appendChild(style);
+    }
+
+    try {
+        if (localStorage.sourceSansPro) {
+            // The font is in localStorage, we can load it directly
+            addFont();
+        } else {
+            // We have to first load the font file asynchronously
+            var request = new XMLHttpRequest();
+            request.open(&#39;GET&#39;, &#39;/path/to/source-sans-pro.woff.css&#39;, true);
+
+            request.onload = function() {
+                if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
+                    // We save the file in localStorage
+                    localStorage.sourceSansPro = request.responseText;
+
+                    // ... and load the font
+                    addFont();
+                }
+            }
+
+            request.send();
+        }
+    } catch(ex) {}
+}());</code></pre>
+<h2 id="7-what-did-we-achieve">7. What did we achieve</h2>
+<ol>
+<li>Eliminated at least one, but usually many blocking requests</li>
+<li>No blinking for the user when the fallback font gets replaced by the wbfont</li>
+<li>Faster render time on the first page request</li>
+<li>Better score on Google Page Speed Insights and WebPageTest.org</li>
+</ol>
+<h2 id="8-see-it-in-action">8. See it in action</h2>
+<p>This technique is used on my blog. You can test it with your smartphone, tablet or laptop. It&#39;s fast, I promise. :)</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Loading web pages really fast - optimistic page loading with Instantclick.io</title>
             <link>http://bdadam.com/blog/optimistic-page-loading-with-instantclick-io.html</link>
             <description>

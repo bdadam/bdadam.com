@@ -1,6 +1,6 @@
 ---
 layout:         post.hbs
-date:           2014-10-08
+date:           2014-10-08 2:00
 title:          Loading web pages really fast - optimistic page loading with Instantclick.io
 description:    How to turn traditional websites into single page apps with Instantclick.io
 abstract:       There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work.
