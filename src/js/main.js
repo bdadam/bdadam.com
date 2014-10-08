@@ -40,9 +40,21 @@ ic.on('change', function(initialPageview) {
         window.DISQUS && document.getElementById('comments') && window.DISQUS.reset({ reload: true });
     }
 
+    function loadDisqus() {
+        if (window.pageYOffset === 0) {
+            window.addEventListener('scroll', function x() {
+                loadJS('//' + disqus_shortname + '.disqus.com/embed.js');
+                window.removeEventListener('scroll', x);
+            });
+
+        } else {
+            loadJS('//' + disqus_shortname + '.disqus.com/embed.js');
+        }
+    }
+
     if (!disqusLoaded && disqusHasToLoad) {
         window.disqus_shortname = 'bdadamcom';
-        loadJS('//' + disqus_shortname + '.disqus.com/embed.js');
+        loadDisqus();
         disqusLoaded = true;
     }
 });
