@@ -33,6 +33,15 @@ The essence of the technique:
 
 For those who are still reading here are my explanations for the points above.
 
+<a id="update1"></a>
+### Update - 2014/10/09
+If you don't believe in this optimization, I created two demo pages. Just test them and take a look at how resources are loaded, what is blocking, what isn't.
+
+1. <a href="/samples/webfonts-conventional.html" target="_blank">Demo page: Loading from Google Fonts</a>
+1. <a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fbdadam.com%2Fsamples%2Fwebfonts-conventional.html" rel="external" target="_blank">Page Speed Insights: Loading with Google Fonts (79/100)</a>
+1. <a href="/samples/webfonts-conventional.html" target="_blank">Demo page: Loading Asynchronously and serving from localStorage later on</a>
+1. <a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fbdadam.com%2Fsamples%2Fwebfonts-optimized.html" rel="external" target="_blank">Page Speed Insights: Async loading/localStorage (100/100)</a>
+
 ## 1. Browser support
 According to [caniuse](http://caniuse.com/#search=woff), 84% of users' browsers support `woff` format.
 The only exceptions are the usual old browsers - IE8 and old stock android browsers.

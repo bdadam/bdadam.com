@@ -27,6 +27,15 @@
 <li>Have fun because your site renders much faster and your users have a much better usability experience</li>
 </ol>
 <p>For those who are still reading here are my explanations for the points above.</p>
+<p><a id="update1"></a></p>
+<h3 id="update-2014-10-09">Update - 2014/10/09</h3>
+<p>If you don&#39;t believe in this optimization, I created two demo pages. Just test them and take a look at how resources are loaded, what is blocking, what isn&#39;t.</p>
+<ol>
+<li><a href="/samples/webfonts-conventional.html" target="_blank">Demo page: Loading from Google Fonts</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fbdadam.com%2Fsamples%2Fwebfonts-conventional.html" rel="external" target="_blank">Page Speed Insights: Loading with Google Fonts (79/100)</a></li>
+<li><a href="/samples/webfonts-conventional.html" target="_blank">Demo page: Loading Asynchronously and serving from localStorage later on</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fbdadam.com%2Fsamples%2Fwebfonts-optimized.html" rel="external" target="_blank">Page Speed Insights: Async loading/localStorage (100/100)</a></li>
+</ol>
 <h2 id="1-browser-support">1. Browser support</h2>
 <p>According to <a href="http://caniuse.com/#search=woff">caniuse</a>, 84% of users&#39; browsers support <code>woff</code> format.
 The only exceptions are the usual old browsers - IE8 and old stock android browsers.
