@@ -117,6 +117,45 @@ The users won&#39;t see any blinking, because all the operations are synchronous
 <p>This technique is used on my blog. You can test it with your smartphone, tablet or laptop. It&#39;s fast, I promise. :)</p>
 <p><strong>There are still some fine details which are missing from this post.
 If you have questions or feedback, you are welcome to leave a <a href="#comments">comment</a>.</strong></p>
+<p><a id="update2"></a></p>
+<h3 id="update-2014-10-11">Update - 2014/10/11</h3>
+<p>A Twitter user, @Kseso, made me aware of another method, which also proceeds to a 99/100 score on Google Page Speed Insights.
+The method is to inline the CSS what Google Fonts delivers.</p>
+<p>I advise against this method, because it delays text rendering quite a lot. So let&#39;s take a deeper look what happens here.</p>
+<ol>
+<li>We define font faces directly in the HTML file like this:<pre><code class="language-html">&lt;head&gt;
+...
+&lt;style&gt;
+@font-face {
+font-family: &#39;Source Sans Pro&#39;;
+font-style: normal;
+font-weight: 400;
+src: local(&#39;Source Sans Pro&#39;),
+  local(&#39;SourceSansPro-Regular&#39;),
+  url(http://fonts.gstatic.com/s/sourcesanspro/v9/ODelI1aHBYDBqgeIAH2zlBBHWFfxJXS04xYOz0jw624.woff) format(&#39;woff&#39;);
+}
+&lt;/style&gt;
+...
+&lt;/head&gt;</code></pre>
+</li>
+<li>The browser doesn&#39;t start to fetch the font file, until it doesn&#39;t know whether it is needed at all somewhere in the page.</li>
+<li>The browser waits until DOM and CSSOM are constructed</li>
+<li>The browser starts to fetch the font file from Google Fonts
+(please notice, there is also an extra DNS request for fonts.gstatic.com).
+<img src="/static/article-assets/gfonts-timeline.jpg" alt="Timeline of loading fonts from Google Fonts">
+This timeline shows that the browser only starts fetching the font file, just before the DOMContentLoaded event.</li>
+<li>If this wasn&#39;t bad enough, most browsers will just render blank text, where those font faces are used:<ol>
+<li>Only IE starts rendering <strong>immediately</strong> with the fallback font</li>
+<li>Firefox and Chrome35+ wait for the font download to complete <strong>with a 3 seconds timeout</strong> (after which the fallback font is used)</li>
+<li>Safari and Chrome pre 35 wait for the font download to complete <strong>without any timeout</strong></li>
+</ol>
+</li>
+</ol>
+<p>Therefore on slow connections you will delay rendering of your text content up to 3 seconds in most browsers.
+In worst case, if your font takes ages to load (e.g. because of bad mobile connection), Safari users will never see your text content and just leave your page.
+Your users can end up seeing a white page until the timeout kicks in.</p>
+<p>More info can be found on <a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/" rel="external">Ilya Gregorik&#39;s blog</a>.</p>
+<p>I also created <a href="/samples/webfonts-googlefonts.html" target="_blank">a test page</a>, where you can check it out yourself.</p>
 
                 ]]>
             </description>

@@ -137,3 +137,46 @@ This technique is used on my blog. You can test it with your smartphone, tablet 
 
 **There are still some fine details which are missing from this post.
 If you have questions or feedback, you are welcome to leave a [comment](#comments).**
+
+<a id="update2"></a>
+### Update - 2014/10/11
+A Twitter user, @Kseso, made me aware of another method, which also proceeds to a 99/100 score on Google Page Speed Insights.
+The method is to inline the CSS what Google Fonts delivers.
+
+I advise against this method, because it delays text rendering quite a lot. So let's take a deeper look what happens here.
+
+1. We define font faces directly in the HTML file like this:
+```html
+<head>
+...
+<style>
+@font-face {
+font-family: 'Source Sans Pro';
+font-style: normal;
+font-weight: 400;
+src: local('Source Sans Pro'),
+     local('SourceSansPro-Regular'),
+     url(http://fonts.gstatic.com/s/sourcesanspro/v9/ODelI1aHBYDBqgeIAH2zlBBHWFfxJXS04xYOz0jw624.woff) format('woff');
+}
+</style>
+...
+</head>
+```
+1. The browser doesn't start to fetch the font file, until it doesn't know whether it is needed at all somewhere in the page.
+1. The browser waits until DOM and CSSOM are constructed
+1. The browser starts to fetch the font file from Google Fonts
+(please notice, there is also an extra DNS request for fonts.gstatic.com).
+<img src="/static/article-assets/gfonts-timeline.jpg" alt="Timeline of loading fonts from Google Fonts">
+This timeline shows that the browser only starts fetching the font file, just before the DOMContentLoaded event.
+1. If this wasn't bad enough, most browsers will just render blank text, where those font faces are used:
+    1. Only IE starts rendering **immediately** with the fallback font
+    2. Firefox and Chrome35+ wait for the font download to complete **with a 3 seconds timeout** (after which the fallback font is used)
+    3. Safari and Chrome pre 35 wait for the font download to complete **without any timeout**
+
+Therefore on slow connections you will delay rendering of your text content up to 3 seconds in most browsers.
+In worst case, if your font takes ages to load (e.g. because of bad mobile connection), Safari users will never see your text content and just leave your page.
+Your users can end up seeing a white page until the timeout kicks in.
+
+More info can be found on <a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/" rel="external">Ilya Gregorik's blog</a>.
+
+I also created <a href="/samples/webfonts-googlefonts.html" target="_blank">a test page</a>, where you can check it out yourself.
