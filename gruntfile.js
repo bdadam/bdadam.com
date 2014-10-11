@@ -121,6 +121,11 @@ module.exports = function(grunt) {
                 tasks: ['browserify', 'copy', 'assemble']
             },
 
+            uglifyinlinejs: {
+                files: ['src/js/inline/**/*.js'],
+                tasks: ['uglify:inlinejs']
+            },
+
             assemble: {
                 files: ['src/**/*.{hbs,html,md,xml}'],
                 tasks: ['assemble', 'rename', 'htmlmin']
@@ -150,10 +155,18 @@ module.exports = function(grunt) {
                     'src/templates/partials/main.js.hbs': 'dist/static/main.js'
                 }
             }
+        },
+
+        uglify: {
+            inlinejs: {
+                files: {
+                    'src/templates/partials/head-inline.js.hbs': ['src/js/inline/*.js']
+                }
+            }
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'browserify', 'copy', 'assemble', 'rename', 'htmlmin']);
+    grunt.registerTask('build', ['clean', 'less', 'browserify', 'uglify', 'copy', 'assemble', 'rename', 'htmlmin']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
 
     grunt.loadNpmTasks('assemble');
