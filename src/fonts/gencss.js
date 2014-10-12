@@ -13,7 +13,7 @@ var files = [{
 	'font-style': 'normal'
 }];
 
-var fontCssFile = '../source-sans-pro.woff.css';
+var fontCssFile = '../../dist/static/source-sans-pro.woff.css';
 
 fs.writeFileSync(fontCssFile, '');
 
