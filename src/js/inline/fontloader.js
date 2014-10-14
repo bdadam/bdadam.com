@@ -6,16 +6,18 @@
         document.head.appendChild(style);
     }
 
+    var fontLsKey = 'sourceSansProV1';
+
     try {
-        if (localStorage.sourceSansPro) {
-            createStyle(localStorage.sourceSansPro);
+        if (localStorage[fontLsKey]) {
+            createStyle(localStorage[fontLsKey]);
         } else {
             var request = new XMLHttpRequest();
-            request.open('GET', '/static/source-sans-pro.woff.css', true);
+            request.open('GET', '/static/source-sans-pro.woff.css?v1', true);
 
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
-                    localStorage.sourceSansPro = request.responseText;
+                    localStorage[fontLsKey] = request.responseText;
                     createStyle(request.responseText);
                 }
             }

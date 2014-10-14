@@ -11,31 +11,33 @@ layout:     false
 		
 		<script>
 		(function(){
-	        function addFont() {
-	            var style = document.createElement('style');
-	            style.textContent = localStorage.sourceSansPro;
-	            style.rel = 'stylesheet';
-	            document.head.appendChild(style);
-	        }
+		    function createStyle(txt) {
+		        var style = document.createElement('style');
+		        style.textContent = txt;
+		        style.rel = 'stylesheet';
+		        document.head.appendChild(style);
+		    }
 
-	        try {
-	            if (localStorage.sourceSansPro) {
-	                addFont();
-	            } else {
-	                var request = new XMLHttpRequest();
-	                request.open('GET', '/static/source-sans-pro.woff.css', true);
+		    var fontLsKey = 'sourceSansProV1';
 
-	                request.onload = function() {
-	                    if (request.status >= 200 && request.status < 400) {
-	                        localStorage.sourceSansPro = request.responseText;
-	                        addFont();
-	                    }
-	                }
+		    try {
+		        if (localStorage[fontLsKey]) {
+		            createStyle(localStorage[fontLsKey]);
+		        } else {
+		            var request = new XMLHttpRequest();
+		            request.open('GET', '/static/source-sans-pro.woff.css?v1', true);
 
-	                request.send();
-	            }
-	        } catch(ex) {}
-	    }());
+		            request.onload = function() {
+		                if (request.status >= 200 && request.status < 400) {
+		                    localStorage[fontLsKey] = request.responseText;
+		                    createStyle(request.responseText);
+		                }
+		            }
+
+		            request.send();
+		        }
+		    } catch(ex) {}
+		}());
 	    </script>
 
 		<style>

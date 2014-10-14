@@ -1,29 +1,31 @@
 <!doctype html><html><head><meta charset="utf-8"><title>Loading webfonts optimized</title><meta name="viewport" content="width=device-width"><link rel="canonical" href="http://bdadam.com/blog/loading-webfonts-with-high-performance.html"><script>(function(){
-	        function addFont() {
-	            var style = document.createElement('style');
-	            style.textContent = localStorage.sourceSansPro;
-	            style.rel = 'stylesheet';
-	            document.head.appendChild(style);
-	        }
+		    function createStyle(txt) {
+		        var style = document.createElement('style');
+		        style.textContent = txt;
+		        style.rel = 'stylesheet';
+		        document.head.appendChild(style);
+		    }
 
-	        try {
-	            if (localStorage.sourceSansPro) {
-	                addFont();
-	            } else {
-	                var request = new XMLHttpRequest();
-	                request.open('GET', '/static/source-sans-pro.woff.css', true);
+		    var fontLsKey = 'sourceSansProV1';
 
-	                request.onload = function() {
-	                    if (request.status >= 200 && request.status < 400) {
-	                        localStorage.sourceSansPro = request.responseText;
-	                        addFont();
-	                    }
-	                }
+		    try {
+		        if (localStorage[fontLsKey]) {
+		            createStyle(localStorage[fontLsKey]);
+		        } else {
+		            var request = new XMLHttpRequest();
+		            request.open('GET', '/static/source-sans-pro.woff.css?v1', true);
 
-	                request.send();
-	            }
-	        } catch(ex) {}
-	    }());</script><style>body {
+		            request.onload = function() {
+		                if (request.status >= 200 && request.status < 400) {
+		                    localStorage[fontLsKey] = request.responseText;
+		                    createStyle(request.responseText);
+		                }
+		            }
+
+		            request.send();
+		        }
+		    } catch(ex) {}
+		}());</script><style>body {
 				font-family: Source Sans Pro, sans-serif;
 				font-size: 1.25rem;
 				font-weight: 400;
