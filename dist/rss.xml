@@ -7,6 +7,111 @@
         <description>Blog</description>
         
         <item>
+            <title>Automatically adjusting the height of a textarea to its content text</title>
+            <link>http://bdadam.com/blog/automatically-adapting-the-height-textarea.html</link>
+            <description>
+                <![CDATA[
+                <p>While I was working on a simple web based markdown editor I needed something where the users can type their texts. My first thought was to use a DIV with the contenteditable attribute. But it introduced many problems, which I did not want to fight. I only needed something simple and stupid - the good old TEXTAREA.</p>
+
+                <p>But also textareas have a big problem: they have a fixed height per default.
+You can either set the <code>rows</code> attribute to tell how many rows should be displayed, or you can set their <code>style.height</code> properties.
+But unfortunately there is no auto-height property.</p>
+<h2 id="the-idea">The idea</h2>
+<p>After every change in the text we have to measure how high the content is. Fortunately there is a method to do it.
+<code>element.scrollHeight</code> gives us the height of the content, regardless of visible scrollbars.
+To be able to decrease the size we set the height each time back to zero so that scrollHeight reports the required minimum and not more.
+E.g. when the user deletes a line.</p>
+<p>We also have to calculate the size of the border and outline, so that we don&#39;t give any chance for the content to be cut off, or that a scrollbar is shown.</p>
+<p>Then we set the <code>style.height</code> property to the calculated height.</p>
+<p>To do this every time, we use the <code>oninput</code> event, which is fired every time the text content changes.
+Contrary to <code>onchange</code> which only fires when the users clicks away.</p>
+<h2 id="show-me-the-code">Show me the code</h2>
+<pre><code class="language-html">&lt;textarea data-adaptheight rows=&quot;3&quot; cols=&quot;40&quot; placeholder=&quot;Your input&quot; style=&quot;padding: 16px; line-height: 1.5;&quot;&gt;&lt;/textarea&gt;
+&lt;script&gt;
+(function() {
+    function adjustHeight(textareaElement, minHeight) {
+        // compute the height difference which is caused by border and outline
+        var outerHeight = parseInt(window.getComputedStyle(el).height, 10);
+        var diff = outerHeight - el.clientHeight;
+
+        // set the height to 0 in case of it has to be shrinked
+        el.style.height = 0;
+
+        // set the correct height
+        // el.scrollHeight is the full height of the content, not just the visible part
+        el.style.height = Math.max(minHeight, el.scrollHeight + diff) + &#39;px&#39;;
+    }
+
+
+    // we use the &quot;data-adaptheight&quot; attribute as a marker
+    var textAreas = document.querySelectorAll(&#39;textarea[data-adaptheight]&#39;);
+
+    // iterate through all the textareas on the page
+    for (var i = 0, l = textAreas.length; i &lt; l; i++) {
+        var el = textAreas[i];
+
+        // we need box-sizing: border-box, if the textarea has padding
+        el.style.boxSizing = el.style.mozBoxSizing = &#39;border-box&#39;;
+
+        // we don&#39;t need any scrollbars, do we? :)
+        el.style.overflowY = &#39;hidden&#39;;
+
+        // the minimum height initiated through the &quot;rows&quot; attribute
+        var minHeight = el.scrollHeight;
+
+        el.addEventListener(&#39;input&#39;, function() {
+            adjustHeight(el, minHeight);
+        });
+
+        // we adjust height to the initial content
+        adjustHeight(el, minHeight);
+    }
+}());
+&lt;/script&gt;</code></pre>
+<h2 id="demo">Demo</h2>
+<p>Just type in some text and see it for yourself. Initial height is 3 rows.</p>
+<p><textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5;"></textarea></p>
+<script>
+(function() {
+    function adjustHeight(textareaElement, minHeight) {
+        var diff = parseInt(window.getComputedStyle(el).height, 10) - el.clientHeight;
+        el.style.height = 0;
+        el.style.height = Math.max(minHeight, el.scrollHeight + diff) + 'px';
+    }
+
+    var textAreas = document.querySelectorAll('textarea[data-adaptheight]');
+
+    for (var i = 0, l = textAreas.length; i < l; i++) {
+        var el = textAreas[i];
+        el.style.boxSizing = el.style.mozBoxSizing = 'border-box';
+        el.style.overflowY = 'hidden';
+        var minHeight = el.scrollHeight;
+
+        el.addEventListener('input', function() { adjustHeight(el, minHeight); });
+
+        adjustHeight(el, minHeight);
+    }
+}());
+</script>
+
+<h2 id="tradeoffs">Tradeoffs</h2>
+<p>Every keypress causes repaints. Because we set the height of the textarea to 0 and then to the calculated value.
+This should however be negligible, because most users can only type at most a few characters a second.
+Therefore it shouldn&#39;t cause any noticeable performance drawbacks.</p>
+<h2 id="where-to-use-it-for-">Where to use it for?</h2>
+<p>There are many cases in which this can be useful. Amongst others:</p>
+<ul>
+<li>Text editors</li>
+<li>Code editors</li>
+<li>Comment boxes</li>
+</ul>
+<p><strong>Do you like it? Do you already use it? Just leave a comment below - the comment box is auto adjusted by default. :)</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Loading webfonts with high performance on responsive websites</title>
             <link>http://bdadam.com/blog/loading-webfonts-with-high-performance.html</link>
             <description>
