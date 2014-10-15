@@ -1,9 +1,9 @@
 (function(){
     function createStyle(txt) {
         var style = document.createElement('style');
-        style.textContent = txt;
         style.rel = 'stylesheet';
         document.head.appendChild(style);
+        style.textContent = txt;
     }
 
     var fontLsKey = 'sourceSansProV1';

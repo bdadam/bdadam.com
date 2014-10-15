@@ -89,9 +89,9 @@ Since we store the file in localStorage this technique only needs client side co
 (function(){
     function addFont() {
         var style = document.createElement('style');
-        style.textContent = localStorage.sourceSansPro;
         style.rel = 'stylesheet';
         document.head.appendChild(style);
+        style.textContent = localStorage.sourceSansPro;
     }
 
     try {

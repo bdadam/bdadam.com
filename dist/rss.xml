@@ -72,9 +72,9 @@ The users won&#39;t see any blinking, because all the operations are synchronous
 (function(){
     function addFont() {
         var style = document.createElement(&#39;style&#39;);
-        style.textContent = localStorage.sourceSansPro;
         style.rel = &#39;stylesheet&#39;;
         document.head.appendChild(style);
+        style.textContent = localStorage.sourceSansPro;
     }
 
     try {
