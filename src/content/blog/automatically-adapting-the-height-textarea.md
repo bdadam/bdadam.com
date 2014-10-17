@@ -71,6 +71,11 @@ Contrary to `onchange` which only fires when the users clicks away.
             adjustHeight(el, minHeight);
         });
 
+        // we have to readjust when window size changes (e.g. orientation change)
+        window.addEventListener('resize', function() {
+            adjustHeight(el, minHeight);
+        });
+
         // we adjust height to the initial content
         adjustHeight(el, minHeight);
     }
@@ -81,7 +86,7 @@ Contrary to `onchange` which only fires when the users clicks away.
 ## Demo
 Just type in some text and see it for yourself. Initial height is 3 rows.
 
-<textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5;"></textarea>
+<textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5; width: 100%; display: block;"></textarea>
 <script>
 (function() {
     function adjustHeight(textareaElement, minHeight) {
@@ -99,6 +104,7 @@ Just type in some text and see it for yourself. Initial height is 3 rows.
         var minHeight = el.scrollHeight;
 
         el.addEventListener('input', function() { adjustHeight(el, minHeight); });
+        window.addEventListener('resize', function() { adjustHeight(el, minHeight); });
 
         adjustHeight(el, minHeight);
     }

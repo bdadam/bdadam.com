@@ -35,11 +35,16 @@
             adjustHeight(el, minHeight);
         });
 
+        // we have to readjust when window size changes (e.g. orientation change)
+        window.addEventListener(&#39;resize&#39;, function() {
+            adjustHeight(el, minHeight);
+        });
+
         // we adjust height to the initial content
         adjustHeight(el, minHeight);
     }
 }());
-&lt;/script&gt;</code></pre><h2 id="demo">Demo</h2><p>Just type in some text and see it for yourself. Initial height is 3 rows.</p><p><textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5"></textarea></p><script>(function() {
+&lt;/script&gt;</code></pre><h2 id="demo">Demo</h2><p>Just type in some text and see it for yourself. Initial height is 3 rows.</p><p><textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5; width: 100%; display: block"></textarea></p><script>(function() {
     function adjustHeight(textareaElement, minHeight) {
         var diff = parseInt(window.getComputedStyle(el).height, 10) - el.clientHeight;
         el.style.height = 0;
@@ -55,6 +60,7 @@
         var minHeight = el.scrollHeight;
 
         el.addEventListener('input', function() { adjustHeight(el, minHeight); });
+        window.addEventListener('resize', function() { adjustHeight(el, minHeight); });
 
         adjustHeight(el, minHeight);
     }
