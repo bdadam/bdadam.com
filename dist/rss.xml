@@ -7,6 +7,75 @@
         <description>Blog</description>
         
         <item>
+            <title>Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014</title>
+            <link>http://bdadam.com/blog/video-douglas-crockford-about-the-new-good-parts.html</link>
+            <description>
+                <![CDATA[
+                <p>At the Nordic.js 2014 Douglas Crockford was giving a talk about what he considers to be &quot;the good parts&quot; of JavaScript in 2014. He talks about ECMAScript6, what parts of it he could already identify as the new good parts, and of which he thinks, that they are going to be the new bad parts. Read on for my summary or just whatch the video.</p>
+
+                <div style="padding: 30px 0 56.25%; background-color: #000; position: relative;"><iframe style="position: absolute; width: 100%; height: 100%; top: 0; right: 0; bottom: 0; left: 0;" src="http://www.youtube.com/embed/PSGEjv3Tqo0"></iframe></div>
+
+<h2 id="the-good-parts-he-identified-in-es6">The &quot;good parts&quot; he identified in ES6</h2>
+<ul>
+<li>ES6&#39;s new (proper) <a href="http://duartes.org/gustavo/blog/post/tail-calls-optimization-es6/">tail call optimization</a>.
+So that &quot;JavaScript becomes a real functional programming language&quot;.</li>
+<li>Ellipsis aka rest operator for variable number of function arguments.<br>
+<code>function x(...params) {}</code></li>
+<li>Modules - to come away from global variables</li>
+<li>The <code>let</code> statement for block scope variables -&gt; &quot;<code>let</code> is the new <code>var</code>&quot;</li>
+<li>Destructoring <code>let {a, b} = obj</code> equals in ES5 <code>var a = obj.a, b = obj.b;</code></li>
+<li><code>WeakMap</code> which has a terrible name -&gt; nobody wants to use something which is weak, everybody wants strong things</li>
+</ul>
+<h2 id="the-bad-parts">The bad parts</h2>
+<p>He admits that all the ES6 things are new and it&#39;s hard to decide whether they are going to be good or bad.
+But there are definitely things, where he feels they are going to be bad.</p>
+<ul>
+<li>The worst is <code>class</code>. It&#39;s only for Java programmers, who don&#39;t want to learn JavaScript. For those &quot;Who don&#39;t know how miserable they are.&quot;</li>
+<li><p>Generators - which add much complexity but little value</p>
+</li>
+<li><p>He also talks about that he changed his mind. There are things, which he considered to be good parts, but they aren&#39;t anymore.</p>
+</li>
+<li>He stopped using the <code>new</code> keyword years ago. He uses <code>Object.create</code> instead.</li>
+<li>But he also stopped using <code>Object.create</code> (although it was only added for him to the language).</li>
+<li>It all only happened, because he stopped using <code>this</code>. So he doesn&#39;t need those.</li>
+<li>He also stopped using <code>null</code>, because it doesn&#39;t make any sense to have two kinds of undefined: <code>null</code> and <code>undefined</code>.</li>
+<li>He stopped using falsiness.</li>
+<li>He doesn&#39;t use <code>for</code> statements anymore, just the new native array methods or <code>Object.keys</code>.<pre><code class="language-JavaScript">Object.keys(obj).forEach(function(key) { /* ... */ });</code></pre>
+</li>
+</ul>
+<h2 id="he-made-some-thoughts-about-the-next-language-after-javascript">He made some thoughts about the next language after JavaScript</h2>
+<ul>
+<li>Neither of Dart or TypeScript is the forward looking thing we need.</li>
+<li>Getting adoption of a new language is going to be extremely difficult, because programmers are as emotional as other people.
+Also every change needs a decade to get accepted.</li>
+<li>Getting away from classes is a good thing, but he&#39;s not an advocate of prototypal inheritance anymore.</li>
+<li><p>He proposes class-free object oriented programming aka using closures when writing objects. Like this:</p>
+<pre><code class="language-JavaScript">function constructor(spec) {
+  let { member } = spec,
+      { other } = other_constructor(spec),
+      method = function() {
+          // member, other, methid, spec
+      };
+
+  return Object.freeze({
+      method,
+      other
+  });
+}</code></pre>
+</li>
+<li>He also proposes a new number type for the next generation programming languages. It&#39;s called <a href="http://dec64.com/">DEC64</a>.
+With this new - one and only - number type he wants to fight against problems like <code>0.1 + 0.2 != 0.3</code>. (Binary Floating Points originating from 1950&#39;s)
+He also talks about the two types of requirements, business vs. sceintific - exact cent values vs. approximate values. </li>
+</ul>
+<p>I think it was a very interesting talk. Douglas Cropckford had many interesting points about programming in modern JavaScript.
+There are some points which are maybe debatable.
+What do you think? Do you agree with him? Do you have better ideas? Please share your thoughts in the comments below.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Automatically adjusting the height of a textarea to its content text</title>
             <link>http://bdadam.com/blog/automatically-adapting-the-height-textarea.html</link>
             <description>
