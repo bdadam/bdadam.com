@@ -67,7 +67,7 @@ Also every change needs a decade to get accepted.</li>
 With this new - one and only - number type he wants to fight against problems like <code>0.1 + 0.2 != 0.3</code>. (Binary Floating Points originating from 1950&#39;s)
 He also talks about the two types of requirements, business vs. sceintific - exact cent values vs. approximate values. </li>
 </ul>
-<p>I think it was a very interesting talk. Douglas Cropckford had many interesting points about programming in modern JavaScript.
+<p>I think it was a very interesting talk. Douglas Crockford had many interesting points about programming in modern JavaScript.
 There are some points which are maybe debatable.
 What do you think? Do you agree with him? Do you have better ideas? Please share your thoughts in the comments below.</p>
 

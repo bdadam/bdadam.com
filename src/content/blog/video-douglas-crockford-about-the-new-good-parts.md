@@ -75,6 +75,6 @@ With this new - one and only - number type he wants to fight against problems li
 He also talks about the two types of requirements, business vs. sceintific - exact cent values vs. approximate values. 
 
 
-I think it was a very interesting talk. Douglas Cropckford had many interesting points about programming in modern JavaScript.
+I think it was a very interesting talk. Douglas Crockford had many interesting points about programming in modern JavaScript.
 There are some points which are maybe debatable.
 What do you think? Do you agree with him? Do you have better ideas? Please share your thoughts in the comments below.
