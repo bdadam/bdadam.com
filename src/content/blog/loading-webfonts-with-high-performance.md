@@ -180,3 +180,12 @@ Your users can end up seeing a white page until the timeout kicks in.
 More info can be found on <a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/" rel="external">Ilya Gregorik's blog</a>.
 
 I also created <a href="/samples/webfonts-googlefonts.html" target="_blank">a test page</a>, where you can check it out yourself.
+
+
+### Resources
+* [Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik](https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/)
+* [Improving Smashing Magazine’s Performance: A Case Study](http://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/)
+* [How we make RWD sites load fast as heck](http://www.filamentgroup.com/lab/performance-rwd.html)
+
+#### Translations
+This article was <a href="http://css-live.ru/articles-css/bystraya-zagruzka-veb-shriftov-na-adaptivnyx-sajtax.html" hreflang="ru" rel="external">translated to Russian by Максим Усачев</a>.

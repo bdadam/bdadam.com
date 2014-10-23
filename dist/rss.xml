@@ -336,6 +336,14 @@ In worst case, if your font takes ages to load (e.g. because of bad mobile conne
 Your users can end up seeing a white page until the timeout kicks in.</p>
 <p>More info can be found on <a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/" rel="external">Ilya Gregorik&#39;s blog</a>.</p>
 <p>I also created <a href="/samples/webfonts-googlefonts.html" target="_blank">a test page</a>, where you can check it out yourself.</p>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/">Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik</a></li>
+<li><a href="http://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/">Improving Smashing Magazine’s Performance: A Case Study</a></li>
+<li><a href="http://www.filamentgroup.com/lab/performance-rwd.html">How we make RWD sites load fast as heck</a></li>
+</ul>
+<h4 id="translations">Translations</h4>
+<p>This article was <a href="http://css-live.ru/articles-css/bystraya-zagruzka-veb-shriftov-na-adaptivnyx-sajtax.html" hreflang="ru" rel="external">translated to Russian by Максим Усачев</a>.</p>
 
                 ]]>
             </description>
