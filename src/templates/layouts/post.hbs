@@ -23,7 +23,12 @@ layout: layout.hbs
 
     <p><a class="silent" href="https://plus.google.com/116380265342833844173?rel=author">by Adam Beres-Deak</a></p>
 
-    <p class="share-bar"></p>
+    <p class="share-bar">
+        <a class="btn-share fb" href="https://www.facebook.com/sharer/sharer.php?u=http://bdadam.com/blog/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Facebook">{{ useicon "facebook" }} | Share</a>
+        <a class="btn-share tw" href="http://twitter.com/share?url=http://bdadam.com/blog/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Twitter">{{ useicon "twitter" }} | Tweet</a>
+        <a class="btn-share gp" href="https://plus.google.com/share?url=http://bdadam.com/blog/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Google+">{{ useicon "googleplus" }} | Share</a>
+        <a class="btn-share li" href="http://www.linkedin.com/shareArticle?mini=true&url=http://bdadam.com/blog/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Linkedin">{{ useicon "linkedin" }} | Share</a>
+    </p>
 
     <a id="comments"></a>
 

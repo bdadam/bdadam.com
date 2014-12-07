@@ -1,0 +1,41 @@
+[class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
+	color: #000000;
+	fill: currentColor;
+}
+.icon-xing {
+	width: 22px;
+	height: 28px;
+}
+.icon-linkedin {
+	width: 28px;
+	height: 28px;
+}
+.icon-envelope {
+	width: 32px;
+	height: 32px;
+}
+.icon-bubbles {
+	width: 36px;
+	height: 32px;
+}
+.icon-googleplus {
+	width: 32px;
+	height: 32px;
+}
+.icon-facebook {
+	width: 32px;
+	height: 32px;
+}
+.icon-twitter {
+	width: 32px;
+	height: 32px;
+}
+.icon-feed {
+	width: 32px;
+	height: 32px;
+}
+.icon-github {
+	width: 32px;
+	height: 32px;
+}

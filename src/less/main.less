@@ -1,4 +1,6 @@
 @import "defaults";
+@import "icons";
+@import "hljs";
 
 .menu-icon {
   position: relative;
@@ -91,11 +93,16 @@ footer {
 }
 
 .btn-share {
-  padding: 6px 12px;
+  padding: 8px 12px 6px;
   display: inline-block;
   margin: 8px;
   font-size: 1rem;
   vertical-align: text-bottom;
+  border-radius: 2px;
+
+  svg {
+    height: 16px;
+  }
 
   &:link, &:visited, &:hover, &:active {
     color: #fff;
@@ -105,13 +112,6 @@ footer {
   &:hover, &:active {
     box-shadow: 1px 1px 2px rgba(0, 0, 0, .85);
     box-shadow: 0 0 3px rgba(127, 127, 127, .65);
-  }
-
-  .fa {
-    font-size: 14px;
-    padding-right:3px;
-    border-right: 1px solid #fff;
-    vertical-align: text-bottom;
   }
 
   &.fb {
@@ -189,6 +189,33 @@ h2 {
 
 .social-links {
   display: block;
+  font-size: 0;
+  line-height: 0;
+
+  a {
+    display: inline-block;
+    padding: 8px;
+
+    svg {
+      fill: #777;
+      transition: all 0.2s;
+    }
+
+    &:hover svg{
+      fill: #333;
+    }
+  }
+}
+
+footer a {
+  color: #777;
+  transition: all 0.2s;
+
+  &:hover, &:active {
+    text-decoration: none;
+    color: #333;
+  }
+
 }
 
 @media screen and (min-width: 480px) {

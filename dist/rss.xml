@@ -7,6 +7,56 @@
         <description>Blog</description>
         
         <item>
+            <title>Loading webfonts with high performance on responsive websites</title>
+            <link>http://bdadam.com/blog/loading-webfonts-with-even-higher-performance.html</link>
+            <description>
+                <![CDATA[
+                <p>In the first part of this article I wrote about font loading with high performance on resposive sites. This time I take a look at some more things, like WOFF2 support, where to put the script.</p>
+
+                <p>As a reminder let&#39;s take a look at what are our requirements on loading webfonts:</p>
+<ul>
+<li>Fontloading doesn&#39;t block page rendering</li>
+<li>Users see text rendered in a fallback font until the font is not loaded</li>
+<li>If the font never loads, the text still gets rendered</li>
+<li>We only support browsers which support WOFF or WOFF2</li>
+</ul>
+<h2 id="the-problems-with-most-common-font-loading-techniques">The problems with most common font loading techniques</h2>
+<ul>
+<li></li>
+</ul>
+<h2 id="how-to-detect-woff2-support">How to detect WOFF2 support</h2>
+<p>I found a very tiny <a href="https://github.com/filamentgroup/woff2-feature-test">WOFF2 feature detect script</a> from Filament Group.
+It fulfills every requirement I have:</p>
+<ul>
+<li>It&#39;s small</li>
+<li>It doesn&#39;t load external resources</li>
+<li>It&#39;s fast</li>
+<li>Browser support is very good amongst browsers supporting WOFF2. See <a href="http://caniuse.com/#feat=woff2">WOFF2 support</a> vs. <a href="http://caniuse.com/#search=FontFace">Font loading support</a></li>
+</ul>
+<p>Here is the script</p>
+<pre><code class="language-JavaScript">var supportsWoff2 = (function(win) {
+    if(!(&quot;FontFace&quot; in win)) {
+        return false;
+    }
+
+    var f = new win.FontFace(&quot;t&quot;, &#39;url(&quot;data:application/font-woff2,&quot;) format(&quot;woff2&quot;)&#39;);
+    f.load();
+
+    return f.status === &#39;loading&#39;;
+})(this);</code></pre>
+<h2 id="where-to-get-woff2-files-">Where to get WOFF2 files?</h2>
+<h2 id="what-to-do-when-there-is-no-localstorage-">What to do when there is no localStorage?</h2>
+<h2 id="where-to-put-the-script-">Where to put the script?</h2>
+<p>The script has to be in the HEAD of your page above all stylesheet declarations (link[rel=stylesheet])
+so that it doesn&#39;t block page rendering (the browser doesn&#39;t have to wait for the CSSOM to be ready).</p>
+<h3 id="resources">Resources</h3>
+<p><a href="https://github.com/filamentgroup/woff2-feature-test">Woff2 feature test by Filament Group</a></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014</title>
             <link>http://bdadam.com/blog/video-douglas-crockford-about-the-new-good-parts.html</link>
             <description>

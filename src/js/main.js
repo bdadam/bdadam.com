@@ -1,7 +1,5 @@
 'use strict';
 
-function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
-
 function loadJS( src, cb ){
     "use strict";
     var ref = window.document.getElementsByTagName( "script" )[ 0 ];
@@ -15,6 +13,11 @@ function loadJS( src, cb ){
 }
 
 function startCodeHighlighting() {
+    hljs.configure({
+        tabReplace: '    ',
+        classPrefix: ''
+    });
+
     var blocks = document.querySelectorAll('pre code');
     for (var i = 0, l = blocks.length; i < l; i++) {
         hljs.highlightBlock(blocks[i]);
@@ -29,9 +32,6 @@ ic.on('change', function(initialPageview) {
 
     require('./menu').setup();
     require('./social').buildShareButtons();
-
-    loadCSS('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-    loadCSS('http://yandex.st/highlightjs/8.0/styles/vs.min.css');
     loadJS('//yandex.st/highlightjs/8.0/highlight.min.js', startCodeHighlighting);
 
     var disqusHasToLoad = !!document.getElementById('comments');

@@ -9,18 +9,13 @@ layout: layout.hbs
         funny or tricky JavaScript snippets, which are interesting enough to write about,
         but are too small for an own blog post.
     </p>
-    <p class="share-bar"></p>
     {{#markdown}}{{ body }}{{/markdown}}
-    <p class="share-bar"></p>
+    <p class="share-bar">
+        <a class="btn-share fb" href="https://www.facebook.com/sharer/sharer.php?u=http://bdadam.com/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Facebook">{{ useicon "facebook" }} | Share</a>
+        <a class="btn-share tw" href="http://twitter.com/share?url=http://bdadam.com/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Twitter">{{ useicon "twitter" }} | Tweet</a>
+        <a class="btn-share gp" href="https://plus.google.com/share?url=http://bdadam.com/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Google+">{{ useicon "googleplus" }} | Share</a>
+        <a class="btn-share li" href="http://www.linkedin.com/shareArticle?mini=true&url=http://bdadam.com/{{ page.relativeLink }}" rel="external" target="_blank" title="Share on Linkedin">{{ useicon "linkedin" }} | Share</a>
+    </p>
     <a id="comments"></a>
     <div id="disqus_thread"></div>
 </div>
-<script>
-    var disqus_shortname = 'bdadamcom';
-    (function() {
-        var d = document.createElement('script'); d.async = true;
-        d.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(d, s);
-    }());
-</script>

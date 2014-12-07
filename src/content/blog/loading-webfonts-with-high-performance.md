@@ -3,7 +3,7 @@ layout:         post.hbs
 title:          Loading webfonts with high performance on responsive websites
 date:           2014-10-08 21:00
 
-description:    Optimally loading webfonts is not a trivial taks. Here is a simple guide, how to do it. No blinking, no blocking.
+description:    Optimally loading webfonts is not a trivial task. Here is a simple guide, how to do it. No blinking, no blocking.
 
 abstract:       Once upon a time every website was only using Arial, Verdana, Garamond or Times New Roman for rendering the text,
                 because these font were the only ones reliably installed on almost any computer.
