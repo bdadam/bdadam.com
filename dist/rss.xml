@@ -7,50 +7,170 @@
         <description>Blog</description>
         
         <item>
-            <title>Loading webfonts with high performance on responsive websites</title>
-            <link>http://bdadam.com/blog/loading-webfonts-with-even-higher-performance.html</link>
+            <title>Better webfont loading with using localStorage and providing WOFF2 support</title>
+            <link>http://bdadam.com/blog/better-webfont-loading-with-localstorage-and-woff2.html</link>
             <description>
                 <![CDATA[
-                <p>In the first part of this article I wrote about font loading with high performance on resposive sites. This time I take a look at some more things, like WOFF2 support, where to put the script.</p>
+                <p>In my previous <a href="/blog/loading-webfonts-with-high-performance.html">article about webfont loading</a> I showed a technique about how to load webfonts without blocking page rendering and without annoying the users with flickering text on all pageloads. This time I show you an optimized version of the script and provide a solution for WOFF2 support for the newest browsers.</p>
 
-                <p>As a reminder let&#39;s take a look at what are our requirements on loading webfonts:</p>
+                <h2 id="expectations">Expectations</h2>
+<ol>
+<li>The users must see the text as soon as possible.</li>
+<li>As longs as the font is loading, the text must be rendered with the fallback font so that users can see and read it.</li>
+<li>Users shouldn&#39;t be annoyed with flickering text on each page load.</li>
+<li>Modern browsers with WOFF2 support should receive the fonts in WOFF2 format. This means ca. 30% less filesize.</li>
+</ol>
+<h2 id="how-to-do-this-">How to do this?</h2>
 <ul>
-<li>Fontloading doesn&#39;t block page rendering</li>
-<li>Users see text rendered in a fallback font until the font is not loaded</li>
-<li>If the font never loads, the text still gets rendered</li>
-<li>We only support browsers which support WOFF or WOFF2</li>
+<li><p>Loading fonts as CSS asynchronously solves expectaions 1 and 2. But unfortunately it causes flickering on every pageload.
+The browsers already have rendered the text in the fallback font when they finish loading the webfont. So they replace the texts and this causes some flashing.</p>
+</li>
+<li><p>The idea is to only load a font from the server once. Then we store the data into the localStorage.
+On subsequent requests we load the font directly from <code>localStorage</code>. This eliminates the flashing on subsequent page loads.
+Only the first load is affected by the flashing. So no. 3 is also solved now.</p>
+</li>
+<li><p>It is quite hard to detect WOFF2 support in the browser if we don&#39;t want to rely on user agent detection.
+The best I could find is a very <a href="https://github.com/filamentgroup/woff2-feature-test">clever script</a> from Filament Group which uses the font loading API.
+It&#39;s not 100% correct, but it doesn&#39;t provide false positives, only false negatives which is really acceptable in this case.</p>
+</li>
 </ul>
-<h2 id="the-problems-with-most-common-font-loading-techniques">The problems with most common font loading techniques</h2>
-<ul>
-<li></li>
-</ul>
-<h2 id="how-to-detect-woff2-support">How to detect WOFF2 support</h2>
-<p>I found a very tiny <a href="https://github.com/filamentgroup/woff2-feature-test">WOFF2 feature detect script</a> from Filament Group.
-It fulfills every requirement I have:</p>
-<ul>
-<li>It&#39;s small</li>
-<li>It doesn&#39;t load external resources</li>
-<li>It&#39;s fast</li>
-<li>Browser support is very good amongst browsers supporting WOFF2. See <a href="http://caniuse.com/#feat=woff2">WOFF2 support</a> vs. <a href="http://caniuse.com/#search=FontFace">Font loading support</a></li>
-</ul>
-<p>Here is the script</p>
-<pre><code class="language-JavaScript">var supportsWoff2 = (function(win) {
-    if(!(&quot;FontFace&quot; in win)) {
-        return false;
+<h2 id="overview-of-the-script">Overview of the script</h2>
+<ol>
+<li>We let the old browsers stop early. Testing for <code>window.addEventListener</code> or some knows user agents (older Android stock browser, Opera Mini, etc.) is good enough.</li>
+<li>In some cases <code>localStorage</code> can be unreachable, although the browser supports WOFF fonts. For theses cases I provide some fallback.</li>
+<li>Then we check whether the font is already stored in localStorage. If it is, we load it immediately.</li>
+<li>If it hasn&#39;t been loaded before, we load it with an AJAX call. But first we check for WOFF2 support.</li>
+<li>Then we store the data into <code>localStorage</code> and load the css text into a style element.</li>
+</ol>
+<h2 id="lets-take-a-look-at-the-script">Lets take a look at the script</h2>
+<pre><code class="language-JavaScript">//This script must be placed in the HEAD above all external stylesheet declarations (link[rel=stylesheet])
+function loadFont(fontName, woffUrl, woff2Url) {
+    // 0. Many unsupported browsers should stop here
+    var nua = navigator.userAgent;
+    var noSupport = !window.addEventListener // IE8 and below
+            || (nua.match(/(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/) &amp;&amp; !nua.match(/Chrome/)) // Android Stock Browser below 4.4 and Opera Mini
+
+    if (noSupport) { return; }
+
+    // 1. Setting up localStorage
+    var loSto = {};
+    try {
+        // We set up a proxy variable to help with localStorage, e.g. when cookies are disabled
+        // and the browser prevents us accessing it.
+        // Otherwise some exceptions can be thrown which completely prevent font loading.
+        loSto = localStorage || {};
+    } catch(ex) {}
+
+    var localStoragePrefix = &#39;x-font-&#39; + fontName;
+    var localStorageUrlKey = localStoragePrefix + &#39;url&#39;;
+    var localStorageCssKey = localStoragePrefix + &#39;css&#39;;
+    var storedFontUrl = loSto[localStorageUrlKey];
+    var storedFontCss = loSto[localStorageCssKey];
+
+
+    // 2. Setting up the &lt;style&gt; element, that we are using to apply the base64 encoded font data
+    var styleElement = document.createElement(&#39;style&#39;);
+    styleElement.rel = &#39;stylesheet&#39;;
+    document.head.appendChild(styleElement);
+    // Setting styleElement.textContent must be after this line, because of IE9 errors
+
+
+    // 3. Checking whether the font data is already in localStorage and up-to-date
+    if (storedFontCss &amp;&amp; (storedFontUrl === woffUrl || storedFontUrl === woff2Url)) {
+        // the css is still in the localStorage
+        // AND it was loaded from one of the current URLs
+
+        // 4. Applying the font style sheet
+        styleElement.textContent = storedFontCss;
+    } else {
+        // The data was not present, or loaded from an obsolete URL
+        // So we have to load it again
+
+        // 5. Checking for WOFF2 support to know which URL we should use
+        var url = (woff2Url &amp;&amp; supportsWoff2())
+            ? woff2Url // WOFF2 URL provided and supported
+            : woffUrl; // only WOFF support
+
+
+        // 6. Fetching the font data from the server
+        var request = new XMLHttpRequest();
+        request.open(&#39;GET&#39;, url);
+        request.onload = function() {
+            if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
+
+                // 7. Updating localStorage with the fresh data and applying the font data
+                loSto[localStorageUrlKey] = url;
+                loSto[localStorageCssKey] = styleElement.textContent = request.responseText;
+            }
+        };
+        request.send();
     }
 
-    var f = new win.FontFace(&quot;t&quot;, &#39;url(&quot;data:application/font-woff2,&quot;) format(&quot;woff2&quot;)&#39;);
-    f.load();
+    function supportsWoff2() {
+        // Source: https://github.com/filamentgroup/woff2-feature-test
+        if (!window.FontFace) {
+            return false;
+        }
 
-    return f.status === &#39;loading&#39;;
-})(this);</code></pre>
-<h2 id="where-to-get-woff2-files-">Where to get WOFF2 files?</h2>
-<h2 id="what-to-do-when-there-is-no-localstorage-">What to do when there is no localStorage?</h2>
+        var f = new FontFace(&#39;t&#39;, &#39;url(&quot;data:application/font-woff2,&quot;) format(&quot;woff2&quot;)&#39;, {});
+        f.load();
+
+        return f.status === &#39;loading&#39;;
+    }
+}</code></pre>
+<p>The full script and some Grunt tasks for minification are available on <a href="https://github.com/bdadam/OptimizedWebfontLoading">Github/bdadam/OptimizedWebfontLoading</a>.
+There are also some demo files.</p>
 <h2 id="where-to-put-the-script-">Where to put the script?</h2>
 <p>The script has to be in the HEAD of your page above all stylesheet declarations (link[rel=stylesheet])
 so that it doesn&#39;t block page rendering (the browser doesn&#39;t have to wait for the CSSOM to be ready).</p>
+<h2 id="what-happens-when-localstorage-is-not-available-">What happens when <code>localStorage</code> is not available?</h2>
+<p>This mostly happens when cookies are disabled or the website is loaded inside a WebView container in a native app.
+In this case the code still works and falls back to normal browser caching.
+The CSS file is requested on each pageload, but served from the browser cache - as long as the CSS file is served with proper caching headers.</p>
+<h2 id="fallback-font">Fallback font</h2>
+<p>I thinkt it is enough to only provide webfonts for those browsers which support the WOFF or WOFF2 format.
+This means ca. 90% of the users world wide. Other browsers should get the text rendered in a fallback font.</p>
+<p>The users with these older browsers are going to be thankful, because we don&#39;t waste their limited resources (CPU, memory) on some fancy stuff.</p>
+<h2 id="demo">Demo</h2>
+<p>Although the technique shown in this article is at the moment my preferred way of loading webfonts, for comparision I provide two more techniques.</p>
+<ol>
+<li><a href="/samples/webfonts2/localStorage.html">Loading webfonts as CSS (async), then storing into <code>localStorage</code> for subsequent pageloads requests</a></li>
+<li><a href="/samples/webfonts2/asynccss.html">Loading webfonts as CSS (async), but not using localStorage</a></li>
+<li><a href="/samples/webfonts2/external-fonts.html">Loading webfonts from external woff and woff2 files</a></li>
+</ol>
+<h2 id="comparision">Comparision</h2>
+<p>I ran some tests on <a href="http://webpagetest.org/">webpagetest.org</a> with 3G connection.</p>
+<p>The first visit was basically the same for both the localStorage and the async CSS solution.
+They both first rendered the text in the fallback font, and then switched over to the webfont. Causing blinking once.
+Loading the fonts from external files lead to invisible text until the fonts were loaded. This deleayed rendering with 0.6 seconds.</p>
+<p>No. 1 and 2 in the lead.</p>
+<p>The second visit comparision also shows some differences between localStorage and async CSS.
+We can clearly see, that loading from localStorage doesn&#39;t cause any rerendering. Once the HTML is downloaded, the page is rendered immediately.</p>
+<p>The async CSS way renders the page in the default font and then rerenders it with the webfont. This causes flickering for the user on every pageload.</p>
+<p>No. 1 is the winner in this regard.</p>
+<p>To illustrate the differences here are some filmstrip views:</p>
+<p><img src="/static/article-assets/webfonts2/filmstrip-localStorage.jpg" style="display: block;" alt="Comparision of different webfont loading techniques. The localStorage way. (repeat view)">
+<small>Async CSS loading, using localStorage. No re-rendering.</small><br><br></p>
+<p><img src="/static/article-assets/webfonts2/filmstrip-async-css.jpg" style="display: block;" alt="Comparision of different webfont loading techniques. The async loaded CSS way. (repeat view)">
+<small>Async CSS loading, without localStorage. Re-rendering visible.</small><br><br></p>
+<p><img src="/static/article-assets/webfonts2/filmstrip-external-font.jpg" style="display: block;" alt="Comparision of different webfont loading techniques. Externally loaded fonts. (repeat view)">
+<small>Loading fonts externally. Rendering delayed until fonts are loaded.</small><br><br></p>
 <h3 id="resources">Resources</h3>
-<p><a href="https://github.com/filamentgroup/woff2-feature-test">Woff2 feature test by Filament Group</a></p>
+<ul>
+<li><a href="/blog/loading-webfonts-with-high-performance.html">My prevoius article about webfont loading on responsive sites</a></li>
+<li><a href="https://github.com/filamentgroup/woff2-feature-test">Woff2 feature test by Filament Group</a></li>
+<li><a href="http://caniuse.com/#feat=woff2">WOFF2 support @ caniuse.com</a></li>
+<li><a href="http://caniuse.com/#search=FontFace">Font loading support @ caniuse.com</a></li>
+<li><a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/">Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik</a></li>
+<li><a href="http://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/">Improving Smashing Magazine’s Performance: A Case Study</a></li>
+<li><a href="http://www.filamentgroup.com/lab/performance-rwd.html">How we make RWD sites load fast as heck</a></li>
+</ul>
+<p>What do you think of this technique? Do you have some ideas to improve it? Please leave a comment.</p>
+<h2 id="update">Update</h2>
+<p>As @CrocoDillon recommended,
+I added the third (optional) argument to <br><code>new FontFace(..., ..., {})</code> when checking for WOFF2 support.
+Otherwise some browsers throw an exception (Chrome 35 and 36, Opera 22 and 23).
+Take a closer look at the <a href="https://github.com/filamentgroup/woff2-feature-test/pull/3">pull request</a>.</p>
 
                 ]]>
             </description>
