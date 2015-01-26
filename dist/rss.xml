@@ -7,6 +7,217 @@
         <description>Blog</description>
         
         <item>
+            <title>Plain JavaScript event delegation</title>
+            <link>http://bdadam.com/blog/plain-javascript-event-delegation.html</link>
+            <description>
+                <![CDATA[
+                <p>Event delegation is a powerful concept of event handling. If you are using jQuery, you might know it as jQuery.on(). Since I don&#39;t use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks like, read on.</p>
+
+                <h2 id="what-is-event-delegation-">What is event delegation?</h2>
+<p>With event delegation we only set one event handler function, which then analyzes the event&#39;s target element and executes the intended handler function.
+This way we have better code readability and performance improves.
+There is no need to set new event handlers when the content dynamically changes.
+This is very handy for lists or tables.</p>
+<p>In jQuery code we could just call</p>
+<pre><code class="language-JavaScript">jQuery(&#39;#list&#39;).on(&#39;click&#39;, &#39;.item&#39;, eventHandler)</code></pre>
+<p>Example: there is a list with 100 items. We want our eventHandler function to be called whenever a list item is clicked.</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li&gt;1&lt;/li&gt;
+    &lt;li&gt;2&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li&gt;100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    var list = document.getElementById(&#39;list&#39;);
+    list.addEventListener(&#39;click&#39;, function eventHandler(event) {
+        // one item in the list was clicked
+        console.log(event.target); // this is that item
+        event.target.style.backgroundColor = &#39;#f00&#39;;
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="this-is-just-event-bubbling-isn-t-it-">This is just event bubbling, isn&#39;t it?</h2>
+<p>This first example was not very spectacular. It just uses event bubbling, which is natural in JavaScript.</p>
+<p>But we can go further. What if only some specific elements should trigger our <code>eventHandler</code> function?
+This is also possible. With jQuery the code looks like this:</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li class=&quot;yes&quot;&gt;1&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;2&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;3&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li class=&quot;yes&quot;&gt;100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    $(&#39;#list&#39;).on(&#39;click&#39;, &#39;.yes&#39;, function eventHandler(e) {
+        // this function is only called,
+        // when a list item with &#39;yes&#39; class is called
+        console.log(e.target); // this is the clicked list item
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="what-if-i-don-t-have-jquery-">What if I don&#39;t have jQuery?</h2>
+<p>That&#39;s absolutely fine. I don&#39;t use jQuery either anymore. Here we have some vanilla JavaScript code:</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li class=&quot;yes&quot;&gt;1&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;2&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;3&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li class=&quot;yes&quot;&gt;100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    function on(elSelector, eventName, selector, fn) {
+        var element = document.querySelector(elSelector);
+
+        element.addEventListener(eventName, function(event) {
+            var possibleTargets = element.querySelectorAll(selector);
+            var target = event.target;
+
+            for (var i = 0, l = possibleTargets.length; i &lt; l; i++) {
+                var el = target;
+                var p = possibleTargets[i];
+
+                while(el &amp;&amp; el !== element) {
+                    if (el === p) {
+                        return fn.call(p, event);
+                    }
+
+                    el = el.parentNode;
+                }
+            }
+        });
+    }
+
+    on(&#39;#list&#39;, &#39;click&#39;, &#39;.yes&#39;, function(e) {
+        // this function is only called, when a list item with &#39;yes&#39; class is called
+        console.log(e.target); // this is the clicked list item
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="demo">Demo</h2>
+<p>Click on any list item. Where it says &quot;click me!&quot;, the click will trigger an <code>alert()</code> message.</p>
+<p><ul id="list">
+    <li class="no">won&#39;t work</li>
+    <li class="no">won&#39;t work</li>
+    <li class="yes">click me!</li>
+    <li class="yes">click me!</li>
+    <li class="no">won&#39;t work</li>
+    <li class="yes">click me!</li>
+    <li class="yes">click me!</li>
+    <li class="no">won&#39;t work</li>
+    <li class="no">won&#39;t work</li>
+    <li class="yes">click me!</li>
+</ul></p>
+<script>
+(function() {
+    function on(elSelector, eventName, selector, fn) {
+        var element = document.querySelector(elSelector);
+
+        element.addEventListener(eventName, function(event) {
+            var possibleTargets = element.querySelectorAll(selector);
+            var target = event.target;
+
+            for (var i = 0, l = possibleTargets.length; i < l; i++) {
+                var el = target;
+                var p = possibleTargets[i];
+
+                while(el && el !== element) {
+                    if (el === p) {
+                        return fn.call(p, event);
+                    }
+
+                    el = el.parentNode;
+                }
+            }
+        });
+    }
+
+    on('#list', 'click', 'li.yes', function() {
+        alert('You clicked me!');
+    });
+}());
+</script>
+
+
+<h2 id="use-cases">Use-cases</h2>
+<ol>
+<li>Large tables with many fields</li>
+<li>Lists - the content of the parent element can be changed freely (paging), the event listener must be set only once</li>
+<li>etc.</li>
+</ol>
+<h2 id="browser-support">Browser Support</h2>
+<p>This code uses two core DOM API call <code>Element.addEventListener</code> and <code>Element.querySelectorAll</code>. These are supported in every modern browser and IE9+.</p>
+<h3 id="more-resources-on-events">More resources on events</h3>
+<ul>
+<li><a href="http://javascript.info/tutorial/bubbling-and-capturing">Bubbling and Capturing @ javascript.info</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.addEventListener">addEventListener @ MDN</a></li>
+<li><a href="http://www.quirksmode.org/js/events_order.html">Event Order @ QuirksMode</a></li>
+<li><a href="http://www.quirksmode.org/js/events_advanced.html">Events Advanced @ QuirksMode</a></li>
+</ul>
+<p><strong>What do you think, would you use this code in your projects? Tell me your thoughts in the comments.</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>After the first year of blogging - what happened on my blog in 2014?</title>
+            <link>http://bdadam.com/blog/first-year-of-blogging.html</link>
+            <description>
+                <![CDATA[
+                <p>I wish you all a happy new year and much fun and success for 2015! Let&#39;s have a quick review of the past 365 days.</p>
+
+                <h2 id="in-2014-amongst-other-things-i-">In 2014 amongst other things I ...</h2>
+<ul>
+<li>published 34 articles</li>
+<li>researched better webfont loading
+<a href="/blog/loading-webfonts-with-high-performance.html">1</a>,
+<a href="/blog/better-webfont-loading-with-localstorage-and-woff2.html">2</a></li>
+<li>learned static site generation with node.js tools
+<a href="/blog/static-site-generation-boilerplate.html">1</a>,
+<a href="/blog/why-i-chose-a-statically-generated-website.html">2</a>,
+<a href="/blog/serve-a-practical-command-line-webserver.html">3</a>,
+<a href="/blog/hosting-static-web-pages-and-assets-with-google-drive.html">4</a></li>
+<li>began using Instantclick.io for providing better percieved performance
+<a href="/blog/optimistic-page-loading-with-instantclick-io.html">1</a></li>
+<li>pimped up the good old textarea
+<a href="/blog/adding-tab-support-to-textareas.html">1</a>,
+<a href="/blog/automatically-adapting-the-height-textarea.html">2</a></li>
+<li>wrote about some JavaScript thingies
+<a href="/blog/a-simple-pubsub-module-in-javascript.html">1</a>,
+<a href="/blog/fat-arrows-for-javascript.html">2</a>,
+<a href="/blog/error-handling-in-javascript.html">3</a>,
+<a href="/blog/demistifying-angularjs-dependency-injection.html">4</a>,
+<a href="/blog/defining-properties-in-javascript.html">5</a>,
+<a href="/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html">6</a>,
+<a href="/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html">7</a>,
+<a href="/blog/generating-sound-effects-with-client-side-javascript.html">8</a></li>
+<li>discovered a simple usability improvement for Google Maps <a href="/blog/simple-usability-trick-for-google-maps.html">1</a></li>
+</ul>
+<h2 id="top-10-most-popular-posts">Top 10 most popular posts</h2>
+<ol>
+<li><a href="/blog/loading-webfonts-with-high-performance.html">Loading webfonts with high performance on responsive websites</a></li>
+<li><a href="/blog/better-webfont-loading-with-localstorage-and-woff2.html">Better webfont loading with using localStorage and providing WOFF2 support</a></li>
+<li><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps</a></li>
+<li><a href="/blog/demistifying-angularjs-dependency-injection.html">Demystifying AngularJS&#39; dependency injection</a></li>
+<li><a href="/blog/panning-and-scrolling-background-images-using-the-canvas-element.html">Panning and scrolling background images using the canvas element</a></li>
+<li><a href="/blog/video-douglas-crockford-about-the-new-good-parts.html">Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014</a></li>
+<li><a href="/blog/building-desktop-apps-with-node-js-and-web-technologies.html">Building desktop apps with node.js and web technologies</a></li>
+<li><a href="/blog/finding-a-random-document-in-mongodb.html">Finding a random document in MongoDB (with benchmarks)</a></li>
+<li><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io</a></li>
+<li><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep</a></li>
+</ol>
+<h2 id="what-i-learned-from-blogging-in-2014-">What I learned from blogging in 2014?</h2>
+<ul>
+<li>Blogging is fun</li>
+<li>No matter how much I understand the topic I&#39;m writing about, it still takes a lot of time and effort to publish a post</li>
+<li>A few times I really used my blog to gather information about things I would have forgotten otherwise</li>
+<li>I want to go on and publish betters posts and more often</li>
+</ul>
+<h4 id="resources-">Resources:</h4>
+<p>Happy new year photo: <a href="http://commons.wikimedia.org/wiki/Category:2015#mediaviewer/File:Happy_New_Year_2015.png">Wikimedia Commons</a></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Better webfont loading with using localStorage and providing WOFF2 support</title>
             <link>http://bdadam.com/blog/better-webfont-loading-with-localstorage-and-woff2.html</link>
             <description>

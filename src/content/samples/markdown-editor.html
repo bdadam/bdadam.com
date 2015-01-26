@@ -1,0 +1,90 @@
+---
+        layout: false
+---
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple Markdown Editor With contenteditable Attribute</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 125%; font-family: Verdana, Arial, sans-serif; }
+        
+        pre {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 1rem;
+        }
+
+        .left, .right {
+            width: 50%;
+            float: left;
+            font-size: 1rem;
+            color: #333;
+            position: relative;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .left {
+            border-right: 1px solid #ccc;
+        }
+
+        #editor, #preview {
+            min-height: 150px;
+            margin-top: 12px;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            color: #999;
+            top: 4px;
+        }
+
+        #preview p {
+            margin-bottom: 0.6rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <p class="label">Editor</p>
+        <div id="editor" contenteditable tabindex="0" style="white-space: pre-wrap;"># Enter here your markdown here
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa possimus porro amet ea ab, vitae nobis nisi accusantium asperiores distinctio officiis consequatur saepe explicabo natus consequuntur, voluptas error ipsam tempora.</div>
+    </div>
+    <div class="right">
+        <p class="label">Preview</p>
+        <div id="preview"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script>
+    (function() {
+        var editor = document.getElementById('editor');
+        var preview = document.getElementById('preview');
+
+        //if (!('innerText' in editor)) {
+            editor.innerHTML = editor.innerHTML.replace(/\n/g, '<br>');
+        //}
+
+        function html2text(html) {
+            var tx =  html.replace(/<br\s*\/*>/ig, '\n');
+
+            if (tx[tx.length-1] === '\n') {
+                tx = tx.substring(0, tx.length-1);
+            }
+
+            return tx;            
+        }
+
+        function updatePreview() {
+            var text = editor.innerText || html2text(editor.innerHTML);
+            var md = marked(text);
+            preview.innerHTML = md;
+        }
+
+        editor.addEventListener('keyup', updatePreview);
+        updatePreview();
+    }());
+    </script>
+</body>
+</html>

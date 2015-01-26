@@ -10,13 +10,14 @@ description:    My devblog about web development, JavaScript, NodeJS, CSS, less
 
 <p class="container" style="text-align: center; border-bottom: 1px solid #dedede; padding: 24px 0;">
     Hi, my name is Adam. I develop software for the web, run workshops and I really think that
-    <br/>
+    <br>
     "The Web is the Platform".
 </p>
 
 <div class="container main">
+    <ul class="postlist">
     {{#latestPosts pages}}
-        <article>
+        <li>
             <h2 class="center"><a href="/{{ relativeLink }}">{{data.title}}</a></h2>
             <p class="silent center">{{formatdate data.date "Do MMMM YYYY"}}</p>
             {{#markdown}}{{ data.abstract }}{{/markdown}}
@@ -25,7 +26,7 @@ description:    My devblog about web development, JavaScript, NodeJS, CSS, less
             {{ else }}
                 <a href="/{{ relativeLink }}" class="btn-readmore">read more</a>
             {{/if}}
-        </article>
-        {{#unless last}}<hr/>{{/unless}}
+        </li>
     {{/latestPosts}}
+    </ul>
 </div>
