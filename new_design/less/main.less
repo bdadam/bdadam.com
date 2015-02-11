@@ -13,31 +13,65 @@ html {
 body {
     font-family: Open Sans;
     font-size: 1rem;
+    line-height: 1.382;
 }
 
-h1, h2, h3 {
+h1{
     font-weight: 800;
 }
 
+h2, h3 {
+    font-weight: 600;
+}
+
 h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: darken(#0098d4, 2%);
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+.quote {
+    margin: 1rem auto;
+    text-align: center;
+    small {
+        font-size: 90%;
+        &:before {
+            content: '\2014 \00A0';
+        }
+    }
 }
 
 .side {
-    //background-color: #185d8c;
-    
-    //padding-left: 1.5rem;
-    //padding-right: 1.5rem;
     background-color: #0098d4;
     color: #f1f1f1;
+    font-size: 1.125rem;
+
+    a {
+        color: #fff;
+    }
+
+    .content {
+        padding: 2rem 1.25rem;
+    }
 }
 
-h1 {
-    //text-align: center;
+.main {
+    padding: 3rem 2.5rem;
 }
 
 .contact-links {
-    //text-align: center;
     font-size: 0;
 
     a {
@@ -57,24 +91,49 @@ h1 {
     display: block;
 }
 
-.about-me {
-}
-
 .article-list {
     list-style-type: none;
     padding: 0;
+
+    li {
+        margin-bottom: 2rem;
+    }
+
+    p:first-of-type {
+        font-weight: 300;
+        color: #444;
+        font-size: 1rem;
+        margin: 4px 0;
+    }
+}
+
+.site-footer {
+    background-color: #f1f1f1;
+    border-top: 1px solid #ccc;
+    padding: 1.25rem;
+
+    display: block;
+
+    p {
+        margin-bottom: 8px;
+    }
 }
 
 @media screen and (min-width: 48rem) {
-    body {
+    .table-container {
         display: table;
         width: 100%;
+    }
+
+    .quote {
+        margin: 2rem auto;
     }
 
     .side {
         display: table-cell;
         width: 35%;
         padding: 0;
+        box-shadow: 4px -4px 16px rgba(65, 65, 65, .35);
 
         .content {
             position: fixed;
@@ -86,12 +145,11 @@ h1 {
     .main {
         display: table-cell;
         width: 65%;
-        padding: 0 2.5rem;
+        //padding: 0 2.5rem;
     }
 
     .main-inner {
         max-width: 40em;
-        margin: 3rem auto;
     }
 
     .right-sidebar {
