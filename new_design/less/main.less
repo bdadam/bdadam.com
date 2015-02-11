@@ -1,4 +1,10 @@
-@import (less) "normalize.css";
+//@import (less) "normalize.css";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 
 html {
     font-size: 100%;
@@ -10,9 +16,80 @@ body {
 }
 
 .side {
-
+    //background-color: #185d8c;
+    
+    //padding-left: 1.5rem;
+    //padding-right: 1.5rem;
 }
 
-.main {
-    
+h1 {
+    text-align: center;
+}
+
+.contact-links {
+    text-align: center;
+    font-size: 0;
+
+    a {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background-color: #ccc;
+        margin-right: 4px;
+        border-radius: 100%;
+        text-indent: 1000%;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+.site-nav {
+    display: block;
+}
+
+.about-me {
+}
+
+.article-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+@media screen and (min-width: 48rem) {
+    body {
+        display: table;
+    }
+
+    .side {
+        display: table-cell;
+        width: 20rem;
+        position: relative;
+
+        .content {
+            position: fixed;
+            width: 16rem;
+            padding-top: 180px;
+            left: 2rem;
+        }
+    }
+
+    .main {
+        display: table-cell;
+        padding: 0 2rem;
+    }
+
+    .main-inner {
+        //max-width: 40em;
+    }
+
+    .right-sidebar {
+        display: table-footer-group;
+    }
+}
+
+@media screen and (min-width: 80rem) {
+    .right-sidebar {
+        display: table-cell;
+        width: 20em;
+    }
 }
