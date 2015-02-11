@@ -15,19 +15,29 @@ body {
     font-size: 1rem;
 }
 
+h1, h2, h3 {
+    font-weight: 800;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
 .side {
     //background-color: #185d8c;
     
     //padding-left: 1.5rem;
     //padding-right: 1.5rem;
+    background-color: #0098d4;
+    color: #f1f1f1;
 }
 
 h1 {
-    text-align: center;
+    //text-align: center;
 }
 
 .contact-links {
-    text-align: center;
+    //text-align: center;
     font-size: 0;
 
     a {
@@ -58,38 +68,72 @@ h1 {
 @media screen and (min-width: 48rem) {
     body {
         display: table;
+        width: 100%;
     }
 
     .side {
         display: table-cell;
-        width: 20rem;
-        position: relative;
+        width: 35%;
+        padding: 0;
 
         .content {
             position: fixed;
-            width: 16rem;
-            padding-top: 180px;
-            left: 2rem;
+            width: inherit;
+            padding: 3rem 2.5rem;
         }
     }
 
     .main {
         display: table-cell;
-        padding: 0 2rem;
+        width: 65%;
+        padding: 0 2.5rem;
     }
 
     .main-inner {
-        //max-width: 40em;
+        max-width: 40em;
+        margin: 3rem auto;
     }
 
     .right-sidebar {
         display: table-footer-group;
+        padding: 0 2.5rem;
     }
 }
 
-@media screen and (min-width: 80rem) {
+@media screen and (min-width: 72rem) {
+    .side {
+        width: 28%;
+    }
+
+    .main {
+        width: 48%;
+    }
+
     .right-sidebar {
         display: table-cell;
-        width: 20em;
+        width: 24%;
+    }
+}
+
+.cta {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.btn-x {
+    border: 2px solid rgba(255, 255, 255, .75);
+    border-radius: 6px;
+    padding: 8px 24px;
+    background-color: transparent;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 1.25rem;
+
+    display: block;
+
+    &:hover {
+        border-color: #fff;
     }
 }
