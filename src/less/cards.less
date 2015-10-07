@@ -1,0 +1,337 @@
+.article-link-cards {
+  li {
+  }
+}
+
+
+// SETTINGS
+// ########################################
+
+//@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,300);
+@cta-color: #FF1744;
+
+
+// BASIC STYLE
+//########################################
+
+:root {
+  transition: all 300ms;
+
+  &.bg--big {
+    background-color: #00BCD4; }
+
+  &.bg--medium {
+    background-color: #E53935; }
+
+  &.bg--small {
+    background-color: #4527A0; }
+}
+
+/*
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  transform: translateZ(0);
+  font-weight: 400; }
+
+// button reset
+button {
+  border: none;
+  background: transparent; }
+*/
+
+// controllers bar
+.controller-container {
+  margin-bottom: 5%;
+  text-align: center; }
+
+
+// controller element
+.controller {
+  user-select: none;
+  display: inline-block;
+  margin: 0 20px;
+  font-size: 22px;
+  padding: 10px 0;
+  color: #FFF;
+  position: relative;
+  transition: all 100ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+
+  &:after {
+    content: "";
+    height: 3px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    transition: all 300ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    background-color: #FFF; }
+
+
+  &.is_current:after {
+    width: 100%; }
+
+
+  &:hover, &.is_current {
+    transform: translate3d( 0, -5px, 0 );
+    cursor: pointer; }
+}
+
+
+// DEFAULT CARD AND ELEMENTS
+//########################################
+
+// basic card block
+.card {
+  will-change: transform;
+  margin: 8px;
+  position: relative;
+  border-radius: 2px;
+  overflow:  hidden;
+  background-color: #fafafa;
+  height: 35%;
+  width: 344px;
+  transition: all 400ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  .z-1;
+
+  // hover status
+  &:hover {
+    cursor: pointer; }
+}
+
+// default card image element
+.card__image {
+  position: absolute;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repat;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: block;
+  opacity: 0;
+  transition: all 200ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
+
+  // image overlay
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: rgba(0,0,0,0.1);
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: all 500ms;
+    bottom: 0; }
+}
+
+
+// default card title element
+.card__title {
+  user-select: none;
+  font-size: 24px;
+  color: #FFF;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: all 200ms cubic-bezier(0.075, 0.820, 0.165, 1.000); }
+
+
+// default card subtitle element
+.card__subtitle {
+  user-select: none;
+  font-size: 14px;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #000;
+  left: 88px;
+  right: 0;
+  top: 45px;
+  position: absolute;
+  padding: 0 16px;
+  opacity: 0;
+  transition: all 200ms cubic-bezier(0.075, 0.820, 0.165, 1.000); }
+
+
+// default card text element
+.card__text {
+  user-select: none;
+  font-size: 14px;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 100px;
+  padding: 16px;
+  margin: 0;
+  line-height: 1.6;
+  position: absolute;
+  color: #000;
+  overflow: hidden;
+  transition: width 200ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
+  transition: delay 0.1s; }
+
+
+// default card action bar element
+.card__action-bar {
+  user-select: none;
+  position: absolute;
+  bottom: 0;
+  top: auto;
+  left: 0;
+  right: 0;
+  padding: 0 8px;
+  border-top: 1px solid #E0E0E0;
+  boz-sizing: border-box;
+  height: 52px;
+  transition: left 200ms cubic-bezier(0.075, 0.820, 0.165, 1.000); }
+
+
+// default card button element
+.card__button {
+  outline: none;
+  position: relative;
+  display: inline-block;
+  line-height: 52px;
+  padding: 0 16px;
+  color: @cta-color;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+
+// CARDS MODIFIERS
+//########################################
+
+
+// Big modifier
+.card--big {
+  .z-5;
+  height: 304px;
+  min-height: 304px;
+
+  // image element
+  .card__image {
+    border-radius: 1px 1px 0 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    opacity: 1;
+    max-height: 176px; }
+
+  // title element
+  .card__title {
+    top: 135px; }
+
+
+  // text element
+  .card__text {
+    top: 176px; }
+
+
+  .card__action-bar {
+    left: 0; }
+}
+
+
+// Medium modifier
+.card--medium {
+  .z-3;
+  height: 208px;
+  min-height: 208px;
+
+  // image element
+  .card__image {
+    border-radius: 1px 1px 0 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    max-height: 0;
+    opacity: 0;
+    transition-duration: 300ms; }
+
+  // title element
+  .card__title {
+    color: @cta-color;
+    top: 16px; }
+
+
+  // text element
+  .card__text {
+    font-size: 16px;
+    top: 50px; }
+
+
+  .card__action-bar {
+    left: 0; }
+}
+
+
+// Small modifier
+.card--small {
+  .z-2;
+  height: 136px;
+  min-height: 136px;
+
+  // image element
+  .card__image {
+    border-radius: 1px 0 0 1px;
+    left: 0;
+    top: 0;
+    width: 88px;
+    opacity: 1;
+    max-height: 136px;
+
+    // image overlay
+    &:after {
+      opacity: 0; }
+  }
+
+  // title element
+  .card__title {
+    color: #000;
+    left: 88px;
+    top: 8px; }
+
+
+  .card__subtitle {
+    opacity: 1;
+    left: 88px; }
+
+
+  // text element
+  .card__text {
+    top: 30px;
+    opacity: 0; }
+
+
+  // actionbar element
+  .card__action-bar {
+    left: 88px; }
+}
+
+
+
+// MIXINS
+//########################################
+
+// z-depth official shadows
+// (https://www.polymer-project.org/components/paper-elements/demo.html#paper-shadow)
+
+.z-1() { box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37); }
+.z-2() { box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2); }
+.z-3() { box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19); }
+.z-4() { box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3), 0 14px 12px 0 rgba(0, 0, 0, 0.17); }
+.z-5() { box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15); }

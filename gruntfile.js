@@ -132,6 +132,26 @@ module.exports = function(grunt) {
             }
         },
 
+        nodemon: {
+            dev: {
+                options: {
+                    env: {
+                        PORT: 3000
+                    }
+                },
+                script: 'index.js'
+            }
+        },
+
+        concurrent: {
+            dev: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        },
+
         htmlmin: {
             dist: {
                 options: {
@@ -168,6 +188,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', ['clean', 'less', 'browserify', 'uglify', 'copy', 'assemble', 'rename', 'htmlmin']);
     grunt.registerTask('default', ['build', 'connect:dev', 'watch']);
+    // grunt.registerTask('default', ['build', 'concurrent:dev']);
 
     grunt.loadNpmTasks('assemble');
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);

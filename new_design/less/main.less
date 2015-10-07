@@ -65,6 +65,7 @@ a:hover, a:active {
 
     .content {
         padding: 2rem 1.25rem;
+        height: 100%;
     }
 }
 
@@ -86,10 +87,21 @@ a:hover, a:active {
         white-space: nowrap;
         overflow: hidden;
     }
+
+    position: absolute;
+    bottom: 32px;
 }
 
 .site-nav {
     display: block;
+    margin-top: 32px;
+
+    a {
+        font-size: 1.125rem;
+        font-weight: 600;
+        display: block;
+        margin: 12px 0;
+    }
 }
 
 .article-list {
