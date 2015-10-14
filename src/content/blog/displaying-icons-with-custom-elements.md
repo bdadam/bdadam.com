@@ -3,7 +3,8 @@ layout:         post.hbs
 date:           2015-10-14
 title:          Displaying icons with custom elements
 description:    A cross-browser technique to use SVG icons without icon-fonts
-abstract:       Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages.
+abstract:       I created a technique for using SVG icons without pain with a simple gulp task.
+                Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages.
                 There are many ways to include icons and all of them have some tradeoffs.
                 This interesting technique shows a way to include SVG-icons in a cross-browser way with using custom elements.
 tags:
@@ -15,7 +16,7 @@ tags:
 
 ## TLDR
 
-I created a technique for using SVG icons without pain with a simple gulp task. The code can be found here: [bdadam/custom-icons](https://github.com/bdadam/custom-icons).
+The code can be found here: [bdadam/custom-icons](https://github.com/bdadam/custom-icons).
 
 The usage looks like this:
 
