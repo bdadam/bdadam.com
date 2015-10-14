@@ -7,6 +7,65 @@
         <description>Blog</description>
         
         <item>
+            <title>Displaying icons with custom elements</title>
+            <link>http://bdadam.com/blog/displaying-icons-with-custom-elements.html</link>
+            <description>
+                <![CDATA[
+                <p>Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages. There are many ways to include icons and all of them have some tradeoffs. This interesting technique shows a way to include SVG-icons in a cross-browser way with using custom elements.</p>
+
+                <h2 id="tldr">TLDR</h2>
+<p>I created a technique for using SVG icons without pain with a simple gulp task. The code can be found here: <a href="https://github.com/bdadam/custom-icons">bdadam/custom-icons</a>.</p>
+<p>The usage looks like this:</p>
+<pre><code class="language-HTML">&lt;x-icon type=&quot;some-icon&quot;&gt;&lt;/x-icon&gt;
+...
+&lt;script src=&quot;icons.js&quot; async&gt;&lt;/script&gt;</code></pre>
+<p>The script basically puts an svg element inside the <code>x-icon</code> tag. This svg element can then - for example - be styled with CSS.</p>
+<pre><code class="language-HTML">&lt;style&gt;
+    [type=&quot;happy&quot;] path {
+        fill: red;
+    }
+&lt;/style&gt;
+...
+&lt;x-icon type=&quot;happy&quot;&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;
+        &lt;path fill=&quot;#444&quot; d=&quot;...&quot;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+&lt;/x-icon&gt;</code></pre>
+<h2 id="the-longer-version">The longer version</h2>
+<p>I have to admit that I always had a pain when I had to include a set of icons on webpages.</p>
+<ul>
+<li>I didn&#39;t want to use icon fonts, because they are sometimes problematic:
+  <a href="https://github.com/FortAwesome/Font-Awesome/issues/6133">accessibility problems</a>, <a href="http://mir.aculo.us/2014/10/31/icon-fonts-vs-inline-svg/">blurrines</a>, etc.</li>
+<li>I didn&#39;t want to use inline SVGs either, because of cacheability and duplication.</li>
+<li>I didn&#39;t want to include a bunch of IMG tags, because of the many extra HTTP-requests.</li>
+</ul>
+<p>So I was searching for a better way when I found out that I could have all the advantages of those techniques above.
+I always thought it would be pretty neat if we had some dedicated HTML element for icons. Like this here:</p>
+<pre><code class="language-HTML">&lt;x-icon type=&quot;some-icon&quot;&gt;&lt;/x-icon&gt;</code></pre>
+<p>This looks quite semantic and self explaining.
+We could use any tag name which is a valid name for custom elements - e.g. it must include a dash.
+There is a type attribute which defines which icon is shown. Easy. Bot how to achieve this?</p>
+<h2 id="javascript-and-webpack-for-the-rescue">JavaScript and WebPack for the rescue</h2>
+<p>The technique is behind the scenes quite simple.
+The input is just some SVG files.
+The output is a single JavaScript file which includes the content of all the SVG files and some loader code.</p>
+<p>For the source code of a sample implementation please check out this GitHub repository: <a href="https://github.com/bdadam/custom-icons">bdadam/custom-icons</a></p>
+<p>The only magic what we need is WebPack with a custom loader: <a href="https://github.com/rpominov/svgo-loader">svgo-loader</a>.
+This loader automagically loads the content of the <code>require</code>d SVG files, minimizes it and provides it as normal string variable in the code.</p>
+<p>It&#39;s hard to explain, please check out the sources.</p>
+<h3 id="supported-browsers">Supported browsers</h3>
+<p>This technique works in all modern browsers.
+Though <code>document.registerElement</code> is only supported in recent versions of Chrome, we can already use this API now
+with a very smart <a href="https://github.com/WebReflection/document-register-element">polyfill from WebReflection</a>.
+Thanks to the polyfill we have support back to IE9 and Android 2.2.</p>
+<p>Browsers without native SVG support are unfortunately out for now. Maybe in the future if somebody still needs this, one can create a fallback JavaScript
+file with PNGs.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
             <title>Plain JavaScript event delegation</title>
             <link>http://bdadam.com/blog/plain-javascript-event-delegation.html</link>
             <description>
