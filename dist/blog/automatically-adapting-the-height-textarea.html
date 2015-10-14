@@ -16,11 +16,10 @@
 
 
     // we use the &quot;data-adaptheight&quot; attribute as a marker
-    var textAreas = document.querySelectorAll(&#39;textarea[data-adaptheight]&#39;);
+    var textAreas = [].slice.call(document.querySelectorAll(&#39;textarea[data-adaptheight]&#39;));
 
     // iterate through all the textareas on the page
-    for (var i = 0, l = textAreas.length; i &lt; l; i++) {
-        var el = textAreas[i];
+    textAreas.forEach(function(el) {
 
         // we need box-sizing: border-box, if the textarea has padding
         el.style.boxSizing = el.style.mozBoxSizing = &#39;border-box&#39;;
@@ -42,7 +41,8 @@
 
         // we adjust height to the initial content
         adjustHeight(el, minHeight);
-    }
+
+    });
 }());
 &lt;/script&gt;</code></pre><h2 id="demo">Demo</h2><p>Just type in some text and see it for yourself. Initial height is 3 rows.</p><p><textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5; width: 100%; display: block"></textarea></p><script>(function() {
     function adjustHeight(textareaElement, minHeight) {

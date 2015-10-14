@@ -52,11 +52,10 @@ Contrary to `onchange` which only fires when the users clicks away.
 
     
     // we use the "data-adaptheight" attribute as a marker
-    var textAreas = document.querySelectorAll('textarea[data-adaptheight]');
+    var textAreas = [].slice.call(document.querySelectorAll('textarea[data-adaptheight]'));
     
     // iterate through all the textareas on the page
-    for (var i = 0, l = textAreas.length; i < l; i++) {
-        var el = textAreas[i];
+    textAreas.forEach(function(el) {
 
         // we need box-sizing: border-box, if the textarea has padding
         el.style.boxSizing = el.style.mozBoxSizing = 'border-box';
@@ -78,7 +77,8 @@ Contrary to `onchange` which only fires when the users clicks away.
 
         // we adjust height to the initial content
         adjustHeight(el, minHeight);
-    }
+
+    });
 }());
 </script>
 ```
