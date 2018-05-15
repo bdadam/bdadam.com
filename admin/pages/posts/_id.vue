@@ -1,5 +1,7 @@
 <template>
     <div>
+        <a @click.prevent="$router.go(-1)" href="/">Back</a>
+
         <h1>{{ post.title }}</h1>
         <form>
             <label>meta.title</label>
