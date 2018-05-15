@@ -44,7 +44,8 @@ const writePost = (post, id) => {
         title: post.title,
         description: post.description || '',
         date: new Date(post.date),
-        tags: post.tags || []
+        tags: post.tags || [],
+        published: 'published' in post ? post.published : true
     });
 
     // const datePrefix = dateFormat(post.date, 'yyyy-mm-dd-HH-MM-ss');
