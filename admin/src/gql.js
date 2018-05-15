@@ -22,11 +22,6 @@ const schema = buildSchema(`
     }
 `);
 
-const Datastore = require('nedb-promises');
-const db = {
-    posts: Datastore.create('posts.nedb')
-};
-
 const findPost = require('./services/findPost');
 const findPosts = require('./services/findPosts');
 
