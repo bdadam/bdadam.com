@@ -1,7 +1,7 @@
 ---
 published:      false
 layout:         post.hbs
-date:           2014-02-09
+date:           2014-02-09 12:00
 title:          Defining properties on prototype in JavaScript
 description:
 abstract:       In the last post we were looking at defining JavaScript properties.
