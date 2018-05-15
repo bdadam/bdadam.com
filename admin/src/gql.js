@@ -6,19 +6,19 @@ const router = Router();
 
 const schema = buildSchema(`
     type Query {
-        test: String
-
         posts: [Post]
         post(_id: ID!): Post
     }
 
     type Post {
         _id: ID!,
+        date: String
         published: Boolean
         title: String
         abstract: String
         description: String
-        md: String
+        content: String
+        tags: [String]
     }
 `);
 
@@ -27,16 +27,25 @@ const db = {
     posts: Datastore.create('posts.nedb')
 };
 
+const findPost = require('./services/findPost');
+const findPosts = require('./services/findPosts');
+
 const resolver = {
-     async posts() {
-        const posts = await db.posts.find({}).sort({ date: -1 }).exec()
-        return posts;
+    async posts() {
+        return findPosts();
     },
     async post({ _id }) {
-        return db.posts.findOne({ _id });
-        // console.log(_id);
-        // return { title: 'TEST' };
+        return findPost(_id);
     }
+    //  async posts() {
+    //     const posts = await db.posts.find({}).sort({ date: -1 }).exec()
+    //     return posts;
+    // },
+    // async post({ _id }) {
+    //     return db.posts.findOne({ _id });
+    //     // console.log(_id);
+    //     // return { title: 'TEST' };
+    // }
 };
 
 router.use(graphqlHTTP({

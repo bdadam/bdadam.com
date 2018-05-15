@@ -1,12 +1,18 @@
 <template>
     <div>
         <h1>{{ post.title }}</h1>
-
-        <p>{{ post.abstract }}</p>
-
-        <textarea rows="30" cols="160" v-model="post.md"></textarea>
-
-        <div v-html="contentHtml"></div>
+        <form>
+            <label>meta.title</label>
+            <input type="text" v-model="post.title">
+        </form>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 45%;">
+                <textarea style="width: 100%; display: block; height: 100%;" v-model="post.content"></textarea>
+            </div>
+            <div style="width: 45%; margin-left: 4%;">
+                <div v-html="contentHtml"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -14,7 +20,7 @@
 import mdit from 'markdown-it';
 
 const md = mdit({
-    mdhtml: true,
+    html: true,
     linkify: true,
     typographer: true
 });
@@ -24,15 +30,13 @@ const compileMarkdown = txt => md.render(txt);
 export default {
     computed: {
         contentHtml: function() {
-            return compileMarkdown(this.post.md);
+            return compileMarkdown(this.post.content);
         }
     },
 
     async asyncData({ route }) {
         if (process.client) {
-            const x= await fetch(`/gql?query=query { post(_id: "${route.params.id}") { published, title, abstract, md } }`).then(r => r.json()).then(({ data }) => data);
-            console.log(x);
-            return x;
+            return await fetch(`/gql?query=query { post(_id: "${route.params.id}") { published, title, abstract, content } }`).then(r => r.json()).then(({ data }) => data);
         }
     }
 };
