@@ -10,11 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "fs-extra": "^6.0.1",
     "glob": "^7.1.2",
     "graphql": "^0.13.2",
+    "gray-matter": "^4.0.1",
     "markdown-it": "^8.4.1",
     "nedb": "^1.8.0",
     "nedb-promises": "^2.1.0",
