@@ -1,9 +1,10 @@
 ---
 title: Defining properties on prototype in JavaScript
 description: ''
-date: 2014-02-09T00:00:00.000Z
+date: 2014-02-09T11:00:00.000Z
 tags:
   - javascript
+published: false
 ---
 
 In the last post we were looking at defining JavaScript properties. One (edge)case is when we define a property on the prototype and not on the object itself. Let's take a look at what happens.

@@ -8,6 +8,7 @@ tags:
   - node.js
   - webkit
   - desktop apps
+published: true
 ---
 
 Native apps with web technologies are not a mobile-only thing anymore. The node-webkit project makes it possible to write standalone desktop apps with JavaScript, HTML5 and CSS3. The coolest thing about this is, that both server side (node.js) and client side (jQuery, AngularJS, etc.) JavaScript libraries can be used.

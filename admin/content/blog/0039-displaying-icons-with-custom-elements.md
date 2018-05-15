@@ -7,6 +7,7 @@ tags:
   - web components
   - custom elements
   - javascript
+published: true
 ---
 
 I created a technique for using SVG icons without pain with a simple gulp task. Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages. There are many ways to include icons and all of them have some tradeoffs. This interesting technique shows a way to include SVG-icons in a cross-browser way with using custom elements.

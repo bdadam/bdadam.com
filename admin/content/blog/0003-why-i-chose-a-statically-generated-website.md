@@ -7,6 +7,7 @@ tags:
   - static website
   - assemble
   - grunt
+published: true
 ---
 
 I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn't want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don't really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative.

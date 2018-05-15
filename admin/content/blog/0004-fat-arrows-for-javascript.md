@@ -3,6 +3,7 @@ title: Fat arrows for JavaScript
 description: 'LINQ and C# like lambda expressions are almost there in JavaScript.'
 date: 2014-01-29T00:00:00.000Z
 tags: []
+published: true
 ---
 
 I have to admit, I have completely overseen, that fat arrows ( => ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.

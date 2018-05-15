@@ -5,6 +5,7 @@ date: 2014-01-03T00:00:00.000Z
 tags:
   - javascript
   - modules
+published: true
 ---
 
 I have always been a fan of simple things, such as the PubSub pattern. A few weeks ago I discovered this pattern again, when I was looking for a way to separate some JavaScript modules which don't really have to know about each other but have to have some sort of communication.

@@ -10,6 +10,7 @@ tags:
   - client side
   - single page app
   - dom based templating
+published: false
 ---
 
 Mithril is a very small client side MVC framework with support for data-binding and routing. It uses its own view rendering engine - a DOM based templating engine. It is fast as lightning. Although this framework is modern, it also has an outstanding browser support, including IE 6 and 7.

@@ -5,6 +5,7 @@ date: 2014-02-11T21:30:00.000Z
 tags:
   - javascript
   - fun
+published: true
 ---
 
 

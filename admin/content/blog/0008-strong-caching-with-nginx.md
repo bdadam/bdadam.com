@@ -7,6 +7,7 @@ date: 2014-02-01T23:10:00.000Z
 tags:
   - nginx
   - caching
+published: true
 ---
 
 Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.

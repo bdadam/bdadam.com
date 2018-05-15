@@ -9,6 +9,7 @@ date: 2014-10-20T21:00:00.000Z
 tags:
   - video
   - javascript
+published: true
 ---
 
 At the Nordic.js 2014 Douglas Crockford was giving a talk about what he considers to be "the good parts" of JavaScript in 2014. He talks about ECMAScript6, what parts of it he could already identify as the new good parts, and of which he thinks, that they are going to be the new bad parts. Read on for my summary or just whatch the video.

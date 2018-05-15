@@ -6,6 +6,7 @@ tags:
   - tool
   - webserver
   - command line
+published: true
 ---
 
 A few weeks ago I found a very amazing tool - it's called "serve".

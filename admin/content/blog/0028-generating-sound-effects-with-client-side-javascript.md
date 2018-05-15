@@ -8,6 +8,7 @@ tags:
   - javascript
   - sound
   - client side
+published: true
 ---
 
 A few years ago I came across a simple library with which we can easily generate 8-bit sound effects for JavaScript games and apps. This library is very handy for hackathons or weekend coding sessions.

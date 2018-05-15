@@ -8,6 +8,7 @@ tags:
   - google maps
   - usability
   - javascript
+published: true
 ---
 
 Embedding Google Maps in a website is very easy with its JavaScript API. A simple trick can improve the usability of large maps when users scroll with the mouse wheel over them.

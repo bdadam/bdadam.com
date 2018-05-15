@@ -7,6 +7,7 @@ tags:
   - browser
   - error
   - node.js
+published: true
 ---
 
 Have you ever wondered, what's the proper way of throwing JavaScript errors? And how to handle them? Here we'll see some examples and we'll define some custom error types.

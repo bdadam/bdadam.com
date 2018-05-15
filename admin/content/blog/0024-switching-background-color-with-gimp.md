@@ -7,6 +7,7 @@ tags:
   - gimp
   - color
   - tutorial
+published: true
 ---
 
 As a web developers we sometimes come across some tasks which are not that strictly related to development, but rather to design. For me such a task was a few days ago, when I found a neat background pattern, but the color just didn't fit the site I was working on.

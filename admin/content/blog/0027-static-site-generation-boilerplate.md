@@ -7,6 +7,7 @@ date: 2014-03-25T22:30:00.000Z
 tags:
   - static website
   - boilerplate
+published: true
 ---
 
 As I already mentioned before, I really like simple things like static webpages. To speed things up, I created a boilerplate, which can be used by anybody to generate static websites.

@@ -6,6 +6,7 @@ tags:
   - javascript
   - node.js
   - grunt
+published: true
 ---
 
 Have you ever installed a new GruntJS-plugin and then forgotten to load it as a task in the gruntfile.js? Matchdep is a handy tool, which can solve this issue.

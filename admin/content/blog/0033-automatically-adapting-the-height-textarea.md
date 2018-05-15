@@ -7,6 +7,7 @@ date: 2014-10-15T23:00:00.000Z
 tags:
   - trick
   - javascript
+published: true
 ---
 
 While I was working on a simple web based markdown editor I needed something where the users can type their texts. My first thought was to use a DIV with the contenteditable attribute. But it introduced many problems, which I did not want to fight. I only needed something simple and stupid - the good old TEXTAREA.

@@ -7,6 +7,7 @@ date: 2014-02-02T13:10:00.000Z
 tags:
   - google drive
   - hosting
+published: true
 ---
 
 Have you ever needed to quickly deploy a website somewhere? Maybe to show a client some demo content? Or to show a buddy your newest static web app? Here's the solution.

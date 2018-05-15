@@ -6,6 +6,7 @@ description: >-
 date: 2014-02-09T00:00:00.000Z
 tags:
   - javascript
+published: true
 ---
 
 JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types.

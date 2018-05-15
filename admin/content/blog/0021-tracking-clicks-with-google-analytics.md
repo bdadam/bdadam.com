@@ -8,6 +8,7 @@ tags:
   - javascript
   - tracking
   - google analytics
+published: true
 ---
 
 Every website has some links or buttons, users are clicking on them. But do webmasters know which ones do users click most often? Are there maybe some, which are not clicked at all? Maybe you just built a shiny new navigation and you may ask "do users use it?". Clicktracking gives you the answer. When using Google Analytics the results are just shown on your dashboard.

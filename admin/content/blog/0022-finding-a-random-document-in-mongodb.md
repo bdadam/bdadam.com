@@ -7,6 +7,7 @@ date: 2014-02-15T22:00:00.000Z
 tags:
   - mongodb
   - random
+published: true
 ---
 
 Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial.

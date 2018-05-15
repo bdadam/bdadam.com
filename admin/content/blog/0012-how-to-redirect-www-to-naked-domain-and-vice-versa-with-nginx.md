@@ -5,6 +5,7 @@ date: 2014-02-03T22:00:00.000Z
 tags:
   - nginx
   - redirection
+published: true
 ---
 
 One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it's bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.

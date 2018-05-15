@@ -8,6 +8,7 @@ tags:
   - game
   - browser
   - javascript
+published: true
 ---
 
 Have you enjoyed playing Mario in the old days? Me too. If you want to play with it again, you just have to follow some simple steps and the game is ready to be played right in your browser. Let's try it.

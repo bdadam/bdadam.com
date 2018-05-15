@@ -6,6 +6,7 @@ tags:
   - blog
   - new year
   - summary
+published: true
 ---
 
 I wish you all a happy new year and much fun and success for 2015! Let's have a quick review of the past 365 days.

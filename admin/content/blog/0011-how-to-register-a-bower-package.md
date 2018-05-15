@@ -5,6 +5,7 @@ date: 2014-02-03T00:00:00.000Z
 tags:
   - bower
   - javascript
+published: true
 ---
 
 A few weeks ago I posted about my [PubSub module](http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html). Since then I registered it as a bower package. It was actually my first bower package. I am going to show you how easy it was.

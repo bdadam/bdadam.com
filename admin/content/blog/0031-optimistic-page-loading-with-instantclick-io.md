@@ -7,6 +7,7 @@ tags:
   - single page app
   - click
   - perfmatters
+published: true
 ---
 
 There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work. Fortunately there is also a very handy tool, which makes use of this trick and does a great job.

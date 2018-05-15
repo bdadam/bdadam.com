@@ -5,6 +5,7 @@ date: 2014-01-30T22:56:00.000Z
 tags:
   - javascript
   - browser
+published: true
 ---
 
 Have you ever wondered how is it possible to support tabs in a textarea? Normally when you press the tab key, the focus jumps to the next element. But with some JavaScript 'magic' it's possible to indent or unindent the text.

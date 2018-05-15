@@ -9,6 +9,7 @@ tags:
   - webfonts
   - loading
   - perfmatters
+published: true
 ---
 
 Once upon a time every website was only using Arial, Verdana, Garamond or Times New Roman for rendering the text, because these font were the only ones reliably installed on almost any computer. But these times are over. Webfonts are spread all over the internet, but we still don't really know, how to load them efficiently.

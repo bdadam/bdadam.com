@@ -6,6 +6,7 @@ tags:
   - javascript
   - angularjs
   - dependency injection
+published: true
 ---
 
 Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn't any magic. I'll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.

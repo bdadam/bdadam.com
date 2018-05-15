@@ -8,6 +8,7 @@ tags:
   - javascript
   - templating
   - handlebars
+published: true
 ---
 
 Personally, I was always missing some sort of comparison helper in Handlebars.js. I know, I know, it's sort of being against the philosophy of Handlebars - being logicless. But I still wanted to have it.

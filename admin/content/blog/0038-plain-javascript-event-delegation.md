@@ -7,6 +7,7 @@ date: 2015-01-26T00:00:00.000Z
 tags:
   - javascript
   - event
+published: true
 ---
 
 Event delegation is a powerful concept of event handling. If you are using jQuery, you might know it as jQuery.on(). Since I don't use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks like, read on.

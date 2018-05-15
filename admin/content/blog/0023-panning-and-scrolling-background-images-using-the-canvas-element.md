@@ -6,6 +6,7 @@ tags:
   - javascript
   - canvas
   - tutorial
+published: true
 ---
 
 I'm planning to create a simple 2D game in plain JavaScript. As the first step I would like to show, how to animate (pan or scroll) a background image using the canvas element. I am also going to show some basic setup code in order to have a loop where we can draw the frames.

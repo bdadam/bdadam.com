@@ -8,6 +8,7 @@ tags:
   - npm
   - ubuntu
   - node.js
+published: true
 ---
 
 Installing modules globally has never been a problem for me, neither on Windows nor on Ubuntu. At least until today, when I ran into a somewhat strange problem.
