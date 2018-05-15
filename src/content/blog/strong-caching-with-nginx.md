@@ -32,7 +32,7 @@ There are a few things to note here:
 * if you set expiration to max-age, you have to be sure that the requested resources really never change (some kind of cache busting)
 * these settings can live in the `location` section or in the `server` section of an nginx config file
 
-Have you already enabled strong caching for yout asset files?
+Have you already enabled strong caching for your asset files?
 
 ** Update:**
 Maybe you noticed the lookahead in the regex.
