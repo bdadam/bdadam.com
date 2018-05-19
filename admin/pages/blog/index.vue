@@ -1,12 +1,8 @@
 <template>
     <div style="padding: 30px; max-width: 1100px; margin: 0 auto;">
-        <nuxt-link to="/blog/">Blog posts</nuxt-link>
-        <nuxt-link to="/videos/">Videos</nuxt-link>
-
-
         <ul>
             <li v-for="post in posts" :key="post._id">
-                <nuxt-link :to="`/posts/${post._id}`" style="margin-bottom: 20px; display: block; color: #333;">
+                <nuxt-link :to="`/blog/${post._id}`" style="margin-bottom: 20px; display: block; color: #333;">
                     <h2>{{ post.title }}</h2>
                     <p>{{ post.date }}</p>
                     <span v-if="!post.published" style="padding: 4px 8px; text-decoration: none; background-color: #fcc; border-radius: 2px; color: #333; line-height: 1;">DRAFT</span>
