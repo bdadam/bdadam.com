@@ -8,5 +8,7 @@
   }
 </style>
 
-<h1>Hello</h1>
-<h1 class="blue">Hello</h1>
+<div class="page-container">
+  <h1>Hello</h1>
+  <h1 class="blue">Hello</h1>
+</div>
