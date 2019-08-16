@@ -1,6 +1,6 @@
 <template>
     <footer class="site-footer">
-        <p>Adam Beres-Deak &copy; 2019</p>
+        <!-- <p>Adam Beres-Deak &copy; 2019</p>
 
         <p>
             <a href="mailto:me@bdadam.com">
@@ -30,7 +30,7 @@
             <a href="http://feeds.feedburner.com/bdadamcom">
                 <font-awesome-icon :icon="['fas', 'rss']" />&nbsp;RSS Feed
             </a>
-        </p>
+        </p>-->
     </footer>
 </template>
 
