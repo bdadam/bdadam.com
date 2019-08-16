@@ -2,8 +2,7 @@
     <header>
         <nav>
             <nuxt-link to="/" exact-active-class="selected">Home</nuxt-link>
-            <nuxt-link to="/about.html" exact-active-class="selected">About</nuxt-link>
-            <!-- <a href="/about.html">About</a> -->
+            <nuxt-link to="/about.html" exact-active-class="selected" no-prefetch>About</nuxt-link>
         </nav>
     </header>
 </template>
