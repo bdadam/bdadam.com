@@ -33,12 +33,30 @@ body {
 
 a {
     color: #007cca;
-    // text-decoration: none;
+    text-decoration: none;
 
     &:hover,
     &:active {
         color: #1e4c7a;
+        text-decoration: underline;
     }
+}
+
+ul.unstyled {
+    list-style: none;
+    padding-left: 0;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.small-caps {
+    font-variant: small-caps;
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
 
 #app {
@@ -48,8 +66,13 @@ a {
 }
 
 .page-container {
+    width: 100%;
     max-width: 1148px;
     padding: 24px;
     margin: 0 auto;
     flex: 1;
+}
+
+ul {
+    padding-left: 24px;
 }
