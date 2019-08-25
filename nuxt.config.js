@@ -13,8 +13,8 @@ export default {
     },
     css: ['~/styles/global.less', '@fortawesome/fontawesome-svg-core/styles.css'],
     generate: {
-        subFolders: false,
-        routes: ['/blog/', '/blog/abcd.html', '/blog/abcd-qwwqe-qwedsf.html'],
+        // subFolders: false,
+        routes: ['/blog/abcd/', '/blog/abcd-qwwqe-qwedsf/'],
     },
     plugins: ['~/plugins/fontawesome.js'],
     modules: ['@nuxtjs/sitemap'],
