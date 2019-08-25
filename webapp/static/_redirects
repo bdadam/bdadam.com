@@ -1,2 +1,2 @@
 /about.html /about/ 301
-/blog/* /blog/:splat/ 301
+/blog/abcd.html /blog/abcd/ 301
