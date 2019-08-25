@@ -1,2 +1,44 @@
 /about.html /about/ 301
-/blog/abcd.html /blog/abcd/ 301
+
+# todo: /javascript-goodies.html 
+
+# Redirecting old blog articles after migration
+/blog/a-simple-pubsub-module-in-javascript.html /blog/a-simple-pubsub-module-in-javascript/ 301
+/blog/adding-tab-support-to-textareas.html /blog/adding-tab-support-to-textareas/ 301
+/blog/automatically-adapting-the-height-textarea.html /blog/automatically-adapting-the-height-textarea/ 301
+/blog/automatically-loading-grunt-tasks-with-matchdep.html /blog/automatically-loading-grunt-tasks-with-matchdep/ 301
+/blog/better-webfont-loading-with-localstorage-and-woff2.html /blog/better-webfont-loading-with-localstorage-and-woff2/ 301
+/blog/building-desktop-apps-with-node-js-and-web-technologies.html /blog/building-desktop-apps-with-node-js-and-web-technologies/ 301
+/blog/comparison-helper-for-handlebars.html /blog/comparison-helper-for-handlebars/ 301
+/blog/defining-properties-in-javascript.html /blog/defining-properties-in-javascript/ 301
+/blog/defining-properties-on-prototypes-in-javascript.html /blog/defining-properties-on-prototypes-in-javascript/ 301
+/blog/demistifying-angularjs-dependency-injection.html /blog/demistifying-angularjs-dependency-injection/ 301
+/blog/developing-single-page-apps-with-mithril.html /blog/developing-single-page-apps-with-mithril/ 301
+/blog/displaying-icons-with-custom-elements.html /blog/displaying-icons-with-custom-elements/ 301
+/blog/error-handling-in-javascript.html /blog/error-handling-in-javascript/ 301
+/blog/fat-arrows-for-javascript.html /blog/fat-arrows-for-javascript/ 301
+/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html /blog/finally-always-wins-unless-you-crash-your-computer-meanwhile/ 301
+/blog/finding-a-random-document-in-mongodb.html /blog/finding-a-random-document-in-mongodb/ 301
+/blog/first-year-of-blogging.html /blog/first-year-of-blogging/ 301
+/blog/generating-sound-effects-with-client-side-javascript.html /blog/generating-sound-effects-with-client-side-javascript/ 301
+/blog/hosting-static-web-pages-and-assets-with-google-drive.html /blog/hosting-static-web-pages-and-assets-with-google-drive/ 301
+/blog/how-to-redirect-www-to-naked-domain-and-vice-versa-with-nginx.html /blog/how-to-redirect-www-to-naked-domain-and-vice-versa-with-nginx/ 301
+/blog/how-to-register-a-bower-package.html /blog/how-to-register-a-bower-package/ 301
+/blog/loading-webfonts-with-high-performance.html /blog/loading-webfonts-with-high-performance/ 301
+/blog/logging-javascript-errors.html /blog/logging-javascript-errors/ 301
+/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html /blog/one-more-reason-to-check-for-strict-equality-in-javascript/ 301
+/blog/optimistic-page-loading-with-instantclick-io.html /blog/optimistic-page-loading-with-instantclick-io/ 301
+/blog/panning-and-scrolling-background-images-using-the-canvas-element.html /blog/panning-and-scrolling-background-images-using-the-canvas-element/ 301
+/blog/plain-javascript-event-delegation.html /blog/plain-javascript-event-delegation/ 301
+/blog/playing-mario-in-the-browser.html /blog/playing-mario-in-the-browser/ 301
+/blog/serve-a-practical-command-line-webserver.html /blog/serve-a-practical-command-line-webserver/ 301
+/blog/simple-usability-trick-for-google-maps.html /blog/simple-usability-trick-for-google-maps/ 301
+/blog/static-site-generation-boilerplate.html /blog/static-site-generation-boilerplate/ 301
+/blog/strange-error-when-installing-npm-package-globally-on-ubuntu.html /blog/strange-error-when-installing-npm-package-globally-on-ubuntu/ 301
+/blog/strong-caching-with-nginx.html /blog/strong-caching-with-nginx/ 301
+/blog/switching-background-color-with-gimp.html /blog/switching-background-color-with-gimp/ 301
+/blog/things-we-can-lear-from-game-developers.html /blog/things-we-can-lear-from-game-developers/ 301
+/blog/tracking-clicks-with-google-analytics.html /blog/tracking-clicks-with-google-analytics/ 301
+/blog/video-douglas-crockford-about-the-new-good-parts.html /blog/video-douglas-crockford-about-the-new-good-parts/ 301
+/blog/why-i-chose-a-statically-generated-website.html /blog/why-i-chose-a-statically-generated-website/ 301
+/blog/wow-i-started-a-blog.html /blog/wow-i-started-a-blog/ 301
