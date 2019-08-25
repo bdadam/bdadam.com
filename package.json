@@ -14,11 +14,17 @@
         "@fortawesome/free-brands-svg-icons": "^5.10.1",
         "@fortawesome/free-solid-svg-icons": "^5.10.1",
         "@nuxtjs/sitemap": "^1.2.0",
+        "fs-extra": "^8.1.0",
+        "glob-promise": "^3.4.0",
+        "gray-matter": "^4.0.2",
         "less-loader": "^5.0.0",
+        "marked": "^0.7.0",
         "nuxt": "^2.8.1",
         "nuxt-fontawesome": "^0.4.0",
         "polka": "next",
-        "sirv": "^0.4.2"
+        "sirv": "^0.4.2",
+        "ts-node": "^8.3.0",
+        "typescript": "^3.5.3"
     },
     "devDependencies": {
         "@babel/core": "^7.0.0",
@@ -26,6 +32,8 @@
         "@babel/plugin-transform-runtime": "^7.0.0",
         "@babel/preset-env": "^7.0.0",
         "@babel/runtime": "^7.0.0",
+        "@types/fs-extra": "^8.0.0",
+        "@types/marked": "^0.6.5",
         "less": "^3.9.0",
         "node-sass": "^4.12.0",
         "prettier": "^1.18.2",
@@ -40,6 +48,7 @@
         "sirv-cli": "^0.4.4",
         "svelte": "^3.0.0",
         "svelte-preprocess-less": "^0.4.0",
-        "svelte-preprocess-sass": "^0.2.0"
+        "svelte-preprocess-sass": "^0.2.0",
+        "ts-node-dev": "^1.0.0-pre.42"
     }
 }

@@ -1,0 +1,27 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2018",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "outDir": "dist-generator",
+        "strict": true,
+        "noImplicitAny": true,
+        "lib": ["es2018"],
+        "skipLibCheck": true,
+        "jsx": "react",
+        // "isolatedModules": true,
+        "resolveJsonModule": true,
+        "importHelpers": true,
+        "noEmit": true,
+        "noEmitOnError": true
+    },
+    "exclude": ["node_modules"],
+    "include": ["./index.ts"],
+    "typeAcquisition": {
+        "enable": true
+    }
+}
