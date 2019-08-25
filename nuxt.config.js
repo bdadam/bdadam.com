@@ -1,6 +1,12 @@
 export default {
     head: {
         meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+        link: [
+            {
+                rel: 'stylesheet',
+                href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap&subset=latin-ext',
+            },
+        ],
     },
     css: ['~/styles/global.less', '@fortawesome/fontawesome-svg-core/styles.css'],
     generate: {
