@@ -34,12 +34,15 @@
             }
         }
     }
+
+    .home-link {
+        font-variant: small-caps;
+    }
 </style>
 
 <header>
     <nav>
-        <a class:selected={segment === undefined} href="/">Home</a>
-        <a class:selected={segment === 'about.html'} href="/about.html">About</a>
-        <a href="/test.html">TEST</a>
+        <a class:selected={segment === undefined} class="home-link" href="/">BDAdam.com</a>
+        <a class:selected={segment === 'about'} href="/about/">About</a>
     </nav>
 </header>

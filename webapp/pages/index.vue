@@ -2,6 +2,9 @@
 import Sidebar from '../components/Sidebar';
 export default {
     layout: 'default',
+    async asyncData() {
+        if (process.client)
+    },
     data() {
         return {
             latestArticles: [
