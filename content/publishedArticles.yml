@@ -1,5 +1,4 @@
 articles:
-  - published: true
-    x: hello1
-  - published: true
-    x: lorem-ipsum-title-wow
+  - x: hello1
+  - x: lorem-ipsum-title-wow
+  - x: lorem-ipsum-title-wow
