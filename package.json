@@ -9,11 +9,15 @@
         "start": "node __sapper__/build",
         "generate": "nuxt generate"
     },
+    "browserslist": [
+        "last 2 versions"
+    ],
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.21",
         "@fortawesome/free-brands-svg-icons": "^5.10.1",
         "@fortawesome/free-solid-svg-icons": "^5.10.1",
         "@nuxtjs/sitemap": "^1.2.0",
+        "autoprefixer": "^9.6.1",
         "date-fns": "^2.0.1",
         "express": "^4.17.1",
         "fs-extra": "^8.1.0",
@@ -25,6 +29,7 @@
         "nunjucks": "^3.2.0",
         "nuxt": "^2.8.1",
         "nuxt-fontawesome": "^0.4.0",
+        "postcss": "^7.0.17",
         "prismjs": "^1.17.1",
         "speakingurl": "^14.0.1",
         "svelte-preprocess": "^3.0.2",
