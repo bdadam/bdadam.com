@@ -37,10 +37,6 @@
         }
     }
 
-    /* .home-link {
-        font-variant: small-caps;
-    } */
-
     small.code {
         display: block;
         font-size: 0.8rem;
@@ -57,7 +53,7 @@
 
 <header>
     <nav>
-        <a class:selected={segment === undefined} class="home-link" href="/">
+        <a class:selected={segment === undefined} href="/">
             BDAdam.com
             <!-- Home -->
             <small class="code" aria-hidden="true">cd ~</small>
