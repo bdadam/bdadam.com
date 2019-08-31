@@ -34,4 +34,7 @@
     </ul>
 
     <a href="/blog/">Read more articles</a>
+
+    <a href="/sitemap.xml" style="display: none;">sitemap.xml</a>
+    <a href="/rss.xml" style="display: none;">rss.xml</a>
 </div>

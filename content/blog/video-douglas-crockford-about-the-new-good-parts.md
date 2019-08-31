@@ -15,8 +15,7 @@ tags:
 - javascript
 ---
 
-
-<div style="padding: 30px 0 56.25%; background-color: #000; position: relative;"><iframe style="position: absolute; width: 100%; height: 100%; top: 0; right: 0; bottom: 0; left: 0;" src="http://www.youtube.com/embed/PSGEjv3Tqo0"></iframe></div>
+https://www.youtube.com/embed/PSGEjv3Tqo0
 
 ## The "good parts" he identified in ES6
 

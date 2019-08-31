@@ -18,7 +18,7 @@ This is very handy for lists or tables.
 
 
 In jQuery code we could just call
-```JavaScript
+```js
 jQuery('#list').on('click', '.item', eventHandler)
 ```
 
