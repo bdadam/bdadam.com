@@ -55,7 +55,6 @@
     <nav>
         <a class:selected={segment === undefined} href="/">
             BDAdam.com
-            <!-- Home -->
             <small class="code" aria-hidden="true">cd ~</small>
         </a>
         <a class:selected={segment === 'blog'} href="/blog/">
