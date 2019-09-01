@@ -27,8 +27,10 @@
         {#each data.latestArticles as article}
             <li>
                 <a href={article.url}>{article.title}</a>
-                <p>{article.date}</p>
-                <p>{article.abstract}</p>
+                <p>{article.dateFormatted}</p>
+                <p>
+                    {@html article.abstract}
+                </p>
             </li>
         {/each}
     </ul>
