@@ -3,39 +3,35 @@
         const res = await this.fetch(`/index.json`);
         const data = await res.json();
 
-        // console.log(data);
-
         return { data };
-
-        // ...
     }
 </script>
 
 <script>
+    import ArticleItemList from '../components/ArticleItemList.svelte';
+    import PopularArticles from '../components/PopularArticles.svelte';
     export let data;
 </script>
 
-<style>
-    .latest-articles {
-        list-style: none;
-    }
+<style lang="less">
+
 </style>
 
-<div class="page-container">
-    <h2>Latest articles</h2>
-    <ul class="latest-articles">
-        {#each data.latestArticles as article}
-            <li>
-                <a href={article.url}>{article.title}</a>
-                <p>{article.dateFormatted}</p>
-                <p>
-                    {@html article.abstract}
-                </p>
-            </li>
-        {/each}
-    </ul>
+<svelte:head>
+    <title>Adam Beres-Deak</title>
+    <meta
+        name="description"
+        content="My devblog about web development, cloud architecture, JavaScript, NodeJS, CSS, less" />
+</svelte:head>
 
-    <a href="/blog/">Read more articles</a>
+<PopularArticles />
+<div class="page-container">
+
+    <h2>Latest articles</h2>
+
+    <ArticleItemList articles={data.latestArticles} />
+
+    <!-- <a href="/blog/">Read more articles</a> -->
 
     <a href="/sitemap.xml" style="display: none;">sitemap.xml</a>
     <a href="/rss.xml" style="display: none;">rss.xml</a>

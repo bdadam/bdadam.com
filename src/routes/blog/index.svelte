@@ -8,6 +8,7 @@
 </script>
 
 <script>
+    import ArticleItemList from '../../components/ArticleItemList.svelte';
     // import { onMount } from 'svelte';
     // import Prism from 'prismjs';
 
@@ -18,18 +19,11 @@
     // });
 </script>
 
+<style lang="less">
+
+</style>
+
 <div class="page-container">
-    <h1>Articles</h1>
-    <ul>
-        {#each articles as article}
-            <li>
-                <a href={article.url}>{article.title}</a>
-                <p>{article.dateFormatted}</p>
-                <div>
-                    {@html article.abstract}
-                </div>
-                <a href={article.url}>Read more...</a>
-            </li>
-        {/each}
-    </ul>
+    <h1 class="page-title">Articles</h1>
+    <ArticleItemList {articles} />
 </div>

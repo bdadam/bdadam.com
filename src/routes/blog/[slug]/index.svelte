@@ -12,6 +12,8 @@
     import { onMount } from 'svelte';
 
     import Prism from 'prismjs';
+    import 'prismjs/components/prism-markup-templating';
+    import 'prismjs/components/prism-handlebars';
 
     export let url;
     export let slug;
@@ -54,6 +56,18 @@
     });
 </script>
 
+<style lang="less">
+    .article-meta {
+        color: #555;
+        margin-bottom: 8px;
+        font-size: 0.875em;
+    }
+
+    .article-abstract {
+        margin-bottom: 12px;
+    }
+</style>
+
 <svelte:head>
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -62,15 +76,15 @@
 </svelte:head>
 
 <div class="page-container">
-    <h1>{title}</h1>
+    <h1 class="page-title">{title}</h1>
 
-    <p>{dateFormatted} | {tags.join(', ')}</p>
+    <p class="article-meta">{dateFormatted} | {tags.join(', ')}</p>
 
-    <div class="abstract">
+    <div class="article-abstract">
         {@html abstract}
     </div>
 
-    <div class="content">
+    <div class="article-content">
         {@html content}
     </div>
 

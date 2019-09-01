@@ -57,10 +57,10 @@
             BDAdam.com
             <small class="code" aria-hidden="true">cd ~</small>
         </a>
-        <a class:selected={segment === 'blog'} href="/blog/">
+        <!-- <a class:selected={segment === 'blog'} href="/blog/">
             Articles
             <small class="code" aria-hidden="true">tree</small>
-        </a>
+        </a> -->
         <a class:selected={segment === 'about'} href="/about/">
             About
             <small class="code" aria-hidden="true">whoami</small>

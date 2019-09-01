@@ -29,7 +29,7 @@ renderer.code = (code, infostring, escaped) => {
 
 renderer.codespan = code => {
     // const lang = 'markup';
-    const lang = 'sh';
+    // const lang = 'sh';
 
     const htmlSafeCode = code
         .replace(/&/g, '&amp;')
@@ -40,7 +40,8 @@ renderer.codespan = code => {
 
     // return `<code class="language-markup">${htmlSafeCode}</code>`;
     // return `<pre class="language-${lang}"><code class="language-${lang}">${x}</code></pre>`;
-    return `<code class="language-${lang}">${htmlSafeCode}</code>`;
+    return `<code>${htmlSafeCode}</code>`;
+    // return `<code class="language-${lang}">${htmlSafeCode}</code>`;
     // const html = Prism.highlight(code, Prism.languages[lang], lang);
     // return `<code class="language-${lang}">${html}</code>`;
     // return `<pre class="language-${lang}"><code class="language-${lang}">${html}</code></pre>`;
