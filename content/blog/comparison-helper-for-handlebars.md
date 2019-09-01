@@ -12,7 +12,7 @@ tags:
 - handlebars
 ---
 ## Comparing two variables almost like in plain JavaScript
-Thankfully I found a similar <a href="http://stackoverflow.com/a/16315366/2374649" rel="external,nofollow">question on Stack and a superb answer from a user called Jim</a>.
+Thankfully I found a similar <a href="http://stackoverflow.com/a/16315366/2374649" rel="external,nofollow">question on Stack Overflow and a superb answer from a user called Jim</a>.
 
 ```JavaScript
 Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
@@ -42,12 +42,12 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 ```
 
 Here is how one would use it:
-```html
-\{{#ifCond value "===" value2}}
+```handlebars
+{{#ifCond value "===" value2}}
     Values are equal!
-\{{else}}
+{{else}}
     Values are different!
-\{{/ifCond}}
+{{/ifCond}}
 ```
 
 ## Update
