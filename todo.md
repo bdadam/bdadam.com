@@ -1,5 +1,12 @@
 - [ ] recommended / related articles
-- [ ] code highlighting
-- [ ] sitemap.xml
+- [ ] style article content
+- [ ] share buttons
+- [ ] meta tags, og tags, twitter meta tags
 - [ ] rss.xml
+- [ ] style comment loading
 - [ ] tracking
+- [ ] handle old comments
+- [ ] new comments (if at all)
+- [x] code highlighting
+- [x] sitemap.xml
+- [x] comments
