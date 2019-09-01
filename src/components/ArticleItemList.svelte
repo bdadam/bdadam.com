@@ -1,5 +1,6 @@
 <script>
     export let articles;
+    export let hideTags = false;
 </script>
 
 <style lang="less">
@@ -37,11 +38,14 @@
     {#each articles as article}
         <li>
             <a class="title-link" href={article.url}>{article.title}</a>
-            <p class="date">{article.dateFormatted} &middot; {article.tags.join(', ')}</p>
+            <p class="date">
+                {article.dateFormatted}
+                {#if !hideTags}&middot; {article.tags.join(', ')}{/if}
+            </p>
             <div class="abstract">
                 {@html article.abstract}
             </div>
-            <a href={article.url}>Read more...</a>
+            <a href={article.url}>Read the rest of this article »</a>
         </li>
     {/each}
 </ul>
