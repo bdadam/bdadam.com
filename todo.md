@@ -1,17 +1,18 @@
-- [ ] recommended / related articles
-- [x] style article content
+- [ ] Finish about page
 - [ ] check all existing articles
-- [ ] rething path to articles (/blog/slug/)
-- [ ] share buttons
 - [ ] meta tags, og tags, twitter meta tags
+- [ ] share buttons
+- [ ] recommended / related articles
+- [ ] rethink path to articles (/blog/slug/)
 - [ ] rss.xml
-- [ ] style comment loading
 - [ ] tracking
+- [ ] style comment loading
 - [ ] handle old comments
 - [ ] new comments (if at all)
 - [ ] Follow me on twitter => https://remysharp.com/2019/04/02/twitter-without-tracking
 - [ ] Book recommendations
 - [ ] AMA
+- [x] style article content
 - [x] code highlighting
 - [x] sitemap.xml
 - [x] comments
