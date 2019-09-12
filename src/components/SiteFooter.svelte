@@ -79,7 +79,8 @@
                 focusable="false"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512">
+                viewBox="0 0 448 512"
+            >
                 <path
                     fill="currentColor"
                     d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041
@@ -89,11 +90,14 @@
                     14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503
                     32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627
                     161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474
-                    16.005-16.504z" />
+                    16.005-16.504z"
+                />
             </svg>
             <span>RSS Feed</span>
         </a>
     </p>
+
+    <hr />
 
     <p class="legal">
         Except where otherwise noted, content on this site is licensed under a
@@ -101,5 +105,11 @@
             Creative Commons Attribution 4.0 International
         </a>
         license.
+    </p>
+
+    <p class="legal">
+        This site uses some icons from
+        <a href="https://fontawesome.com/" rel="external nofollow" target="_blank">Font Awesome</a>. Check out their
+        <a href="https://fontawesome.com/license" rel="external nofollow" target="_blank">license</a>.
     </p>
 </footer>
