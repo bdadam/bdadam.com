@@ -9,6 +9,7 @@
 </script>
 
 <script>
+    import ShareButtons from '../../../components/ShareButtons.svelte';
     import { onMount } from 'svelte';
 
     import Prism from 'prismjs';
@@ -25,6 +26,8 @@
     export let content;
     export let tags;
     export let commentsLoaded = false;
+
+    const canonical = `https://bdadam.com${url}`;
 
     function loadComments() {
         commentsLoaded = true;
@@ -66,13 +69,17 @@
     .article-abstract {
         margin-bottom: 12px;
     }
+
+    .share-buttons {
+        margin: 24px 0;
+    }
 </style>
 
 <svelte:head>
     <title>{title}</title>
     <meta name="description" content={description} />
     <!-- <meta name="og:description" content={abstra} /> -->
-    <link rel="canonical" href={`https://bdadam.com${url}`} />
+    <link rel="canonical" href={canonical} />
 </svelte:head>
 
 <div class="page-container">
@@ -86,6 +93,11 @@
 
     <div class="article-content">
         {@html content}
+    </div>
+
+    <div class="share-buttons">
+        <p class="h3">Share this article</p>
+        <ShareButtons url={canonical} {title} {tags} />
     </div>
 
     {#if !commentsLoaded}

@@ -1,7 +1,6 @@
 - [ ] Finish about page
 - [ ] check all existing articles
 - [ ] meta tags, og tags, twitter meta tags
-- [ ] share buttons
 - [ ] recommended / related articles
 - [ ] rethink path to articles (/blog/slug/)
 - [ ] rss.xml
@@ -12,6 +11,9 @@
 - [ ] Follow me on twitter => https://remysharp.com/2019/04/02/twitter-without-tracking
 - [ ] Book recommendations
 - [ ] AMA
+- [ ] Hashtags for articles
+- [ ] Fix/create PWA images
+- [x] Share buttons for articles
 - [x] style article content
 - [x] code highlighting
 - [x] sitemap.xml
