@@ -133,22 +133,6 @@
             background-color: darken(#222, 30%);
         }
     }
-
-    svg[viewBox='0 0 512 512'] {
-        width: 16px;
-    }
-
-    svg[viewBox='0 0 448 512'] {
-        width: 14px;
-    }
-
-    /* svg[viewBox='0 0 384 512'] {
-        width: 12px;
-    } */
-
-    svg[viewBox='0 0 320 512'] {
-        width: 10px;
-    }
 </style>
 
 <div>

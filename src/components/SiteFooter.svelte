@@ -23,7 +23,6 @@
     }
 
     svg {
-        width: 14px;
         fill: orange;
         color: orange;
         display: inline-block;
