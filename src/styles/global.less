@@ -39,6 +39,13 @@ body {
     color: #333;
 }
 
+// @media (prefers-color-scheme: dark) {
+//     body {
+//         background-color: #000000;
+//         color: #ffffff;
+//     }
+// }
+
 #app {
     display: flex;
     flex-direction: column;
@@ -56,6 +63,20 @@ body {
 a {
     text-decoration: none;
     color: #1565c0;
+    // color: #2962ff;
+
+    &:visited {
+        color: darken(#1565c0, 20%);
+    }
+
+    &:hover {
+        color: darken(#1565c0, 10%);
+    }
+
+    &:active {
+        color: darken(#1565c0, 20%);
+    }
+
     &:hover,
     &:active {
         text-decoration: underline;
@@ -91,6 +112,7 @@ th {
 ul,
 ol,
 dl {
+    padding-left: calc(1.5em + 5px);
     margin-top: 0;
     margin-bottom: 1em;
 }
@@ -112,6 +134,19 @@ hr {
 //     // list-style-position: inside;
 //     list-style: none;
 // }
+
+blockquote {
+    border-left: 5px solid #ccc;
+    margin-left: 0;
+    margin-left: unset;
+    padding-left: 1.5em;
+
+    cite {
+        &::before {
+            content: '— ';
+        }
+    }
+}
 
 .youtube-player {
     padding-top: 56.25%;
