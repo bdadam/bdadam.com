@@ -10,6 +10,7 @@
 
 <script>
     import ShareButtons from '../../../components/ShareButtons.svelte';
+    import ArticleComments from '../../../components/ArticleComments.svelte';
     import { onMount } from 'svelte';
 
     import Prism from 'prismjs';
@@ -29,37 +30,12 @@
 
     const canonical = `https://bdadam.com${url}`;
 
-    function loadComments() {
-        commentsLoaded = true;
-        window.disqus_shortname = 'bdadamcom';
-        window.disqus_config = function() {
-            this.page.title = document.title;
-            this.page.identifier = `http://bdadam.com/blog/${slug}.html`;
-            this.page.url = `http://bdadam.com/blog/${slug}.html`;
-        };
-
-        if (window.DISQUS) {
-            window.DISQUS.reset({ reload: true });
-            return;
-        }
-
-        const dqurl = 'https://bdadamcom.disqus.com/embed.js';
-        const s = document.createElement('script');
-        s.src = 'https://bdadamcom.disqus.com/embed.js';
-        s.onload = () => console.log('load');
-        document.head.appendChild(s);
-    }
-
     onMount(() => {
         Prism.highlightAll();
-
-        if (location.hash.startsWith('#comment-')) {
-            loadComments();
-        }
     });
 </script>
 
-<style lang="less">
+<style>
     .article-meta {
         color: #555;
         margin-bottom: 8px;
@@ -73,6 +49,9 @@
     .share-buttons {
         margin: 24px 0;
     }
+
+    /* .comments {
+    } */
 </style>
 
 <svelte:head>
@@ -100,8 +79,8 @@
         <ShareButtons url={canonical} {title} {tags} />
     </div>
 
-    {#if !commentsLoaded}
-        <button on:click={loadComments}>Load Comments...</button>
-    {/if}
-    <div id="disqus_thread" />
+    <div class="comments">
+        <ArticleComments {slug} />
+    </div>
+
 </div>
