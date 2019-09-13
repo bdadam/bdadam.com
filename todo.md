@@ -63,7 +63,7 @@
 - [ ] Building desktop apps with node.js and web technologies
 - [ ] How to redirect www to naked domain and vice versa with NGINX?
 - [ ] How to register a bower package
-- [ ] Demystifying AngularJS' dependency injection
+- [x] Demystifying AngularJS' dependency injection
 - [ ] Hosting static web pages and assets with Google Drive
 - [ ] Strong caching with NGINX
 - [ ] Error handling in JavaScript
