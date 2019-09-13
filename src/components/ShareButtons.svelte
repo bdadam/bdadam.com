@@ -137,7 +137,7 @@
 </style>
 
 <div>
-    <a href={twurl} class="tw" rel="external nofollow" target="_blank">
+    <a href={twurl} class="tw" rel="external nofollow" target="_blank" title="Share this article on Twitter">
         <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
                 fill="currentColor"
@@ -152,7 +152,7 @@
         </svg>
         Twitter
     </a>
-    <a href={fburl} class="fb" rel="external nofollow" target="_blank">
+    <a href={fburl} class="fb" rel="external nofollow" target="_blank" title="Share this article on Facebook">
         <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
             <path
                 fill="currentColor"
@@ -161,7 +161,7 @@
         </svg>
         Facebook
     </a>
-    <a href={mailto} class="mail" target="_blank">
+    <a href={mailto} class="mail" target="_blank" title="Mail this article to someone">
         <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
                 fill="currentColor"
@@ -174,7 +174,7 @@
         </svg>
         E-mail
     </a>
-    <a href={waurl} class="wa" rel="external nofollow" target="_blank">
+    <a href={waurl} class="wa" rel="external nofollow" target="_blank" title="Share this article over Whatsapp">
         <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path
                 fill="currentColor"
@@ -190,7 +190,7 @@
         </svg>
         Whatsapp
     </a>
-    <button class="cp" on:click|preventDefault={copyToClipboard}>
+    <button class="cp" on:click|preventDefault={copyToClipboard} title="Copy link to clipboard">
         <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
             <path
                 fill="currentColor"

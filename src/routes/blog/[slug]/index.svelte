@@ -89,7 +89,7 @@
     </div>
 
     <div class="share-buttons">
-        <p class="h3">Share this article</p>
+        <!-- <p class="h3">Share this article</p> -->
         <ShareButtons url={canonical} {title} {tags} />
     </div>
 
