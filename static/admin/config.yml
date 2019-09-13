@@ -1,0 +1,65 @@
+site_url: https://bdadam.com/
+
+backend:
+  name: github
+  repo: bdadam/bdadam.com
+  branch: content2019
+
+# publish_mode: editorial_workflow
+
+collections:
+  - label: Articles
+    label_singular: Article
+    name: articles
+    create: true
+    folder: content/blog
+    slug: '{{year}}{{month}}{{day}}-{{fields.slug}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Published', name: 'published', widget: 'boolean', default: false }
+      - { label: 'Slug', name: 'slug', widget: 'string' }
+      - { label: 'Publish Date', name: 'date', widget: 'date' }
+      - { label: 'Hero Image', name: 'hero', widget: 'image', required: false }
+      - { label: 'Abstract', name: 'abstract', widget: 'string' }
+      - { label: 'Body', name: 'content', widget: 'markdown' }
+    summary: '{{published}} - {{year}}-{{month}}-{{day}} {{title}}'
+    editor:
+      preview: false
+
+  - label: 'Published articles'
+    name: 'publishedArticles'
+    files:
+      - label: 'Published articles'
+        name: 'publishedArticles'
+        file: 'content/publishedArticles.yml'
+        editor:
+          preview: false
+        fields:
+          - label: 'Articles'
+            name: 'articles'
+            widget: 'list'
+            fields:
+              # - { label: 'Published', name: 'published', widget: 'boolean', default: false }
+              - {
+                  label: 'Article',
+                  name: 'article',
+                  widget: 'relation',
+                  collection: 'articles',
+                  multiple: false,
+                  valueField: 'slug',
+                  displayFields: ['slug', 'title'],
+                  searchFields: ['title'],
+                }
+
+          # - {label: Title, name: title, widget: string}
+          # - {label: Intro, name: intro, widget: markdown}
+          # - label: Team
+          #   name: team
+          #   widget: list
+          #   fields:
+          #     - {label: Name, name: name, widget: string}
+          #     - {label: Position, name: position, widget: string}
+          #     - {label: Photo, name: photo, widget: image}
+
+media_folder: images
+public_folder: /images
