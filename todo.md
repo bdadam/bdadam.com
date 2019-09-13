@@ -70,6 +70,6 @@
 - [ ] Adding tab support to textareas
 - [ ] Serve - a practical command line webserver
 - [ ] Fat arrows for JavaScript
-- [ ] Why I chose to statically generate my website
+- [x] Why I chose to statically generate my website
 - [x] A simple PubSub module in JavaScript
 - [x] Wow, I started a blog
