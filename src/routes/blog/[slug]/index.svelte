@@ -21,6 +21,7 @@
     export let slug;
     export let title;
     export let date;
+    export let deprecation;
     export let dateFormatted;
     export let description;
     export let abstract;
@@ -40,6 +41,12 @@
         color: #555;
         margin-bottom: 8px;
         font-size: 0.875em;
+    }
+
+    .deprecation-note {
+        padding: 20px;
+        background-color: #f1f1ff;
+        margin-bottom: 12px;
     }
 
     .article-abstract {
@@ -65,6 +72,12 @@
     <h1 class="page-title">{title}</h1>
 
     <p class="article-meta">{dateFormatted} | {tags.join(', ')}</p>
+
+    {#if deprecation}
+        <div class="deprecation-note">
+            {@html deprecation}
+        </div>
+    {/if}
 
     <div class="article-abstract">
         {@html abstract}

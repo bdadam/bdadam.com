@@ -23,6 +23,7 @@ export default file => {
         description: x.data.description,
         abstract: parseMarkdown(x.data.abstract || ''),
         content: parseMarkdown(x.content),
+        deprecation: parseMarkdown(x.data.deprecation || ''),
         date,
         dateFormatted: format(date, 'do MMMM yyyy'),
         tags: x.data.tags || [],
