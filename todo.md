@@ -62,7 +62,7 @@
 - [ ] Playing Mario in the browser
 - [ ] Building desktop apps with node.js and web technologies
 - [ ] How to redirect www to naked domain and vice versa with NGINX?
-- [ ] How to register a bower package
+- [x] How to register a bower package
 - [x] Demystifying AngularJS' dependency injection
 - [ ] Hosting static web pages and assets with Google Drive
 - [ ] Strong caching with NGINX
