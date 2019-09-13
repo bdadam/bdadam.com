@@ -59,6 +59,7 @@
         border-radius: 4px;
         padding: 12px 16px;
         white-space: nowrap;
+        justify-content: center;
 
         &:hover,
         &:active {
