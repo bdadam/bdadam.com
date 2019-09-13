@@ -1,3 +1,7 @@
+<script>
+    const year = new Date().getFullYear();
+</script>
+
 <style>
     footer {
         padding: 24px;
@@ -36,7 +40,7 @@
 </style>
 
 <footer>
-    <p>Adam Beres-Deak &copy; 2019</p>
+    <p>Adam Beres-Deak &copy; {year}</p>
 
     <!-- <p>
         <a href="mailto:me@bdadam.com" title="Send me an e-mail">
