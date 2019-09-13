@@ -45,8 +45,9 @@
 
     .deprecation-note {
         padding: 20px;
-        background-color: #f1f1ff;
+        background-color: #fdb;
         margin-bottom: 12px;
+        border-radius: 4px;
     }
 
     .article-abstract {
