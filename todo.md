@@ -56,7 +56,7 @@
 - [ ] A simple usability trick for Google Maps
 - [ ] Switching background color of an image with Gimp
 - [ ] Panning and scrolling background images using the canvas element
-- [ ] Finding a random document in MongoDB (with benchmarks)
+- [x] Finding a random document in MongoDB (with benchmarks)
 - [x] Tracking clicks with Google Analytics
 - [x] Comparison helper for Handlebars.js
 - [x] One more reason to check for strict equality in JavaScript
