@@ -38,6 +38,7 @@
 - [ ] Evergreen: Events/PubSub/Observable/Stream
 - [ ] Evergreen: Hosting static websites (alternatives, cost, CDN): Netlify, GH Pages, AWS S3, GCP Bucket, Firebase, own server
 - [ ] Svelte/Sapper
+- [ ] Evergreen: Tracking, click, pageview, GA Measurement Protocol
 
 ### Check existing articles
 
