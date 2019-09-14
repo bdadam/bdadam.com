@@ -17,6 +17,13 @@ export default file => {
     const slug = path.basename(file, '.md');
     const date = new Date(x.data.date);
 
+    const review = x.data.reviewedAt
+        ? {
+              reviewedAt: new Date(x.data.reviewedAt),
+              reviewedAtFormatted: format(new Date(x.data.reviewedAt), 'do MMMM yyyy'),
+          }
+        : {};
+
     return {
         url: `/blog/${slug}/`,
         title: x.data.title,
@@ -26,6 +33,7 @@ export default file => {
         deprecation: parseMarkdown(x.data.deprecation || ''),
         date,
         dateFormatted: format(date, 'do MMMM yyyy'),
+        ...review,
         tags: x.data.tags || [],
     };
 };

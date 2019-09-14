@@ -16,13 +16,16 @@
     import Prism from 'prismjs';
     import 'prismjs/components/prism-markup-templating';
     import 'prismjs/components/prism-handlebars';
+    import 'prismjs/components/prism-nginx';
 
     export let url;
     export let slug;
     export let title;
     export let date;
-    export let deprecation;
     export let dateFormatted;
+    export let reviewedAt;
+    export let reviewedAtFormatted;
+    export let deprecation;
     export let description;
     export let abstract;
     export let content;
@@ -72,7 +75,12 @@
 <div class="page-container">
     <h1 class="page-title">{title}</h1>
 
-    <p class="article-meta">{dateFormatted} | {tags.join(', ')}</p>
+    <p class="article-meta">
+        {#if reviewedAtFormatted}
+            Reviewed {reviewedAtFormatted}, first published {dateFormatted}
+        {:else}Published {dateFormatted}{/if}
+        | {tags.join(', ')}
+    </p>
 
     {#if deprecation}
         <div class="deprecation-note">
