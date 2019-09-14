@@ -56,7 +56,7 @@
 - [ ] Switching background color of an image with Gimp
 - [ ] Panning and scrolling background images using the canvas element
 - [ ] Finding a random document in MongoDB (with benchmarks)
-- [ ] Tracking clicks with Google Analytics
+- [x] Tracking clicks with Google Analytics
 - [x] Comparison helper for Handlebars.js
 - [x] One more reason to check for strict equality in JavaScript
 - [x] Finally always wins, unless you crash your computer meanwhile
