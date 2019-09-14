@@ -56,7 +56,7 @@
 - [ ] Tracking clicks with Google Analytics
 - [ ] Comparison helper for Handlebars.js
 - [ ] One more reason to check for strict equality in JavaScript
-- [ ] Finally always wins, unless you crash your computer meanwhile
+- [x] Finally always wins, unless you crash your computer meanwhile
 - [ ] Strange error when installing npm package globally on Ubuntu
 - [ ] Defining properties in JavaScript
 - [ ] Playing Mario in the browser
