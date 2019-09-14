@@ -59,7 +59,7 @@
 - [ ] Comparison helper for Handlebars.js
 - [ ] One more reason to check for strict equality in JavaScript
 - [x] Finally always wins, unless you crash your computer meanwhile
-- [ ] Strange error when installing npm package globally on Ubuntu
+- [x] Strange error when installing npm package globally on Ubuntu
 - [x] Defining properties in JavaScript
 - [x] Playing Mario in the browser
 - [x] Building desktop apps with node.js and web technologies
