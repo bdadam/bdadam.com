@@ -60,7 +60,7 @@
 - [x] Finally always wins, unless you crash your computer meanwhile
 - [ ] Strange error when installing npm package globally on Ubuntu
 - [ ] Defining properties in JavaScript
-- [ ] Playing Mario in the browser
+- [x] Playing Mario in the browser
 - [x] Building desktop apps with node.js and web technologies
 - [x] How to redirect www to naked domain and vice versa with NGINX?
 - [x] How to register a bower package
