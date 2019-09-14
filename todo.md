@@ -56,7 +56,7 @@
 - [ ] Panning and scrolling background images using the canvas element
 - [ ] Finding a random document in MongoDB (with benchmarks)
 - [ ] Tracking clicks with Google Analytics
-- [ ] Comparison helper for Handlebars.js
+- [x] Comparison helper for Handlebars.js
 - [x] One more reason to check for strict equality in JavaScript
 - [x] Finally always wins, unless you crash your computer meanwhile
 - [x] Strange error when installing npm package globally on Ubuntu
