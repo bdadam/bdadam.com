@@ -17,6 +17,7 @@
     import 'prismjs/components/prism-markup-templating';
     import 'prismjs/components/prism-handlebars';
     import 'prismjs/components/prism-nginx';
+    import 'prismjs/components/prism-csharp';
 
     export let url;
     export let slug;
