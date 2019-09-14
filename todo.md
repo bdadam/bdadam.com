@@ -67,7 +67,7 @@
 - [x] Demystifying AngularJS' dependency injection
 - [x] Hosting static web pages and assets with Google Drive
 - [x] Strong caching with NGINX
-- [ ] Error handling in JavaScript
+- [x] Error handling in JavaScript
 - [x] Adding tab support to textareas
 - [x] Serve - a practical command line webserver
 - [x] Fat arrows for JavaScript
