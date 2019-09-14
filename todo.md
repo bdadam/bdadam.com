@@ -69,7 +69,7 @@
 - [x] Strong caching with NGINX
 - [ ] Error handling in JavaScript
 - [ ] Adding tab support to textareas
-- [ ] Serve - a practical command line webserver
+- [x] Serve - a practical command line webserver
 - [x] Fat arrows for JavaScript
 - [x] Why I chose to statically generate my website
 - [x] A simple PubSub module in JavaScript
