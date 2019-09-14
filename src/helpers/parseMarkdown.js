@@ -27,6 +27,10 @@ renderer.code = (code, infostring, escaped) => {
     return `<pre class="language-${lang}"><code class="language-${lang}">${htmlSafeCode}</code></pre>`;
 };
 
+renderer.image = (href, alt, caption) => {
+    return `<figure><img src="${href}" alt="${alt || caption}"><figcaption>${caption}</figcaption></figure>`;
+};
+
 renderer.codespan = code => {
     // const lang = 'markup';
     // const lang = 'sh';
