@@ -28,8 +28,6 @@ renderer.code = (code, infostring, escaped) => {
 };
 
 renderer.image = (href, caption, alt) => {
-    console.log('ALT', alt);
-    console.log('CAP', caption);
     return `<figure><img src="${href}" alt="${alt || caption}"><figcaption>${caption}</figcaption></figure>`;
 };
 
