@@ -34,7 +34,8 @@
 - [ ] Videos worth watching
 - [ ] Articles worth reading
 - [ ] Links worth viewing
-- [ ] Evergreen article about Events/PubSub/Observable/Stream
+- [ ] Evergreen: Events/PubSub/Observable/Stream
+- [ ] Evergreen: Hosting static websites (alternatives, cost, CDN): Netlify, GH Pages, AWS S3, GCP Bucket, Firebase, own server
 
 ### Check existing articles
 
@@ -64,7 +65,7 @@
 - [ ] How to redirect www to naked domain and vice versa with NGINX?
 - [x] How to register a bower package
 - [x] Demystifying AngularJS' dependency injection
-- [ ] Hosting static web pages and assets with Google Drive
+- [x] Hosting static web pages and assets with Google Drive
 - [x] Strong caching with NGINX
 - [ ] Error handling in JavaScript
 - [ ] Adding tab support to textareas
