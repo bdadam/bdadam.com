@@ -6,7 +6,6 @@
     let commentsLoaded = false;
 
     function loadComments() {
-        console.log('CLICK');
         commentsLoading = true;
         // commentsLoaded = true;
         window.disqus_shortname = 'bdadamcom';
