@@ -26,6 +26,7 @@
 - [ ] Book recommendations
 - [ ] AMA
 - [ ] Dark mode
+- [ ] JSON+LD
 
 ## Blog ideas
 
@@ -59,7 +60,7 @@
 - [ ] One more reason to check for strict equality in JavaScript
 - [x] Finally always wins, unless you crash your computer meanwhile
 - [ ] Strange error when installing npm package globally on Ubuntu
-- [ ] Defining properties in JavaScript
+- [x] Defining properties in JavaScript
 - [x] Playing Mario in the browser
 - [x] Building desktop apps with node.js and web technologies
 - [x] How to redirect www to naked domain and vice versa with NGINX?
