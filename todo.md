@@ -69,7 +69,7 @@
 - [ ] Error handling in JavaScript
 - [ ] Adding tab support to textareas
 - [ ] Serve - a practical command line webserver
-- [ ] Fat arrows for JavaScript
+- [x] Fat arrows for JavaScript
 - [x] Why I chose to statically generate my website
 - [x] A simple PubSub module in JavaScript
 - [x] Wow, I started a blog
