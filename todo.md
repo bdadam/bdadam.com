@@ -62,7 +62,7 @@
 - [ ] Defining properties in JavaScript
 - [ ] Playing Mario in the browser
 - [x] Building desktop apps with node.js and web technologies
-- [ ] How to redirect www to naked domain and vice versa with NGINX?
+- [x] How to redirect www to naked domain and vice versa with NGINX?
 - [x] How to register a bower package
 - [x] Demystifying AngularJS' dependency injection
 - [x] Hosting static web pages and assets with Google Drive
