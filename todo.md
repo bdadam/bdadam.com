@@ -65,7 +65,7 @@
 - [x] How to register a bower package
 - [x] Demystifying AngularJS' dependency injection
 - [ ] Hosting static web pages and assets with Google Drive
-- [ ] Strong caching with NGINX
+- [x] Strong caching with NGINX
 - [ ] Error handling in JavaScript
 - [ ] Adding tab support to textareas
 - [ ] Serve - a practical command line webserver
