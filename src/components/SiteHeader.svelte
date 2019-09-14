@@ -5,6 +5,7 @@
 <style lang="less">
     header {
         border-bottom: 1px solid #ddd;
+        margin-bottom: 24px;
     }
 
     nav {

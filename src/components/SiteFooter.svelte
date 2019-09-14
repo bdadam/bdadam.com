@@ -8,6 +8,7 @@
         border-top: 1px solid #cdcdcd;
         background-color: #f1f1f1;
         text-align: center;
+        margin-top: 24px;
     }
 
     p {

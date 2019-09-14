@@ -20,9 +20,9 @@
     <meta name="description" content="My devblog about Web Development, Cloud Architecture, JavaScript, Node.js, CSS" />
 </svelte:head>
 
-<PopularArticles />
+<!-- <PopularArticles />
 
-<SmallAboutBox />
+<SmallAboutBox /> -->
 
 <div class="page-container">
 
