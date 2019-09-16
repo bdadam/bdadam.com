@@ -27,6 +27,21 @@
 - [ ] AMA
 - [ ] Dark mode
 - [ ] JSON+LD
+- [ ] Put articles into categories
+  - articles
+  - videos
+  - books
+  - links
+- [ ] Unify tags:
+  - cloud
+  - aws
+  - google cloud
+  - css
+  - js/code
+  - frontend
+  - backend
+  - architecture
+- [ ]
 
 ## Blog ideas
 
