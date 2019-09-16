@@ -37,4 +37,4 @@ For this mini tutorial I'm using this [pattern from subtlepatterns.com](https://
 
 ![Screenshot of step 5](/article-assets/gimp-background-change/gimp-color-to-alpha-window.jpg 'Color to Alpha window')
 
-![Screenshot of step 6](/article-assets/gimp-background-change/gimp-new-background-layer.jpg "Final step - creating new background layer with desired colo
+![Screenshot of step 6](/article-assets/gimp-background-change/gimp-new-background-layer.jpg 'Final step - creating new background layer with desired color')
