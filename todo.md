@@ -53,7 +53,7 @@
 - [ ] Loading webfonts with high performance on responsive websites
 - [ ] Loading web pages really fast - optimistic page loading with Instantclick.io
 - [ ] Generating sound effects with client side JavaScript
-- [ ] Boilerplate for static site generation
+- [x] Boilerplate for static site generation
 - [ ] Automatically loading Grunt tasks with matchdep
 - [ ] A simple usability trick for Google Maps
 - [ ] Switching background color of an image with Gimp
