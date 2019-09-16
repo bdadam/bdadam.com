@@ -54,7 +54,7 @@
 - [ ] Loading web pages really fast - optimistic page loading with Instantclick.io
 - [ ] Generating sound effects with client side JavaScript
 - [x] Boilerplate for static site generation
-- [ ] Automatically loading Grunt tasks with matchdep
+- [x] Automatically loading Grunt tasks with matchdep
 - [ ] A simple usability trick for Google Maps
 - [ ] Switching background color of an image with Gimp
 - [ ] Panning and scrolling background images using the canvas element
