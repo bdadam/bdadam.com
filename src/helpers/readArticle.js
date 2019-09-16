@@ -22,7 +22,10 @@ export default file => {
               reviewedAt: new Date(x.data.reviewedAt),
               reviewedAtFormatted: format(new Date(x.data.reviewedAt), 'do MMMM yyyy'),
           }
-        : {};
+        : {
+              reviewedAt: null,
+              reviewedAtFormatted: null,
+          };
 
     return {
         url: `/blog/${slug}/`,
