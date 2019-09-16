@@ -56,7 +56,7 @@
 - [x] Boilerplate for static site generation
 - [x] Automatically loading Grunt tasks with matchdep
 - [x] A simple usability trick for Google Maps
-- [ ] Switching background color of an image with Gimp
+- [x] Switching background color of an image with Gimp
 - [ ] Panning and scrolling background images using the canvas element
 - [x] Finding a random document in MongoDB (with benchmarks)
 - [x] Tracking clicks with Google Analytics
