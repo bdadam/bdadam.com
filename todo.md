@@ -67,7 +67,7 @@
 - [ ] Automatically adjusting the height of a textarea to its content text
 - [ ] Loading webfonts with high performance on responsive websites
 - [ ] Loading web pages really fast - optimistic page loading with Instantclick.io
-- [ ] Generating sound effects with client side JavaScript
+- [x] Generating sound effects with client side JavaScript
 - [x] Boilerplate for static site generation
 - [x] Automatically loading Grunt tasks with matchdep
 - [x] A simple usability trick for Google Maps
