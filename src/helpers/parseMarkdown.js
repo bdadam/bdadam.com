@@ -17,12 +17,39 @@ renderer.link = (href, title, text) => {
 
 renderer.code = (code, infostring, escaped) => {
     const lang = (infostring || 'markup').toLowerCase();
+
     const htmlSafeCode = code
+        .replace(/\<!-- embed -->.*\n/, '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+
+    if (lang === 'html' && code.includes('<!-- embed -->')) {
+        const codeWithIframeStyles = `<html><head><style>
+        html, body { padding: 0; margin: 0; box-sizing: border-box; }
+        body {
+            -webkit-font-smoothing: antialiased;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial,
+                sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+            font-size: calc(1rem + 0.25vw);
+            line-height: 1.38;
+            color: #333;
+        }
+        button {
+            font-size: inherit;
+        }
+        </style>
+        </head>
+        <body>
+        ${code}
+        </body>
+        </html>`;
+
+        const srcdoc = codeWithIframeStyles.replace(/\"/g, '&quot;');
+        return `<div><iframe srcdoc="${srcdoc}"></iframe><pre class="language-${lang}"><code class="language-${lang}">${htmlSafeCode}</code></pre></div>`;
+    }
 
     return `<pre class="language-${lang}"><code class="language-${lang}">${htmlSafeCode}</code></pre>`;
 };
