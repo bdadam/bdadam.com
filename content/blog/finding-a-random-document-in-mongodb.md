@@ -14,16 +14,25 @@ abstract: Finding a random element is not a trivial task when using MongoDB - es
 1. First of all you have to count how many documents you have in the collection.
    Optionally you can provide a filter condition (query).
 
-   `N = db.myCollection.count(query)`
+   ```js
+   N = db.myCollection.count(query);
+   ```
 
 1. Then you have to generate a random number which is less than the number you counted before.
 
-   `R = Math.floor(Math.random() * N)`
+   ```js
+   R = Math.floor(Math.random() * N);
+   ```
 
 1. Then skip that many records and retrieve the next one.
    If you provided a query at the first step, here you have to use it as well.
 
-   `db.collection.find(query).limit(1).skip(R))`
+   ```js
+   db.collection
+     .find(query)
+     .limit(1)
+     .skip(R);
+   ```
 
 ### Let's see an example
 
