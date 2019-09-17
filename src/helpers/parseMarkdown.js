@@ -35,16 +35,18 @@ renderer.codespan = code => {
     // const lang = 'markup';
     // const lang = 'sh';
 
-    const htmlSafeCode = code
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    // const htmlSafeCode = code
+    //     .replace(/&/g, '&amp;')
+    //     .replace(/</g, '&lt;')
+    //     .replace(/>/g, '&gt;')
+    //     .replace(/"/g, '&quot;')
+    //     .replace(/'/g, '&#039;');
+
+    return `<code>${code}</code>`;
+    // return `<code>${htmlSafeCode}</code>`;
 
     // return `<code class="language-markup">${htmlSafeCode}</code>`;
     // return `<pre class="language-${lang}"><code class="language-${lang}">${x}</code></pre>`;
-    return `<code>${htmlSafeCode}</code>`;
     // return `<code class="language-${lang}">${htmlSafeCode}</code>`;
     // const html = Prism.highlight(code, Prism.languages[lang], lang);
     // return `<code class="language-${lang}">${html}</code>`;
