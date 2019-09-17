@@ -35,6 +35,31 @@
 
     const canonical = `https://bdadam.com${url}`;
 
+    function resizeIframesInside(node) {
+        const iframes = [...node.querySelectorAll('iframe[srcdoc]')];
+
+        const resize = iframe => {
+            const html = iframe.contentWindow.document.documentElement;
+            const body = iframe.contentWindow.document.body;
+
+            const height = Math.max(
+                body.scrollHeight,
+                body.offsetHeight
+                // html.clientHeight,
+                // html.scrollHeight,
+                // html.offsetHeight
+            );
+
+            iframe.style.height = `${height}px`;
+        };
+
+        iframes.forEach(iframe => {
+            resize(iframe);
+            iframe.contentWindow.addEventListener('resize', () => resize(iframe));
+            iframe.contentWindow.addEventListener('load', () => resize(iframe));
+        });
+    }
+
     onMount(() => {
         Prism.highlightAll();
     });
@@ -93,7 +118,7 @@
         {@html abstract}
     </div>
 
-    <div class="article-content">
+    <div class="article-content" use:resizeIframesInside>
         {@html content}
     </div>
 
