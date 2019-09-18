@@ -28,7 +28,9 @@ renderer.code = (code, infostring, escaped) => {
 
     if (lang === 'html' && code.includes('<!-- embed -->')) {
         const codeWithIframeStyles = `<html><head><style>
-        html, body { padding: 0; margin: 0; box-sizing: border-box; }
+        *,*::before,*::after { box-sizing: border-box; }
+        * { margin: 0; padding: 0; }
+        html, body { padding: 0; margin: 0; box-sizing: border-box; overflow-x: hidden; }
         body {
             -webkit-font-smoothing: antialiased;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial,
@@ -39,6 +41,13 @@ renderer.code = (code, infostring, escaped) => {
         }
         button {
             font-size: inherit;
+            padding: 4px 16px;
+            border-radius: 4px;
+            border: 1px solid #aaa;
+            background-color: #f1f1f1;
+        }
+        button:hover {
+            background-color: #dedede;
         }
         </style>
         </head>
