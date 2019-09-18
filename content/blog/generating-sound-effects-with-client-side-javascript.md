@@ -32,9 +32,9 @@ Please click on the buttons to play the corresponding sound effects.
 <button id="btnJump">Jump</button>
 <button id="btnShoot">Shoot</button>
 
-<script src="/article-assets/jsfx/audio.js"></script>
-<script src="/article-assets/jsfx/jsfx.js"></script>
-<script src="/article-assets/jsfx/jsfxlib.js"></script>
+<script src="/article-assets/generating-sound-effects-with-client-side-javascript/jsfx/audio.js"></script>
+<script src="/article-assets/generating-sound-effects-with-client-side-javascript/jsfx/jsfx.js"></script>
+<script src="/article-assets/generating-sound-effects-with-client-side-javascript/jsfx/jsfxlib.js"></script>
 <script>
   function setup(id, params) {
     var wave = jsfxlib.createWave(params);
