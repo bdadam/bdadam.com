@@ -1,17 +1,20 @@
 ---
-layout:         post.hbs
-date:           2015-10-14
-title:          Displaying icons with custom elements
-description:    A cross-browser technique to use SVG icons without icon-fonts
-abstract:       I created a technique for using SVG icons without pain with a simple gulp task.
-                Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages.
-                There are many ways to include icons and all of them have some tradeoffs.
-                This interesting technique shows a way to include SVG-icons in a cross-browser way with using custom elements.
+date: 2015-10-14
+title: Displaying icons with custom elements
+description: A cross-browser technique to use SVG icons without icon-fonts
 tags:
-- html
-- web components
-- custom elements
-- javascript
+  - html
+  - web components
+  - custom elements
+  - javascript
+
+abstract:
+  I created a technique for using SVG icons without pain with a simple gulp task.
+  Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages.
+  There are many ways to include icons and all of them have some tradeoffs.
+  This interesting technique shows a way to include SVG-icons in a cross-browser way with using custom elements.
+
+needsupdate: true
 ---
 
 ## TLDR
@@ -20,7 +23,7 @@ The code can be found here: [bdadam/custom-icons](https://github.com/bdadam/cust
 
 The usage looks like this:
 
-```HTML
+```html
 <x-icon type="some-icon"></x-icon>
 ...
 <script src="icons.js" async></script>
@@ -28,32 +31,33 @@ The usage looks like this:
 
 The script basically puts an svg element inside the `x-icon` tag. This svg element can then - for example - be styled with CSS.
 
-```HTML
+```html
 <style>
-    [type="happy"] path {
-        fill: red;
-    }
+  [type='happy'] path {
+    fill: red;
+  }
 </style>
 ...
 <x-icon type="happy">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-        <path fill="#444" d="..."></path>
-    </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <path fill="#444" d="..."></path>
+  </svg>
 </x-icon>
 ```
 
 ## The longer version
 
 I have to admit that I always had a pain when I had to include a set of icons on webpages.
+
 - I didn't want to use icon fonts, because they are sometimes problematic:
-    [accessibility problems](https://github.com/FortAwesome/Font-Awesome/issues/6133), [blurrines](http://mir.aculo.us/2014/10/31/icon-fonts-vs-inline-svg/), etc.
+  [accessibility problems](https://github.com/FortAwesome/Font-Awesome/issues/6133), [blurrines](http://mir.aculo.us/2014/10/31/icon-fonts-vs-inline-svg/), etc.
 - I didn't want to use inline SVGs either, because of cacheability and duplication.
 - I didn't want to include a bunch of IMG tags, because of the many extra HTTP-requests.
 
 So I was searching for a better way when I found out that I could have all the advantages of those techniques above.
 I always thought it would be pretty neat if we had some dedicated HTML element for icons. Like this here:
 
-```HTML
+```html
 <x-icon type="some-icon"></x-icon>
 ```
 

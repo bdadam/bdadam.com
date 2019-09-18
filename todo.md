@@ -59,7 +59,7 @@
 
 ### Check existing articles
 
-- [ ] Displaying icons with custom elements
+- [x] Displaying icons with custom elements
 - [ ] Plain JavaScript event delegation
 - [ ] After the first year of blogging - what happened on my blog in 2014?
 - [ ] Better webfont loading with using localStorage and providing WOFF2 support
