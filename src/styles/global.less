@@ -8,7 +8,10 @@ body,
 article,
 p,
 div,
-form {
+form,
+h1,
+h2,
+h3 {
     padding: 0;
     margin: 0;
 }
@@ -28,13 +31,21 @@ html {
 body {
     overflow-x: hidden;
     overflow-y: scroll;
+    width: 100%;
     min-height: 100%;
     -webkit-font-smoothing: antialiased;
     // font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
+    // font-family: Constantia, 'Lucida Bright', Lucidabright, 'Lucida Serif', Lucida, 'DejaVu Serif',
+    //     'Bitstream Vera Serif', 'Liberation Serif', Georgia, serif;
+
+    // font-family: Corbel, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
+    //     'Liberation Sans', Verdana, 'Verdana Ref', sans-serif;
+
     font-size: calc(1rem + 0.25vw);
+    // font-size: 1rem;
     line-height: 1.38;
     color: #333;
 }
@@ -175,8 +186,8 @@ h3 {
 }
 
 .page-title {
-    font-size: 2em;
-    margin-bottom: 0.3em;
+    font-size: 1.75em;
+    margin-bottom: 0.75em;
     line-height: 1.2;
 }
 
@@ -263,4 +274,12 @@ figure {
         text-align: center;
         margin: 0.25em auto 1em;
     }
+}
+
+// code[class*='language-'],
+// pre[class*='language-'] {
+pre,
+code {
+    // font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;
+    // font-size: 0.875em !important;
 }
