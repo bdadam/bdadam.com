@@ -1,16 +1,21 @@
 ---
-layout:         post.hbs
-date:           2014-10-08 2:00
-title:          Loading web pages really fast - optimistic page loading with Instantclick.io
-description:    How to turn traditional websites into single page apps with Instantclick.io
-abstract:       There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work.
-                Fortunately there is also a very handy tool, which makes use of this trick and does a great job.
-
+date: 2014-10-08 2:00
+title: Loading web pages really fast - optimistic page loading with Instantclick.io
+description: How to turn traditional websites into single page apps with Instantclick.io
 tags:
-- javascript
-- single page app
-- click
-- perfmatters
+  - javascript
+  - single page app
+  - click
+  - perfmatters
+
+abstract:
+  There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work.
+  Fortunately there is also a very handy tool, which makes use of this trick and does a great job.
+
+deprecation:
+  Optimistic (pre-) loading is still an important technique to improve web performance.
+  This approach is built in into most modern web frameworks, such as Nuxt.js, Next.js, Sapper/Svelte and many more.
+  This website does not use Instantlick anymore because the underlying web framework supports it out of the box.
 ---
 
 As web developers we usually want to anything to load pages faster for the user. What about if started loading a page, before the user clicks a link?
@@ -26,7 +31,7 @@ You can see this trick in action for example on this blog. Just click on some li
 
 ## Instantclick.io
 
-You can get this tool here: <a href="http://instantclick.io/" rel="external,nofollow">http://instantclick.io/</a>.
+You can get this tool here: http://instantclick.io/.
 
 Just put a single script into your page and you should be almost fine. Maybe you need some blacklisting/whitelisting,
 so that some links are not prefetched automatically. Or maybe you want some scripts to execute on every request.
@@ -44,6 +49,4 @@ It still gives a decent advantage over the traditional way.
 
 The library comes with touch support out of the box.
 
-
 **Do you like it?** Do you already use this library? Tell me about your experience in the comments.
-

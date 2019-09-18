@@ -66,7 +66,7 @@
 - [x] Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014
 - [ ] Automatically adjusting the height of a textarea to its content text
 - [ ] Loading webfonts with high performance on responsive websites
-- [ ] Loading web pages really fast - optimistic page loading with Instantclick.io
+- [x] Loading web pages really fast - optimistic page loading with Instantclick.io
 - [x] Generating sound effects with client side JavaScript
 - [x] Boilerplate for static site generation
 - [x] Automatically loading Grunt tasks with matchdep
