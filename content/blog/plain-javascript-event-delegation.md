@@ -158,6 +158,13 @@ Click on any list item. Where it says "click me!", the click will trigger an `al
     });
   })();
 </script>
+<style>
+  li {
+    margin-bottom: 12px;
+    margin-right: 8px;
+    display: inline-block;
+  }
+</style>
 ```
 
 ## Use-cases
