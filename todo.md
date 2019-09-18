@@ -61,7 +61,7 @@
 
 - [x] Displaying icons with custom elements
 - [x] Plain JavaScript event delegation
-- [ ] After the first year of blogging - what happened on my blog in 2014?
+- [x] After the first year of blogging - what happened on my blog in 2014?
 - [ ] Better webfont loading with using localStorage and providing WOFF2 support
 - [x] Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014
 - [ ] Automatically adjusting the height of a textarea to its content text
