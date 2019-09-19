@@ -3,7 +3,6 @@
 ## TODO before releasing new design
 
 - [ ] Finish about page
-- [ ] Show hero images in some articles
 - [x] Check/fix/improve all existing articles
 - [ ] meta tags, og tags, twitter meta tags
 - [ ] rethink path to articles (/blog/slug/)
@@ -22,6 +21,7 @@
 
 ## Nice to have
 
+- [ ] Show hero images in some articles
 - [ ] Recommended / related articles
 - [ ] Follow me on twitter => https://remysharp.com/2019/04/02/twitter-without-tracking
 - [ ] Book recommendations
