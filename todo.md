@@ -41,7 +41,7 @@
   - frontend
   - backend
   - architecture
-- [ ]
+- [ ] Comment on /blog/automatically-adapting-the-height-textarea/ that the reported issues are fixed
 
 ## Blog ideas
 

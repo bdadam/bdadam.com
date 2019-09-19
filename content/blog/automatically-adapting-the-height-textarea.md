@@ -176,4 +176,14 @@ There are many cases in which this can be useful. Amongst others:
 - Code editors
 - Comment boxes
 
+## For production
+
+This article is only meant for simple use cases or as a proof of concept work.
+For production (and therefore maybe more complex usecases) I would rather recommend using a library such as [autosize](https://github.com/jackmoore/autosize).
+These libraries deal with browser bugs and other edge cases.
+
+## Resources
+
+- For differences between `offsetHeight`, `clientHeight` and `scrollHeight` please see [this StackOverflow answer](https://stackoverflow.com/a/22675563/2374649)
+
 **Do you like it? Do you already use it? Please leave a comment below - the comment box is auto adjusted by default. :)**
