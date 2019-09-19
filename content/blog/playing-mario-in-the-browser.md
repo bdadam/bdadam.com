@@ -30,7 +30,7 @@ We can still play the game. We just have to download the sources (or clone the r
 1. Download this: ~~master.zip~~
 2. Extract the files
 3. `cd path/to/files`
-4. Start a webserver (e. g. `serve` [serve](/blog/serve-a-practical-command-line-webserver.html))
+4. Start a webserver (e. g. `serve` [serve](/blog/serve-a-practical-command-line-webserver/))
 5. Navigate to the game
 
 **Have fun!**

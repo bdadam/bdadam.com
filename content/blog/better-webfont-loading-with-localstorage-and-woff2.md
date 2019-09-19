@@ -10,7 +10,7 @@ tags:
   - loading
 
 abstract:
-  In my previous [article about webfont loading](/blog/loading-webfonts-with-high-performance.html) I showed a technique
+  In my previous [article about webfont loading](/blog/loading-webfonts-with-high-performance/) I showed a technique
   about how to load webfonts without blocking page rendering and without annoying the users with flickering text on all pageloads.
   This time I show you an optimized version of the script and provide a solution for WOFF2 support for the newest browsers.
 ---

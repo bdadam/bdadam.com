@@ -13,13 +13,13 @@ abstract:
 needsupdate: true
 ---
 
-[This blog is also statically generated.](/blog/why-i-chose-a-statically-generated-website.html)
+[This blog is also statically generated.](/blog/why-i-chose-a-statically-generated-website/)
 Statically generating websites has many advantages. Some of these are
 
 1. These sites can be hosted everywhere
-1. No backend to be hacked
-1. Outstanding performance
-1. etc.
+2. No backend to be hacked
+3. Outstanding performance
+4. etc.
 
 The boilerplate code can be found on GitHub: [bdadam/static-site-boilerplate](https://github.com/bdadam/static-site-boilerplate)
 
