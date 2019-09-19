@@ -2,7 +2,7 @@
 title: After the first year of blogging - what happened on my blog in 2014?
 date: 2015-01-01 17:00
 description: Summary of all that happened on my blog in 2014
-image: /article-assets/2015.jpg
+# image: /article-assets/2015.jpg
 tags:
   - blog
   - new year
@@ -10,6 +10,8 @@ tags:
 
 abstract: I wish you all a happy new year and much fun and success for 2015! Let's have a quick review of the past 365 days.
 ---
+
+![Happy New Year](/article-assets/2015.jpg 'Happy New Year')
 
 ## In 2014 amongst other things I ...
 
