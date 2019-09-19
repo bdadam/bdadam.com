@@ -18,5 +18,5 @@
             }
         }
     ],
-    "htmlWhitespaceSensitivity": "strict"
+    "htmlWhitespaceSensitivity": "css"
 }
