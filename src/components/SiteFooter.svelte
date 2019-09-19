@@ -77,7 +77,7 @@
     </p> -->
 
     <p>
-        <a class="footer-link" href="http://feeds.feedburner.com/bdadamcom">
+        <a class="footer-link" href="https://feeds.feedburner.com/bdadamcom">
             <svg
                 aria-hidden="true"
                 focusable="false"
@@ -111,9 +111,9 @@
 
     <p class="legal">
         This site uses some icons from
-        <a href="https://fontawesome.com/" rel="external nofollow" target="_blank">Font Awesome</a>
+        <a href="https://fontawesome.com/" rel="external noopener" target="_blank">Font Awesome</a>
         . Check out their
-        <a href="https://fontawesome.com/license" rel="external nofollow" target="_blank">license</a>
+        <a href="https://fontawesome.com/license" rel="external noopener nofollow" target="_blank">license</a>
         .
     </p>
 </footer>

@@ -7,7 +7,7 @@ tags:
   - javascript
 
 abstract:
-  A few weeks ago I posted about my [PubSub module](http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html).
+  A few weeks ago I posted about my [PubSub module](https://bdadam.com/blog/a-simple-pubsub-module-in-javascript/).
   Since then I registered it as a bower package. It was actually my first bower package. I am going to show you how easy it was.
 
 deprecation: Please note that the [usage of bower is not recommended anymore](https://snyk.io/blog/bower-is-dead/).

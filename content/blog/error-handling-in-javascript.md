@@ -89,4 +89,4 @@ try {
 If you are interested in more details:
 
 1. [Mozilla Developer Network Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-2. [NCZOnline](http://www.nczonline.net/blog/2009/03/10/the-art-of-throwing-javascript-errors-part-2/)
+2. [NCZOnline](https://www.nczonline.net/blog/2009/03/10/the-art-of-throwing-javascript-errors-part-2/)

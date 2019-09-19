@@ -120,7 +120,7 @@
         </p>-->
 
         <!-- <p>
-            <a href="http://feeds.feedburner.com/bdadamcom">
+            <a href="https://feeds.feedburner.com/bdadamcom">
                 <font-awesome-icon :icon="['fas', 'rss']" />&nbsp;RSS Feed
             </a>
         </p>-->

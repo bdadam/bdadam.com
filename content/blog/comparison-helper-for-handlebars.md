@@ -15,7 +15,7 @@ abstract:
 
 ## Comparing two variables almost like in plain JavaScript
 
-Thankfully I found a similar <a href="http://stackoverflow.com/a/16315366/2374649" rel="external,nofollow">question on Stack Overflow and a superb answer from a user called Jim</a>.
+Thankfully I found a similar [question on Stack Overflow and a superb answer from a user called Jim](https://stackoverflow.com/a/16315366/2374649).
 
 ```js
 Handlebars.registerHelper('ifCond', function(v1, operator, v2, options) {

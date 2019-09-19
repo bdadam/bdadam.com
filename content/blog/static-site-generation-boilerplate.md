@@ -25,7 +25,7 @@ The boilerplate code can be found on GitHub: [bdadam/static-site-boilerplate](ht
 
 ## What can this boilerplate do for you?
 
-1. It generates html from markdown files with the help of [Assemble](http://assemble.io/).
+1. It generates html from markdown files with the help of [Assemble](https://assemble.io/).
 1. It generates minified and optimized css file(s) with less and uncss
 1. It generates minified and optimized JavaScript files with RequireJS
 1. During development the affected files are regenerated when something changes (GruntJS watch task)

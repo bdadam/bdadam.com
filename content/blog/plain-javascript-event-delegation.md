@@ -179,9 +179,9 @@ This code uses two core DOM API call `Element.addEventListener` and `Element.que
 
 ### More resources on events
 
-- [Bubbling and Capturing @ javascript.info](http://javascript.info/tutorial/bubbling-and-capturing)
+- [Bubbling and Capturing @ javascript.info](https://javascript.info/tutorial/bubbling-and-capturing)
 - [addEventListener @ MDN](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.addEventListener)
-- [Event Order @ QuirksMode](http://www.quirksmode.org/js/events_order.html)
-- [Events Advanced @ QuirksMode](http://www.quirksmode.org/js/events_advanced.html)
+- [Event Order @ QuirksMode](https://www.quirksmode.org/js/events_order.html)
+- [Events Advanced @ QuirksMode](https://www.quirksmode.org/js/events_advanced.html)
 
 **What do you think, would you use this code in your projects? Tell me your thoughts in the comments.**

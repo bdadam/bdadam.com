@@ -38,7 +38,7 @@ Do you notice any differences (besides triple = signs and casing)? No there isn'
 Unfortunately there is a catch:
 Currently this syntax is only supported in Firefox.
 Althought Firefox has been supporting it for more than a year now (almost two), its support is completely missing in Chrome.
-But the syntax is in the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:arrow_function_syntax" rel="external,nofollow">ES6 Draft</a>,
+But the syntax is in the [ES6 Draft](https://wiki.ecmascript.org/doku.php?id=harmony:arrow_function_syntax),
 so we can hope that Google also decides to support it.
 
 ## More examples

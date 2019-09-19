@@ -188,10 +188,10 @@ To illustrate the differences here are some filmstrip views:
 
 ### Resources
 
-- [My prevoius article about webfont loading on responsive sites](/blog/loading-webfonts-with-high-performance.html)
+- [My prevoius article about webfont loading on responsive sites](/blog/loading-webfonts-with-high-performance/)
 - [Woff2 feature test by Filament Group](https://github.com/filamentgroup/woff2-feature-test)
 - [WOFF2 support @ caniuse.com](https://caniuse.com/#feat=woff2)
-- [Font loading support @ caniuse.com](http://caniuse.com/#search=FontFace)
+- [Font loading support @ caniuse.com](https://caniuse.com/#search=FontFace)
 - [Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik](https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/)
 - [Improving Smashing Magazine’s Performance: A Case Study](https://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/)
 - [How we make RWD sites load fast as heck](https://www.filamentgroup.com/lab/performance-rwd.html)

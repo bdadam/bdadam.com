@@ -171,7 +171,7 @@ I advise against this method, because it delays text rendering quite a lot. So l
       font-style: normal;
       font-weight: 400;
       src: local('Source Sans Pro'), local('SourceSansPro-Regular'),
-        url(http://fonts.gstatic.com/s/sourcesanspro/v9/ODelI1aHBYDBqgeIAH2zlBBHWFfxJXS04xYOz0jw624.woff)
+        url(https://fonts.gstatic.com/s/sourcesanspro/v9/ODelI1aHBYDBqgeIAH2zlBBHWFfxJXS04xYOz0jw624.woff)
           format('woff');
     }
   </style>
@@ -201,8 +201,8 @@ I also created [a test page](/samples/webfonts-googlefonts.html) where you can c
 ### Resources
 
 - [Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik](https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/)
-- [Improving Smashing Magazine’s Performance: A Case Study](http://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/)
-- [How we make RWD sites load fast as heck](http://www.filamentgroup.com/lab/performance-rwd.html)
+- [Improving Smashing Magazine’s Performance: A Case Study](https://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/)
+- [How we make RWD sites load fast as heck](https://www.filamentgroup.com/lab/performance-rwd.html)
 
 #### Translations
 

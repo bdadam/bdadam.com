@@ -124,7 +124,7 @@ The only problematic one is Internet Explorer 8, which only allows to define pro
 ## Performance
 
 At the moment, using `Object.defineProperty()` is definitely slower than using basic properties like in the old days - but not that much.
-For more detailed performance tests take a look at <a href="http://jsperf.com/object-defineproperty-vs-definegetter-vs-normal" rel="external,nofollow">jsperf.com</a>.
+For more detailed performance tests take a look at [jsperf.com](https://jsperf.com/object-defineproperty-vs-definegetter-vs-normal).
 
 ## Resources:
 

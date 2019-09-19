@@ -62,4 +62,4 @@ abstract: I wish you all a happy new year and much fun and success for 2015! Let
 
 #### Resources:
 
-Happy new year photo: [Wikimedia Commons](http://commons.wikimedia.org/wiki/Category:2015#mediaviewer/File:Happy_New_Year_2015.png)
+Happy new year photo: [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:2015#mediaviewer/File:Happy_New_Year_2015.png)
