@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex" />
+        <link
+            rel="canonical"
+            href="https://bdadam.com/blog/panning-and-scrolling-background-images-using-the-canvas-element/"
+        />
+        <style>
+            #frame {
+                width: 100%;
+                max-width: 560px;
+                overflow: hidden;
+                position: relative;
+                box-sizing: border-box;
+                margin: 0 auto;
+            }
+
+            .bgimg {
+                line-height: 160px;
+                float: left;
+                width: 33.3333%;
+                text-align: center;
+                border: 5px solid #000;
+                box-sizing: border-box;
+            }
+
+            #viewport {
+                line-height: 80px;
+                padding-bottom: 80px;
+                font-weight: bold;
+                color: #f00;
+                position: absolute;
+                top: 0;
+                left: 25%;
+                width: 50%;
+                background-color: rgba(255, 0, 0, 0.25);
+                border: 5px solid rgba(255, 0, 0, 0.75);
+                text-align: center;
+                box-sizing: border-box;
+            }
+
+            #player {
+                background-color: #000;
+                width: 60px;
+                height: 20px;
+                position: absolute;
+                top: 120px;
+                margin-left: -10px;
+                left: 50%;
+                color: #fff;
+                line-height: 1;
+            }
+
+            @keyframes scroll {
+                0% {
+                    left: 0;
+                }
+                25% {
+                    left: 0;
+                }
+                50% {
+                    left: 50%;
+                }
+                75% {
+                    left: 50%;
+                }
+                100% {
+                    left: 0;
+                }
+            }
+
+            #viewport {
+                animation: scroll 8s linear infinite;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="frame">
+            <div class="bgimg">Image 1</div>
+            <div class="bgimg">Image 2</div>
+            <div class="bgimg">Image 3</div>
+            <div id="viewport">
+                viewport
+                <div id="player">Player</div>
+            </div>
+        </div>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    </body>
+</html>

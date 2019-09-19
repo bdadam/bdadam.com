@@ -73,7 +73,7 @@
 - [x] Automatically loading Grunt tasks with matchdep
 - [x] A simple usability trick for Google Maps
 - [x] Switching background color of an image with Gimp
-- [ ] Panning and scrolling background images using the canvas element
+- [x] Panning and scrolling background images using the canvas element
 - [x] Finding a random document in MongoDB (with benchmarks)
 - [x] Tracking clicks with Google Analytics
 - [x] Comparison helper for Handlebars.js
