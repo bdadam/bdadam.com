@@ -64,7 +64,7 @@
 - [x] After the first year of blogging - what happened on my blog in 2014?
 - [ ] Better webfont loading with using localStorage and providing WOFF2 support
 - [x] Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014
-- [ ] Automatically adjusting the height of a textarea to its content text
+- [x] Automatically adjusting the height of a textarea to its content text
 - [ ] Loading webfonts with high performance on responsive websites
 - [x] Loading web pages really fast - optimistic page loading with Instantclick.io
 - [x] Generating sound effects with client side JavaScript
