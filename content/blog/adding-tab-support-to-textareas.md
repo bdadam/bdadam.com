@@ -120,6 +120,6 @@ Source code for the example can be found here: https://gist.github.com/bdadam/87
 
       enableTab('tx');
     </script>
-  </body></html
->
+  </body>
+</html>
 ```
