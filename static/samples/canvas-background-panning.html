@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Demo page to show background image panning with canvas</title>
+        <meta name="viewport" content="width=device-width" />
+        <meta name="robots" content="noindex,follow" />
+        <link href="/static/main.css" rel="stylesheet" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            div {
+                max-width: 640px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            #bg {
+                display: block;
+                margin: 0 auto 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <canvas id="bg" width="640" height="320"></canvas>
+            <button id="btnStart" class="btn btn-default">Start/stop animation</button>
+            <span class="pull-right legal">
+                <a
+                    title="by Richard Bartz via Wikimedia Commons (CC-BY-SA-3.0)"
+                    href="https://commons.wikimedia.org/wiki/File%3APonta_de_S%C3%A3o_Louren%C3%A7o_north_north_east.jpg"
+                    >Original photo</a
+                >
+            </span>
+        </div>
+        <script>
+            (function() {
+                var canvas = document.getElementById('bg');
+                var context = canvas.getContext('2d', { alpha: false });
+                // context.imageSmoothingEnabled = true;
+                // context.imageSmoothingQuality = 'low';
+                var totalSeconds = 0;
+                var looping = false;
+                var lastFrameTime = 0;
+
+                var img = new Image();
+                img.onload = imageLoaded;
+                img.src = '/article-assets/large-background.jpg';
+
+                function imageLoaded() {
+                    draw(0);
+
+                    var btn = document.getElementById('btnStart');
+                    btn.addEventListener('click', function() {
+                        startStop();
+                    });
+                }
+
+                function startStop() {
+                    looping = !looping;
+
+                    if (looping) {
+                        requestAnimationFrame(function(t) {
+                            lastFrameTime = t;
+                            requestAnimationFrame(loop);
+                        });
+                    }
+                }
+
+                function loop(t) {
+                    if (!looping) {
+                        return;
+                    }
+
+                    var deltaMs = t - lastFrameTime;
+                    lastFrameTime = t;
+                    draw(deltaMs / 1000);
+                    requestAnimationFrame(loop);
+                }
+
+                function draw(delta) {
+                    totalSeconds += delta;
+                    var x = ((-1 * (img.width - canvas.width)) / 2) * (1 + Math.cos(totalSeconds / Math.PI));
+                    var y = ((-1 * (img.height - canvas.height)) / 2) * (1 + -Math.sin(totalSeconds / Math.PI));
+
+                    // context.drawImage(img, x | 0, y | 0);
+                    context.drawImage(img, x, y);
+                }
+            })();
+        </script>
+    </body>
+</html>
