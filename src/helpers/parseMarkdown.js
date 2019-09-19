@@ -64,7 +64,8 @@ renderer.code = (code, infostring, escaped) => {
 };
 
 renderer.image = (href, caption, alt) => {
-    return `<figure><img src="${href}" alt="${alt || caption}"><figcaption>${caption}</figcaption></figure>`;
+    return `<figure><a href="${href}"><img src="${href}" alt="${alt ||
+        caption}"></a><figcaption>${caption}</figcaption></figure>`;
 };
 
 renderer.codespan = code => {
