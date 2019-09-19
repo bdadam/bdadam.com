@@ -29,6 +29,7 @@
 - [ ] Dark mode
 - [ ] JSON+LD
 - [ ] Source code viewer iframe for code samples (like codepen or jsfiddle but self hosted)
+- [ ] User markdown-it with plugins
 - [ ] Put articles into categories
   - articles
   - videos
