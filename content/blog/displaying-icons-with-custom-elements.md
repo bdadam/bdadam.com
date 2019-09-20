@@ -65,7 +65,7 @@ This looks quite semantic and self explaining.
 We could use any tag name which is a valid name for custom elements - e.g. it must include a dash.
 There is a type attribute which defines which icon is shown. Easy. Bot how to achieve this?
 
-## JavaScript and WebPack for the rescue
+## JavaScript and webpack for the rescue
 
 The technique is behind the scenes quite simple.
 The input is just some SVG files.
