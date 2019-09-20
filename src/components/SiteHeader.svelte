@@ -6,6 +6,10 @@
     header {
         border-bottom: 1px solid #ddd;
         margin-bottom: 24px;
+        /* background-image: url(/background2.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center; */
     }
 
     nav {
@@ -62,6 +66,10 @@
             Articles
             <small class="code" aria-hidden="true">tree</small>
         </a> -->
+        <a class:selected={segment === 'blog'} href="/blog/">
+            Articles
+            <small class="code" aria-hidden="true">ls articles</small>
+        </a>
         <a class:selected={segment === 'about'} href="/about/">
             About
             <small class="code" aria-hidden="true">whoami</small>
