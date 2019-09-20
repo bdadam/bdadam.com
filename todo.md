@@ -11,7 +11,7 @@
 - [ ] handle old comments
 - [ ] new comments (if at all)
 - [ ] Hashtags for articles
-- [ ] Fix/create PWA images
+- [ ] Fix/create PWA images, also in rss
 - [x] rss.xml
 - [x] Share buttons for articles
 - [x] style article content
