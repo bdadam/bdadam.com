@@ -17,7 +17,7 @@
 
 <svelte:head>
     <title>Adam Beres-Deak</title>
-    <meta name="description" content="My devblog about Web Development, Cloud Architecture, JavaScript, Node.js, CSS" />
+    <meta name="description" content="Devblog about Web Development, Cloud Architecture, JavaScript, Node.js, CSS" />
 </svelte:head>
 
 <!-- <PopularArticles />
