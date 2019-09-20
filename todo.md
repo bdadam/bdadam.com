@@ -6,13 +6,13 @@
 - [x] Check/fix/improve all existing articles
 - [ ] meta tags, og tags, twitter meta tags
 - [ ] rethink path to articles (/blog/slug/)
-- [ ] rss.xml
 - [ ] tracking
 - [ ] style comment loading
 - [ ] handle old comments
 - [ ] new comments (if at all)
 - [ ] Hashtags for articles
 - [ ] Fix/create PWA images
+- [x] rss.xml
 - [x] Share buttons for articles
 - [x] style article content
 - [x] code highlighting

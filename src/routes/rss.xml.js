@@ -1,7 +1,13 @@
 import RSS from 'rss';
 
+import readAllArticles from '../helpers/readAllArticles';
+
 export async function get(req, res) {
     res.set('Content-Type', 'application/rss+xml');
+
+    const articles = await readAllArticles();
+
+    articles.length = 10;
 
     const feed = new RSS({
         title: 'Adam Beres-Deak',
@@ -11,35 +17,14 @@ export async function get(req, res) {
         image_url: '', // TODO
     });
 
-    // TODO
-    feed.item({
-        title: 'TODO',
-        description: '<p>TODO</p>',
-        url: 'TODO',
-        author: 'Adam Beres-Deak <me@bdadam.com>',
+    articles.forEach(article => {
+        feed.item({
+            title: article.title,
+            description: `<div class="article-abstract">${article.abstract}</div><div class="article-content">${article.content}</div>`,
+            url: `https://bdadam.com${article.url}`,
+            author: 'Adam Beres-Deak',
+        });
     });
 
     res.send(feed.xml({ indent: true }));
-
-    // res.end(`<?xml version="1.0" encoding="UTF-8" ?>
-    // <?xml-stylesheet type="text/css" href="http://bdadam.com/static/main.css" ?>
-    // <rss version="2.0">
-    //     <channel>
-    //         <title>Adam Beres-Deak</title>
-    //         <link>http://bdadam.com/</link>
-    //         <description>Blog</description>
-    //         {{#latestPosts pages}}
-    //         <item>
-    //             <title>{{data.title}}</title>
-    //             <link>http://bdadam.com/{{ relativeLink }}</link>
-    //             <description>
-    //                 <![CDATA[
-    //                 {{#markdown}}{{{data.abstract}}}{{/markdown}}
-    //                 {{#markdown}}{{{page}}}{{/markdown}}
-    //                 ]]>
-    //             </description>
-    //         </item>
-    //         {{/latestPosts}}
-    //     </channel>
-    // </rss>`);
 }
