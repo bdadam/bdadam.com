@@ -1,37 +1,80 @@
-let referrer = (typeof document === 'object' && document.referrer) || '';
+// let referrer = (typeof document === 'object' && document.referrer) || '';
 
 // see: https://gist.github.com/DavidKuennen/443121e692175d6fc145e1efb0284ec9
 
-const generateParams = () => {
+// const tid = 'UA-XXXXXXXX';
+
+const defaults = { aip: 1 };
+
+let firstPageView = true;
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
+const getcid = () => {
+    const cid = localStorage.cid || uuidv4();
+    localStorage.setItem('cid', cid);
+    return cid;
+};
+
+const generateParams = type => {
     const doc = document;
-    const win = window;
     const screen = window.screen;
 
     return {
+        ...defaults,
+        z: Math.random(),
         v: 1,
         ds: 'web',
-        aip: 1,
-        tid: 'UA-XXXXXXXX',
+        t: type,
         sd: `${screen.colorDepth}-bits`,
         dt: doc.title,
         dl: doc.location.origin + doc.location.pathname + doc.location.search,
         ul: navigator.language.toLowerCase(),
         de: doc.characterSet,
-        sr: (screen && screen.width && screen.height && `${screen.width}x${screen.height}`) || '',
+        sr: (screen && `${screen.width}x${screen.height}`) || '',
         vp: `${document.documentElement.clientWidth}x${document.documentElement.clientHeight}`,
-
-        // t: pageview,
+        ...(type === 'pageview' && firstPageView && { dr: document.referrer }),
+        cid: getcid(),
     };
 };
 
-export const trackPageview = () => {
-    console.log('Pageview');
-    console.log(referrer);
+const serialize = obj => {
+    return Object.keys(obj)
+        .map(key => `${key}=${encodeURIComponent(obj[key])}`)
+        .join('&');
+};
 
-    referrer = document.location.href;
-    console.log(referrer);
+const send = payload => {
+    const url = 'https://www.google-analytics.com/collect';
+    if (navigator.sendBeacon) {
+        var contentType = 'application/x-www-form-urlencoded';
+        var requestBlob = new Blob([payload], { type: contentType });
+        navigator.sendBeacon(url, requestBlob);
+    } else {
+        new Image().src = `${url}?payload`;
+    }
+};
+
+export const trackPageview = () => {
+    const params = generateParams('pageview');
+    firstPageView = false;
+
+    // console.log(serialize(params));
+    send(serialize(params));
 };
 
 export const trackEvent = () => {
+    // TODO: implement event tracking
     console.log('EVENT');
+};
+
+export const setup = options => {
+    // console.log('SETUP', defaults);
+    Object.keys(options).forEach(key => (defaults[key] = options[key]));
 };
