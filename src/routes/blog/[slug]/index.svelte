@@ -31,29 +31,59 @@
 
     const canonical = `https://bdadam.com${url}`;
 
-    function resizeIframesInside(node) {
-        const iframes = [...node.querySelectorAll('iframe[srcdoc]')];
+    // function resizeIframesInside(node) {
+    //     const iframes = [...node.querySelectorAll('iframe[srcdoc]')];
 
-        const resize = iframe => {
-            const html = iframe.contentWindow.document.documentElement;
-            const body = iframe.contentWindow.document.body;
+    //     const resize = iframe => {
+    //         const html = iframe.contentWindow.document.documentElement;
+    //         const body = iframe.contentWindow.document.body;
 
-            const height = Math.max(
-                body.scrollHeight,
-                body.offsetHeight
-                // html.clientHeight,
-                // html.scrollHeight,
-                // html.offsetHeight
-            );
+    //         const height = Math.max(
+    //             body.scrollHeight,
+    //             body.offsetHeight
+    //             // html.clientHeight,
+    //             // html.scrollHeight,
+    //             // html.offsetHeight
+    //         );
 
-            iframe.style.height = `${height}px`;
+    //         iframe.style.height = `${height}px`;
+    //     };
+
+    //     iframes.forEach(iframe => {
+    //         resize(iframe);
+    //         iframe.contentWindow.addEventListener('resize', () => resize(iframe));
+    //         iframe.contentWindow.addEventListener('load', () => resize(iframe));
+    //     });
+    // }
+
+    function executeScripts(el) {
+        const scripts = el.querySelectorAll('script');
+
+        const load = (url, cb) => {
+            // new Promise(resolve => {
+            const s = document.createElement('script');
+            s.src = url;
+            s.onload = cb;
+            // s.onload = resolve;
+            document.head.appendChild(s);
         };
 
-        iframes.forEach(iframe => {
-            resize(iframe);
-            iframe.contentWindow.addEventListener('resize', () => resize(iframe));
-            iframe.contentWindow.addEventListener('load', () => resize(iframe));
-        });
+        const exec = i => {
+            if (i >= scripts.length) {
+                return;
+            }
+
+            const script = scripts[i];
+            if (!script.hasAttribute('src')) {
+                window.eval(script.innerHTML);
+                exec(i + 1);
+            } else {
+                // load(script.src).then(() => exec(i + 1));
+                load(script.src, () => exec(i + 1));
+            }
+        };
+
+        exec(0);
     }
 
     onMount(() => {
@@ -115,7 +145,7 @@
         {@html abstract}
     </div>
 
-    <div class="article-content" use:resizeIframesInside>
+    <div class="article-content" data-use:resizeIframesInside use:executeScripts>
         {@html content}
     </div>
 

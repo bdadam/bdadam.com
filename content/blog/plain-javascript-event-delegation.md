@@ -115,17 +115,15 @@ That's absolutely fine. I don't use jQuery either anymore. Here we have some van
 
 Click on any list item. Where it says "click me!", the click will trigger an `alert()` message.
 
-```html
-<!-- embed -->
-<ul id="list">
+```html embed
+<ul
+  id="list"
+  style="list-style: none; padding-left: 0; display: grid; grid-gap: 6px; grid-template-columns: repeat(auto-fit, 104px);"
+>
   <li class="no"><button>won't work</button></li>
   <li class="no"><button>won't work</button></li>
   <li class="yes"><button>click me!</button></li>
   <li class="yes"><button>click me!</button></li>
-  <li class="no"><button>won't work</button></li>
-  <li class="yes"><button>click me!</button></li>
-  <li class="yes"><button>click me!</button></li>
-  <li class="no"><button>won't work</button></li>
   <li class="no"><button>won't work</button></li>
   <li class="yes"><button>click me!</button></li>
 </ul>
@@ -158,13 +156,13 @@ Click on any list item. Where it says "click me!", the click will trigger an `al
     });
   })();
 </script>
-<style>
+<!-- <style>
   li {
     margin-bottom: 12px;
     margin-right: 8px;
     display: inline-block;
   }
-</style>
+</style> -->
 ```
 
 ## Use-cases

@@ -106,8 +106,7 @@ Please type in some text and see it for yourself. Initial height is 3 rows.
 Please not that if the text is long then you will see a vertical scrollbar which comes from the iframe used to embed the demo into the article.
 The scrollbar does not come from the `TEXTAREA` component.
 
-```html
-<!-- embed -->
+```html embed
 <textarea
   data-adaptheight
   rows="3"

@@ -19,6 +19,13 @@ needsupdate: true
 
 ## TLDR
 
+```html embed
+<div>ASDF</div>
+<script>
+  console.log('Here I am');
+</script>
+```
+
 The code can be found here: [bdadam/custom-icons](https://github.com/bdadam/custom-icons).
 
 The usage looks like this:

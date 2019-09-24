@@ -11,7 +11,7 @@ abstract:
   A few years ago I came across a simple library with which we can easily generate 8-bit sound effects for JavaScript games and apps.
   This library is very handy for hackathons or weekend coding sessions.
 
-deprecation: Please not that the API of the library changed since publishing this article. For the up to date docs please visit [jsfx](https://github.com/egonelbre/jsfx) on GitHub.
+deprecation: Please note that the API of the library changed since publishing this article. For the up to date docs please visit [jsfx](https://github.com/egonelbre/jsfx) on GitHub.
 needsupdate: true
 ---
 
@@ -25,8 +25,7 @@ This lib generates wave files as data URIs and then feeds them to an `<audio>` e
 
 Please click on the buttons to play the corresponding sound effects.
 
-```html
-<!-- embed -->
+```html embed
 <button id="btnPickup">Pick up a coin</button>
 <button id="btnLaser">Laser</button>
 <button id="btnJump">Jump</button>
