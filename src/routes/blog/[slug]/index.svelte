@@ -9,9 +9,11 @@
 </script>
 
 <script>
+    import { onMount } from 'svelte';
+
     import ShareButtons from '../../../components/ShareButtons.svelte';
     import ArticleComments from '../../../components/ArticleComments.svelte';
-    import { onMount } from 'svelte';
+    import * as tracking from '../../../helpers/tracking';
 
     export let url;
     export let slug;
@@ -55,6 +57,7 @@
     }
 
     onMount(() => {
+        tracking.trackPageview();
         import('../../../helpers/prism.js').then(Prism => Prism.default.highlightAll());
     });
 </script>

@@ -8,11 +8,18 @@
 </script>
 
 <script>
+    import { onMount } from 'svelte';
     import ArticleItemList from '../components/ArticleItemList.svelte';
     import PopularArticles from '../components/PopularArticles.svelte';
     import SmallAboutBox from '../components/SmallAboutBox.svelte';
 
+    import * as tracking from '../helpers/tracking';
+
     export let data;
+
+    onMount(() => {
+        tracking.trackPageview();
+    });
 </script>
 
 <svelte:head>
