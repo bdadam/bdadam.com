@@ -22,6 +22,14 @@
     });
 </script>
 
+<style>
+    /* .x {
+        background-image: url(backgroundlava.png);
+        background-repeat: no-repeat;
+        height: 270px;
+    } */
+</style>
+
 <svelte:head>
     <title>Adam Beres-Deak</title>
     <meta name="description" content="Devblog about Web Development, Cloud Architecture, JavaScript, Node.js, CSS" />
@@ -30,6 +38,9 @@
 <!-- <PopularArticles />
 
 <SmallAboutBox /> -->
+
+<!-- <div style="x-position: fixed; left: 0; top: 88px; bottom: 0; width: 300px; background-color: #f1f1f1;">blah</div> -->
+<!-- <div class="x" /> -->
 
 <div class="page-container">
 
