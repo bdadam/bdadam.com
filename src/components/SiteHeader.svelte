@@ -112,6 +112,8 @@
         margin-left: auto;
         margin-right: 24px;
 
+        @burger-bar-color: #222;
+
         span {
             vertical-align: middle;
             margin-right: 8px;
@@ -120,7 +122,7 @@
             display: inline-block;
             width: 24px;
             height: 3px;
-            background-color: #fff;
+            background-color: @burger-bar-color;
             transition: background-color 0.1s;
 
             &.active {
@@ -151,7 +153,7 @@
             &::before {
                 transition: 0.2s ease-in-out;
                 position: absolute;
-                background: #fff;
+                background: @burger-bar-color;
                 content: '';
                 width: 100%;
                 height: 3px;
@@ -162,7 +164,7 @@
             &::after {
                 transition: 0.2s ease-in-out;
                 position: absolute;
-                background: #fff;
+                background: @burger-bar-color;
                 content: '';
                 width: 100%;
                 height: 3px;
@@ -170,6 +172,10 @@
                 bottom: -8px;
             }
         }
+    }
+
+    .dark-switch {
+        color: #23e;
     }
 </style>
 
@@ -210,6 +216,6 @@
             <span class:active={menuOpen} />
         </button>
 
-        <!-- <button on:click={() => document.body.classList.toggle('dark')}>Dark</button> -->
+        <button class="dark-switch" on:click={() => document.body.classList.toggle('dark')}>Dark</button>
     </nav>
 </header>
