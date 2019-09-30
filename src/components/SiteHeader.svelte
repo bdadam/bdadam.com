@@ -28,10 +28,10 @@
         /* background: rgb(194, 23, 95);
         background: linear-gradient(180deg, rgba(194, 23, 95, 1) 0%, rgba(89, 26, 26, 1) 100%); */
 
-        background-color: #222;
+        /* background-color: #222;
         background-color: #0b0c09;
         background-color: #611;
-        background-color: #161616;
+        background-color: #161616; */
 
         border-bottom: 6px solid orange;
     }
@@ -61,7 +61,7 @@
         display: block;
         text-decoration: none;
         color: #333;
-        color: #f1f1f1;
+        /* color: #f1f1f1; */
         font-variant: small-caps;
         font-size: 1.125em;
 
@@ -189,27 +189,27 @@
             Articles
             <small class="code" aria-hidden="true">tree</small>
         </a> -->
+
         <a class:selected={segment === 'about'} href="/about/">
-            <!-- About -->
             about
             <small class="code" aria-hidden="true">whoami</small>
         </a>
 
-        <a class:selected={segment === 'aws'} href="/aws/">
-            <!-- About -->
+        <!-- <a class:selected={segment === 'aws'} href="/aws/">
             AWS series
             <small class="code" aria-hidden="true">ls aws</small>
         </a>
 
         <a class:selected={segment === 'aws'} href="/gcp/">
-            <!-- About -->
             Google Cloud series
             <small class="code" aria-hidden="true">ls gcp</small>
-        </a>
+        </a> -->
 
         <button on:click={openMenu}>
             <!-- Menu -->
             <span class:active={menuOpen} />
         </button>
+
+        <!-- <button on:click={() => document.body.classList.toggle('dark')}>Dark</button> -->
     </nav>
 </header>

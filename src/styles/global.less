@@ -50,6 +50,19 @@ body {
     // font-size: 1rem;
     line-height: 1.38;
     color: #333;
+
+    background-color: #fff;
+    transition: color 0.2s, background-color 0.35s;
+}
+
+body.dark {
+    background-color: #161616;
+    color: #eee;
+
+    .page-title {
+        transition: all 0.2s;
+        color: #ccc;
+    }
 }
 
 // @media (prefers-color-scheme: dark) {
