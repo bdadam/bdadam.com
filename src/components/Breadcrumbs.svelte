@@ -33,7 +33,7 @@
         &:not(:first-of-type)::before {
             font-size: 1rem;
             content: '»';
-            padding: 0 4px;
+            padding: 0 8px;
         }
     }
 </style>
