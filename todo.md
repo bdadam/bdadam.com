@@ -62,6 +62,7 @@
 - [ ] Pixi.js tutorial / simple game
 - [ ] Web Audio examples
 - [ ] What is latency, latency vs. bandwidth
+- [ ] How to create a modal window? (iOS quirks, mobile vs. desktop)
 
 ### Check existing articles
 
