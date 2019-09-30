@@ -85,7 +85,7 @@ Then in code we can use the module like this:
 
 ```js
 const uuidv1 = require('uuid/v1');
-uuidv1(); // ⇨ 'a12f444c-2c6a-4d24-a907-885ac6108493'
+uuidv1(); // ⇨ '2c5ea4c0-4067-11e9-8bad-9b1deb4d3b7d'
 ```
 
 ## Differences between UUID versions
