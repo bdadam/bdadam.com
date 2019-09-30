@@ -28,7 +28,7 @@ function generateId() {
 
 The above solution is not sufficient when we need uniqueness. The above program generates the same ids every time it gets restarted.
 
-For this problem smart computer scientists introduced us to the concept of a [universally unique id (UUID)](https://en.wikipedia.org/wiki/Universally_unique_identifier) or also called a globally unique identifier (GUID).
+To solve this problem smart computer scientists introduced the concept of a [universally unique id (UUID)](https://en.wikipedia.org/wiki/Universally_unique_identifier) or also called a globally unique identifier (GUID).
 
 The chance to generate the same id twice is incredibly small for most practical use-cases. (There are no collisions.)
 
