@@ -12,6 +12,7 @@
     import { onMount } from 'svelte';
 
     import ShareButtons from '../../../components/ShareButtons.svelte';
+    import Breadcrumbs from '../../../components/Breadcrumbs.svelte';
     import ArticleComments from '../../../components/ArticleComments.svelte';
     import * as tracking from '../../../helpers/tracking';
 
@@ -30,6 +31,12 @@
     export let commentsLoaded = false;
 
     const canonical = `https://bdadam.com${url}`;
+
+    const breadcrumbs = [
+        { name: 'Home', href: '/' },
+        { name: 'Articles', href: '/blog/' },
+        // { name: tags[0], href: `/tags/${tags[0]}/` },
+    ];
 
     // function resizeIframesInside(node) {
     //     const iframes = [...node.querySelectorAll('iframe[srcdoc]')];
@@ -119,19 +126,22 @@
 </style>
 
 <svelte:head>
-    <title>{title}</title>
+    <title>{title} | Adam Beres-Deak</title>
     <meta name="description" content={description} />
-    <!-- <meta name="og:description" content={abstra} /> -->
+    <meta property="og:title" content={title} />
+    <!-- // TODO: use abstract for og:description -->
+    <!-- <meta name="og:description" content={abstrac} /> -->
     <link rel="canonical" href={canonical} />
 </svelte:head>
 
 <div class="page-container">
+    <Breadcrumbs links={breadcrumbs} style="background: orange;" />
     <h1 class="page-title">{title}</h1>
 
     <p class="article-meta">
         {#if reviewedAtFormatted}
             Reviewed {reviewedAtFormatted}, first published {dateFormatted}
-        {:else}Published {dateFormatted}{/if}
+        {:else}{dateFormatted}{/if}
         | {tags.join(', ')}
     </p>
 
