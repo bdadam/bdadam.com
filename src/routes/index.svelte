@@ -31,8 +31,8 @@
 </style>
 
 <svelte:head>
-    <title>Adam Beres-Deak</title>
-    <meta name="description" content="Devblog about Web Development, Cloud Architecture, JavaScript, Node.js, CSS" />
+    <title>The Devblog of Adam Beres-Deak</title>
+    <meta name="description" content="Devblog about Web Development, Cloud Architecture, JavaScript, Node.js, CSS, Frontend, Backend, Fullstack" />
 </svelte:head>
 
 <!-- <PopularArticles />
