@@ -6,12 +6,12 @@
 - [x] Check/fix/improve all existing articles
 - [ ] meta tags, og tags, twitter meta tags
 - [ ] rethink path to articles (/blog/slug/)
-- [ ] tracking
 - [ ] style comment loading
 - [ ] handle old comments
 - [ ] new comments (if at all)
 - [ ] Hashtags for articles
 - [ ] Fix/create PWA images, also in rss
+- [x] Pageview tracking
 - [x] rss.xml
 - [x] Share buttons for articles
 - [x] style article content
@@ -23,6 +23,7 @@
 
 - [ ] Show hero images in some articles
 - [ ] Recommended / related articles
+- [ ] Track events (click on share button, open menu, contact request, etc.)
 - [ ] Follow me on twitter => https://remysharp.com/2019/04/02/twitter-without-tracking
 - [ ] Book recommendations
 - [ ] AMA
