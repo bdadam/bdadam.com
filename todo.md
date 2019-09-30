@@ -63,6 +63,7 @@
 - [ ] Web Audio examples
 - [ ] What is latency, latency vs. bandwidth
 - [ ] How to create a modal window? (iOS quirks, mobile vs. desktop)
+- [ ] Add "Questions and answers section"
 
 ### Check existing articles
 
