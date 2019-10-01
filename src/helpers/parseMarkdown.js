@@ -1,99 +1,36 @@
-import marked from 'marked';
+import markdownit from 'markdown-it';
+import container from 'markdown-it-container';
+import deflist from 'markdown-it-deflist';
+import footnote from 'markdown-it-footnote';
+import tasklists from 'markdown-it-task-lists';
+import anchor from 'markdown-it-anchor';
+import toc from 'markdown-it-toc-done-right';
+import attrs from 'markdown-it-attrs';
+import linkAttributes from 'markdown-it-link-attributes';
 
-const renderer = new marked.Renderer();
+const md = markdownit({
+    html: true,
+    linkify: true,
+    typographer: true,
+})
+    .use(container, 'warning')
+    .use(container, 'deprecation-note')
+    .use(deflist)
+    .use(footnote)
+    .use(tasklists)
+    .use(anchor)
+    .use(toc)
+    .use(attrs)
+    .use(linkAttributes, [{ pattern: /^https?:/i, attrs: { target: '_blank', rel: 'noopener' } }]);
 
-renderer.link = (href, title, text) => {
-    if (href.startsWith('https://www.youtube.com/embed/')) {
-        return `<div class="youtube-player"><iframe src="${href}"></iframe></div>`;
-    }
+md.renderer.rules.image = function(tokens, idx, options, env, self) {
+    const token = tokens[idx];
+    const alt = token.content;
+    const title = token.attrs[token.attrIndex('title')][1];
+    const src = token.attrs[token.attrIndex('src')][1];
 
-    const internal = href.startsWith('https://bdadam.com/') || href.startsWith('/');
-
-    const target = internal ? '' : 'target="_blank"';
-    const rel = internal ? '' : 'rel="external noopener"';
-
-    return `<a href="${href}" title="${title || ''}" ${target} ${rel}>${text || ''}</a>`;
+    return `<figure><a href="${src}"><img src="${src}" alt="${alt ||
+        title}"></a><figcaption>${title}</figcaption></figure>`;
 };
 
-renderer.code = (code, infostring, escaped) => {
-    const lang = (infostring || 'markup').toLowerCase().split(' ')[0];
-
-    const htmlSafeCode = code
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-
-    if (lang === 'html' && infostring.split(' ')[1] === 'embed') {
-        return (
-            code.replace(/\<script/g, '<script type="noexec"') +
-            `<pre class="language-${lang}"><code class="language-${lang}">${htmlSafeCode}</code></pre>`
-        );
-    }
-
-    // if (lang === 'html' && code.includes('<!-- embed -->')) {
-    //     const codeWithIframeStyles = `<html><head><style>
-    //     *,*::before,*::after { box-sizing: border-box; }
-    //     * { margin: 0; padding: 0; }
-    //     html, body { padding: 0; margin: 0; box-sizing: border-box; overflow-x: hidden; }
-    //     body {
-    //         -webkit-font-smoothing: antialiased;
-    //         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial,
-    //             sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    //         font-size: calc(1rem + 0.25vw);
-    //         line-height: 1.38;
-    //         color: #333;
-    //     }
-    //     button {
-    //         font-size: inherit;
-    //         padding: 4px 16px;
-    //         border-radius: 4px;
-    //         border: 1px solid #aaa;
-    //         background-color: #f1f1f1;
-    //     }
-    //     button:hover {
-    //         background-color: #dedede;
-    //     }
-    //     </style>
-    //     </head>
-    //     <body>
-    //     ${code}
-    //     </body>
-    //     </html>`;
-
-    //     const srcdoc = codeWithIframeStyles.replace(/\"/g, '&quot;');
-    //     return `<div><iframe srcdoc="${srcdoc}"></iframe><pre class="language-${lang}"><code class="language-${lang}">${htmlSafeCode}</code></pre></div>`;
-    // }
-
-    return `<pre class="language-${lang}"><code class="language-${lang}">${htmlSafeCode}</code></pre>`;
-};
-
-renderer.image = (href, caption, alt) => {
-    return `<figure><a href="${href}"><img src="${href}" alt="${alt ||
-        caption}"></a><figcaption>${caption}</figcaption></figure>`;
-};
-
-renderer.codespan = code => {
-    // const lang = 'markup';
-    // const lang = 'sh';
-
-    // const htmlSafeCode = code
-    //     .replace(/&/g, '&amp;')
-    //     .replace(/</g, '&lt;')
-    //     .replace(/>/g, '&gt;')
-    //     .replace(/"/g, '&quot;')
-    //     .replace(/'/g, '&#039;');
-
-    return `<code>${code}</code>`;
-    // return `<code>${htmlSafeCode}</code>`;
-
-    // return `<code class="language-markup">${htmlSafeCode}</code>`;
-    // return `<pre class="language-${lang}"><code class="language-${lang}">${x}</code></pre>`;
-    // return `<code class="language-${lang}">${htmlSafeCode}</code>`;
-    // const html = Prism.highlight(code, Prism.languages[lang], lang);
-    // return `<code class="language-${lang}">${html}</code>`;
-    // return `<pre class="language-${lang}"><code class="language-${lang}">${html}</code></pre>`;
-};
-
-export default str => marked(str, { renderer });
+export default str => md.render(str);
