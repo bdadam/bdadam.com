@@ -30,7 +30,7 @@
 - [ ] Dark mode
 - [ ] JSON+LD
 - [ ] Source code viewer iframe for code samples (like codepen or jsfiddle but self hosted)
-- [ ] User markdown-it with plugins (generate TOC, custom containers, footnotes, plantuml, etc.)
+- [x] Use markdown-it with plugins (generate TOC, custom containers, footnotes, plantuml, etc.)
 - [ ] Put articles into categories
   - articles
   - videos
