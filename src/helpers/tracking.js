@@ -61,12 +61,31 @@ const send = payload => {
     }
 };
 
+const removeUTMParamsFromUrl = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const paramsToDelete = [...searchParams]
+        .filter(([name, value]) => name.startsWith('utm_') || name === 'gclid')
+        .map(p => p[0]);
+
+    paramsToDelete.forEach(p => searchParams.delete(p));
+
+    const q = searchParams.toString();
+    const query = q ? `?${q}` : '';
+
+    history.replaceState(null, null, window.location.pathname + query);
+};
+
 export const trackPageview = () => {
     const params = generateParams('pageview');
     firstPageView = false;
 
-    // console.log(serialize(params));
-    send(serialize(params));
+    if (window.location.hostname === 'bdadam.com') {
+        send(serialize(params));
+    } else {
+        console.log('Pageview', params);
+    }
+
+    removeUTMParamsFromUrl();
 };
 
 export const trackEvent = () => {
