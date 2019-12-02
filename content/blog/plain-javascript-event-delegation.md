@@ -8,7 +8,7 @@ tags:
 
 abstract:
   Event delegation is a powerful concept of event handling. If you are using jQuery, you might know it as jQuery.on().
-  Since I don't use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks like, read on.
+  Since I don't use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks, read on.
 
 needsupdate: true
 ---
@@ -168,8 +168,8 @@ Click on any list item. Where it says "click me!", the click will trigger an `al
 ## Use-cases
 
 1. Large tables with many fields
-1. Lists - the content of the parent element can be changed freely (paging), the event listener must be set only once
-1. etc.
+2. Lists - the content of the parent element can be changed freely (paging), the event listener must be set only once
+3. etc.
 
 ## Browser Support
 
