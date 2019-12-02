@@ -1,0 +1,37 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block meta %}{% endblock %}
+        {# {{ "main.less" | less | safe }} #}
+        <style>
+            {{css | safe}}
+        </style>
+    </head>
+    <body>
+        {% block header %}
+            <header class="site-header">
+                <nav>
+                    {# <a class="brand {% if activePage == 'home' %}active{% endif %}" href="/">bdadam.com</a> #}
+                    {# <a class="brand" href="/">Home</a> #}
+                    <a class="brand" href="/">bdadam.com</a>
+                    <a class="{% if activePage == 'home' %}active{% endif %}" href="/">Home</a>
+                    <a href="/blog/" class="{% if activePage == 'archive' %}active{% endif %}">Blog</a>
+                    {# <a href="/videos/" class="{% if activePage == 'archive' %}active{% endif %}">Talks</a> #}
+                    {# <a href="/videos/" class="{% if activePage == 'archive' %}active{% endif %}">Videos</a> #}
+                    {# <a href="/videos/" class="{% if activePage == 'archive' %}active{% endif %}">Books</a> #}
+                    <a href="/about.html" class="{% if activePage == 'about' %}active{% endif %}">About</a>
+                </nav>
+            </header>
+        {% endblock %}
+        {% block body %}{% endblock %}
+        {% block footer %}
+            <footer class="site-footer">
+                &copy; 2019 - Adam Beres-Deak
+            </footer>
+        {% endblock %}
+        <script>
+            {{ js | safe }}
+        </script>
+    </body>
+</html>

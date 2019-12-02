@@ -1,0 +1,21 @@
+{% extends "./layout.html" %}
+
+{% set activePage = 'article' %}
+
+{% block meta %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block body %}
+    <div class="main-body article-page">
+        <article>
+            <h1 class="article-title">{{ title }}</h1>
+            <p class="article-date">{{ dateFormatted }}</p>
+            <div class="article-intro">{{ introHtml | safe }}</div>
+            <div class="article-body">{{ bodyHtml | safe }}</div>
+        </article>
+        <div class="side">
+            Blah
+        </div>
+    </div>
+{% endblock %}

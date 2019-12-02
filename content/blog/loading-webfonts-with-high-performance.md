@@ -20,7 +20,7 @@ needsupdate: true
 
 Here is my simple guide on what to do, to offer the optimal user experience without having to avoid the expensive accessories (a.k.a. the webfonts).
 
-!["Google Page Speed Screenshot"](/article-assets/pagespeed99.jpg 'High score on Google Page Speed Insights (99/100)')
+![Google Page Speed Screenshot](/article-assets/pagespeed99.jpg 'High score on Google Page Speed Insights (99/100)')
 
 ## 0. TLDR
 

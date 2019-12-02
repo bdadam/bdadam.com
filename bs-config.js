@@ -1,0 +1,26 @@
+module.exports = {
+    // ui: {
+    //     port: 3001,
+    // },
+    // files: false,
+    // watchEvents: ['change'],
+    // watch: false,
+    // ignore: [],
+    // single: false,
+    // watchOptions: {
+    //     ignoreInitial: true,
+    // },
+    // cwd: 'dist',
+    server: 'dist',
+    watch: true,
+    online: false,
+    // files: ['dist/**/*.html'],
+    // proxy: 'http://localhost:2999',
+    port: 3000,
+    // middleware: false,
+    // serveStatic: [],
+    ghostMode: false,
+    open: false,
+    notify: false,
+    inject: true,
+};

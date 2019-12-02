@@ -36,9 +36,9 @@ it knows with parameters it has to call the function.
 
 It's fairly easy in JavaScript to get the source code of the every function. We just have to call the `.toString()` method of the function objects.
 
-```JavaScript
+```js
 function sum(x, y) {
-    alert(x + y);
+  alert(x + y);
 }
 
 console.log(sum.toString()); // prints the complete code of the function

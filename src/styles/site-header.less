@@ -1,0 +1,51 @@
+.site-header {
+    margin-bottom: 24px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+    // border-bottom: 5px solid orange;
+    // border-bottom: 5px solid green;
+    border-bottom: 5px solid #f38e12;
+
+    nav {
+        // display: block;
+        display: flex;
+        flex-direction: row;
+        padding: 0 24px;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    a {
+        line-height: 64px;
+        display: inline-block;
+        color: #333;
+        text-decoration: none;
+        position: relative;
+        font-variant: small-caps;
+        font-weight: bold;
+
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: underline;
+        }
+
+        &:not(:last-of-type) {
+            margin-right: 24px;
+        }
+
+        &.active::after {
+            display: block;
+            content: '';
+            position: absolute;
+            width: 100%;
+            bottom: 10px;
+            // border-bottom: 2px solid #777;
+            // border-bottom: 2px solid #f77;
+            border-bottom: 2px solid #1c80e6;
+        }
+    }
+
+    .brand {
+        margin-right: auto !important;
+    }
+}

@@ -1,0 +1,38 @@
+.home-page {
+    .article-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li:not(:last-of-type) {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px dotted #cdcdcd;
+        }
+
+        .title {
+            display: inline-block;
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: #333;
+
+            &:hover,
+            &:active,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
+
+        .dateline {
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 12px;
+        }
+    }
+}

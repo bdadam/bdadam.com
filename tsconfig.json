@@ -1,27 +1,22 @@
 {
-    "compileOnSave": true,
     "compilerOptions": {
+        "target": "es5",
         "module": "commonjs",
-        "target": "es2018",
-        "sourceMap": true,
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "outDir": "dist-generator",
+        "lib": ["es2018", "dom"],
+        "outDir": "dist",
+        "noEmitOnError": true,
         "strict": true,
-        "noImplicitAny": true,
-        "lib": ["es2018"],
-        "skipLibCheck": true,
-        "jsx": "react",
-        // "isolatedModules": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
         "resolveJsonModule": true,
-        "importHelpers": true,
-        "noEmit": true,
-        "noEmitOnError": true
-    },
-    "exclude": ["node_modules"],
-    "include": ["./index.ts"],
-    "typeAcquisition": {
-        "enable": true
+        "baseUrl": "./",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "pretty": true,
+        "skipLibCheck": true,
+        "jsx": "react"
     }
 }

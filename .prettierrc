@@ -16,6 +16,12 @@
                 "tabWidth": 2,
                 "printWidth": 80
             }
+        },
+        {
+            "files": ["package.json"],
+            "options": {
+                "tabWidth": 2
+            }
         }
     ],
     "htmlWhitespaceSensitivity": "css"
