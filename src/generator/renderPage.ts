@@ -3,10 +3,6 @@ import less from 'less';
 import { string } from 'prop-types';
 // import { minify } from 'html-minifier';
 
-const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('src/views'));
-
-env.addFilter('less', (str: string) => '');
-
 // env.addFilter(
 //     'less',
 //     (str: string, cb) => {
@@ -24,6 +20,10 @@ env.addFilter('less', (str: string) => '');
 // import fs from 'fs-extra';
 
 export default async <T>(file: string, context: T): Promise<string> => {
+    const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('src/views'), { noCache: true });
+
+    env.addFilter('less', (str: string) => '');
+
     const ctx: any = {
         ...context,
     };
