@@ -10,9 +10,9 @@ export default file => {
     const filecontent = fs.readFileSync(file, 'utf-8');
     const x = matter(filecontent);
 
-    if (x.data.published === false) {
-        return;
-    }
+    // if (x.data.published === false) {
+    //     return;
+    // }
 
     const slug = path.basename(file, '.md');
     const date = new Date(x.data.date);

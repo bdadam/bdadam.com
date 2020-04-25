@@ -63,7 +63,7 @@
         color: #333;
         /* color: #f1f1f1; */
         font-variant: small-caps;
-        font-size: 1.125em;
+        font-size: 1.25em;
 
         &.selected {
             color: orange;
@@ -184,6 +184,7 @@
         <a class:selected={segment === undefined} href="/">
             <!-- BDAdam.com -->
             bdadam.com
+            <!-- BDADAM.COM -->
             <small class="code" aria-hidden="true">cd ~</small>
         </a>
         <!-- <a class:selected={segment === 'blog'} href="/blog/">
@@ -196,10 +197,10 @@
             <small class="code" aria-hidden="true">tree</small>
         </a> -->
 
-        <a class:selected={segment === 'about'} href="/about/">
+        <!-- <a class:selected={segment === 'about'} href="/about/">
             about
             <small class="code" aria-hidden="true">whoami</small>
-        </a>
+        </a> -->
 
         <!-- <a class:selected={segment === 'aws'} href="/aws/">
             AWS series
@@ -216,6 +217,6 @@
             <span class:active={menuOpen} />
         </button>
 
-        <button class="dark-switch" on:click={() => document.body.classList.toggle('dark')}>Dark</button>
+        <!-- <button class="dark-switch" on:click={() => document.body.classList.toggle('dark')}>Dark</button> -->
     </nav>
 </header>

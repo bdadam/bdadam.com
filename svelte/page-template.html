@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="##__LANG__##">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        ##__HEAD__##
+        <!--  -->
+        <% for (var css in htmlWebpackPlugin.files.css) { %>
+        <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
+        <% } %>
+    </head>
+    <body>
+        ##__BODY__##
+        <!--  -->
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+        <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+        <% } %>
+    </body>
+</html>

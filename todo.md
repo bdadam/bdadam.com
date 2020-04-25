@@ -18,6 +18,7 @@
 - [x] code highlighting
 - [x] sitemap.xml
 - [x] comments
+- [x] robots.txt
 
 ## Nice to have
 

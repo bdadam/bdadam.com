@@ -13,10 +13,10 @@ export default {
     },
     css: ['~/styles/global.less', '@fortawesome/fontawesome-svg-core/styles.css'],
     generate: {
-        // subFolders: false,
-        routes: ['/blog/abcd/', '/blog/abcd-qwwqe-qwedsf/'],
+        subFolders: false,
+        routes: ['/blog/abcd/', '/blog/abcd-qwwqe-qwedsf/', '/blog/abc.html'],
     },
-    plugins: ['~/plugins/fontawesome.js'],
+    plugins: ['~/plugins/fontawesome.js', '~/plugins/fetchData.client.js', '~/plugins/fetchData.server.js'],
     modules: ['@nuxtjs/sitemap'],
     sitemap: {
         hostname: 'https://bdadam.com',

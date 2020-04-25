@@ -104,6 +104,7 @@
         color: #555;
         margin-bottom: 8px;
         font-size: 0.875em;
+        font-weight: 300;
     }
 
     .deprecation-note {
