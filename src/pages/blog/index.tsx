@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { GetStaticProps, NextPage } from 'next';
 
-import readArticles from '../services/read-articles';
+import readArticles from '../../services/read-articles';
 
 type IndexPageProps = {
     articleList: Array<{
@@ -14,13 +14,13 @@ type IndexPageProps = {
     }>;
 };
 
-const IndexPage: NextPage<IndexPageProps> = ({ articleList }) => (
+const BlogArchivePage: NextPage<IndexPageProps> = ({ articleList }) => (
     <>
         <Head>
             <title>abcd</title>
         </Head>
         <div className="w-full max-w-screen-xl mx-auto p-6">
-            <h1 className="font-bold mb-6">Hello</h1>
+            <h1 className="font-bold mb-6">Article archive</h1>
             <ul>
                 {articleList.map((article) => (
                     <li className="mb-6" key={`article-list-${article.url}`}>
@@ -41,11 +41,6 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList }) => (
                         <Link href="/blog/[slug]" as={article.url}>
                             <a className="text-purple-700 font-bold hover:text-purple-900">Read article</a>
                         </Link>
-                        {/* <Link href="/blog/[slug]" as={article.url}>
-                            <a className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                                Read article
-                            </a>
-                        </Link> */}
                     </li>
                 ))}
             </ul>
@@ -53,7 +48,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList }) => (
     </>
 );
 
-export default IndexPage;
+export default BlogArchivePage;
 
 export const getStaticProps: GetStaticProps<IndexPageProps> = async () => {
     const articles = await readArticles();

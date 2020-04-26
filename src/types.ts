@@ -13,4 +13,5 @@ export type Article = {
     };
     abstract: string;
     body: MarkdownResult;
+    tags: string[];
 };

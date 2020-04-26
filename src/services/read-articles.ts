@@ -71,6 +71,7 @@ export default async function (): Promise<Article[]> {
             },
             abstract: a.data.abstract ?? a.data.description ?? '',
             body: parseMarkdown(a.content),
+            tags: a.data.tags || [],
         };
     });
 
