@@ -1,6 +1,8 @@
 import fs from 'fs-extra';
 import matter from 'gray-matter';
 
+import { format } from 'date-fns';
+
 import { Article } from '../types';
 
 import parseMarkdown from './parse-markdown';
@@ -26,9 +28,9 @@ function isPublishedMdArticle(article: {
     content: string;
 }): article is ArticleMd {
     return (
-        article &&
-        article.data.title &&
-        article.data.date &&
+        !!article &&
+        !!article.data.title &&
+        !!article.data.date &&
         article.data.date.getTime() > 0 &&
         article.data.published !== false
     );
@@ -56,9 +58,13 @@ export default async function (): Promise<Article[]> {
     rawArticles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
     const articles: Article[] = rawArticles.map((a) => {
+        const date = new Date(a.data.date);
+
         return {
             title: a.data.title,
             slug: a.slug,
+            date,
+            dateFormatted: format(date, 'do MMMM yyyy'),
             url: `/blog/${a.slug}`,
             meta: {
                 description: a.data.description ?? '',

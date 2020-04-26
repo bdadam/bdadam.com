@@ -1,7 +1,8 @@
 import { AppProps } from 'next/app';
 
 import '../styles/tailwind.css';
-import '../../node_modules/prismjs/themes/prism.css';
+import '../styles/defaults.css';
+import '../styles/prism.css';
 
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';

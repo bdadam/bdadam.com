@@ -6,6 +6,8 @@ export type Article = {
     url: string;
     slug: string;
     title: string;
+    date: Date;
+    dateFormatted: string;
     meta: {
         description: string;
     };

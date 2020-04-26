@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const SiteHeader: React.FC<{}> = () => {
     return (
-        <header className="site-header">
+        <header className="site-header shadow">
             <div className="flex items-center flex-wrap bg-orange-200">
                 <nav className="w-full max-w-screen-xl mx-auto">
                     <Link href="/">

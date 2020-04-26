@@ -7,7 +7,11 @@ import articleStyles from '../../styles/article.module.css';
 import readArticles from '../../services/read-articles';
 
 type ArticlePageProps = {
-    article: Article;
+    article: {
+        title: string;
+        intro: string;
+        body: string;
+    };
 };
 
 const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
@@ -18,11 +22,9 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article }) => {
     return (
         <>
             <div className="w-full max-w-screen-xl mx-auto p-6">
-                <h1 className="font-bold text-xl mb-4">{article.title}</h1>
-                <div
-                    className={articleStyles['article-body']}
-                    dangerouslySetInnerHTML={{ __html: article.body.html }}
-                ></div>
+                <h1 className="font-bold text-2xl mb-4">{article.title}</h1>
+                <div className="mb-2">{article.intro}</div>
+                <div className={articleStyles['article-body']} dangerouslySetInnerHTML={{ __html: article.body }}></div>
             </div>
         </>
     );
@@ -44,7 +46,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async (ctx) => {
         throw new Error('Article not found');
     }
 
-    return { props: { article } };
+    return { props: { article: { title: article.title, intro: article.abstract, body: article.body.html } } };
 };
 
 export default ArticlePage;

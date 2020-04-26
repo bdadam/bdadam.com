@@ -1,3 +1,41 @@
+/* purgecss start ignore */
 .article-body h2 {
     font-weight: bold;
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+    margin-top: 24px;
 }
+
+.article-body h3 {
+    font-weight: bold;
+}
+
+.article-body h4 {
+    font-weight: bold;
+}
+
+/* .article-body h2 + p {
+    margin-top: 100px;
+} */
+
+.article-body p {
+    margin-bottom: 0.6em;
+}
+
+.article-body a {
+    color: hsl(245, 86%, 36%);
+}
+
+.article-body a:visited {
+    color: #609;
+}
+
+.article-body a:hover {
+    text-decoration: underline;
+}
+
+.article-body a:active {
+    text-decoration: underline;
+    color: hsl(245, 86%, 30%);
+}
+/* purgecss end ignore */
