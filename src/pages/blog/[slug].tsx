@@ -13,6 +13,8 @@ type ArticlePageProps = {
     article: {
         url: string;
         title: string;
+        date: string;
+        dateFormatted: string;
         intro: string;
         body: string;
     };
@@ -33,6 +35,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
             <PageMetaTags {...meta} />
             <div className="w-full max-w-screen-xl mx-auto p-6">
                 <h1 className="font-bold text-2xl mb-4">{article.title}</h1>
+                <p className="mb-2 text-gray-700">{article.dateFormatted}</p>
                 <div className="max-w-5xl">
                     <div className="mb-2" dangerouslySetInnerHTML={{ __html: article.intro }} />
                     <div
@@ -104,7 +107,14 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async (ctx) => {
                     card: 'summary',
                 },
             },
-            article: { title: article.title, intro: article.intro.html, body: article.body.html, url: article.url },
+            article: {
+                url: article.url,
+                title: article.title,
+                date: article.date.toISOString(),
+                dateFormatted: article.dateFormatted,
+                intro: article.intro.html,
+                body: article.body.html,
+            },
             latestArticles: latestArticles.map((a) => {
                 return {
                     title: a.title,
