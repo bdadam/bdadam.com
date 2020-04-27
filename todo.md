@@ -3,6 +3,7 @@
 ## TODO before releasing new design
 
 - [ ] Finish about page
+- [ ] Fix inline code demos
 - [ ] Check/fix/improve all existing articles
 - [ ] meta tags, og tags, twitter meta tags
 - [ ] rethink path to articles (/blog/slug/)
