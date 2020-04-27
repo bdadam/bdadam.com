@@ -1,25 +1,30 @@
-import Head from 'next/head';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { GetStaticProps, NextPage } from 'next';
 
 import readArticles from '../services/read-articles';
+import { PageMetaData } from '../types';
+import PageMetaTags from '../components/PageMetaTags';
 
 type IndexPageProps = {
+    meta: PageMetaData;
     articleList: Array<{
         url: string;
         title: string;
-        abstract: string;
+        intro: string;
         date: string;
         tags: string[];
     }>;
 };
 
-const IndexPage: NextPage<IndexPageProps> = ({ articleList }) => (
-    <>
-        <Head>
-            <title>abcd</title>
-        </Head>
+const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
+    useEffect(() => {
+        import('../services/prism').then((Prism) => Prism.default.highlightAll());
+    });
+
+    return (
         <div className="w-full max-w-screen-xl mx-auto p-6">
+            <PageMetaTags {...meta} />
             <h1 className="font-bold mb-6">Hello</h1>
             <ul>
                 {articleList.map((article) => (
@@ -37,7 +42,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList }) => (
                                 </ul>
                             )}
                         </p> */}
-                        <p className="mb-1">{article.abstract}</p>
+                        <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
                         <Link href="/blog/[slug]" as={article.url}>
                             <a className="text-purple-700 font-bold hover:text-purple-900">Read article</a>
                         </Link>
@@ -50,8 +55,8 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList }) => (
                 ))}
             </ul>
         </div>
-    </>
-);
+    );
+};
 
 export default IndexPage;
 
@@ -60,11 +65,29 @@ export const getStaticProps: GetStaticProps<IndexPageProps> = async () => {
 
     return {
         props: {
+            meta: {
+                canonical: 'https://bdadam.com/',
+                lang: 'en',
+
+                // TODO: improve title and description
+                title: 'Adam Beres-Deak',
+                description: 'My devblog about web development, JavaScript, NodeJS, CSS, less',
+                og: {
+                    site_name: 'bdadam.com',
+                    type: 'website',
+                    // TODO: add og:image
+                },
+                twitter: {
+                    site: '@bdadamm',
+                    // TODO: use summary_large_image when home page has large image to show
+                    card: 'summary',
+                },
+            },
             articleList: articles.map((a) => {
                 return {
                     title: a.title,
                     url: `/blog/${a.slug}`,
-                    abstract: a.abstract,
+                    intro: a.intro.html,
                     date: a.dateFormatted,
                     tags: a.tags,
                 };

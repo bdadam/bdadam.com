@@ -69,7 +69,7 @@ export default async function (): Promise<Article[]> {
             meta: {
                 description: a.data.description ?? '',
             },
-            abstract: a.data.abstract ?? a.data.description ?? '',
+            intro: parseMarkdown(a.data.abstract ?? ''),
             body: parseMarkdown(a.content),
             tags: a.data.tags || [],
         };

@@ -8,7 +8,7 @@ type IndexPageProps = {
     articleList: Array<{
         url: string;
         title: string;
-        abstract: string;
+        intro: string;
         date: string;
         tags: string[];
     }>;
@@ -37,7 +37,7 @@ const BlogArchivePage: NextPage<IndexPageProps> = ({ articleList }) => (
                                 </ul>
                             )}
                         </p> */}
-                        <p className="mb-1">{article.abstract}</p>
+                        <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
                         <Link href="/blog/[slug]" as={article.url}>
                             <a className="text-purple-700 font-bold hover:text-purple-900">Read article</a>
                         </Link>
@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<IndexPageProps> = async () => {
                 return {
                     title: a.title,
                     url: `/blog/${a.slug}`,
-                    abstract: a.abstract,
+                    intro: a.intro.html,
                     date: a.dateFormatted,
                     tags: a.tags,
                 };

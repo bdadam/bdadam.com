@@ -55,5 +55,5 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
 // export default (str) => md.render(str);
 
 export default (s: string): MarkdownResult => {
-    return { html: md.render(s) };
+    return { html: md.render(s), raw: s };
 };
