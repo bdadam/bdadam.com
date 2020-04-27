@@ -8,7 +8,7 @@ tags:
 
 abstract:
   Event delegation is a powerful concept of event handling. If you are using jQuery, you might know it as jQuery.on().
-  Since I don't use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks like, read on.
+  Since I don't use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks please read on.
 
 needsupdate: true
 ---
@@ -85,7 +85,7 @@ That's absolutely fine. I don't use jQuery either anymore. Here we have some van
   function on(elSelector, eventName, selector, fn) {
     var element = document.querySelector(elSelector);
 
-    element.addEventListener(eventName, function(event) {
+    element.addEventListener(eventName, function (event) {
       var possibleTargets = element.querySelectorAll(selector);
       var target = event.target;
 
@@ -104,7 +104,7 @@ That's absolutely fine. I don't use jQuery either anymore. Here we have some van
     });
   }
 
-  on('#list', 'click', '.yes', function(e) {
+  on('#list', 'click', '.yes', function (e) {
     // this function is only called, when a list item with 'yes' class is called
     console.log(e.target); // this is the clicked list item
   });
@@ -128,11 +128,11 @@ Click on any list item. Where it says "click me!", the click will trigger an `al
   <li class="yes"><button>click me!</button></li>
 </ul>
 <script>
-  (function() {
+  (function () {
     function on(elSelector, eventName, selector, fn) {
       var element = document.querySelector(elSelector);
 
-      element.addEventListener(eventName, function(event) {
+      element.addEventListener(eventName, function (event) {
         var possibleTargets = element.querySelectorAll(selector);
         var target = event.target;
 
@@ -151,7 +151,7 @@ Click on any list item. Where it says "click me!", the click will trigger an `al
       });
     }
 
-    on('#list', 'click', 'li.yes', function() {
+    on('#list', 'click', 'li.yes', function () {
       alert('You clicked me!');
     });
   })();
