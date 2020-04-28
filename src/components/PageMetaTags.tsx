@@ -22,11 +22,11 @@ const PageMetaTags: React.FC<PageMetaData> = (meta) => {
             {meta.og?.type === 'article' && meta.og?.article && (
                 <>
                     {meta.og.article.authors?.map((author) => (
-                        <meta property="article:author" content={author} />
+                        <meta property="article:author" content={author} key={`article-author-${author}`} />
                     ))}
 
                     {meta.og.article.tags?.map((tag) => (
-                        <meta property="article:tag" content={tag} />
+                        <meta property="article:tag" content={tag} key={`meta-article-tag-${tag}`} />
                     ))}
 
                     {meta.og.article.section && <meta property="article:section" content={meta.og.article.section} />}
