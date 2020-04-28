@@ -4,6 +4,9 @@ import { GetStaticProps, NextPage } from 'next';
 
 import readArticles from '../../services/read-articles';
 
+import SiteHeader from '../../components/SiteHeader';
+import SiteFooter from '../../components/SiteFooter';
+
 type IndexPageProps = {
     articleList: Array<{
         url: string;
@@ -19,16 +22,19 @@ const BlogArchivePage: NextPage<IndexPageProps> = ({ articleList }) => (
         <Head>
             <title>abcd</title>
         </Head>
-        <div className="w-full max-w-screen-xl mx-auto p-6">
-            <h1 className="font-bold mb-6">Article archive</h1>
-            <ul>
-                {articleList.map((article) => (
-                    <li className="mb-6" key={`article-list-${article.url}`}>
-                        <p className="mb-1 text-gray-700">{article.date}</p>
-                        <Link href="/blog/[slug]" as={article.url}>
-                            <a className="block font-bold mb-2 text-xl">{article.title}</a>
-                        </Link>
-                        {/* <p className="mb-3">
+        <div className="app flex flex-col min-h-screen">
+            <SiteHeader />
+            <div className="flex-grow">
+                <div className="w-full max-w-screen-xl mx-auto p-6">
+                    <h1 className="font-bold mb-6">Article archive</h1>
+                    <ul>
+                        {articleList.map((article) => (
+                            <li className="mb-6" key={`article-list-${article.url}`}>
+                                <p className="mb-1 text-gray-700">{article.date}</p>
+                                <Link href="/blog/[slug]" as={article.url}>
+                                    <a className="block font-bold mb-2 text-xl">{article.title}</a>
+                                </Link>
+                                {/* <p className="mb-3">
                             {article.tags.length > 0 && (
                                 <ul className="flex">
                                     {article.tags.map((t) => (
@@ -37,13 +43,16 @@ const BlogArchivePage: NextPage<IndexPageProps> = ({ articleList }) => (
                                 </ul>
                             )}
                         </p> */}
-                        <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
-                        <Link href="/blog/[slug]" as={article.url}>
-                            <a className="text-purple-700 font-bold hover:text-purple-900">Read article</a>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+                                <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
+                                <Link href="/blog/[slug]" as={article.url}>
+                                    <a className="text-purple-700 font-bold hover:text-purple-900">Read article</a>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+            <SiteFooter />
         </div>
     </>
 );
