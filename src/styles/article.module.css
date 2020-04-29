@@ -38,4 +38,10 @@
     text-decoration: underline;
     color: hsl(245, 86%, 30%);
 }
+
+.article-body iframe[src^='/iframe'] {
+    width: 100%;
+    height: 500px;
+}
+
 /* purgecss end ignore */

@@ -87,11 +87,6 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
                     <div className="w-full max-w-screen-xl mx-auto p-6">
                         <h1 className="font-bold text-2xl mb-4">{article.title}</h1>
 
-                        {/* <iframe id="abcdframe" srcDoc={iframesrcdoc}></iframe>
-
-                         */}
-                        {/* <iframe src="/iframe"></iframe> */}
-
                         <p className="mb-2 text-gray-700">{article.dateFormatted}</p>
                         <div className="max-w-5xl">
                             <div className="mb-2" dangerouslySetInnerHTML={{ __html: article.intro }} />

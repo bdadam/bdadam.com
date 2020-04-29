@@ -115,6 +115,10 @@ That's absolutely fine. I don't use jQuery either anymore. Here we have some van
 
 Click on any list item. Where it says "click me!", the click will trigger an `alert()` message.
 
+<iframe src="/iframe?demo=event-delegation-1.html"></iframe>
+
+<!-- <iframe src="/demo/event-delegation.html" style="display: block; width: 100%; height: 0;" onload="console.log('Hello', this, this.contentWindow.document.documentElement.scrollHeight); this.style.height = this.contentWindow.document.documentElement.scrollHeight + 'px';"></iframe> -->
+
 ```html embed
 <ul
   id="list"
