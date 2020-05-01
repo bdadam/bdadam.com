@@ -98,7 +98,7 @@ Since we store the file in localStorage this technique only needs client side co
 <head>
   ...
   <script>
-    (function() {
+    (function () {
       function addFont() {
         var style = document.createElement('style');
         style.rel = 'stylesheet';
@@ -115,7 +115,7 @@ Since we store the file in localStorage this technique only needs client side co
           var request = new XMLHttpRequest();
           request.open('GET', '/path/to/source-sans-pro.woff.css', true);
 
-          request.onload = function() {
+          request.onload = function () {
             if (request.status >= 200 && request.status < 400) {
               // We save the file in localStorage
               localStorage.sourceSansPro = request.responseText;
@@ -198,12 +198,12 @@ More info can be found on [Ilya Gregorik's blog](https://www.igvita.com/2012/09/
 
 I also created [a test page](/samples/webfonts-googlefonts.html) where you can check it out yourself.
 
-### Resources
+## Resources
 
 - [Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik](https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/)
 - [Improving Smashing Magazine’s Performance: A Case Study](https://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/)
 - [How we make RWD sites load fast as heck](https://www.filamentgroup.com/lab/performance-rwd.html)
 
-#### Translations
+## Translations
 
 This article was [translated to Russian by Максим Усачев](https://css-live.ru/articles-css/bystraya-zagruzka-veb-shriftov-na-adaptivnyx-sajtax.html).

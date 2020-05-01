@@ -1,0 +1,49 @@
+<textarea
+  data-adaptheight
+  rows="3"
+  cols="40"
+  placeholder="Your input"
+  style="padding: 16px 24px 8px; line-height: 1.5; width: 100%; display: block; border: 12px solid orange; max-width: 500px;"
+>
+Deserunt sint ullamco amet voluptate reprehenderit id consequat ullamco. Deserunt nostrud irure id et ex sunt exercitation magna dolore eiusmod.
+abcdef</textarea>
+
+<script>
+  (function () {
+    function adjustHeight(el, minHeight) {
+      var borderHeight = el.offsetHeight - el.clientHeight;
+      el.style.height = 0;
+      el.style.height = Math.max(minHeight, el.scrollHeight) + borderHeight + 'px';
+    }
+
+    var textAreas = document.querySelectorAll('textarea[data-adaptheight]');
+
+    for (var i = 0, l = textAreas.length; i < l; i++) {
+      var el = textAreas[i];
+      el.style.boxSizing = 'border-box';
+      el.style.resize = 'horizontal';
+      el.style.overflowY = 'hidden';
+
+      var originalContent = el.innerHTML;
+      el.innerHTML = '';
+
+      var minHeight = el.scrollHeight;
+      el.innerHTML = originalContent;
+
+      el.addEventListener('input', function () {
+        adjustHeight(el, minHeight);
+      });
+
+      window.addEventListener('resize', function () {
+        adjustHeight(el, minHeight);
+      });
+
+      adjustHeight(el, minHeight);
+    }
+  })();
+</script>
+<style>
+  body {
+    min-height: 300px;
+  }
+</style>

@@ -115,59 +115,7 @@ That's absolutely fine. I don't use jQuery either anymore. Here we have some van
 
 Click on any list item. Where it says "click me!", the click will trigger an `alert()` message.
 
-<iframe src="/iframe?demo=event-delegation-1.html"></iframe>
-
-<!-- <iframe src="/demo/event-delegation.html" style="display: block; width: 100%; height: 0;" onload="console.log('Hello', this, this.contentWindow.document.documentElement.scrollHeight); this.style.height = this.contentWindow.document.documentElement.scrollHeight + 'px';"></iframe> -->
-
-```html embed
-<ul
-  id="list"
-  style="list-style: none; padding-left: 0; display: grid; grid-gap: 6px; grid-template-columns: repeat(auto-fit, 104px);"
->
-  <li class="no"><button>won't work</button></li>
-  <li class="no"><button>won't work</button></li>
-  <li class="yes"><button>click me!</button></li>
-  <li class="yes"><button>click me!</button></li>
-  <li class="no"><button>won't work</button></li>
-  <li class="yes"><button>click me!</button></li>
-</ul>
-<script>
-  (function () {
-    function on(elSelector, eventName, selector, fn) {
-      var element = document.querySelector(elSelector);
-
-      element.addEventListener(eventName, function (event) {
-        var possibleTargets = element.querySelectorAll(selector);
-        var target = event.target;
-
-        for (var i = 0, l = possibleTargets.length; i < l; i++) {
-          var el = target;
-          var p = possibleTargets[i];
-
-          while (el && el !== element) {
-            if (el === p) {
-              return fn.call(p, event);
-            }
-
-            el = el.parentNode;
-          }
-        }
-      });
-    }
-
-    on('#list', 'click', 'li.yes', function () {
-      alert('You clicked me!');
-    });
-  })();
-</script>
-<!-- <style>
-  li {
-    margin-bottom: 12px;
-    margin-right: 8px;
-    display: inline-block;
-  }
-</style> -->
-```
+<iframe src="/demo/event-delegation.html" style="width: 100%; height: 100px;" frameborder="0"></iframe>
 
 ## Use-cases
 

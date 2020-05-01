@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import { MarkdownResult } from '../types';
 
 import markdownit from 'markdown-it';
@@ -52,8 +54,28 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
     }"></a><figcaption>${title}</figcaption></figure>`;
 };
 
-// export default (str) => md.render(str);
-
 export default (s: string): MarkdownResult => {
-    return { html: md.render(s), raw: s };
+    const html = md.render(s);
+
+    const htmlWithIframesAndSources = html.replace(
+        /(\<iframe src="\/(demo\/[^"]*)".*\><\/iframe>)/g,
+        (_match, iframe: string, filepath: string) => {
+            const htmlContent = fs.readFileSync(`public/${filepath}`, 'utf-8');
+            const hideCode = /data-hide-code/.test(iframe);
+
+            const encodedHtml = htmlContent.replace(/[<>\&]/gim, function (i) {
+                return '&#' + i.charCodeAt(0) + ';';
+            });
+
+            if (hideCode) {
+                return iframe;
+            }
+
+            const innerHtmlSourceCode = `<pre class="language-html" style="margin: 0!important; max-height: 100%;"><code class="language-html">${encodedHtml}</code></pre>`;
+
+            return iframe + `\n${innerHtmlSourceCode}`;
+        }
+    );
+
+    return { html: htmlWithIframesAndSources, raw: s };
 };

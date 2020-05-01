@@ -60,6 +60,6 @@ abstract: I wish you all a happy new year and much fun and success for 2015! Let
 - A few times I really used my blog to gather information about things I would have forgotten otherwise
 - I want to go on and publish betters posts and more often
 
-#### Resources:
+## Resources:
 
 Happy new year photo: [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:2015#mediaviewer/File:Happy_New_Year_2015.png)

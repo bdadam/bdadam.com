@@ -41,7 +41,7 @@ Contrary to `onchange` which only fires when the users clicks away.
   style="padding: 16px; line-height: 1.5;"
 ></textarea>
 <script>
-  (function() {
+  (function () {
     function adjustHeight(el, minHeight) {
       // Calculate height of border (and scroll bar if displayed)
       // See details here: https://stackoverflow.com/questions/22675126/what-is-offsetheight-clientheight-scrollheight
@@ -62,7 +62,7 @@ Contrary to `onchange` which only fires when the users clicks away.
     );
 
     // iterate through all the textareas on the page
-    textAreas.forEach(function(el) {
+    textAreas.forEach(function (el) {
       // we need box-sizing: border-box, if the textarea has padding
       el.style.boxSizing = 'border-box';
 
@@ -83,12 +83,12 @@ Contrary to `onchange` which only fires when the users clicks away.
       // We set back the original content
       el.innerHTML = initialContent;
 
-      el.addEventListener('input', function() {
+      el.addEventListener('input', function () {
         adjustHeight(el, minHeight);
       });
 
       // we have to readjust when window size changes (e.g. orientation change)
-      window.addEventListener('resize', function() {
+      window.addEventListener('resize', function () {
         adjustHeight(el, minHeight);
       });
 
@@ -106,60 +106,7 @@ Please type in some text and see it for yourself. Initial height is 3 rows.
 Please not that if the text is long then you will see a vertical scrollbar which comes from the iframe used to embed the demo into the article.
 The scrollbar does not come from the `TEXTAREA` component.
 
-```html embed
-<textarea
-  data-adaptheight
-  rows="3"
-  cols="40"
-  placeholder="Your input"
-  style="padding: 16px 24px 8px; line-height: 1.5; width: 100%; display: block; border: 12px solid orange; max-width: 500px;"
->
-Deserunt sint ullamco amet voluptate reprehenderit id consequat ullamco. Deserunt nostrud irure id et ex sunt exercitation magna dolore eiusmod.
-
-Reprehenderit ullamco aliquip elit non laboris incididunt cupidatat eu quis culpa.</textarea
->
-
-<script>
-  (function() {
-    function adjustHeight(el, minHeight) {
-      var borderHeight = el.offsetHeight - el.clientHeight;
-      el.style.height = 0;
-      el.style.height =
-        Math.max(minHeight, el.scrollHeight) + borderHeight + 'px';
-    }
-
-    var textAreas = document.querySelectorAll('textarea[data-adaptheight]');
-
-    for (var i = 0, l = textAreas.length; i < l; i++) {
-      var el = textAreas[i];
-      el.style.boxSizing = 'border-box';
-      el.style.resize = 'horizontal';
-      el.style.overflowY = 'hidden';
-
-      var originalContent = el.innerHTML;
-      el.innerHTML = '';
-
-      var minHeight = el.scrollHeight;
-      el.innerHTML = originalContent;
-
-      el.addEventListener('input', function() {
-        adjustHeight(el, minHeight);
-      });
-
-      window.addEventListener('resize', function() {
-        adjustHeight(el, minHeight);
-      });
-
-      adjustHeight(el, minHeight);
-    }
-  })();
-</script>
-<style>
-  body {
-    min-height: 300px;
-  }
-</style>
-```
+<iframe src="/demo/textarea-auto-height.html" data-hide-code style="width: 100%; height: 350px;" frameborder="0"></iframe>
 
 ## Tradeoffs
 

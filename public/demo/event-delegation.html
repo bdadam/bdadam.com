@@ -1,70 +1,67 @@
-<!doctype html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width">
-        <meta charset="utf-8">
-        <title>Plain event delegation demo</title>
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-                color: #111;
-                padding: 0;
-                margin: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <ul
-  id="list"
-  style="list-style: none; padding-left: 0; display: grid; grid-gap: 6px; grid-template-columns: repeat(auto-fit, 104px);"
->
-            <li class="no">
-                <button>won't work</button>
-            </li>
-            <li class="no">
-                <button>won't work</button>
-            </li>
-            <li class="yes">
-                <button>click me!</button>
-            </li>
-            <li class="yes">
-                <button>click me!</button>
-            </li>
-            <li class="no">
-                <button>won't work</button>
-            </li>
-            <li class="yes">
-                <button>click me!</button>
-            </li>
-        </ul>
-        <script>
-            (function () {
-                function on(elSelector, eventName, selector, fn) {
-                    var element = document.querySelector(elSelector);
+<ul id="list" class="button-list">
+    <li class="yes">
+        <button>click me!</button>
+    </li>
+    <li class="no">
+        <button>won't work</button>
+    </li>
+    <li class="no">
+        <button>won't work</button>
+    </li>
+    <li class="yes">
+        <button>click me!</button>
+    </li>
+    <li class="no">
+        <button>won't work</button>
+    </li>
+    <li class="yes">
+        <button>click me!</button>
+    </li>
+</ul>
+<script>
+    (function () {
+        function on(elSelector, eventName, selector, fn) {
+            var element = document.querySelector(elSelector);
 
-                    element.addEventListener(eventName, function (event) {
-                        var possibleTargets = element.querySelectorAll(selector);
-                        var target = event.target;
+            element.addEventListener(eventName, function (event) {
+                var possibleTargets = element.querySelectorAll(selector);
+                var target = event.target;
 
-                        for (var i = 0, l = possibleTargets.length; i < l; i++) {
-                            var el = target;
-                            var p = possibleTargets[i];
+                for (var i = 0, l = possibleTargets.length; i < l; i++) {
+                    var el = target;
+                    var p = possibleTargets[i];
 
-                            while (el && el !== element) {
-                                if (el === p) {
-                                    return fn.call(p, event);
-                                }
-
-                                el = el.parentNode;
-                            }
+                    while (el && el !== element) {
+                        if (el === p) {
+                            return fn.call(p, event);
                         }
-                    });
-                }
 
-                on('#list', 'click', 'li.yes', function () {
-                    alert('You clicked me!');
-                });
-            })();
-        </script>
-    </body>
-</html>
+                        el = el.parentNode;
+                    }
+                }
+            });
+        }
+
+        on('#list', 'click', 'li.yes', function () {
+            alert('You clicked me!');
+        });
+    })();
+</script>
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        color: #111;
+        padding: 0;
+        margin: 0;
+    }
+
+    .button-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+    }
+</style>

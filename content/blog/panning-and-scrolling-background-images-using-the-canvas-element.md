@@ -30,7 +30,7 @@ There are two common scenarios for simple 2D games:
 
 Please click on the button to start the animation.
 
-<iframe src="/article-assets/panning-and-scrolling-background-images-using-the-canvas-element/canvas-background-panning.html" style="height: 370px;"></iframe>
+<iframe src="/article-assets/panning-and-scrolling-background-images-using-the-canvas-element/canvas-background-panning.html" style="width: 100%; height: 370px;"></iframe>
 
 ## How it works
 
@@ -106,12 +106,12 @@ In order for this to work, we have some more work to do. This is the setup code 
 1. And the `loop()` function which gets called in every frame when our animation is running. Here we need `requestAnimationFrame()`.
 
 ```js
-(function() {
+(function () {
   window.requestAnimationFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
-    function(callback) {
+    function (callback) {
       window.setTimeout(callback, 1000 / 60);
     };
 
@@ -130,7 +130,7 @@ In order for this to work, we have some more work to do. This is the setup code 
     draw(0);
 
     var btn = document.getElementById('btnStart');
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
       startStop();
     });
   }
