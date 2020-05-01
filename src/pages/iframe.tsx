@@ -1,16 +1,21 @@
-import { useEffect, createRef, useRef, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { GetStaticProps, NextPage } from 'next';
 
 const IframePage: NextPage = () => {
     const [htmlContent, setHtmlContent] = useState('');
-    const [resultHidden, setResultHidden] = useState(false);
-    const [sourceHidden, setSourceHidden] = useState(false);
-
     const [viewSource, setViewSource] = useState(false);
 
-    const encodedHtml = htmlContent.replace(/[\u00A0-\u9999<>\&]/gim, function (i) {
+    const iframeRef = useRef<HTMLIFrameElement>(null);
+
+    // const encodedHtml = htmlContent.replace(/[\u00A0-\u9999<>\&]/gim, function (i) {
+    //     return '&#' + i.charCodeAt(0) + ';';
+    // });
+
+    const encodedHtml = htmlContent.replace(/[<>\&]/gim, function (i) {
         return '&#' + i.charCodeAt(0) + ';';
     });
+
+    const innerHtmlSourceCode = `<pre class="language-html" style="margin: 0!important; max-height: 100%;"><code class="language-html">${encodedHtml}</code></pre>`;
 
     useEffect(() => {
         const demoFile = new URLSearchParams(location.search).get('demo');
@@ -18,6 +23,20 @@ const IframePage: NextPage = () => {
         const fetchCodePromise = fetch(`/demo/${demoFile}`)
             .then((r) => r.text())
             .then((html) => {
+                // setHtmlContent(html + `<script>console.log(document.body.scrollHeight)</script>`);
+                const ifrbody = iframeRef.current!.contentWindow!.document.body;
+                // let config = { attributes: true, childList: true }
+                // Create a callback
+                // let callback = function (mutationsList) { /* callback actions */ })
+
+                const observer = new MutationObserver(() => {
+                    console.log('MUTATION');
+                });
+
+                console.log(ifrbody);
+
+                observer.observe(ifrbody, { attributes: true, childList: true, subtree: true });
+
                 setHtmlContent(html);
             });
 
@@ -30,22 +49,29 @@ const IframePage: NextPage = () => {
 
     return (
         <div className="h-screen">
-            <div className="flex" style={{ height: '48px' }}>
-                <button onClick={() => setSourceHidden(!sourceHidden)} className="border-b-2 border-blue-400">
-                    Source
-                </button>
-                <button onClick={() => setResultHidden(!resultHidden)}>Result</button>
-            </div>
+            {/* <div className="flex bg-gray-300 py-4" style={{ height: '48px' }}>
+                {!viewSource && <button onClick={() => setViewSource(true)}>View source</button>}
+                {viewSource && <button onClick={() => setViewSource(false)}>See result</button>}
+            </div> */}
             <div className="flex" style={{ height: 'calc(100vh - 48px)' }}>
-                <div className="w-full h-full overflow-auto" hidden={resultHidden} x-style={{ maxWidth: '50%' }}>
-                    <iframe className="flex-grow w-full h-full" frameBorder="0" srcDoc={htmlContent} />
+                <div
+                    className="w-full h-full"
+                    // hidden={viewSource}
+                >
+                    <iframe
+                        ref={iframeRef}
+                        className="flex-grow w-full h-full"
+                        style={{ maxHeight: '70vh' }}
+                        frameBorder="0"
+                        srcDoc={htmlContent}
+                    />
                 </div>
 
                 <div
                     className="w-full h-full max-h-full overflow-auto"
-                    hidden={sourceHidden}
+                    // hidden={!viewSource}
                     dangerouslySetInnerHTML={{
-                        __html: `<pre class="language-html" style="margin: 0!important; max-height: 100%;"><code class="language-html">${encodedHtml}</code></pre>`,
+                        __html: innerHtmlSourceCode,
                     }}
                 ></div>
             </div>
