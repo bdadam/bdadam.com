@@ -17,9 +17,9 @@ const SiteHeader: React.FC<{}> = () => {
                     <Link href="/">
                         <a className="inline-block py-6 px-3 flex items-center hover:underline">Home</a>
                     </Link>
-                    <Link href="/blog">
+                    {/* <Link href="/blog">
                         <a className="inline-block py-6 px-3 flex items-center hover:underline">Articles</a>
-                    </Link>
+                    </Link> */}
                     <Link href="/about.html">
                         <a className="inline-block py-6 px-3 hover:underline">About me</a>
                     </Link>
