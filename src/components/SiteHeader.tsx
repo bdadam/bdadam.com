@@ -11,12 +11,13 @@ const SiteHeader: React.FC<{}> = () => {
                                 style={{ backgroundImage: 'url(/face.jpg)' }}
                                 className="rounded-full bg-contain w-12 h-12 mr-3"
                             ></div>
-                            <span style={{ fontVariant: 'small-caps' }}>bdadam.com</span>
+                            <span className="font-bold text-xl">Adam Beres-Deak</span>
+                            {/* <span style={{ fontVariant: 'small-caps' }}>bdadam.com</span> */}
                         </a>
                     </Link>
-                    <Link href="/">
+                    {/* <Link href="/">
                         <a className="inline-block py-6 px-3 flex items-center hover:underline">Home</a>
-                    </Link>
+                    </Link> */}
                     {/* <Link href="/blog">
                         <a className="inline-block py-6 px-3 flex items-center hover:underline">Articles</a>
                     </Link> */}
