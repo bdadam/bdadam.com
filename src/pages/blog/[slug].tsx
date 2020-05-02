@@ -84,16 +84,77 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
             <div className="app flex flex-col min-h-screen">
                 <SiteHeader />
                 <div className="flex-grow">
-                    <div className="w-full max-w-screen-xl mx-auto p-6">
-                        <h1 className="font-bold text-2xl mb-4">{article.title}</h1>
+                    <div className="w-full max-w-screen-xl mx-auto px-6 pb-6 mb-4">
+                        <div
+                            // className="p-6 bg-blue-100 w-screen relative text-center mb-6"
+                            className="p-6 bg-blue-100 text-center mb-6"
+                            // style={{ marginLeft: '-50vw', left: '50%' }}
+                        >
+                            <h1 className="font-bold text-2xl mb-2">{article.title}</h1>
+                            <p className="text-gray-700">
+                                {article.dateFormatted} &middot; published by{' '}
+                                <Link href="/about.html">
+                                    <a className="text-blue-700">Adam Beres-Deak</a>
+                                </Link>
+                            </p>
+                        </div>
 
-                        <p className="mb-2 text-gray-700">{article.dateFormatted}</p>
-                        <div className="max-w-5xl">
-                            <div className="mb-2" dangerouslySetInnerHTML={{ __html: article.intro }} />
-                            <div
-                                className={articleStyles['article-body']}
-                                dangerouslySetInnerHTML={{ __html: article.body }}
-                            ></div>
+                        <div className="lg:flex">
+                            <div className="lg:w-2/3 lg:mr-6">
+                                <div className="mb-2" dangerouslySetInnerHTML={{ __html: article.intro }} />
+                                <div
+                                    className={articleStyles['article-body']}
+                                    dangerouslySetInnerHTML={{ __html: article.body }}
+                                ></div>
+                            </div>
+                            <div className="flex-grow">
+                                <div className=" p-3 bg-blue-100 rounded">
+                                    {/* <p className="text-gray-600 mb-2">About the author</p> */}
+                                    <Link href="/about.html">
+                                        <a className="block flex items-center mb-2">
+                                            <div
+                                                style={{ backgroundImage: 'url(/face.jpg)' }}
+                                                className="rounded bg-contain w-12 h-12 mr-3"
+                                            ></div>
+                                            <div>
+                                                <p className="font-bold text-xl">Adam Beres-Deak</p>
+                                                <p className="text-sm text-gray-700 small-caps">
+                                                    lead software engineer
+                                                </p>
+                                            </div>
+                                            {/* <span style={{ fontVariant: 'small-caps' }}>bdadam.com</span> */}
+                                        </a>
+                                    </Link>
+                                    {/* <p>Adam is blah blubb</p> */}
+                                    <a href="https://github.com/bdadam" className="hover:underline mr-1" rel="external">
+                                        GitHub
+                                    </a>
+                                    <a
+                                        href="https://twitter.com/bdadamm"
+                                        className="hover:underline mr-1"
+                                        rel="external"
+                                    >
+                                        Twitter
+                                    </a>
+                                    <a
+                                        href="https://www.linkedin.com/in/bdadam/"
+                                        className="hover:underline mr-1"
+                                        rel="external"
+                                    >
+                                        LinkedIn
+                                    </a>
+                                    <a
+                                        href="https://www.xing.com/profile/Adam_BeresDeak"
+                                        className="hover:underline mr-1"
+                                        rel="external"
+                                    >
+                                        Xing
+                                    </a>
+                                    <a href="mailto:me@bdadam.com" className="hover:underline mr-1">
+                                        E-mail
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
                         <hr className="my-6" />
@@ -129,12 +190,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // return { fallback: false, paths: [{ params: { slug: 'displaying-icons-with-custom-elements.html' } }] };
     // return { fallback: false, paths: articles.map((a) => ({ params: { slug: [a.slug] } })) };
     return { fallback: false, paths: articles.map((a) => ({ params: { slug: a.slug } })) };
+    // return { fallback: false, paths: articles.map((a) => ({ params: { slug: `${a.slug}x` } })) };
 };
 
 export const getStaticProps: GetStaticProps<ArticlePageProps> = async (ctx) => {
     const articles = await readArticles();
     const slug = ctx!.params!.slug!;
     // const slug = ctx!.params!.slug![0];
+
+    // articles.forEach((a) => (a.slug = `${a.slug}x`));
 
     const article = articles.find((a) => a.slug === slug);
 

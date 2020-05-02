@@ -4,4 +4,17 @@ body {
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     color: #111;
 }
+
+/* .full-width-screen {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+} */
+
+.small-caps {
+    font-variant: small-caps;
+}
 /* purgecss end ignore */
