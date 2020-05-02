@@ -1,0 +1,2559 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/css" href="http://bdadam.com/static/main.css" ?>
+<rss version="2.0">
+    <channel>
+        <title>Adam Beres-Deak</title>
+        <link>http://bdadam.com/</link>
+        <description>Blog</description>
+        
+        <item>
+            <title>Displaying icons with custom elements</title>
+            <link>http://bdadam.com/blog/displaying-icons-with-custom-elements.html</link>
+            <description>
+                <![CDATA[
+                <p>I created a technique for using SVG icons without pain with a simple gulp task. Since HTTP/2 is not widely supported yet, it has always been a pain to use icons on web pages. There are many ways to include icons and all of them have some tradeoffs. This interesting technique shows a way to include SVG-icons in a cross-browser way with using custom elements.</p>
+
+                <h2 id="tldr">TLDR</h2>
+<p>The code can be found here: <a href="https://github.com/bdadam/custom-icons">bdadam/custom-icons</a>.</p>
+<p>The usage looks like this:</p>
+<pre><code class="language-HTML">&lt;x-icon type=&quot;some-icon&quot;&gt;&lt;/x-icon&gt;
+...
+&lt;script src=&quot;icons.js&quot; async&gt;&lt;/script&gt;</code></pre>
+<p>The script basically puts an svg element inside the <code>x-icon</code> tag. This svg element can then - for example - be styled with CSS.</p>
+<pre><code class="language-HTML">&lt;style&gt;
+    [type=&quot;happy&quot;] path {
+        fill: red;
+    }
+&lt;/style&gt;
+...
+&lt;x-icon type=&quot;happy&quot;&gt;
+    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;
+        &lt;path fill=&quot;#444&quot; d=&quot;...&quot;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+&lt;/x-icon&gt;</code></pre>
+<h2 id="the-longer-version">The longer version</h2>
+<p>I have to admit that I always had a pain when I had to include a set of icons on webpages.</p>
+<ul>
+<li>I didn&#39;t want to use icon fonts, because they are sometimes problematic:
+  <a href="https://github.com/FortAwesome/Font-Awesome/issues/6133">accessibility problems</a>, <a href="http://mir.aculo.us/2014/10/31/icon-fonts-vs-inline-svg/">blurrines</a>, etc.</li>
+<li>I didn&#39;t want to use inline SVGs either, because of cacheability and duplication.</li>
+<li>I didn&#39;t want to include a bunch of IMG tags, because of the many extra HTTP-requests.</li>
+</ul>
+<p>So I was searching for a better way when I found out that I could have all the advantages of those techniques above.
+I always thought it would be pretty neat if we had some dedicated HTML element for icons. Like this here:</p>
+<pre><code class="language-HTML">&lt;x-icon type=&quot;some-icon&quot;&gt;&lt;/x-icon&gt;</code></pre>
+<p>This looks quite semantic and self explaining.
+We could use any tag name which is a valid name for custom elements - e.g. it must include a dash.
+There is a type attribute which defines which icon is shown. Easy. Bot how to achieve this?</p>
+<h2 id="javascript-and-webpack-for-the-rescue">JavaScript and WebPack for the rescue</h2>
+<p>The technique is behind the scenes quite simple.
+The input is just some SVG files.
+The output is a single JavaScript file which includes the content of all the SVG files and some loader code.</p>
+<p>For the source code of a sample implementation please check out this GitHub repository: <a href="https://github.com/bdadam/custom-icons">bdadam/custom-icons</a></p>
+<p>The only magic what we need is WebPack with a custom loader: <a href="https://github.com/rpominov/svgo-loader">svgo-loader</a>.
+This loader automagically loads the content of the <code>require</code>d SVG files, minimizes it and provides it as normal string variable in the code.</p>
+<p>It&#39;s hard to explain, please check out the sources.</p>
+<h3 id="supported-browsers">Supported browsers</h3>
+<p>This technique works in all modern browsers.
+Though <code>document.registerElement</code> is only supported in recent versions of Chrome, we can already use this API now
+with a very smart <a href="https://github.com/WebReflection/document-register-element">polyfill from WebReflection</a>.
+Thanks to the polyfill we have support back to IE9 and Android 2.2.</p>
+<p>Browsers without native SVG support are unfortunately out for now. Maybe in the future if somebody still needs this, one can create a fallback JavaScript
+file with PNGs.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Plain JavaScript event delegation</title>
+            <link>http://bdadam.com/blog/plain-javascript-event-delegation.html</link>
+            <description>
+                <![CDATA[
+                <p>Event delegation is a powerful concept of event handling. If you are using jQuery, you might know it as jQuery.on(). Since I don&#39;t use jQuery anymore, I had to write a similar function myself. If you are wondering how the code looks like, read on.</p>
+
+                <h2 id="what-is-event-delegation-">What is event delegation?</h2>
+<p>With event delegation we only set one event handler function, which then analyzes the event&#39;s target element and executes the intended handler function.
+This way we have better code readability and performance improves.
+There is no need to set new event handlers when the content dynamically changes.
+This is very handy for lists or tables.</p>
+<p>In jQuery code we could just call</p>
+<pre><code class="language-JavaScript">jQuery(&#39;#list&#39;).on(&#39;click&#39;, &#39;.item&#39;, eventHandler)</code></pre>
+<p>Example: there is a list with 100 items. We want our eventHandler function to be called whenever a list item is clicked.</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li&gt;1&lt;/li&gt;
+    &lt;li&gt;2&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li&gt;100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    var list = document.getElementById(&#39;list&#39;);
+    list.addEventListener(&#39;click&#39;, function eventHandler(event) {
+        // one item in the list was clicked
+        console.log(event.target); // this is that item
+        event.target.style.backgroundColor = &#39;#f00&#39;;
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="this-is-just-event-bubbling-isn-t-it-">This is just event bubbling, isn&#39;t it?</h2>
+<p>This first example was not very spectacular. It just uses event bubbling, which is natural in JavaScript.</p>
+<p>But we can go further. What if only some specific elements should trigger our <code>eventHandler</code> function?
+This is also possible. With jQuery the code looks like this:</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li class=&quot;yes&quot;&gt;1&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;2&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;3&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li class=&quot;yes&quot;&gt;100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    $(&#39;#list&#39;).on(&#39;click&#39;, &#39;.yes&#39;, function eventHandler(e) {
+        // this function is only called,
+        // when a list item with &#39;yes&#39; class is called
+        console.log(e.target); // this is the clicked list item
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="what-if-i-don-t-have-jquery-">What if I don&#39;t have jQuery?</h2>
+<p>That&#39;s absolutely fine. I don&#39;t use jQuery either anymore. Here we have some vanilla JavaScript code:</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li class=&quot;yes&quot;&gt;1&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;2&lt;/li&gt;
+    &lt;li class=&quot;no&quot;&gt;3&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li class=&quot;yes&quot;&gt;100&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    function on(elSelector, eventName, selector, fn) {
+        var element = document.querySelector(elSelector);
+
+        element.addEventListener(eventName, function(event) {
+            var possibleTargets = element.querySelectorAll(selector);
+            var target = event.target;
+
+            for (var i = 0, l = possibleTargets.length; i &lt; l; i++) {
+                var el = target;
+                var p = possibleTargets[i];
+
+                while(el &amp;&amp; el !== element) {
+                    if (el === p) {
+                        return fn.call(p, event);
+                    }
+
+                    el = el.parentNode;
+                }
+            }
+        });
+    }
+
+    on(&#39;#list&#39;, &#39;click&#39;, &#39;.yes&#39;, function(e) {
+        // this function is only called, when a list item with &#39;yes&#39; class is called
+        console.log(e.target); // this is the clicked list item
+    });
+&lt;/script&gt;</code></pre>
+<h2 id="demo">Demo</h2>
+<p>Click on any list item. Where it says &quot;click me!&quot;, the click will trigger an <code>alert()</code> message.</p>
+<p><ul id="list">
+    <li class="no">won&#39;t work</li>
+    <li class="no">won&#39;t work</li>
+    <li class="yes">click me!</li>
+    <li class="yes">click me!</li>
+    <li class="no">won&#39;t work</li>
+    <li class="yes">click me!</li>
+    <li class="yes">click me!</li>
+    <li class="no">won&#39;t work</li>
+    <li class="no">won&#39;t work</li>
+    <li class="yes">click me!</li>
+</ul></p>
+<script>
+(function() {
+    function on(elSelector, eventName, selector, fn) {
+        var element = document.querySelector(elSelector);
+
+        element.addEventListener(eventName, function(event) {
+            var possibleTargets = element.querySelectorAll(selector);
+            var target = event.target;
+
+            for (var i = 0, l = possibleTargets.length; i < l; i++) {
+                var el = target;
+                var p = possibleTargets[i];
+
+                while(el && el !== element) {
+                    if (el === p) {
+                        return fn.call(p, event);
+                    }
+
+                    el = el.parentNode;
+                }
+            }
+        });
+    }
+
+    on('#list', 'click', 'li.yes', function() {
+        alert('You clicked me!');
+    });
+}());
+</script>
+
+
+<h2 id="use-cases">Use-cases</h2>
+<ol>
+<li>Large tables with many fields</li>
+<li>Lists - the content of the parent element can be changed freely (paging), the event listener must be set only once</li>
+<li>etc.</li>
+</ol>
+<h2 id="browser-support">Browser Support</h2>
+<p>This code uses two core DOM API call <code>Element.addEventListener</code> and <code>Element.querySelectorAll</code>. These are supported in every modern browser and IE9+.</p>
+<h3 id="more-resources-on-events">More resources on events</h3>
+<ul>
+<li><a href="http://javascript.info/tutorial/bubbling-and-capturing">Bubbling and Capturing @ javascript.info</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget.addEventListener">addEventListener @ MDN</a></li>
+<li><a href="http://www.quirksmode.org/js/events_order.html">Event Order @ QuirksMode</a></li>
+<li><a href="http://www.quirksmode.org/js/events_advanced.html">Events Advanced @ QuirksMode</a></li>
+</ul>
+<p><strong>What do you think, would you use this code in your projects? Tell me your thoughts in the comments.</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>After the first year of blogging - what happened on my blog in 2014?</title>
+            <link>http://bdadam.com/blog/first-year-of-blogging.html</link>
+            <description>
+                <![CDATA[
+                <p>I wish you all a happy new year and much fun and success for 2015! Let&#39;s have a quick review of the past 365 days.</p>
+
+                <h2 id="in-2014-amongst-other-things-i-">In 2014 amongst other things I ...</h2>
+<ul>
+<li>published 34 articles</li>
+<li>researched better webfont loading
+<a href="/blog/loading-webfonts-with-high-performance.html">1</a>,
+<a href="/blog/better-webfont-loading-with-localstorage-and-woff2.html">2</a></li>
+<li>learned static site generation with node.js tools
+<a href="/blog/static-site-generation-boilerplate.html">1</a>,
+<a href="/blog/why-i-chose-a-statically-generated-website.html">2</a>,
+<a href="/blog/serve-a-practical-command-line-webserver.html">3</a>,
+<a href="/blog/hosting-static-web-pages-and-assets-with-google-drive.html">4</a></li>
+<li>began using Instantclick.io for providing better percieved performance
+<a href="/blog/optimistic-page-loading-with-instantclick-io.html">1</a></li>
+<li>pimped up the good old textarea
+<a href="/blog/adding-tab-support-to-textareas.html">1</a>,
+<a href="/blog/automatically-adapting-the-height-textarea.html">2</a></li>
+<li>wrote about some JavaScript thingies
+<a href="/blog/a-simple-pubsub-module-in-javascript.html">1</a>,
+<a href="/blog/fat-arrows-for-javascript.html">2</a>,
+<a href="/blog/error-handling-in-javascript.html">3</a>,
+<a href="/blog/demistifying-angularjs-dependency-injection.html">4</a>,
+<a href="/blog/defining-properties-in-javascript.html">5</a>,
+<a href="/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html">6</a>,
+<a href="/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html">7</a>,
+<a href="/blog/generating-sound-effects-with-client-side-javascript.html">8</a></li>
+<li>discovered a simple usability improvement for Google Maps <a href="/blog/simple-usability-trick-for-google-maps.html">1</a></li>
+</ul>
+<h2 id="top-10-most-popular-posts">Top 10 most popular posts</h2>
+<ol>
+<li><a href="/blog/loading-webfonts-with-high-performance.html">Loading webfonts with high performance on responsive websites</a></li>
+<li><a href="/blog/better-webfont-loading-with-localstorage-and-woff2.html">Better webfont loading with using localStorage and providing WOFF2 support</a></li>
+<li><a href="/blog/simple-usability-trick-for-google-maps.html">A simple usability trick for Google Maps</a></li>
+<li><a href="/blog/demistifying-angularjs-dependency-injection.html">Demystifying AngularJS&#39; dependency injection</a></li>
+<li><a href="/blog/panning-and-scrolling-background-images-using-the-canvas-element.html">Panning and scrolling background images using the canvas element</a></li>
+<li><a href="/blog/video-douglas-crockford-about-the-new-good-parts.html">Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014</a></li>
+<li><a href="/blog/building-desktop-apps-with-node-js-and-web-technologies.html">Building desktop apps with node.js and web technologies</a></li>
+<li><a href="/blog/finding-a-random-document-in-mongodb.html">Finding a random document in MongoDB (with benchmarks)</a></li>
+<li><a href="/blog/optimistic-page-loading-with-instantclick-io.html">Loading web pages really fast - optimistic page loading with Instantclick.io</a></li>
+<li><a href="/blog/automatically-loading-grunt-tasks-with-matchdep.html">Automatically loading Grunt tasks with matchdep</a></li>
+</ol>
+<h2 id="what-i-learned-from-blogging-in-2014-">What I learned from blogging in 2014?</h2>
+<ul>
+<li>Blogging is fun</li>
+<li>No matter how much I understand the topic I&#39;m writing about, it still takes a lot of time and effort to publish a post</li>
+<li>A few times I really used my blog to gather information about things I would have forgotten otherwise</li>
+<li>I want to go on and publish betters posts and more often</li>
+</ul>
+<h4 id="resources-">Resources:</h4>
+<p>Happy new year photo: <a href="http://commons.wikimedia.org/wiki/Category:2015#mediaviewer/File:Happy_New_Year_2015.png">Wikimedia Commons</a></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Better webfont loading with using localStorage and providing WOFF2 support</title>
+            <link>http://bdadam.com/blog/better-webfont-loading-with-localstorage-and-woff2.html</link>
+            <description>
+                <![CDATA[
+                <p>In my previous <a href="/blog/loading-webfonts-with-high-performance.html">article about webfont loading</a> I showed a technique about how to load webfonts without blocking page rendering and without annoying the users with flickering text on all pageloads. This time I show you an optimized version of the script and provide a solution for WOFF2 support for the newest browsers.</p>
+
+                <h2 id="expectations">Expectations</h2>
+<ol>
+<li>The users must see the text as soon as possible.</li>
+<li>As longs as the font is loading, the text must be rendered with the fallback font so that users can see and read it.</li>
+<li>Users shouldn&#39;t be annoyed with flickering text on each page load.</li>
+<li>Modern browsers with WOFF2 support should receive the fonts in WOFF2 format. This means ca. 30% less filesize.</li>
+</ol>
+<h2 id="how-to-do-this-">How to do this?</h2>
+<ul>
+<li><p>Loading fonts as CSS asynchronously solves expectaions 1 and 2. But unfortunately it causes flickering on every pageload.
+The browsers already have rendered the text in the fallback font when they finish loading the webfont. So they replace the texts and this causes some flashing.</p>
+</li>
+<li><p>The idea is to only load a font from the server once. Then we store the data into the localStorage.
+On subsequent requests we load the font directly from <code>localStorage</code>. This eliminates the flashing on subsequent page loads.
+Only the first load is affected by the flashing. So no. 3 is also solved now.</p>
+</li>
+<li><p>It is quite hard to detect WOFF2 support in the browser if we don&#39;t want to rely on user agent detection.
+The best I could find is a very <a href="https://github.com/filamentgroup/woff2-feature-test">clever script</a> from Filament Group which uses the font loading API.
+It&#39;s not 100% correct, but it doesn&#39;t provide false positives, only false negatives which is really acceptable in this case.</p>
+</li>
+</ul>
+<h2 id="overview-of-the-script">Overview of the script</h2>
+<ol>
+<li>We let the old browsers stop early. Testing for <code>window.addEventListener</code> or some knows user agents (older Android stock browser, Opera Mini, etc.) is good enough.</li>
+<li>In some cases <code>localStorage</code> can be unreachable, although the browser supports WOFF fonts. For theses cases I provide some fallback.</li>
+<li>Then we check whether the font is already stored in localStorage. If it is, we load it immediately.</li>
+<li>If it hasn&#39;t been loaded before, we load it with an AJAX call. But first we check for WOFF2 support.</li>
+<li>Then we store the data into <code>localStorage</code> and load the css text into a style element.</li>
+</ol>
+<h2 id="lets-take-a-look-at-the-script">Lets take a look at the script</h2>
+<pre><code class="language-JavaScript">//This script must be placed in the HEAD above all external stylesheet declarations (link[rel=stylesheet])
+function loadFont(fontName, woffUrl, woff2Url) {
+    // 0. Many unsupported browsers should stop here
+    var nua = navigator.userAgent;
+    var noSupport = !window.addEventListener // IE8 and below
+            || (nua.match(/(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/) &amp;&amp; !nua.match(/Chrome/)) // Android Stock Browser below 4.4 and Opera Mini
+
+    if (noSupport) { return; }
+
+    // 1. Setting up localStorage
+    var loSto = {};
+    try {
+        // We set up a proxy variable to help with localStorage, e.g. when cookies are disabled
+        // and the browser prevents us accessing it.
+        // Otherwise some exceptions can be thrown which completely prevent font loading.
+        loSto = localStorage || {};
+    } catch(ex) {}
+
+    var localStoragePrefix = &#39;x-font-&#39; + fontName;
+    var localStorageUrlKey = localStoragePrefix + &#39;url&#39;;
+    var localStorageCssKey = localStoragePrefix + &#39;css&#39;;
+    var storedFontUrl = loSto[localStorageUrlKey];
+    var storedFontCss = loSto[localStorageCssKey];
+
+
+    // 2. Setting up the &lt;style&gt; element, that we are using to apply the base64 encoded font data
+    var styleElement = document.createElement(&#39;style&#39;);
+    styleElement.rel = &#39;stylesheet&#39;;
+    document.head.appendChild(styleElement);
+    // Setting styleElement.textContent must be after this line, because of IE9 errors
+
+
+    // 3. Checking whether the font data is already in localStorage and up-to-date
+    if (storedFontCss &amp;&amp; (storedFontUrl === woffUrl || storedFontUrl === woff2Url)) {
+        // the css is still in the localStorage
+        // AND it was loaded from one of the current URLs
+
+        // 4. Applying the font style sheet
+        styleElement.textContent = storedFontCss;
+    } else {
+        // The data was not present, or loaded from an obsolete URL
+        // So we have to load it again
+
+        // 5. Checking for WOFF2 support to know which URL we should use
+        var url = (woff2Url &amp;&amp; supportsWoff2())
+            ? woff2Url // WOFF2 URL provided and supported
+            : woffUrl; // only WOFF support
+
+
+        // 6. Fetching the font data from the server
+        var request = new XMLHttpRequest();
+        request.open(&#39;GET&#39;, url);
+        request.onload = function() {
+            if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
+
+                // 7. Updating localStorage with the fresh data and applying the font data
+                loSto[localStorageUrlKey] = url;
+                loSto[localStorageCssKey] = styleElement.textContent = request.responseText;
+            }
+        };
+        request.send();
+    }
+
+    function supportsWoff2() {
+        // Source: https://github.com/filamentgroup/woff2-feature-test
+        if (!window.FontFace) {
+            return false;
+        }
+
+        var f = new FontFace(&#39;t&#39;, &#39;url(&quot;data:application/font-woff2,&quot;) format(&quot;woff2&quot;)&#39;, {});
+        f.load();
+
+        return f.status === &#39;loading&#39;;
+    }
+}</code></pre>
+<p>The full script and some Grunt tasks for minification are available on <a href="https://github.com/bdadam/OptimizedWebfontLoading">Github/bdadam/OptimizedWebfontLoading</a>.
+There are also some demo files.</p>
+<h2 id="where-to-put-the-script-">Where to put the script?</h2>
+<p>The script has to be in the HEAD of your page above all stylesheet declarations (link[rel=stylesheet])
+so that it doesn&#39;t block page rendering (the browser doesn&#39;t have to wait for the CSSOM to be ready).</p>
+<h2 id="what-happens-when-localstorage-is-not-available-">What happens when <code>localStorage</code> is not available?</h2>
+<p>This mostly happens when cookies are disabled or the website is loaded inside a WebView container in a native app.
+In this case the code still works and falls back to normal browser caching.
+The CSS file is requested on each pageload, but served from the browser cache - as long as the CSS file is served with proper caching headers.</p>
+<h2 id="fallback-font">Fallback font</h2>
+<p>I thinkt it is enough to only provide webfonts for those browsers which support the WOFF or WOFF2 format.
+This means ca. 90% of the users world wide. Other browsers should get the text rendered in a fallback font.</p>
+<p>The users with these older browsers are going to be thankful, because we don&#39;t waste their limited resources (CPU, memory) on some fancy stuff.</p>
+<h2 id="demo">Demo</h2>
+<p>Although the technique shown in this article is at the moment my preferred way of loading webfonts, for comparision I provide two more techniques.</p>
+<ol>
+<li><a href="/samples/webfonts2/localStorage.html">Loading webfonts as CSS (async), then storing into <code>localStorage</code> for subsequent pageloads requests</a></li>
+<li><a href="/samples/webfonts2/asynccss.html">Loading webfonts as CSS (async), but not using localStorage</a></li>
+<li><a href="/samples/webfonts2/external-fonts.html">Loading webfonts from external woff and woff2 files</a></li>
+</ol>
+<h2 id="comparision">Comparision</h2>
+<p>I ran some tests on <a href="http://webpagetest.org/">webpagetest.org</a> with 3G connection.</p>
+<p>The first visit was basically the same for both the localStorage and the async CSS solution.
+They both first rendered the text in the fallback font, and then switched over to the webfont. Causing blinking once.
+Loading the fonts from external files lead to invisible text until the fonts were loaded. This deleayed rendering with 0.6 seconds.</p>
+<p>No. 1 and 2 in the lead.</p>
+<p>The second visit comparision also shows some differences between localStorage and async CSS.
+We can clearly see, that loading from localStorage doesn&#39;t cause any rerendering. Once the HTML is downloaded, the page is rendered immediately.</p>
+<p>The async CSS way renders the page in the default font and then rerenders it with the webfont. This causes flickering for the user on every pageload.</p>
+<p>No. 1 is the winner in this regard.</p>
+<p>To illustrate the differences here are some filmstrip views:</p>
+<p><img src="/static/article-assets/webfonts2/filmstrip-localStorage.jpg" style="display: block;" alt="Comparision of different webfont loading techniques. The localStorage way. (repeat view)">
+<small>Async CSS loading, using localStorage. No re-rendering.</small><br><br></p>
+<p><img src="/static/article-assets/webfonts2/filmstrip-async-css.jpg" style="display: block;" alt="Comparision of different webfont loading techniques. The async loaded CSS way. (repeat view)">
+<small>Async CSS loading, without localStorage. Re-rendering visible.</small><br><br></p>
+<p><img src="/static/article-assets/webfonts2/filmstrip-external-font.jpg" style="display: block;" alt="Comparision of different webfont loading techniques. Externally loaded fonts. (repeat view)">
+<small>Loading fonts externally. Rendering delayed until fonts are loaded.</small><br><br></p>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><a href="/blog/loading-webfonts-with-high-performance.html">My prevoius article about webfont loading on responsive sites</a></li>
+<li><a href="https://github.com/filamentgroup/woff2-feature-test">Woff2 feature test by Filament Group</a></li>
+<li><a href="http://caniuse.com/#feat=woff2">WOFF2 support @ caniuse.com</a></li>
+<li><a href="http://caniuse.com/#search=FontFace">Font loading support @ caniuse.com</a></li>
+<li><a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/">Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik</a></li>
+<li><a href="http://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/">Improving Smashing Magazine’s Performance: A Case Study</a></li>
+<li><a href="http://www.filamentgroup.com/lab/performance-rwd.html">How we make RWD sites load fast as heck</a></li>
+</ul>
+<p>What do you think of this technique? Do you have some ideas to improve it? Please leave a comment.</p>
+<h2 id="update">Update</h2>
+<p>As @CrocoDillon recommended,
+I added the third (optional) argument to <br><code>new FontFace(..., ..., {})</code> when checking for WOFF2 support.
+Otherwise some browsers throw an exception (Chrome 35 and 36, Opera 22 and 23).
+Take a closer look at the <a href="https://github.com/filamentgroup/woff2-feature-test/pull/3">pull request</a>.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Worth watching: Douglas Crockford speaking about the new good parts of JavaScript in 2014</title>
+            <link>http://bdadam.com/blog/video-douglas-crockford-about-the-new-good-parts.html</link>
+            <description>
+                <![CDATA[
+                <p>At the Nordic.js 2014 Douglas Crockford was giving a talk about what he considers to be &quot;the good parts&quot; of JavaScript in 2014. He talks about ECMAScript6, what parts of it he could already identify as the new good parts, and of which he thinks, that they are going to be the new bad parts. Read on for my summary or just whatch the video.</p>
+
+                <div style="padding: 30px 0 56.25%; background-color: #000; position: relative;"><iframe style="position: absolute; width: 100%; height: 100%; top: 0; right: 0; bottom: 0; left: 0;" src="http://www.youtube.com/embed/PSGEjv3Tqo0"></iframe></div>
+
+<h2 id="the-good-parts-he-identified-in-es6">The &quot;good parts&quot; he identified in ES6</h2>
+<ul>
+<li>ES6&#39;s new (proper) <a href="http://duartes.org/gustavo/blog/post/tail-calls-optimization-es6/">tail call optimization</a>.
+So that &quot;JavaScript becomes a real functional programming language&quot;.</li>
+<li>Ellipsis aka rest operator for variable number of function arguments.<br>
+<code>function x(...params) {}</code></li>
+<li>Modules - to come away from global variables</li>
+<li>The <code>let</code> statement for block scope variables -&gt; &quot;<code>let</code> is the new <code>var</code>&quot;</li>
+<li>Destructoring <code>let {a, b} = obj</code> equals in ES5 <code>var a = obj.a, b = obj.b;</code></li>
+<li><code>WeakMap</code> which has a terrible name -&gt; nobody wants to use something which is weak, everybody wants strong things</li>
+</ul>
+<h2 id="the-bad-parts">The bad parts</h2>
+<p>He admits that all the ES6 things are new and it&#39;s hard to decide whether they are going to be good or bad.
+But there are definitely things, where he feels they are going to be bad.</p>
+<ul>
+<li>The worst is <code>class</code>. It&#39;s only for Java programmers, who don&#39;t want to learn JavaScript. For those &quot;Who don&#39;t know how miserable they are.&quot;</li>
+<li><p>Generators - which add much complexity but little value</p>
+</li>
+<li><p>He also talks about that he changed his mind. There are things, which he considered to be good parts, but they aren&#39;t anymore.</p>
+</li>
+<li>He stopped using the <code>new</code> keyword years ago. He uses <code>Object.create</code> instead.</li>
+<li>But he also stopped using <code>Object.create</code> (although it was only added for him to the language).</li>
+<li>It all only happened, because he stopped using <code>this</code>. So he doesn&#39;t need those.</li>
+<li>He also stopped using <code>null</code>, because it doesn&#39;t make any sense to have two kinds of undefined: <code>null</code> and <code>undefined</code>.</li>
+<li>He stopped using falsiness.</li>
+<li>He doesn&#39;t use <code>for</code> statements anymore, just the new native array methods or <code>Object.keys</code>.<pre><code class="language-JavaScript">Object.keys(obj).forEach(function(key) { /* ... */ });</code></pre>
+</li>
+</ul>
+<h2 id="he-made-some-thoughts-about-the-next-language-after-javascript">He made some thoughts about the next language after JavaScript</h2>
+<ul>
+<li>Neither of Dart or TypeScript is the forward looking thing we need.</li>
+<li>Getting adoption of a new language is going to be extremely difficult, because programmers are as emotional as other people.
+Also every change needs a decade to get accepted.</li>
+<li>Getting away from classes is a good thing, but he&#39;s not an advocate of prototypal inheritance anymore.</li>
+<li><p>He proposes class-free object oriented programming aka using closures when writing objects. Like this:</p>
+<pre><code class="language-JavaScript">function constructor(spec) {
+  let { member } = spec,
+      { other } = other_constructor(spec),
+      method = function() {
+          // member, other, methid, spec
+      };
+
+  return Object.freeze({
+      method,
+      other
+  });
+}</code></pre>
+</li>
+<li>He also proposes a new number type for the next generation programming languages. It&#39;s called <a href="http://dec64.com/">DEC64</a>.
+With this new - one and only - number type he wants to fight against problems like <code>0.1 + 0.2 != 0.3</code>. (Binary Floating Points originating from 1950&#39;s)
+He also talks about the two types of requirements, business vs. sceintific - exact cent values vs. approximate values. </li>
+</ul>
+<p>I think it was a very interesting talk. Douglas Crockford had many interesting points about programming in modern JavaScript.
+There are some points which are maybe debatable.
+What do you think? Do you agree with him? Do you have better ideas? Please share your thoughts in the comments below.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Automatically adjusting the height of a textarea to its content text</title>
+            <link>http://bdadam.com/blog/automatically-adapting-the-height-textarea.html</link>
+            <description>
+                <![CDATA[
+                <p>While I was working on a simple web based markdown editor I needed something where the users can type their texts. My first thought was to use a DIV with the contenteditable attribute. But it introduced many problems, which I did not want to fight. I only needed something simple and stupid - the good old TEXTAREA.</p>
+
+                <p>But also textareas have a big problem: they have a fixed height per default.
+You can either set the <code>rows</code> attribute to tell how many rows should be displayed, or you can set their <code>style.height</code> properties.
+But unfortunately there is no auto-height property.</p>
+<h2 id="the-idea">The idea</h2>
+<p>After every change in the text we have to measure how high the content is. Fortunately there is a method to do it.
+<code>element.scrollHeight</code> gives us the height of the content, regardless of visible scrollbars.
+To be able to decrease the size we set the height each time back to zero so that scrollHeight reports the required minimum and not more.
+E.g. when the user deletes a line.</p>
+<p>We also have to calculate the size of the border and outline, so that we don&#39;t give any chance for the content to be cut off, or that a scrollbar is shown.</p>
+<p>Then we set the <code>style.height</code> property to the calculated height.</p>
+<p>To do this every time, we use the <code>oninput</code> event, which is fired every time the text content changes.
+Contrary to <code>onchange</code> which only fires when the users clicks away.</p>
+<h2 id="show-me-the-code">Show me the code</h2>
+<pre><code class="language-html">&lt;textarea data-adaptheight rows=&quot;3&quot; cols=&quot;40&quot; placeholder=&quot;Your input&quot; style=&quot;padding: 16px; line-height: 1.5;&quot;&gt;&lt;/textarea&gt;
+&lt;script&gt;
+(function() {
+    function adjustHeight(textareaElement, minHeight) {
+        // compute the height difference which is caused by border and outline
+        var outerHeight = parseInt(window.getComputedStyle(el).height, 10);
+        var diff = outerHeight - el.clientHeight;
+
+        // set the height to 0 in case of it has to be shrinked
+        el.style.height = 0;
+
+        // set the correct height
+        // el.scrollHeight is the full height of the content, not just the visible part
+        el.style.height = Math.max(minHeight, el.scrollHeight + diff) + &#39;px&#39;;
+    }
+
+
+    // we use the &quot;data-adaptheight&quot; attribute as a marker
+    var textAreas = [].slice.call(document.querySelectorAll(&#39;textarea[data-adaptheight]&#39;));
+
+    // iterate through all the textareas on the page
+    textAreas.forEach(function(el) {
+
+        // we need box-sizing: border-box, if the textarea has padding
+        el.style.boxSizing = el.style.mozBoxSizing = &#39;border-box&#39;;
+
+        // we don&#39;t need any scrollbars, do we? :)
+        el.style.overflowY = &#39;hidden&#39;;
+
+        // the minimum height initiated through the &quot;rows&quot; attribute
+        var minHeight = el.scrollHeight;
+
+        el.addEventListener(&#39;input&#39;, function() {
+            adjustHeight(el, minHeight);
+        });
+
+        // we have to readjust when window size changes (e.g. orientation change)
+        window.addEventListener(&#39;resize&#39;, function() {
+            adjustHeight(el, minHeight);
+        });
+
+        // we adjust height to the initial content
+        adjustHeight(el, minHeight);
+
+    });
+}());
+&lt;/script&gt;</code></pre>
+<h2 id="demo">Demo</h2>
+<p>Just type in some text and see it for yourself. Initial height is 3 rows.</p>
+<p><textarea data-adaptheight rows="3" cols="40" placeholder="Your input" style="padding: 16px; line-height: 1.5; width: 100%; display: block;"></textarea></p>
+<script>
+(function() {
+    function adjustHeight(textareaElement, minHeight) {
+        var diff = parseInt(window.getComputedStyle(el).height, 10) - el.clientHeight;
+        el.style.height = 0;
+        el.style.height = Math.max(minHeight, el.scrollHeight + diff) + 'px';
+    }
+
+    var textAreas = document.querySelectorAll('textarea[data-adaptheight]');
+
+    for (var i = 0, l = textAreas.length; i < l; i++) {
+        var el = textAreas[i];
+        el.style.boxSizing = el.style.mozBoxSizing = 'border-box';
+        el.style.overflowY = 'hidden';
+        var minHeight = el.scrollHeight;
+
+        el.addEventListener('input', function() { adjustHeight(el, minHeight); });
+        window.addEventListener('resize', function() { adjustHeight(el, minHeight); });
+
+        adjustHeight(el, minHeight);
+    }
+}());
+</script>
+
+<h2 id="tradeoffs">Tradeoffs</h2>
+<p>Every keypress causes repaints. Because we set the height of the textarea to 0 and then to the calculated value.
+This should however be negligible, because most users can only type at most a few characters a second.
+Therefore it shouldn&#39;t cause any noticeable performance drawbacks.</p>
+<h2 id="where-to-use-it-for-">Where to use it for?</h2>
+<p>There are many cases in which this can be useful. Amongst others:</p>
+<ul>
+<li>Text editors</li>
+<li>Code editors</li>
+<li>Comment boxes</li>
+</ul>
+<p><strong>Do you like it? Do you already use it? Just leave a comment below - the comment box is auto adjusted by default. :)</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Loading webfonts with high performance on responsive websites</title>
+            <link>http://bdadam.com/blog/loading-webfonts-with-high-performance.html</link>
+            <description>
+                <![CDATA[
+                <p>Once upon a time every website was only using Arial, Verdana, Garamond or Times New Roman for rendering the text, because these font were the only ones reliably installed on almost any computer. But these times are over. Webfonts are spread all over the internet, but we still don&#39;t really know, how to load them efficiently.</p>
+
+                <p>Here is my simple guide on what to do, to offer the optimal user experience without having to avoid the expensive accessories (aka webfonts).</p>
+<h2 id="0-tldr">0. TLDR</h2>
+<p>The essence of the technique:</p>
+<ol>
+<li>Only serve fonts in woff format</li>
+<li>Other browsers get the old &quot;websafe&quot; fonts</li>
+<li>Download the font in &quot;binary&quot; format and optimize it</li>
+<li>Serve the fonts yourself</li>
+<li>Serve them as CSS files - base64 encoded data URIs</li>
+<li>If the user doesn&#39;t have the font, load it asynchronously and store in localStorage</li>
+<li>Otherwise load it from localStorage without accessing the server</li>
+<li>Have fun because your site renders much faster and your users have a much better usability experience</li>
+</ol>
+<p>For those who are still reading here are my explanations for the points above.</p>
+<p><a id="update1"></a></p>
+<h3 id="update-2014-10-09">Update - 2014/10/09</h3>
+<p>If you don&#39;t believe in this optimization, I created two demo pages. Just test them and take a look at how resources are loaded, what is blocking, what isn&#39;t.</p>
+<ol>
+<li><a href="/samples/webfonts-conventional.html" target="_blank">Demo page: Loading from Google Fonts</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fbdadam.com%2Fsamples%2Fwebfonts-conventional.html" rel="external" target="_blank">Page Speed Insights: Loading with Google Fonts (79/100)</a></li>
+<li><a href="/samples/webfonts-optimized.html" target="_blank">Demo page: Loading Asynchronously and serving from localStorage later on</a></li>
+<li><a href="https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fbdadam.com%2Fsamples%2Fwebfonts-optimized.html" rel="external" target="_blank">Page Speed Insights: Async loading/localStorage (100/100)</a></li>
+</ol>
+<h2 id="1-browser-support">1. Browser support</h2>
+<p>According to <a href="http://caniuse.com/#search=woff">caniuse</a>, 84% of users&#39; browsers support <code>woff</code> format.
+The only exceptions are the usual old browsers - IE8 and old stock android browsers.
+Therefore it is mostly enough to only provide webfonts for the modern browsers which support the <code>woff</code> format.
+The old ones should only show a fallback font (e.g. Arial).
+The users will also be thankful for having better performance browsing your website. Just try to find something which fits in your design.</p>
+<h2 id="2-don-t-use-external-providers-like-google-fonts-or-typekit">2. Don&#39;t use external providers like Google Fonts or Typekit</h2>
+<p>They either cause many extra blocking requests or annoying blinking if loading asynchronously.
+We&#39;ll see shortly that there is a much better way of serving webfonts.</p>
+<h2 id="3-the-licence-matters">3. The licence matters</h2>
+<p>Choose a webfont which you can serve yourself. Unfortunately not every licence allows this.
+Fortunately there are many which do - like the open source ones. Some of them are Open Sans or Source Sans Pro.
+When you found your font, download the &quot;binary&quot; files (otf or ttf).</p>
+<h2 id="4-optimizing-reducing-size-generating-the-css">4. Optimizing, reducing size, generating the CSS</h2>
+<p>Head on over to the <a href="http://www.fontsquirrel.com/tools/webfont-generator">Font Squirrel Webfont Generator</a>.</p>
+<p>When choosing expert mode we can choose to remove some charsets.
+You have to decide which character sets you really need. Is your content only in english? Then you just need a basic subset.
+Is your content in chineese? Then you most probably need everything.</p>
+<p>It is important to choose the option to generate CSS files which contains the base64 encoded fonts. This file is what we really need.</p>
+<h2 id="5-serving-the-css-file">5. Serving the CSS file</h2>
+<p>This file is going to be quite large (up to 100-300 kB) depending on your choice on charsets and the other options.
+Therefore it is important to gzip it correctly and setting strong cacheability when serving it to the users.</p>
+<p>Fortunately you are going to serve this file only once for your visitors.
+The first time, when the user doesn&#39;t have the font file, their browser downloads it asynchronously and stores it in localStorage.
+This time users with slower connections can see when the browsers repaints the fallback fonts with your webfonts, but it only happens at most once.
+Many users won&#39;t notice anything at all.</p>
+<p>From the second page load on you just load the CSS file from the localStorage. Which is reasonably fast (5-50ms).
+The users won&#39;t see any blinking, because all the operations are synchronous, but only take a couple of milliseconds.</p>
+<h2 id="6-show-me-the-code">6. Show me the code</h2>
+<p>Since we store the file in localStorage this technique only needs client side code. Here you are.</p>
+<pre><code class="language-html">&lt;head&gt;
+...
+&lt;script&gt;
+(function(){
+    function addFont() {
+        var style = document.createElement(&#39;style&#39;);
+        style.rel = &#39;stylesheet&#39;;
+        document.head.appendChild(style);
+        style.textContent = localStorage.sourceSansPro;
+    }
+
+    try {
+        if (localStorage.sourceSansPro) {
+            // The font is in localStorage, we can load it directly
+            addFont();
+        } else {
+            // We have to first load the font file asynchronously
+            var request = new XMLHttpRequest();
+            request.open(&#39;GET&#39;, &#39;/path/to/source-sans-pro.woff.css&#39;, true);
+
+            request.onload = function() {
+                if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
+                    // We save the file in localStorage
+                    localStorage.sourceSansPro = request.responseText;
+
+                    // ... and load the font
+                    addFont();
+                }
+            }
+
+            request.send();
+        }
+    } catch(ex) {
+        // maybe load the font synchronously for woff-capable browsers
+        // to avoid blinking on every request when localStorage is not available
+    }
+}());
+&lt;/script&gt;
+...
+&lt;/head&gt;</code></pre>
+<h2 id="7-what-did-we-achieve">7. What did we achieve</h2>
+<ol>
+<li>Eliminated at least one - but typically many - blocking requests</li>
+<li>At most one blinking for the user when the fallback font gets replaced by the webfont (first visit, first request)</li>
+<li>Faster render time on the first page request</li>
+<li>Better score on Google Page Speed Insights and WebPageTest.org</li>
+</ol>
+<h2 id="8-see-it-in-action">8. See it in action</h2>
+<p>This technique is used on my blog. You can test it with your smartphone, tablet or laptop. It&#39;s fast, I promise. :)</p>
+<p><strong>There are still some fine details which are missing from this post.
+If you have questions or feedback, you are welcome to leave a <a href="#comments">comment</a>.</strong></p>
+<p><a id="update2"></a></p>
+<h3 id="update-2014-10-11">Update - 2014/10/11</h3>
+<p>A Twitter user, @Kseso, made me aware of another method, which also proceeds to a 99/100 score on Google Page Speed Insights.
+The method is to inline the CSS what Google Fonts delivers.</p>
+<p>I advise against this method, because it delays text rendering quite a lot. So let&#39;s take a deeper look what happens here.</p>
+<ol>
+<li>We define font faces directly in the HTML file like this:<pre><code class="language-html">&lt;head&gt;
+...
+&lt;style&gt;
+@font-face {
+font-family: &#39;Source Sans Pro&#39;;
+font-style: normal;
+font-weight: 400;
+src: local(&#39;Source Sans Pro&#39;),
+  local(&#39;SourceSansPro-Regular&#39;),
+  url(http://fonts.gstatic.com/s/sourcesanspro/v9/ODelI1aHBYDBqgeIAH2zlBBHWFfxJXS04xYOz0jw624.woff) format(&#39;woff&#39;);
+}
+&lt;/style&gt;
+...
+&lt;/head&gt;</code></pre>
+</li>
+<li>The browser doesn&#39;t start to fetch the font file, until it doesn&#39;t know whether it is needed at all somewhere in the page.</li>
+<li>The browser waits until DOM and CSSOM are constructed</li>
+<li>The browser starts to fetch the font file from Google Fonts
+(please notice, there is also an extra DNS request for fonts.gstatic.com).
+<img src="/static/article-assets/gfonts-timeline.jpg" alt="Timeline of loading fonts from Google Fonts">
+This timeline shows that the browser only starts fetching the font file, just before the DOMContentLoaded event.</li>
+<li>If this wasn&#39;t bad enough, most browsers will just render blank text, where those font faces are used:<ol>
+<li>Only IE starts rendering <strong>immediately</strong> with the fallback font</li>
+<li>Firefox and Chrome35+ wait for the font download to complete <strong>with a 3 seconds timeout</strong> (after which the fallback font is used)</li>
+<li>Safari and Chrome pre 35 wait for the font download to complete <strong>without any timeout</strong></li>
+</ol>
+</li>
+</ol>
+<p>Therefore on slow connections you will delay rendering of your text content up to 3 seconds in most browsers.
+In worst case, if your font takes ages to load (e.g. because of bad mobile connection), Safari users will never see your text content and just leave your page.
+Your users can end up seeing a white page until the timeout kicks in.</p>
+<p>More info can be found on <a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/" rel="external">Ilya Gregorik&#39;s blog</a>.</p>
+<p>I also created <a href="/samples/webfonts-googlefonts.html" target="_blank">a test page</a>, where you can check it out yourself.</p>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><a href="https://www.igvita.com/2012/09/12/web-fonts-performance-making-pretty-fast/">Web Fonts Performance: Making Pretty, Fast - By Ilya Grigorik</a></li>
+<li><a href="http://www.smashingmagazine.com/2014/09/08/improving-smashing-magazine-performance-case-study/">Improving Smashing Magazine’s Performance: A Case Study</a></li>
+<li><a href="http://www.filamentgroup.com/lab/performance-rwd.html">How we make RWD sites load fast as heck</a></li>
+</ul>
+<h4 id="translations">Translations</h4>
+<p>This article was <a href="http://css-live.ru/articles-css/bystraya-zagruzka-veb-shriftov-na-adaptivnyx-sajtax.html" hreflang="ru" rel="external">translated to Russian by Максим Усачев</a>.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Loading web pages really fast - optimistic page loading with Instantclick.io</title>
+            <link>http://bdadam.com/blog/optimistic-page-loading-with-instantclick-io.html</link>
+            <description>
+                <![CDATA[
+                <p>There is a very clever trick, which can turn any web page into a single page app. Without requiring you to do any significant work. Fortunately there is also a very handy tool, which makes use of this trick and does a great job.</p>
+
+                <p>As web developers we usually want to anything to load pages faster for the user. What about if started loading a page, before the user clicks a link?</p>
+<h2 id="optimistic-page-loading">Optimistic page loading</h2>
+<p>It is absolutely possible to make the user experience much better by loading content much faster.
+The trick is, to start (optimistically) loading the page when the user only just hovers over a link.
+There is a significant delay between hovering and clicking - usually more then 100 ms.
+We can use this time to prefetch the next page which is behind the link, so that we can show it right after the click event was fired.</p>
+<p>You can see this trick in action for example on this blog. Just click on some links on the page.</p>
+<h2 id="instantclick-io">Instantclick.io</h2>
+<p>You can get this tool here: <a href="http://instantclick.io/" rel="external,nofollow"><a href="http://instantclick.io/">http://instantclick.io/</a></a>.</p>
+<p>Just put a single script into your page and you should be almost fine. Maybe you need some blacklisting/whitelisting,
+so that some links are not prefetched automatically. Or maybe you want some scripts to execute on every request.
+Everything is easily doable. Just head over to the downloads section. There are some useful information about the integration.</p>
+<p>They also have a test page, where you can measure how much time you can shave off of the load time.
+It measures the time difference between mosuedown event and click event - and also between touchstart event and click event.</p>
+<h2 id="mousedown-instead-of-hover">Mousedown instead of hover</h2>
+<p>If a web page has many links, it is better to only prefetch when the user really pressed the mouse button.
+It still gives a decent advantage over the traditional way.</p>
+<h2 id="touch-support">Touch support</h2>
+<p>The library comes with touch support out of the box.</p>
+<p><strong>Do you like it?</strong> Do you already use this library? Tell me about your experience in the comments.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Generating sound effects with client side JavaScript</title>
+            <link>http://bdadam.com/blog/generating-sound-effects-with-client-side-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>A few years ago I came across a simple library with which we can easily generate 8-bit sound effects for JavaScript games and apps. This library is very handy for hackathons or weekend coding sessions.</p>
+
+                <p>This small library is called <a href="https://github.com/egonelbre/jsfx">jsfx</a>. Info on usage and a demo site can be found on its GitHub page.</p>
+<h2 id="how-does-it-work-">How does it work?</h2>
+<p>This lib generates wave files as data URIs and then feeds them to an &lt;audio&gt; element.</p>
+<h2 id="demo">Demo</h2>
+<p>Just click on the buttons to play the corresponding sound effects.</p>
+<button id="btnPickup">Pick up a coin</button>
+<button id="btnLaser">Laser</button>
+<button id="btnJump">Jump</button>
+<button id="btnShoot">Shoot</button>
+
+<script src="/static/article-assets/jsfx/audio.js"></script>
+<script src="/static/article-assets/jsfx/jsfx.js"></script>
+<script src="/static/article-assets/jsfx/jsfxlib.js"></script>
+<script>
+    (function load() {
+        if (!window.jsfxlib) {
+            return setTimeout(load, 100);
+        }
+
+        try {
+            function setup(id, params) {
+                var wave = jsfxlib.createWave(params);
+                document.getElementById(id).addEventListener('click', function() {
+                    wave.play();
+                });
+            }
+
+            setup('btnPickup', ["square",0.0000,0.4000,0.0000,0.0140,0.3900,0.3420,20.0000,1371.0000,2400.0000,0.0000,0.0000,0.0000,0.0100,0.0003,0.0000,0.3380,0.1920,0.0000,0.0000,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.0000,0.0000]);
+            setup('btnJump', ["square",0.0000,0.4000,0.0000,0.3680,0.0000,0.1460,20.0000,454.0000,2400.0000,0.3840,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.2210,0.0000,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.0000,0.0000]);
+            setup('btnShoot', ["saw",0.0000,0.4000,0.0000,0.2040,0.0000,0.3180,20.0000,951.0000,2400.0000,-0.5880,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.3440,0.1860,0.0000,0.1540,0.0100,1.0000,0.0000,0.0000,0.0390,0.0000]);
+            setup('btnLaser', ["square",0.0000,0.4000,0.0000,0.2100,0.0000,0.1840,20.0000,1180.0000,2400.0000,-0.5180,0.0000,0.0000,0.0100,0.0003,0.0000,0.0000,0.0000,0.4990,-0.2120,0.0000,0.0000,0.0000,1.0000,0.0000,0.0000,0.1340,0.0000]);
+        }
+        catch(ex) {
+            setTimeout(load, 100);
+        }
+    }());
+</script>
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Boilerplate for static site generation</title>
+            <link>http://bdadam.com/blog/static-site-generation-boilerplate.html</link>
+            <description>
+                <![CDATA[
+                <p>As I already mentioned before, I really like simple things like static webpages. To speed things up, I created a boilerplate, which can be used by anybody to generate static websites.</p>
+
+                <p><a href="/blog/why-i-chose-a-statically-generated-website.html">This blog is also statically generated.</a>
+Statically generating websites has many advantages. Some of these are</p>
+<ol>
+<li>These sites can be hosted everywhere</li>
+<li>No backend to be hacked</li>
+<li>Outstanding performance</li>
+<li>etc.</li>
+</ol>
+<p>The boilerplate code can be found on GitHub: <a href="https://github.com/bdadam/static-site-boilerplate">bdadam/static-site-boilerplate</a></p>
+<h2 id="what-can-this-boilerplate-do-for-you-">What can this boilerplate do for you?</h2>
+<ol>
+<li>It generates html from markdown files with the help of <a href="http://assemble.io/">Assemble</a>.</li>
+<li>It generates minified and optimized css file(s) with less and uncss</li>
+<li>It generates minified and optimized JavaScript files with RequireJS</li>
+<li>During development the affected files are regenerated when something changes (GruntJS watch task)</li>
+<li>Local webserver with Livereload to immediately see what changes and what does it look like</li>
+</ol>
+<h2 id="how-to-use-it-">How to use it?</h2>
+<ol>
+<li>Clone this repository <code>git clone https://github.com/bdadam/static-site-boilerplate</code></li>
+<li>Install node dependencies <code>npm install</code></li>
+<li>Install bower dependencies <code>bower install</code></li>
+<li>Simply run <code>grunt build</code> to see that everything works</li>
+<li>Run <code>grunt</code> for starting &quot;development mode&quot;</li>
+<li>Then edit some files in the <code>content</code> folder and watch the html being regenerated and automatically refreshed in the browser</li>
+</ol>
+<h2 id="what-is-planned-for-future-releases-">What is planned for future releases?</h2>
+<ol>
+<li>Automatically running JavaScript unit tests with Jasmine</li>
+<li>Supporting <code>browserify</code> for building JavaScript files</li>
+<li>Adding some Handlebars helpers</li>
+<li>Maybe some more partials and templates</li>
+<li>Some real examples where you can see it in action</li>
+</ol>
+<p><strong>I would be glad to hear your feedback in the comments.</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Automatically loading Grunt tasks with matchdep</title>
+            <link>http://bdadam.com/blog/automatically-loading-grunt-tasks-with-matchdep.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever installed a new GruntJS-plugin and then forgotten to load it as a task in the gruntfile.js? Matchdep is a handy tool, which can solve this issue.</p>
+
+                <h2 id="what-is-matchdep-">What is matchdep?</h2>
+<p>Matchdep is a tool which can filter node.js dependencies, which are in the <code>package.json</code> file.</p>
+<p>Installing it is very easy: <code>npm install --save matchdep</code></p>
+<h2 id="automatically-loading-gruntjs-tasks">Automatically loading GruntJS tasks</h2>
+<pre><code class="language-JavaScript">require(&#39;matchdep&#39;).filterDev(&#39;grunt-*&#39;).forEach(grunt.loadNpmTasks);</code></pre>
+<p>What we are doing here is: basically reading all (dev)dependencies from the <code>package.json</code> and filtering those out which begin with &#39;grunt-&#39;.
+These are tasks like all Grunt contrib tasks (<code>grunt-contrib-concat</code>, <code>grunt-contrib-less</code>, <code>grunt-contrib-copy</code>, etc.)
+and other Grunt specific tasks (like <code>grunt-browserify</code> or <code>grunt-hashres</code>).
+After filtering we load them as tasks.</p>
+<h2 id="what-can-matchdep-be-used-for-besides-loading-grunt-tasks-">What can <code>matchdep</code> be used for besides loading Grunt tasks?</h2>
+<p>Honestly I must say, I have no idea. But this is still pretty cool, that we don&#39;t have to include each grunt plugin individually.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>A simple usability trick for Google Maps</title>
+            <link>http://bdadam.com/blog/simple-usability-trick-for-google-maps.html</link>
+            <description>
+                <![CDATA[
+                <p>Embedding Google Maps in a website is very easy with its JavaScript API. A simple trick can improve the usability of large maps when users scroll with the mouse wheel over them.</p>
+
+                <h2 id="usability-problem">Usability problem</h2>
+<p>If you embed Google Maps via its JavaScript API, there is usually a usability question:
+<em>What should happen, when the users scroll over the map with their mouse wheels?</em>
+The API defaults say: the user should zoom the map.</p>
+<p>But that&#39;s in many cases not what users would expect. Especially when the map is large.
+Sometimes they just want to scroll the page without zooming the map or having any interaction with it at all.</p>
+<h2 id="how-to-solve-it">How to solve it</h2>
+<p>There is a possible solution which is very easy and works for many users:</p>
+<ol>
+<li>Before they had any interaction with the map, disable zooming with the mouse wheel</li>
+<li>After they had an interaction, enable zooming with the mouse wheel</li>
+<li>When they click away, or interact with other parts of the page, disable zooming with mouse wheel again</li>
+</ol>
+<h2 id="demo">Demo</h2>
+<ol>
+<li>Just scroll with the mouse wheel over the map</li>
+<li>Click onto the map</li>
+<li>Start zooming in and out with the mouse wheel</li>
+<li>Click somewhere outside of the map</li>
+<li>Scroll with mouse wheel over the map to just scroll the page</li>
+<li>Repeat these steps [at most a few times - no endless loop :)]</li>
+</ol>
+<p><div id="map" style="width: 100%; height: 350px; position: relative;"></div></p>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    function loadScript() {
+        if (window.google && window.google.maps) {
+            window.loadMap();
+            return;
+        }
+
+        var script = document.createElement('script');
+        script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=loadMap';
+        document.body.appendChild(script);
+    }
+
+    window.loadMap = function() {
+        if (!window.$ || !window.google || !window.google) {
+            return setTimeout(loadMap, 100);
+        }
+
+        $(function() {
+            var el = $('#map');
+            var map;
+
+            function enableScrollingWithMouseWheel() {
+                map.setOptions({ scrollwheel: true });
+            }
+
+            function disableScrollingWithMouseWheel() {
+                map.setOptions({ scrollwheel: false });
+            }
+
+            function init() {
+                map = new google.maps.Map(el[0], {
+                    zoom: 10,
+                    center: new google.maps.LatLng(47.49840560, 19.04075779),
+                    scrollwheel: false // disableScrollingWithMouseWheel as default
+                });
+
+                google.maps.event.addListener(map, 'mousedown', function(){
+                    enableScrollingWithMouseWheel()
+                });
+            }
+
+            init();
+
+            $('body').on('mousedown', function(event) {
+                var clickedInsideMap = $(event.target).parents('#map').length > 0;
+
+                if(!clickedInsideMap) {
+                    disableScrollingWithMouseWheel();
+                }
+            });
+
+            $(window).scroll(function() {
+                disableScrollingWithMouseWheel();
+            });
+        });
+    };
+
+    loadScript();
+</script>
+
+<h2 id="update-16-03-2014-">Update (16/03/2014)</h2>
+<p>I edited the source code to use <code>mousedown</code> event instead of <code>click</code>.
+This helps when the user drags the map - dragging counts also as an interaction with the map.</p>
+<h2 id="source-code">Source code</h2>
+<pre><code class="language-JavaScript">var el = $(&#39;#map&#39;);
+var map;
+
+function enableScrollingWithMouseWheel() {
+    map.setOptions({ scrollwheel: true });
+}
+
+function disableScrollingWithMouseWheel() {
+    map.setOptions({ scrollwheel: false });
+}
+
+function init() {
+    map = new google.maps.Map(el[0], {
+        zoom: 10,
+        center: new google.maps.LatLng(47.49840560, 19.04075779),
+        scrollwheel: false // disableScrollingWithMouseWheel as default
+    });
+
+    google.maps.event.addListener(map, &#39;mousedown&#39;, function(){
+        enableScrollingWithMouseWheel()
+    });
+}
+
+google.maps.event.addDomListener(window, &#39;load&#39;, init);
+
+$(&#39;body&#39;).on(&#39;mousedown&#39;, function(event) {
+    var clickedInsideMap = $(event.target).parents(&#39;#map&#39;).length &gt; 0;
+
+    if(!clickedInsideMap) {
+        disableScrollingWithMouseWheel();
+    }
+});
+
+$(window).scroll(function() {
+    disableScrollingWithMouseWheel();
+});</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Switching background color of an image with Gimp</title>
+            <link>http://bdadam.com/blog/switching-background-color-with-gimp.html</link>
+            <description>
+                <![CDATA[
+                <p>As a web developers we sometimes come across some tasks which are not that strictly related to development, but rather to design. For me such a task was a few days ago, when I found a neat background pattern, but the color just didn&#39;t fit the site I was working on.</p>
+
+                <p>For this mini tutorial I&#39;m using this <a href="http://subtlepatterns.com/food/" rel="external,nofollow">pattern from subtlepatterns.com</a></p>
+<div class="text-center">
+    <img src="/static/article-assets/gimp-background-change/food.png" alt="Original background pattern"/>
+    &nbsp;
+    <img src="/static/article-assets/gimp-background-change/food_blue.png" alt="Modified pattern with different background color"/>
+    <p>Before on the left, after on the right</p>
+</div>
+
+<h2 id="here-is-what-to-do-">Here is what to do:</h2>
+<ol>
+<li>Open the picture in Gimp</li>
+<li>Get the hex code of the color, which you want to switch (in this case fac564)</li>
+<li>Then go to Colors &gt; Color to Alpha... (If it&#39;s grayed out, just switch the Image &gt; Mode from Indexed to <strong>RGB</strong>)</li>
+<li>After this you should see the same image, just with transparent background color. So now we create a new background layer with the desired color.</li>
+<li>At the end just export the new image and have fun</li>
+</ol>
+<h2 id="the-steps-as-images">The steps as images</h2>
+<p><img src="/static/article-assets/gimp-background-change/gimp-capture-color-code.jpg" alt="Capturing color code" title="Capturing color code"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha-grayed-out.jpg" alt="Color to Alpha grayed out" title="Color to Alpha grayed out"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-change-mode-to-rgb.jpg" alt="Image mode to RGB" title="Image mode to RGB"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha.jpg" alt="Color to Alpha" title="Color to Alpha"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-color-to-alpha-window.jpg" alt="Color to Alpha window" title="Color to Alpha window"/></p>
+<p><img src="/static/article-assets/gimp-background-change/gimp-new-background-layer.jpg" alt="Final step - creating new background layer with desired color" title="Final step - creating new background layer with desired color"/></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Panning and scrolling background images using the canvas element</title>
+            <link>http://bdadam.com/blog/panning-and-scrolling-background-images-using-the-canvas-element.html</link>
+            <description>
+                <![CDATA[
+                <p>I&#39;m planning to create a simple 2D game in plain JavaScript. As the first step I would like to show, how to animate (pan or scroll) a background image using the canvas element. I am also going to show some basic setup code in order to have a loop where we can draw the frames.</p>
+
+                <p>There are two common scenarios for simple 2D games:</p>
+<ul>
+<li>There is a huge background image for the entire level. All the activities have this same background image, but the viewport&#39;s position is chaging</li>
+<li>There is a small image which is scrolled all the time (tipically from right to left) as the player advances</li>
+</ul>
+<h2 id="panning-the-viewport-inside-the-background-image">Panning the viewport inside the background image</h2>
+<iframe src="/figures/panning-background.html" style="width: 100%; height: 230px;"></iframe>
+
+<h2 id="demo">Demo</h2>
+<p>Please click on the button to start the animation.</p>
+<iframe src="/samples/canvas-background-panning.html" style="width: 100%; height: 370px; border: none;"></iframe>
+
+<h2 id="how-it-works">How it works</h2>
+<p>We have a function which is called for every frame our game draws.
+In this method we calculate the position of the viewport. For this basic example I chose to derive the position from the elapsed time.
+Therefore the camera takes an elliptical path.</p>
+<pre><code class="language-JavaScript">function draw(delta) {
+    totalSeconds += delta;
+    var x = -1 * (img.width - canvas.width) / 2 * (1 + Math.cos(totalSeconds / Math.PI));
+    var y = -1 * (img.height - canvas.height) / 2 * (1 + -Math.sin(totalSeconds / Math.PI));
+
+    context.drawImage(img, x, y);
+}</code></pre>
+<h2 id="scrolling-the-background-image-infinitely">Scrolling the background image infinitely</h2>
+<p>In the second case the background image is scrolling infinitely as time and the player advances.
+It&#39;s like when playing Mario, but the camera is centered on Mario the whole time.</p>
+<iframe src="/figures/scrolling-background.html" style="width: 100%; height: 180px;"></iframe>
+
+<p>In the animation above we can see, that for this effect we need at least 2 images (can be the same) or more, depending on the viewport size.</p>
+<h2 id="demo">Demo</h2>
+<p>Please click on the button to start the animation.
+The vertical black lines mean the edges of the single images.
+For this example I&#39;m using the same image and we have a constant speed of 100 pixels/sec.</p>
+<iframe src="/samples/canvas-background-scrolling.html" style="width: 100%; height: 370px; border: none;"></iframe>
+
+<h2 id="how-it-works">How it works</h2>
+<p>The background position is also derived from the elapsed time (constant speed).</p>
+<ol>
+<li>We calculate how many images are needed to cover the viewport: <code>Math.ceil(canvas.width / img.width) + 1</code></li>
+<li>We calculate the current X-position: <code>totalSeconds * vx % img.width</code>. Please note the modulo operator here.</li>
+<li>We store the current context state and translate our canvas to make the drawing easier.</li>
+<li>We draw the images - one after the other.</li>
+<li><p>We restore the context&#39;s state.</p>
+<pre><code class="language-JavaScript">function draw(delta) {
+ totalSeconds += delta;
+
+ var vx = 100; // the background scrolls with a speed of 100 pixels/sec
+ var numImages = Math.ceil(canvas.width / img.width) + 1;
+ var xpos = totalSeconds * vx % img.width;
+
+ context.save();
+ context.translate(-xpos, 0);
+ for (var i = 0; i &lt; numImages; i++) {
+     context.drawImage(img, i * img.width, 0);
+ }
+ context.restore();
+}</code></pre>
+</li>
+</ol>
+<h2 id="all-the-code-which-calls-our-draw-function">All the code which calls our <code>draw()</code> function</h2>
+<p>In order for this to work, we have some more work to do. This is the setup code I used for these examples.</p>
+<ol>
+<li>I used some basic <code>requestAnimationFrame</code> polyfill</li>
+<li>The animation gets only started after the image is loaded successfully (onload).</li>
+<li>Some start/stop logic and button</li>
+<li>And the <code>loop()</code> function which gets called in every frame when our animation is running. Here we need <code>requestAnimationFrame()</code>.</li>
+</ol>
+<pre><code class="language-JavaScript">(function() {
+    window.requestAnimationFrame = window.requestAnimationFrame
+            || window.webkitRequestAnimationFrame
+            || window.mozRequestAnimationFrame
+            || function(callback) { window.setTimeout(callback, 1000 / 60); };
+
+    var canvas = document.getElementById(&#39;bg&#39;);
+    var context = canvas.getContext(&#39;2d&#39;);
+    var looping = false;
+    var totalSeconds = 0;
+
+    var img = new Image();
+    img.onload = imageLoaded;
+    img.src = &#39;IMG_SOURCE&#39;;
+
+    function imageLoaded() {
+        draw(0);
+
+        var btn = document.getElementById(&#39;btnStart&#39;);
+        btn.addEventListener(&#39;click&#39;, function() {
+            startStop();
+        });
+    }
+
+    var lastFrameTime = 0;
+
+    function startStop() {
+        looping = !looping;
+
+        if (looping) {
+            lastFrameTime = Date.now();
+            requestAnimationFrame(loop);
+        }
+    }
+
+    function loop() {
+        if (!looping) {
+            return;
+        }
+
+        requestAnimationFrame(loop);
+
+        var now = Date.now();
+        var deltaSeconds = (now - lastFrameTime) / 1000;
+        lastFrameTime = now;
+        draw(deltaSeconds);
+    }
+
+
+    function draw(delta) {
+        /* Here happens some magic. */
+    }
+}());</code></pre>
+<p><strong>In order to see the full source code, please view these pages</strong></p>
+<ol>
+<li><a href="/samples/canvas-background-panning.html" rel="noindex,nofollow" target="_blank">Panning the viewport inside the background image</a></li>
+<li><a href="/samples/canvas-background-scrolling.html" rel="noindex,nofollow" target="_blank">Scrolling the background image</a></li>
+</ol>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Finding a random document in MongoDB (with benchmarks)</title>
+            <link>http://bdadam.com/blog/finding-a-random-document-in-mongodb.html</link>
+            <description>
+                <![CDATA[
+                <p>Finding a random element is not a trivial task when using MongoDB - especially when performance is crutial.</p>
+
+                <h2 id="finding-one-random-document-method-1">Finding one random document - Method 1</h2>
+<ol>
+<li><p>First of all you have to count how many documents you have in the collection.
+Optionally you can provide a filter condition (query).</p>
+<p><code>N = db.myCollection.count(query)</code></p>
+</li>
+<li><p>Then you have to generate a random number which is less than the number you counted before.</p>
+<p><code>R = Math.floor(Math.random() * N)</code></p>
+</li>
+<li><p>Then skip that many records and retrieve the next one.
+If you provided a query at the first step, here you have to use it as well.</p>
+<p><code>db.collection.find(query).limit(1).skip(R))</code></p>
+</li>
+</ol>
+<h3 id="let-s-see-an-example">Let&#39;s see an example</h3>
+<pre><code class="language-JavaScript">var query = { state: &#39;OK&#39; };
+var n = db.myCollection.count(query);
+var r = Math.floor(Math.random() * n);
+var randomElement = db.myCollection.find(query).limit(1).skip(r);</code></pre>
+<h3 id="pro-">Pro:</h3>
+<p>The data can be intact, no preparation is needed.</p>
+<h3 id="con-">Con:</h3>
+<ul>
+<li>This one is the slowest method.
+But this approach may still be OK, depending on the case. It definitely has tradeoffs when the collection has a large amount of documents:
+The <code>skip</code> command has to scan at least <code>R</code> number of documents.
+If the number of documents retrieved by the query is large, the random number <code>R</code> is also going to be large.</li>
+</ul>
+<h2 id="finding-one-random-document-method-2">Finding one random document - Method 2</h2>
+<p>For this method to work, the data has too meet some constraints:</p>
+<ul>
+<li>Each document should have a field with a random number, e.g. when saving <code>db.myCollection.save({ name: &#39;name&#39;, ..., rnd: Math.random() })</code></li>
+<li>The collection should have an index on this field, e.g. <code>db.myCollection.ensureIndex({ rnd: 1 })</code></li>
+</ul>
+<p>When the data is all set up, querying is rather easy:</p>
+<pre><code class="language-JavaScript">var query = {
+    state: &#39;OK&#39;,
+    rnd: {
+        $gte: Math.random()
+    }
+};
+
+var randomElement = db.myCollection.findOne({ $query: query, $orderby: { rnd: 1 } });</code></pre>
+<h3 id="pro-">Pro:</h3>
+<ul>
+<li>Not having to skip any document.</li>
+</ul>
+<h3 id="con-">Con:</h3>
+<ul>
+<li>Data has to have field with a random number stored in it</li>
+<li>This random field should also have an index</li>
+<li>Sorting reduces performance</li>
+</ul>
+<h2 id="finding-one-random-document-method-2-5">Finding one random document - Method 2.5</h2>
+<p>There is a simpler variant of the second method. It doesn&#39;t retrieve a truly random document, but it may be enough for the specific case.</p>
+<pre><code class="language-JavaScript">var query = {
+    state: &#39;OK&#39;,
+    rnd: {
+        $gte: Math.random()
+    }
+};
+
+var randomElement = db.myCollection.findOne(query);</code></pre>
+<p>Please note that there is no <code>$orderby</code>. This can improve performance. The price is that documents are sorted in &quot;find order&quot; rather than &quot;random order&quot;.
+But this could be fine in many cases.</p>
+<h3 id="pro-">Pro:</h3>
+<ul>
+<li>Not having to skip any document</li>
+<li>Performance</li>
+</ul>
+<h3 id="con-">Con:</h3>
+<ul>
+<li>Not truly random document</li>
+<li>Data has to have a field with a random number stored in it</li>
+<li>This field also should have an index</li>
+</ul>
+<h2 id="benchmarks">Benchmarks</h2>
+<p>I created a very simple benchmark. The setup looks like this:</p>
+<pre><code class="language-JavaScript">var i = 1000000;
+while(i) {
+    db.test.save({
+        name: &quot;some lorem ipsum not important&quot;,
+        rnd: Math.random()
+    });
+    i--;
+}
+db.test.ensureIndex({ rnd: 1 });</code></pre>
+<p>Then I ran all the three methods on my computer with a local database, 10000 times each.</p>
+<pre><code class="language-JavaScript">var startDate = new Date();
+var i = 10000;
+while (i) {
+    var n = db.test.count();
+    var r = Math.floor(Math.random() * n);
+    var randomElement = db.test.find().limit(1).skip(r);
+    i--;
+}
+var t1 = new Date() - startDate;
+
+
+var startDate = new Date();
+var i = 10000;
+while (i) {
+    var query = {
+        rnd: {
+            $gte: Math.random()
+        }
+    };
+
+    var randomElement = db.myCollection.findOne({ $query: query, $orderby: { rnd: 1 } });
+    i--;
+}
+var t2 = new Date() - startDate;
+
+
+var startDate = new Date();
+var i = 10000;
+while (i) {
+    var query = {
+        rnd: {
+            $gte: Math.random()
+        }
+    };
+
+    var randomElement = db.myCollection.findOne(query);
+    i--;
+}
+var t3 = new Date() - startDate;
+
+
+print(t1, t2, t3);</code></pre>
+<h2 id="and-the-winner-is-method-2-5-">And the winner is &quot;Method 2.5&quot;</h2>
+<p>Here are my benchmark results:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:right">Time for 10,000 runs (seconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Method 2.5</td>
+<td style="text-align:right">2.234</td>
+</tr>
+<tr>
+<td style="text-align:left">Method 2</td>
+<td style="text-align:right">2.297</td>
+</tr>
+<tr>
+<td style="text-align:left">Method 1</td>
+<td style="text-align:right">2.813</td>
+</tr>
+</tbody>
+</table>
+<p>Although the differences are not quite big, the winner is definitely &quot;Method 2.5&quot;.
+I think, when using more realistic data, the differences are also going to be much larger.</p>
+<p>Do you have your own benchmark results with different data? Please feel free to comment it.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Tracking clicks with Google Analytics</title>
+            <link>http://bdadam.com/blog/tracking-clicks-with-google-analytics.html</link>
+            <description>
+                <![CDATA[
+                <p>Every website has some links or buttons, users are clicking on them. But do webmasters know which ones do users click most often? Are there maybe some, which are not clicked at all? Maybe you just built a shiny new navigation and you may ask &quot;do users use it?&quot;. Clicktracking gives you the answer. When using Google Analytics the results are just shown on your dashboard.</p>
+
+                <h2 id="why-would-you-track-clicks-on-a-website-">Why would you track clicks on a website?</h2>
+<p>I think the answer to this question is very easy: to know, what users are clicking and where they are clicking.
+You maybe have questions like these:</p>
+<ul>
+<li>Are users using the breadcrumbs?</li>
+<li>Are users clicking on &#39;back to&#39; links?</li>
+<li>Do they click on the images in the gallery?</li>
+<li>What works better, a button or a link?</li>
+<li>Are red buttons working better than green buttons on a specific page?</li>
+<li>etc.</li>
+</ul>
+<h2 id="let-s-find-the-answers">Let&#39;s find the answers</h2>
+<pre><code class="language-html">&lt;button id=&quot;playVideo&quot;&gt;Play video&lt;/button&gt;
+&lt;script&gt;
+    $(&#39;#playVideo&#39;).click(function() {
+        video.play(); // doing some work
+
+        _gaq.push([&#39;_trackEvent&#39;, &#39;Videos&#39;, &#39;Play&#39;, video.title]); // the &#39;old&#39; way, when using the old tracking code
+        /* or */
+        ga(&#39;send&#39;, &#39;event&#39;, &#39;Videos&#39;, &#39;Play&#39;, video.title); // when using Universal Analytics
+    });
+&lt;/script&gt;</code></pre>
+<p>This way you track events in Google Analytics which show up under Behaviour &gt; Events on your Dashboard.
+In the example above we are always generating an event when somebody clicks on the play button.
+With these events we also store what really happened: category=Videos, action=Play, label=&#39;title of video&#39;.</p>
+<h2 id="which-link-was-clicked-">Which link was clicked?</h2>
+<p>We just have to set the arguments properly, and then we exactly know which link was clicked.</p>
+<pre><code class="language-html">&lt;a href=&quot;/my-cool-page.html&quot; class=&quot;greenButton&quot;&gt;Go to my cool page&lt;/a&gt;
+...
+&lt;a href=&quot;/my-cool-page.html&quot; class=&quot;redButton&quot;&gt;Go to my cool page&lt;/a&gt;
+...
+&lt;a href=&quot;/my-cool-page.html&quot; class=&quot;blueButton&quot;&gt;Go to my cool page&lt;/a&gt;
+
+&lt;script&gt;
+$(&#39;.greenButton, .redButton, .blueButton&#39;).click(function() {
+    var className = this.className;
+
+    _gaq.push([&#39;_trackEvent&#39;, &#39;Click&#39;, &#39;Link&#39;, className]); // the &#39;old&#39; way, when using the old tracking code
+    /* or */
+    ga(&#39;send&#39;, &#39;event&#39;, &#39;Click&#39;, &#39;Link&#39;, className); // when using Universal Analytics
+});
+&lt;/script&gt;</code></pre>
+<p>This method is also perfectly suitable for A/B testing. We just have to take care of displaying each variant equally for the visitors of our site.</p>
+<h2 id="what-the-docs-don-t-say">What the docs don&#39;t say</h2>
+<p>The modern browsers are quite fast. When users click on links, it happens quite often, that Google Analytics has not finished tracking the event.
+But the browser navigates away from the page, and at the end the event doesn&#39;t get registered at all.</p>
+<p><em>What to do?</em></p>
+<p>With listening to <code>mousedown</code> event, we can reduce the number of lost events:</p>
+<pre><code class="language-JavaScript">$(&#39;.myButton&#39;).mousedown(function() {
+    // track click
+});</code></pre>
+<p>Or using a little hack, we can track even more events. But this one has a tradeoff:
+the user has to wait more till the new page is loaded. In some situations it is maybe acceptable, but try to avoid this because
+slower loading pages usually mean worse user experience. Which means less pageviews, more frustrated users and <em>less conversion</em>.</p>
+<p>Here is the hack:</p>
+<pre><code class="language-JavaScript">$(&#39;.myLink&#39;).click(function() {
+    var href = this.href; // getting the URL of the next page
+
+    setTimeout(function() {
+        window.location.href = href; // after a timeout of 250ms we navigate to the URL, where the user wanted to go
+    }, 250);
+
+    return false; // preventing default behaviour, so that the browser doesn&#39;t navigate away
+});</code></pre>
+<p>References:</p>
+<ul>
+<li><a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/events" rel="external,nofollow">Event tracking with Universal Analytics</a></li>
+<li><a href="https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide" rel="external,nofollow">Event tracking with ga.js</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Comparison helper for Handlebars.js</title>
+            <link>http://bdadam.com/blog/comparison-helper-for-handlebars.html</link>
+            <description>
+                <![CDATA[
+                <p>Personally, I was always missing some sort of comparison helper in Handlebars.js. I know, I know, it&#39;s sort of being against the philosophy of Handlebars - being logicless. But I still wanted to have it.</p>
+
+                <h2 id="comparing-two-variables-almost-like-in-plain-javascript">Comparing two variables almost like in plain JavaScript</h2>
+<p>Thankfully I found a similar <a href="http://stackoverflow.com/a/16315366/2374649" rel="external,nofollow">question on Stack and a superb answer from a user called Jim</a>.</p>
+<pre><code class="language-JavaScript">Handlebars.registerHelper(&#39;ifCond&#39;, function (v1, operator, v2, options) {
+    switch (operator) {
+        case &#39;==&#39;:
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case &#39;===&#39;:
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case &#39;!==&#39;:
+            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&lt;&#39;:
+            return (v1 &lt; v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&lt;=&#39;:
+            return (v1 &lt;= v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&gt;&#39;:
+            return (v1 &gt; v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&gt;=&#39;:
+            return (v1 &gt;= v2) ? options.fn(this) : options.inverse(this);
+        case &#39;&amp;&amp;&#39;:
+            return (v1 &amp;&amp; v2) ? options.fn(this) : options.inverse(this);
+        case &#39;||&#39;:
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});</code></pre>
+<p>Here is how one would use it:</p>
+<pre><code class="language-html">\{{#ifCond value &quot;===&quot; value2}}
+    Values are equal!
+\{{else}}
+    Values are different!
+\{{/ifCond}}</code></pre>
+<h2 id="update">Update</h2>
+<p>As Eugene Mirotin pointed out, this solution could be much DRYer, so here is an improved variant of the code which does the same thing:</p>
+<pre><code class="language-JavaScript">(function() {
+    function checkCondition(v1, operator, v2) {
+        switch(operator) {
+            case &#39;==&#39;:
+                return (v1 == v2);
+            case &#39;===&#39;:
+                return (v1 === v2);
+            case &#39;!==&#39;:
+                return (v1 !== v2);
+            case &#39;&lt;&#39;:
+                return (v1 &lt; v2);
+            case &#39;&lt;=&#39;:
+                return (v1 &lt;= v2);
+            case &#39;&gt;&#39;:
+                return (v1 &gt; v2);
+            case &#39;&gt;=&#39;:
+                return (v1 &gt;= v2);
+            case &#39;&amp;&amp;&#39;:
+                return (v1 &amp;&amp; v2);
+            case &#39;||&#39;:
+                return (v1 || v2);
+            default:
+                return false;
+        }
+    }
+
+    Handlebars.registerHelper(&#39;ifCond&#39;, function (v1, operator, v2, options) {
+        return checkCondition(v1, operator, v2)
+                    ? options.fn(this)
+                    : options.inverse(this);
+    });
+}());</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>One more reason to check for strict equality in JavaScript</title>
+            <link>http://bdadam.com/blog/one-more-reason-to-check-for-strict-equality-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                
+                <p>Some JavaScript fun without further explanation.</p>
+<pre><code class="language-JavaScript">var a = [0, 1, 2, 3, 4, 5, 6];
+console.log(a[3]); // 3
+console.log(a[[3]]); // 3
+console.log(a[[[3]]]); // 3
+console.log(a[[[[3]]]]); // 3
+console.log(a[[[[[3]]]]]); // 3
+console.log(a[&quot;3&quot;]); // 3
+
+console.log(3 == [3]); // true
+console.log(3 == [[3]]); // true
+
+console.log(3 === [[3]]); // false
+
+3 === Number([3].valueOf().toString()) // true
+console.log([3].valueOf()) // [3]
+console.log([3].valueOf().toString()) // 3
+console.log(Number(&quot;3&quot;)) // 3
+// therefore:
+3 === Number([3].valueOf().toString()) // true</code></pre>
+<p>Resources - questions on Stack Overflow:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1995113/strangest-language-feature/2008728#2008728" rel="external,nofollow">Strangest language feature</a></li>
+<li><a href="http://stackoverflow.com/a/1724551" rel="external,nofollow">Why does 2 == [2] in JavaScript?</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Finally always wins, unless you crash your computer meanwhile</title>
+            <link>http://bdadam.com/blog/finally-always-wins-unless-you-crash-your-computer-meanwhile.html</link>
+            <description>
+                <![CDATA[
+                
+                <p>In JavaScript it is perfectly valid to have a return statement in a finally block. But this doesn&#39;t mean, you should really put it in there.
+Consider the following code:</p>
+<pre><code class="language-JavaScript">function whatDoesThisReturn() {
+    try {
+        return false;
+    } finally {
+        return true;
+    }
+}
+
+console.log(whatDoesThisReturn());</code></pre>
+<p>Basically the <code>finally</code> block is called after the <code>try</code> block, therefore it overrides the return value.</p>
+<p><em>So this function returns <code>true</code>.</em></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Strange error when installing npm package globally on Ubuntu</title>
+            <link>http://bdadam.com/blog/strange-error-when-installing-npm-package-globally-on-ubuntu.html</link>
+            <description>
+                <![CDATA[
+                <p>Installing modules globally has never been a problem for me, neither on Windows nor on Ubuntu. At least until today, when I ran into a somewhat strange problem.</p>
+
+                <p>I tried to install the pm2 package on an Ubuntu 12.04 Server (<code>sudo npm install -g pm2@latest</code>),
+but the package just didn&#39;t want to install correctly.
+I kept getting gyp error messages and this one: &quot;OSError: [Errno 13] Permission denied&quot;.
+I thought it was impossible to get this error since I was running the install command as root (sudo).</p>
+<h2 id="installing-modules-with-the-unsafe-perm-flag">Installing modules with the unsafe-perm flag</h2>
+<p>And after a while I found the solution: using the unsafe-perm flag.
+<code>sudo npm install -g pm2@latest --unsafe-perm</code></p>
+<p>What the docs say about this flag:</p>
+<blockquote>
+<p>If npm was invoked with root privileges, then it will change the uid to the user account or uid specified by the user config, which defaults to nobody.
+Set the unsafe-perm flag to run scripts with root privileges.</p>
+</blockquote>
+<p><em>And it worked for me like a charm!</em></p>
+<p>Honestly, I have to admit, that it is not 100% clear to me, why it made any difference in this case.
+I suspect that it was because of gyp. Does anybody maybe have a better explanation?</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Defining properties in JavaScript</title>
+            <link>http://bdadam.com/blog/defining-properties-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>JavaScript has always supported basic properties on objects. But the time is approaching when IE8 support is not relevant anymore, so we can use a more modern approach (ES5) for defining properties. There is one difference though to other programming languages - like C# - that we always define properties on objects and not on types.</p>
+
+                <h2 id="defining-properties-on-objects-with-object-defineproperty-">Defining properties on objects with Object.defineProperty()</h2>
+<pre><code class="language-JavaScript">var obj = {};
+
+Object.defineProperty(obj, &quot;myProperty&quot;, {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: 13
+});</code></pre>
+<p>The first two arguments are very obvious, but the third one is where all the magic happens. This argument is a property descriptor. Let&#39;s see what we can do with it.</p>
+<h3 id="enumerable">Enumerable</h3>
+<p>This attribute simply tells whether the property should show up in enumerations like <code>for ... in</code> loops or in <code>Object.keys()</code>.</p>
+<p>Defaults to <code>false</code>.</p>
+<h3 id="configurable">Configurable</h3>
+<p>This attribute sets whether the property can be reconfigured at a later point in the code or whether it can be deleted from the object.</p>
+<p>Defaults to <code>false</code>.</p>
+<h3 id="writable">Writable</h3>
+<p>This attribute sets whether a property is read-only or not.</p>
+<p>Defaults to <code>false</code> except in Google Chrome.</p>
+<h3 id="value">Value</h3>
+<p>The value of a property can be anything, any valid JavaScript value (Number, Date, Array, Function, etc.).</p>
+<p>Defaults to <code>undefined</code>.</p>
+<h2 id="defining-getter-and-or-setter-functions">Defining getter and/or setter functions</h2>
+<p>It is also very easy to define getter and setter functions. Let&#39;s take a look at the example below:</p>
+<pre><code class="language-JavaScript">var obj = {};
+var propValue = 100;
+Object.defineProperty(obj, &quot;prop&quot;, {
+    get: function(){ return propValue; },
+    set: function(newValue){ propValue = newValue; },
+    enumerable : true,
+    configurable : true
+});</code></pre>
+<h2 id="invalid-cases">Invalid cases</h2>
+<pre><code class="language-JavaScript">var obj = {};
+Object.defineProperty(obj, &#39;undeletable&#39;, { value: 100, configurable: false });
+console.log(obj.undeletable); // 100
+delete obj.undeletable;
+console.log(obj.undeletable); // 100
+
+var obj = {};
+Object.defineProperty(obj, &#39;notWorking&#39;, {
+    value: 100,
+    get: function() { return 300; }
+});
+// TypeError: Invalid property. A property cannot both have accessors and be writable or have a value, #&lt;Object&gt;
+
+var obj = {};
+Object.defineProperty(obj, &#39;notWorking&#39;, {
+    get: function() { return 300; },
+    writable: true
+});
+// TypeError: Invalid property. A property cannot both have accessors and be writable or have a value, #&lt;Object&gt;</code></pre>
+<h2 id="defining-multiple-properties-on-the-same-object">Defining multiple properties on the same object</h2>
+<pre><code class="language-JavaScript">var obj = {};
+
+Object.defineProperties(obj, {
+    &quot;hello&quot;: {
+        value: &quot;Hello&quot;,
+        writable: true
+    },
+    &quot;world&quot;: {
+        value: &quot;World!&quot;,
+        writable: false
+    }
+});</code></pre>
+<h2 id="browser-support">Browser support</h2>
+<p>Good news, the <code>Object.defineProperty()</code> is supported in all modern browsers.
+The only problematic one is Internet Explorer 8, which only allows to define properties on DOM objects).</p>
+<h2 id="performance">Performance</h2>
+<p>At the moment, using <code>Object.defineProperty()</code> is definitely slower than using basic properties like in the old days - but not that much.
+For more detailed performance tests take a look at <a href="http://jsperf.com/object-defineproperty-vs-definegetter-vs-normal" rel="external,nofollow">jsperf.com</a>.</p>
+<h2 id="resources-">Resources:</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" rel="external,nofollow">Object.defineProperty() on MDN</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" rel="external,nofollow">Object.defineProperties() on MDN</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Playing Mario in the browser</title>
+            <link>http://bdadam.com/blog/playing-mario-in-the-browser.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you enjoyed playing Mario in the old days? Me too. If you want to play with it again, you just have to follow some simple steps and the game is ready to be played right in your browser. Let&#39;s try it.</p>
+
+                <p><img src="/static/article-assets/mario.png" alt="Screenshot from the game"/></p>
+<p class="legal center">Screenshot from the game</p>
+
+<p>I found a very interesting project on Github: <a href="https://github.com/Diogenesthecynic/FullScreenMario" rel="external,nofollow">FullScreenMario</a>.
+As the creator says:</p>
+<blockquote>
+<p>An HTML5 remake of the original Super Mario Brothers - expanded for wide screens.</p>
+</blockquote>
+<p>The official website of the game is not working anymore, since Nintendo complained about copyright infridgement.</p>
+<h2 id="good-news">Good news</h2>
+<p>We can still play the game. We just have to download the sources (or clone the repository), start a webserver locally and navigate to the local url.</p>
+<ol>
+<li>Download this: <a href="https://github.com/Diogenesthecynic/FullScreenMario/archive/master.zip" rel="external,nofollow">master.zip</a></li>
+<li>Extract the files</li>
+<li><code>cd path/to/files</code></li>
+<li>Start a webserver (e. g. <code>serve</code> <a href="/blog/serve-a-practical-command-line-webserver.html">serve</a>)</li>
+<li>Navigate to the game</li>
+</ol>
+<p><strong>Have fun!</strong></p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Building desktop apps with node.js and web technologies</title>
+            <link>http://bdadam.com/blog/building-desktop-apps-with-node-js-and-web-technologies.html</link>
+            <description>
+                <![CDATA[
+                <p>Native apps with web technologies are not a mobile-only thing anymore. The node-webkit project makes it possible to write standalone desktop apps with JavaScript, HTML5 and CSS3. The coolest thing about this is, that both server side (node.js) and client side (jQuery, AngularJS, etc.) JavaScript libraries can be used.</p>
+
+                <p><img src="/static/article-assets/node-webkit-screen.png"/></p>
+<p class="legal center">Screenshot of a hello world app created with node-webkit</p>
+
+<p>A few hours ago I found this project called <a href="https://github.com/rogerwang/node-webkit" rel="external,nofollow">node-webkit</a>.
+It seems to be living and mature enough to use it. But since I don&#39;t need it now, I blog about it, so that I can remember it in the appropriate moment.</p>
+<h2 id="how-does-it-work-">How does it work?</h2>
+<ol>
+<li>Write your application.</li>
+<li>Create a zip file of all your assets (call it package.nw).</li>
+<li>You can just ship this file along with the node-webkit executable file</li>
+<li>Alternatively you can create an executable file from the package with a few dll files along</li>
+<li>If you want to have a single executable file, it&#39;s recommended to box the files with <a href="http://enigmaprotector.com/en/aboutvb.html" rel="external,nofollow">Enigma Virtual Box</a></li>
+</ol>
+<h2 id="attack-of-the-contexts">Attack of the contexts</h2>
+<p>There is a concept which might be a little crazy at first sight. There are different contexts with different global object for node modules and UI windows.
+In the web context we have a <code>window</code> object (or many if we have multiple windows), which we don&#39;t have in a node module.
+If we have to reach the window object of the current UI context, we have to pass it to the node module.
+We get most of the problem with <code>instanceof</code> because the constructors like <code>Array</code> or <code>Date</code> are children of the context-dependent global object.
+After just quickly building a &quot;hello world&quot; app I can&#39;t really tell to what extent this can be a problem or difficulty.</p>
+<h2 id="supported-platforms">Supported platforms</h2>
+<p>There are prebuilt binaries for Windows, OSX and Linux.</p>
+<p><strong>References:</strong></p>
+<ul>
+<li>For more details and docs take a look at the <a href="https://github.com/rogerwang/node-webkit" rel="external,nofollow">project&#39;s Github site</a>.
+The features are well-documented.</li>
+<li><a href="http://strongloop.com/strongblog/creating-desktop-applications-with-node-webkit/" rel="external,nofollow">Creating Desktop Applications With node-webkit </a></li>
+<li><a href="http://oldgeeksguide.github.io/presentations/html5devconf2013/wtod.html#/" rel="external,nofollow">WebApp to DesktopApp with Node-Webkit</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>How to redirect www to naked domain and vice versa with NGINX?</title>
+            <link>http://bdadam.com/blog/how-to-redirect-www-to-naked-domain-and-vice-versa-with-nginx.html</link>
+            <description>
+                <![CDATA[
+                <p>One thing almost every website needs is redirection. Many websites decide to serve their visitors both over www and non-www site, just in case the user types it into the browser. But for SEO it&#39;s bad, when you have the same site over two different domains. Here is, how to solve this issue with NGINX.</p>
+
+                <h2 id="redirecting-www-to-non-www-with-if-statement">Redirecting www to non-www with <code>if</code> statement</h2>
+<pre><code class="language-nginx"><span class="title">server</span> {
+    <span class="title">listen</span> <span class="number">80</span>;
+
+    <span class="title">server_name</span> www.example.com example.com;
+
+    <span class="title">if</span> (<span class="variable">$host</span> = <span class="string">'www.example.com'</span> ) {
+        <span class="comment"># redirecting www.example.com to example.com</span>
+        <span class="comment"># path, query string are retained</span>
+        <span class="title">rewrite</span> <span class="regexp"> ^/(.*)$</span>  <span class="url">http://example.com/$1</span>  <span class="built_in">permanent</span>;
+    }
+}</code></pre>
+<p>Please note that <code>if</code> is <a href="http://wiki.nginx.org/IfIsEvil" rel="external,nofollow">considered evil</a> inside NGINX configuration,
+but it is perfectly OK in this case. The official docs say, that there are two cases when <code>if</code> is &quot;100% safe&quot;:</p>
+<ul>
+<li>redirect (our case)</li>
+<li>return</li>
+</ul>
+<pre><code class="language-nginx"><span class="title">if</span> (<span class="variable">$request_method</span> = POST ) {
+    <span class="title">return</span> <span class="number">405</span>;
+}
+<span class="title">if</span> (<span class="variable">$args</span> <span class="regexp">~ post=140)</span>{
+    <span class="title">rewrite</span><span class="regexp"> ^</span> <span class="url">http://example.com/</span> <span class="built_in">permanent</span>;
+}</code></pre>
+<h2 id="redirecting-www-to-non-www-without-if-statement">Redirecting www to non-www without <code>if</code> statement</h2>
+<p>The trick in this case is that we have to define two server blocks.</p>
+<pre><code class="language-nginx">server {
+    listen       80;
+    server_name  www.example.com;
+
+    # redirecting www.example.com to example.com
+    # path, query string are retained
+    return       301 http://example.com$request_uri;
+}
+
+server {
+    listen       80;
+    server_name  example.com;
+    ...
+}</code></pre>
+<h2 id="redirecting-non-www-to-www">Redirecting non-www to www</h2>
+<pre><code class="language-nginx">server {
+    listen       80;
+    server_name  example.com;
+
+    # redirecting example.com to www.example.com
+    # path, query string are retained
+    return       301 http://www.example.com$request_uri;
+}
+
+server {
+    listen       80;
+    server_name  www.example.com;
+    ...
+}</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>How to register a bower package</title>
+            <link>http://bdadam.com/blog/how-to-register-a-bower-package.html</link>
+            <description>
+                <![CDATA[
+                <p>A few weeks ago I posted about my <a href="http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html">PubSub module</a>. Since then I registered it as a bower package. It was actually my first bower package. I am going to show you how easy it was.</p>
+
+                <p>Installing bower is as simple as typing <code>npm install -g bower</code>.
+If you don&#39;t know bower, here is what the <a href="https://github.com/bower/bower" rel="external,nofollow">docs say</a> about it:</p>
+<blockquote>
+<p>Bower is a package manager for the web. It offers a generic, unopinionated solution to the problem of front-end package management, while exposing the package dependency model via an API that can be consumed by a more opinionated build stack. There are no system wide dependencies, no dependencies are shared between different apps, and the dependency tree is flat.</p>
+</blockquote>
+<h3 id="requirements-for-a-bower-package-">Requirements for a bower package:</h3>
+<ul>
+<li>The package sources should be hosted in a git repository</li>
+<li>Each package has to have a JSON manifest</li>
+<li>Using <a href="http://semver.org/" rel="external,nofollow">semver</a> git tags</li>
+</ul>
+<h2 id="registration-steps">Registration steps</h2>
+<ol>
+<li>Generate a JSON manifest with <code>bower init</code>. During the process we have to answer some questions.</li>
+<li>Check the generated <code>bower.json</code> file and fill in the missing parts if needed (e.g. dependecies, keywords, author, etc.)</li>
+<li>Commit the json file and set a semver tag with <code>git tag -a v1.0.0 -m &#39;my version 1.0.0&#39;</code></li>
+<li>Register your package with calling <code>bower register packageName git://packageRepository-url</code></li>
+<li>When everything goes fine, the package should be registered now</li>
+</ol>
+<p>At the end of the process everybody should be able to install your package with <code>bower install packageName</code>.
+For a more detailed example you can take a look at my <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">PubSub package</a>.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Demystifying AngularJS&#x27; dependency injection</title>
+            <link>http://bdadam.com/blog/demistifying-angularjs-dependency-injection.html</link>
+            <description>
+                <![CDATA[
+                <p>Many people think that it is some kind of magic, how AngularJS resolves dependencies given as function arguments. But it isn&#39;t any magic. I&#39;ll show you, how they achieve it. This technique can be used everywhere, not just with AngularJS.</p>
+
+                <p>If you don&#39;t know what does dependency injection look like with AngularJS, here is an example:</p>
+<pre><code class="language-html">&lt;div ng-controller=&quot;GreetCtrl&quot;&gt;
+    Hello {{name}}!
+&lt;/div&gt;
+&lt;script&gt;
+function GreetCtrl($scope, $rootScope) {
+    $scope.name = &#39;World&#39;;
+    $rootScope.department = &#39;Angular&#39;;
+}
+&lt;/script&gt;</code></pre>
+<p>We just have to put <code>$scope</code> and <code>$rootScope</code> into the function arguments, and when Angular calls the controller (<code>GreetCtrl</code>)
+it knows with parameters it has to call the function.</p>
+<h2 id="how-do-they-do-it-">How do they do it?</h2>
+<p>It&#39;s fairly easy in JavaScript to get the source code of the every function. We just have to call the <code>.toString()</code> method of the function objects.</p>
+<pre><code class="language-JavaScript">function sum(x, y) {
+    alert(x + y);
+}
+
+console.log(sum.toString()); // prints the complete code of the function</code></pre>
+<p>Here we go. We just have to find a way to extract the argument list of our function.</p>
+<pre><code class="language-JavaScript">// The following simplified code is partly taken from the AngularJS source code:
+// https://github.com/angular/angular.js/blob/master/src/auto/injector.js#L63
+
+function inject(fn, variablesToInject) {
+    var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
+    var FN_ARG_SPLIT = /,/;
+    var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
+    var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+
+    if (typeof fn === &#39;function&#39; &amp;&amp; fn.length) {
+        var fnText = fn.toString(); // getting the source code of the function
+        fnText = fnText.replace(STRIP_COMMENTS, &#39;&#39;); // stripping comments like function(/*string*/ a) {}
+
+        var matches = fnText.match(FN_ARGS); // finding arguments
+        var argNames = matches[1].split(FN_ARG_SPLIT); // finding each argument name
+
+        var newArgs = [];
+        for (var i = 0, l = argNames.length; i &lt; l; i++) {
+            var argName = argNames[i].trim();
+
+            if (!variablesToInject.hasOwnProperty(argName)) {
+                // the argument cannot be injected
+                throw new Error(&quot;Unknown argument: &#39;&quot; + argName + &quot;&#39;. This cannot be injected.&quot;);
+            }
+
+            newArgs.push(variablesToInject[argName]);
+        }
+
+        fn.apply(window, newArgs);
+    }
+}
+
+function sum(x, y) {
+    console.log(x + y);
+}
+
+inject(sum, {
+    x: 5,
+    y: 6
+}); // should print 11
+
+inject(sum, {
+    x: 13,
+    y: 45
+}); // should print 58
+
+inject(sum, {
+    x: 33,
+    z: 1 // we are missing &#39;y&#39;
+}); // should throw an error: Unknown argument: &#39;y&#39;. This cannot be injected.</code></pre>
+<p>So it&#39;s really not a big deal, is it?</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Hosting static web pages and assets with Google Drive</title>
+            <link>http://bdadam.com/blog/hosting-static-web-pages-and-assets-with-google-drive.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever needed to quickly deploy a website somewhere? Maybe to show a client some demo content? Or to show a buddy your newest static web app? Here&#39;s the solution.</p>
+
+                <p>Google Drive officially supports hosting static files (like web pages and their assets).
+According to a discussion on Stack Exchange it doesn&#39;t violate the TOC when hotlinking these resources (free CDN?).</p>
+<h2 id="here-is-what-to-do-">Here is what to do:</h2>
+<ol>
+<li>Create a new folder in Google Drive</li>
+<li>Change its visibility options to: &quot;Public on the web&quot;</li>
+<li>Upload your files (html, css, js, images, swf, etc.)</li>
+<li>It&#39;s recommended to place an index.html file into the folder, which will be the default document in the directory</li>
+<li>Grab the URL of your folder (currently shown on the right under &quot;HOSTING&quot; when you select your newly created folder)</li>
+<li>There you go, just enter this URL into the browser. It should be something like <code>https://googledrive.com/host/12345678901234567890abcd/</code></li>
+<li>You should be able to reference files directly inside that folder, e.g. <code>https://googledrive.com/host/12345678901234567890abcd/css/main.min.css</code></li>
+</ol>
+<p><em>Please note that this method is really meant to host static files. There is no support for backend code.</em></p>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><a href="https://support.google.com/drive/answer/2881970?hl=en" rel="external,nofollow">Official Google Drive documentation (little bit obsolete)</a></li>
+<li><a href="http://webapps.stackexchange.com/questions/27142/google-drive-image-hotlinking" rel="external,nofollow">Stack Exchange discussion</a></li>
+</ul>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Strong caching with NGINX</title>
+            <link>http://bdadam.com/blog/strong-caching-with-nginx.html</link>
+            <description>
+                <![CDATA[
+                <p>Strong caching is very important nowadays since it can reduce page load times for the users (and eventually it can also reduce network transfer costs for the publishers). Here we see a simple example how to do it with NGINX for static files like css, JavaScript and images.</p>
+
+                <pre><code class="language-nginx">server {
+    location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+        root /var/www/mysite;
+        expires max;
+        add_header Cache-Control &quot;public&quot;;
+        access_log off;
+        break;
+    }
+}</code></pre>
+<p>Of course after modifying the config file we have to reload the configs (e. g. on Ubuntu we have to type <code>sudo /etc/init.d/nginx reload</code>)</p>
+<p>There are a few things to note here:</p>
+<ul>
+<li>we set the &quot;expires&quot; header to max age, which means these resources can stay in the browser cache &#39;forever&#39;</li>
+<li>we are setting the &quot;Cache-Control&quot; header to &quot;public&quot;, which means that the resource &quot;may be cached in public shared caches&quot;</li>
+<li>we turn off access logging here, because these requests are in many cases not that important</li>
+<li>if you set expiration to max-age, you have to be sure that the requested resources really never change (some kind of cache busting)</li>
+<li>these settings can live in the <code>location</code> section or in the <code>server</code> section of an nginx config file</li>
+</ul>
+<p>Have you already enabled strong caching for yout asset files?</p>
+<p><strong> Update:</strong>
+Maybe you noticed the lookahead in the regex.
+It has a reason to be there: this way the regex engine doesn&#39;t create a capture group (no $1) so it has better performance.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Error handling in JavaScript</title>
+            <link>http://bdadam.com/blog/error-handling-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever wondered, what&#39;s the proper way of throwing JavaScript errors? And how to handle them? Here we&#39;ll see some examples and we&#39;ll define some custom error types.</p>
+
+                <p><em>Additional bonus: the following code examples also work in node.js not just in the browsers.</em></p>
+<h2 id="throwing-errors">Throwing Errors</h2>
+<p>Throwing errors is very simple, we just need the <code>throw</code> statement.</p>
+<pre><code class="language-JavaScript">function throwsAnError() {
+    throw new Error(&#39;An error occured&#39;);
+}
+
+try {
+    throwsAnError();
+} catch(ex) {
+    console.log(ex.message); // An error occured
+}</code></pre>
+<p>Theoretically it&#39;s possible to throw any kind of object, but it&#39;s not really recommended throwing anything else than <code>Error</code> or one of its derived (custom) types.
+The reason for this is, that browsers not always work as you would expect.
+Some of them (IE, Safari) only show &quot;uncaught exception&quot; and don&#39;t show the object which was thrown.</p>
+<h2 id="default-error-types-in-javascript">Default error types in JavaScript</h2>
+<p>There are six predefined error types in JavaScript:</p>
+<ul>
+<li>EvalError: when an error occurs in the <code>eval()</code> function</li>
+<li>RangeError: when a parameter or variable is not in its valid numeric range</li>
+<li>ReferenceError: when an invalid reference is de-referenced (e.g. using a variable which has not been defined)</li>
+<li>SyntaxError: when there is a syntax error in some scripts</li>
+<li>TypeError: when a parameter or variable is not of a valid type</li>
+<li>URIError: when passing invalid parameters to URI function (<code>encodeURI()</code> or <code>decodeURI()</code>)</li>
+</ul>
+<h2 id="handling-specific-errors">Handling specific errors</h2>
+<p>Here comes the <code>instanceof</code> operator handy, when our codes runs into a catch. With its help we can check which type does the exception belong to.</p>
+<pre><code class="language-JavaScript">try {
+    // doSomethingWithNumbersAndURIs();
+} catch (ex) {
+    if (ex instanceof RangeError) {
+        alert(&#39;Value not in range!&#39;);
+    } else if (ex instanceof URIError) {
+        alert(&#39;Value not an URI!&#39;);
+    } else {
+        // some basic error handling
+    }
+}</code></pre>
+<h2 id="throwing-custom-errors">Throwing custom errors</h2>
+<p>This is also very simple, we just have to create a constructor for our error type which is derived from <code>Error</code>.
+There&#39;s one little catch though, line numbers are shown incorrectly.</p>
+<pre><code class="language-JavaScript">function CustomError(message) {
+  this.name = &quot;CustomError&quot;;
+  this.message = message || &quot;Some default message&quot;;
+}
+CustomError.prototype = new Error();
+CustomError.prototype.constructor = CustomError;
+
+try {
+    throw new CustomError(&#39;An error occured!&#39;);
+} catch(ex) {
+    console.log(ex.name); // CustomError
+    console.log(ex.message); // Ann error occured!
+}</code></pre>
+<p>If you are interested in more details:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error" rel="external,nofollow">Mozilla Developer Network Documentation</a></li>
+<li><a href="http://www.nczonline.net/blog/2009/03/10/the-art-of-throwing-javascript-errors-part-2/" rel="external,nofollow">NCZOnline</a></li>
+</ol>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Adding tab support to textareas</title>
+            <link>http://bdadam.com/blog/adding-tab-support-to-textareas.html</link>
+            <description>
+                <![CDATA[
+                <p>Have you ever wondered how is it possible to support tabs in a textarea? Normally when you press the tab key, the focus jumps to the next element. But with some JavaScript &#39;magic&#39; it&#39;s possible to indent or unindent the text.</p>
+
+                <p>The code detects when the user presses TAB or SHIFT+TAB - the current line gets indented or unindented.
+Source code for the example can be found here: <a href="https://gist.github.com/bdadam/8721698" rel="external,nofollow">gist.github.com/bdadam/8721698</a>.</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta name=&quot;charset&quot; content=&quot;utf-8&quot;/&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt;
+    &lt;meta name=&quot;author&quot; content=&quot;Adam Beres-Deak&quot;/&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;/&gt;
+    &lt;style&gt;
+        body {
+            padding: 40px;
+        }
+        textarea {
+            width: 100%;
+            height: 350px;
+            font-family: CourierNew, Courier;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;textarea id=&quot;tx&quot;&gt;&lt;/textarea&gt;
+    &lt;script&gt;
+    function enableTab(id) {
+        var shiftPressed = false;
+        var ctrlPressed = false;
+        var tabChar = &#39;    &#39;;
+
+        function checkSpecialKeys(e) {
+            switch(e.keyCode) {
+                case 16:
+                    shiftPressed = !shiftPressed;
+                    break;
+                case 17:
+                    ctrlPressed = !ctrlPressed;
+            }
+        }
+
+        document.addEventListener(&#39;keydown&#39;, checkSpecialKeys);
+        document.addEventListener(&#39;keyup&#39;, checkSpecialKeys);
+
+        function addTab(textarea) {
+            // caching some values, because they are changing as text changes
+            var value = textarea.value,
+                start = textarea.selectionStart,
+                end = textarea.selectionEnd;
+
+            // adding tab character to actual cursor position
+            textarea.value = value.substring(0, start) + tabChar + value.substring(end);
+
+            // putting cursor back to its original position
+            textarea.selectionStart = textarea.selectionEnd = start + tabChar.length;
+        }
+
+        function removeTab(textarea) {
+            var curPos = textarea.selectionStart,
+                lines = textarea.value.split(&#39;\n&#39;),
+                newValue = &#39;&#39;,
+                done = false,
+                cnt = 0;
+
+            for (var i = 0, l = lines.length; i &lt; l; i++) {
+                // iterating through each line
+                var line = lines[i];
+                cnt += line.length;
+                if (cnt &gt;= curPos &amp;&amp; !done) {
+                    // cursor is in this line
+                    var newLine = line.replace(new RegExp(&#39;^&#39; + tabChar, &#39;&#39;), &#39;&#39;);
+
+                    if (newLine !== line) {
+                        // there was a tab at the beginning of the line, replace was succesfull, cursor must be moved backwards some
+                        line = newLine;
+                        curPos -=tabChar.length;
+                    }
+
+                    done = true; // only one substitution per run
+                }
+
+                newValue += line + &#39;\n&#39;;
+            }
+
+            // setting new value
+            textarea.value = newValue;
+
+            // putting cursor back to its original position
+            textarea.selectionStart = textarea.selectionEnd = curPos;
+        }
+
+        var textArea = document.getElementById(id);
+        textArea.addEventListener(&#39;keydown&#39;, function(e) {
+            if (e.keyCode === 9) {
+
+                if (!shiftPressed) {
+                    addTab(this);
+                } else {
+                    removeTab(this);
+                }
+
+                return false; // preventing losing focus
+            }
+        });
+    }
+
+    enableTab(&#39;tx&#39;);
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Serve - a practical command line webserver</title>
+            <link>http://bdadam.com/blog/serve-a-practical-command-line-webserver.html</link>
+            <description>
+                <![CDATA[
+                <p>A few weeks ago I found a very amazing tool - it&#39;s called &quot;serve&quot;.</p>
+
+                <h2 id="what-can-it-do-for-you-">What can it do for you?</h2>
+<p>Just simply serve you files over <code>http://</code> protocol. Besides static files it supports jade templates, stylus and less.
+I usually use it, when I need an ad-hoc web server, like when downloading some sources from github and I want to check out the examples.
+They sometimes need a &#39;real web server&#39;, because of the limitations of the <code>file://</code> protocol.</p>
+<h2 id="how-to-use-it-">How to use it?</h2>
+<p>Install it the usual way with <code>npm install -g serve</code> and you should be fine.
+Then just simply <code>cd</code> into the directory which you want to be able to access from <code>http://localhost</code> and run <code>serve</code>.
+Default port is 3000 but, as many things, it&#39;s configurable.
+That&#39;s it.</p>
+<p>For more documentation visit the <a href="https://github.com/visionmedia/serve" rel="external,nofollow">github/serve</a> project page.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Fat arrows for JavaScript</title>
+            <link>http://bdadam.com/blog/fat-arrows-for-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>I have to admit, I have completely overseen, that fat arrows ( =&gt; ) are coming to JavaScript. The syntax is much the same as in C#. This also means that LINQ is also on its way to the JavaScript world.</p>
+
+                <p>I have to say one thing I really like, when I&#39;m working with C#, is LINQ and the lambda expressions. If you don&#39;t know what they are, here is an example:</p>
+<pre><code class="language-C#">var areThereAnySportsCars = cars.Where(x =&gt; x.HorsePower &gt; 300 &amp;&amp; x.Seats == 2).Any(y =&gt; y.Color == &#39;RED&#39;);</code></pre>
+<p>I think it&#39;s very easy to see what this expression does: it filters the <code>cars</code> array for cars which have more than 300 HP and exactly 2 seats,
+then checks whether there are any red ones.</p>
+<h2 id="how-does-it-look-like-in-javascript-">How does it look like in JavaScript?</h2>
+<pre><code class="language-JavaScript">var sportsCars = cars.where(x =&gt; x.horsePower &gt; 300 &amp;&amp; x.seats === 2).any(y =&gt; y.Color === &#39;RED&#39;);</code></pre>
+<p>Do you notice any differences (besides triple = signs and casing)? No there isn&#39;t.</p>
+<h2 id="where-is-the-catch-">Where is the catch?</h2>
+<p>Unfortunately there is a catch:
+Currently this syntax is only supported in Firefox.
+Althought Firefox has been supporting it for more than a year now (almost two), its support is completely missing in Chrome.
+But the syntax is in the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:arrow_function_syntax" rel="external,nofollow">ES6 Draft</a>,
+so we can hope that Google also decides to support it.</p>
+<h2 id="more-examples">More examples</h2>
+<pre><code class="language-JavaScript">var sqaure = function(x) { return x * x; };
+var squareNew = x =&gt; x * x;
+
+var sum = function(a, b) {return a + b};
+var sumNew = (a, b) =&gt; a + b;
+
+domElement.addEventListener(&#39;click&#39;, function(event) { handleEvent(event.target); });
+domElement.addEventListener(&#39;click&#39;, event =&gt; handleEvent(event.target));
+
+[1,2,3].map(function(x) { return x + 1; });
+[1,2,3].map(x =&gt; x + 1);</code></pre>
+<h2 id="what-s-this-">What&#39;s <code>this</code>?</h2>
+<p>One of the most complicated things when teaching people JavaScript is to teach what is the value of <code>this</code>.
+With fat arrows we get a function expression which has some limitations:</p>
+<ol>
+<li><code>this</code> is bound to the context, where you use the fat arrow</li>
+<li>they cannot be used as a constructor (they throw an error)</li>
+</ol>
+<p>Some examples:</p>
+<pre><code class="language-JavaScript">// With conventional function definitions
+var obj = {
+    logThis: function() {
+        console.log(this); //this is obj
+        var log = function() {
+            console.log(this); //this is the global object (window)
+        };
+
+        log();
+    }
+};
+
+myObj.logThis();
+/*
+This call logs:
+Object { logThis=function() }
+Window
+*/
+
+// With fat arrows
+var obj = {
+    logThis: function() {
+        console.log(this); //this is obj
+        var log = () =&gt; console.log(this); //this is also obj
+
+        log();
+    }
+};
+
+obj.logThis();
+/*
+This call logs:
+Object { logThis=function() }
+Object { logThis=function() }
+*/
+
+var X = a =&gt; a*3;
+
+new X(); // TypeError: X is not a constructor</code></pre>
+<h2 id="ok-but-where-is-linq-">OK - but where is LINQ?</h2>
+<p>There have always been many LINQ-like implementations in JavaScript. They usually simply take a function expression as a parameter,
+so it&#39;s not a big deal to use fat arrows instead of conventional function expressions.</p>
+<pre><code class="language-JavaScript">var isThereAnySportsCar = cars.where(function(car) { return car.horsePower &gt; 300; }).any(function(c) { return c.seats === 2; });
+
+var isThereAnySportsCar = cars.where(car =&gt; car.horsePower &gt; 300).any(c =&gt; c.seats === 2);</code></pre>
+<p>But LINQ is not just about the syntax. In LINQ every item of the original array goes through the whole pipeline, so that the original array is only iterated once.
+In plain old JavaScript (ECMAScript 3) this was impossible. In ES6 generators are coming, which are solving this issue.
+I&#39;m not going to go into details now, lets have it for another blog post.</p>
+<p>There is <a rel="external,nofollow" href="https://github.com/aaronpowell/linq-in-javascript/">one LINQ implementation</a> which I really like.
+It&#39;s far awy from feature completeness, but it shows how it should be done.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Why I chose to statically generate my website</title>
+            <link>http://bdadam.com/blog/why-i-chose-a-statically-generated-website.html</link>
+            <description>
+                <![CDATA[
+                <p>I was long searching for the perfect blog engine for this site. More precisely I was planning to build a blog engine myself. I wanted to keep it simple, so I didn&#39;t want to use something overkill like Wordpress or Drupal. And I also like to code. But then I realised I don&#39;t really need to do this. Building a blog engine is boring, time consuming and so on. So I had to find a simpler alternative.</p>
+
+                <h2 id="what-did-i-need-">What did I need?</h2>
+<p>I wanted to have a website where I can show, who I am. I also wanted to write some articles and then publish them.
+I wanted to have some sort of statistics about my users. That&#39;s all, not that much.</p>
+<h2 id="lets-take-a-look-at-what-i-was-planning">Lets take a look at what I was planning</h2>
+<p>I knew I wanted to have some static pages like &#39;about me&#39;, &#39;contact&#39; and some dynamic pages like blog posts. So I need a database, right?
+Lets get one instance at <a href="http://mongolab.com" rel="external,nofollow">MongoLab</a>.</p>
+<p>Then I was sure I need some continuous integration (CI) environment and a LIVE environment. That was fine, since I already have a web server.
+So I knew I wanted to write and edit my articles. So I need a &#39;members area&#39;, with an editor, with https connection and authentication?
+Then I thought it&#39;s too much for this small site. Lets look for something smaller.</p>
+<h2 id="first-i-found-markdown-again">First I found markdown again</h2>
+<p>I always knew that markdown is very convenient (at least for a coder). Then I came across <a href="http://stackedit.io" rel="external,nofollow">stackedit.io</a>.
+It the best markdown editor I have ever seen. Maybe better then a plain text editor.
+So I was sure I wanted to write my articles in markdown. So I don&#39;t need to have an editor myself, Stackedit does the job for me.</p>
+<h2 id="i-remembered-i-saw-something">I remembered I saw something</h2>
+<p>This thing was called <a href="http://wintersmith.io/" rel="external,nofollow">Wintersmith</a>. A static website generator for node.js.
+Unfortunately written in CoffeeScript. What a shame. But I started to use it. It was almost working but I didn&#39;t like it.</p>
+<p>So I was looking for alternatives. And then I found <a href="http://assemble.io">Assemble</a>.
+It is also a static website generator, actually a GruntJS task. But I liked it better and for templating it uses handlebars instead of Jade.</p>
+<h2 id="here-i-am-now">Here I am now</h2>
+<p>Now I am using Assemble to generate my site. But I am not absolutely happy with it. I am missing some features, which I&#39;m going to need in a few weeks.
+Therefore I think I will build my own static website generator.</p>
+<h2 id="what-are-the-benefits-of-statically-generating-this-site-">What are the benefits of statically generating this site?</h2>
+<ol>
+<li>It&#39;s fast. Every page is generated once on my desktop computer and then hosting is cheap and easy. No more surprises when a blog post accidentally hits the top of Hackernews.</li>
+<li>Deployment is also very easy. I just have to copy some files over SCP and that&#39;s it.</li>
+<li>Less things can be hacked. :)</li>
+<li>No need for caching. Almost every web-server does this for us out of the box.</li>
+<li>In the end less things can go wrong.</li>
+</ol>
+<h2 id="there-are-also-some-tradeoffs">There are also some tradeoffs</h2>
+<p>Editing and publishing is definitely more complex than just hitting a button called &quot;Publish&quot;. I cannot do them conveniently over my smart phone, I need my laptop.</p>
+<h2 id="how-does-my-workflow-look-like-">How does my workflow look like?</h2>
+<ol>
+<li>I write my article in markdown.</li>
+<li>I (re)generate the html files.</li>
+<li>Then I push the changes to <a href="http://github.com/bdadam/bdadam.com" rel="external,nofollow">my code repository</a></li>
+<li>At last I copy the files to my webserver and check whether everything is fine. That&#39;s all.</li>
+</ol>
+<h2 id="why-is-my-code-repository-publicly-available-on-github-">Why is my code repository publicly available on GitHub?</h2>
+<ol>
+<li>I don&#39;t need to hide it in a private repository, since every page in this blog is public.</li>
+<li>It is a good example for others who are also using (or planning to use) Assemble and are looking for some examples.</li>
+<li>It doesn&#39;t cost a thing.</li>
+</ol>
+<p>So I think this is the best for my tiny blog. But I am not affraid of changes. I definitely will change everything.</p>
+<p>Do you also like static site generation?</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>A simple PubSub module in JavaScript</title>
+            <link>http://bdadam.com/blog/a-simple-pubsub-module-in-javascript.html</link>
+            <description>
+                <![CDATA[
+                <p>I have always been a fan of simple things, such as the PubSub pattern. A few weeks ago I discovered this pattern again, when I was looking for a way to separate some JavaScript modules which don&#39;t really have to know about each other but have to have some sort of communication.</p>
+
+                <h2 id="tldr">TLDR</h2>
+<p>I believe that publish/subscribe (PubSub) is a very powerfull pattern. Therefore I have recently open sourced my implementation of it in JavaScript. The full source code can be found on GitHub: <a href="https://github.com/bdadam/PubSub" rel="external,nofollow">github.com/bdadam/PubSub</a>.
+It&#39;s completely dependency-free and very small (under 1kb).</p>
+<h2 id="what-is-pubsub-">What is PubSub?</h2>
+<blockquote>
+<p>In software architecture, publish–subscribe is a messaging pattern where senders of messages, called publishers, do not program the messages to be sent directly to specific receivers, called subscribers. Instead, published messages are characterized into classes, without knowledge of what, if any, subscribers there may be. Similarly, subscribers express interest in one or more classes, and only receive messages that are of interest, without knowledge of what, if any, publishers there are.
+Pub/sub is a sibling of the message queue paradigm, and is typically one part of a larger message-oriented middleware system.
+<small>Source: <a href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Wikipedia</a></small></p>
+</blockquote>
+<h2 id="differences-between-dom-events-and-pubsub">Differences between DOM events and PubSub</h2>
+<p>PubSub is very similar to the DOM events, except: there is only one object which fires events and accepts listeners.
+When using DOM events, a listener is registered on the DOM node which fires the event.</p>
+<pre class="prettyprint lang-js"><code>document.getElementById('someId').addEventListener('click', function() { /* event listener */ });
+</code></pre>
+
+<p>In a <em>PubSub</em> architecture a publisher doesn&#39;t know its subscribers and a message receiver doesn&#39;t know where the message comes from. Both parties only know a mediator object which handles the broadcasting of the messages.</p>
+<pre class="prettyprint lang-js"><code>// PubSub is the global mediator object
+
+PubSub.subscribe('anEvent', function(eventName, eventData) {
+    console.log(eventName); // "anEvent"
+    console.log(eventData.something); // 1
+    console.log(eventData.someOtherThing); // 2
+});
+
+PubSub.publish('anEvent', { something: 1, someOtherThing: 2 });
+</code></pre>
+
+<h2 id="the-power-of-pubsub">The power of PubSub</h2>
+<p>This pattern allows us to decouple modules from each other. E.g. think of an online shop, where users can add products to their carts. When adding a product, the website usually has to do some things:</p>
+<ul>
+<li>update number of items</li>
+<li>update total price</li>
+<li>do some tracking (e.g. Google Analytics)</li>
+<li>highlight the newly added product</li>
+<li>maybe play a small animation or even some sound effect (don&#39;t do it)</li>
+<li>etc.</li>
+</ul>
+<p>If a customer clicks on the &quot;Add to cart&quot; button, the button sends a message with the corresponding product as a payload. All the other components can listen to this event and act accordingly (update shopping cart, play animation, track it in Google Analytics and so on).</p>
+<h2 id="are-there-any-disadvantages-">Are there any disadvantages?</h2>
+<p>Yes, there are indeed. All the disadvantages come from the main advantage: publishers are decoupled from subscribers. This means:</p>
+<ol>
+<li>There is no guarantee that a message is delivered. PubSub is a fire and forget pattern.</li>
+<li>The publisher doesn&#39;t know, when a subscriber stops working.</li>
+</ol>
+<h2 id="what-does-all-this-look-like-in-javascript-code-">What does all this look like in JavaScript code?</h2>
+<pre class="prettyprint lang-js"><code >// What the button does
+$("#addProductButton").click(function() {
+    PubSub.publish("productAdded", {
+        product: {
+            id: 1234,
+            name: 'A Super Product',
+            price: 9900 // in cents
+        },
+        user: {
+            country: "DE",
+            loggedIn: true,
+            membershipStatus: "premium"
+        }
+    });
+});
+
+// Total price module increases the displayed total price when a product is added
+PubSub.subscribe('productAdded', function(eventData) {
+    increaseTotalPrice(eventData.product.price);
+});
+
+// Play the sound when Mario collects a coin
+PubSub.subscribe('productAdded', function() {
+    playSound('mario-coin');
+});
+
+// Tracking module
+PubSub.subscribe('productAdded', function(eventData) {
+    _gaq.push([
+        '_trackEvent',
+        'Products',
+        'Buy',
+        eventData.product.name,
+        eventData.product.price
+    ]);
+});
+</code></pre>
+
+<h2 id="how-to-install-it-">How to install it?</h2>
+<p>If you use bower, just execute <code>bower install pubsub</code> and then include pubsub.min.js in your code. E.g:  <code>&lt;script src=&quot;/bower_components/pubsub/pubsub.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>If you don&#39;t use bower then you can download <a href="https://raw.github.com/bdadam/PubSub/master/pubsub.min.js">pubsub.min.js</a> and include it. E.g.:
+<code>&lt;script src=&quot;/libs/pubsub/pubsub.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>You can also use it with require-js:</p>
+<pre><code class="language-javascript">require([<span class="string">'pubsub'</span>], <span class="function"><span class="keyword">function</span><span class="params">(PubSub)</span> {</span>
+    console.log(<span class="keyword">typeof</span> PubSub.publish); <span class="comment">// "function"</span>
+    console.log(<span class="keyword">typeof</span> PubSub.subscribe); <span class="comment">// "function"</span>
+    console.log(<span class="keyword">typeof</span> PubSub.unsubscribe); <span class="comment">// "function"</span>
+
+    <span class="comment">/* Please note: when using require js, the PubSub module doesn't register itself as a global object */</span>
+    console.log(<span class="keyword">typeof</span> window.PubSub); <span class="comment">// "undefined"</span>
+});</code></pre>
+<p>I think I am not the only one, who loves the simplicity and elegance of PubSub. If you do it as well, please consider using my implementation.
+It&#39;s free and it&#39;s published under the MIT license.</p>
+
+                ]]>
+            </description>
+        </item>
+        
+        <item>
+            <title>Wow, I started a blog</title>
+            <link>http://bdadam.com/blog/wow-i-started-a-blog.html</link>
+            <description>
+                <![CDATA[
+                <p>So the new year has come and I decided to start a blog. I try to learn new things every day. Here I want to collect my thoughts and document what I have learned so far, so that I don&#39;t forget them and don&#39;t have to learn them again later.</p>
+
+                
+                ]]>
+            </description>
+        </item>
+        
+    </channel>
+</rss>

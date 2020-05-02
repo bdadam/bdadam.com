@@ -2,10 +2,12 @@
     "name": "bdadam.com",
     "version": "0.1.0",
     "private": true,
-    "scripts": {},
-    "browserslist": [
-        "last 2 versions"
-    ],
+    "scripts": {
+        "dev": "next dev",
+        "build": "src/tools/generate-rss.ts && next build",
+        "export": "next export",
+        "rss": "src/tools/generate-rss.ts"
+    },
     "dependencies": {
         "@fullhuman/postcss-purgecss": "^2.1.2",
         "autoprefixer": "^9.7.6",
@@ -25,13 +27,14 @@
         "markdown-it-plantuml": "^1.4.1",
         "markdown-it-task-lists": "^2.1.1",
         "markdown-it-toc-done-right": "^4.0.2",
-        "next": "^9.3.5",
+        "next": "^9.3.6",
         "postcss-import": "^12.0.1",
         "preact": "^10.4.1",
         "prism-themes": "^1.4.0",
         "prismjs": "^1.20.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
+        "rss": "^1.2.2",
         "speakingurl": "^14.0.1",
         "tailwindcss": "^1.3.5",
         "ts-node-dev": "^1.0.0-pre.44",
@@ -44,6 +47,7 @@
         "@types/prismjs": "^1.16.0",
         "@types/react": "^16.9.34",
         "@types/react-dom": "^16.9.6",
+        "@types/rss": "^0.0.28",
         "prettier": "^2.0.5"
     }
 }
