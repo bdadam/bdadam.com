@@ -18,9 +18,17 @@ abstract:
 In many client side application for this task we can use a simple solution: a `function` which returns an incrementing number every time it's called. This can be sufficient for some client side apps where we don't store the id in any database (e.g. we use the id to generate DOM elements or some short-living objects).
 
 ```js
-let nextId = 0;
+let nextId = 1;
 function generateId() {
   return nextId++;
+}
+```
+
+We can even get rid of that `let nextId` variable if we define nextId as a property on the `generateId` function intself.
+
+```js
+function generateId() {
+  return (generateId.nextId = (generateId.nextId || 0) + 1);
 }
 ```
 
@@ -38,7 +46,7 @@ Let's see how we can generate such ids.
 
 ```js
 function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
       v = c == 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
@@ -56,7 +64,7 @@ For this to overcome we need to choose a better pseudo random number generator (
 
 ```js
 function uuidv4() {
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
     (
       c ^
       (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
