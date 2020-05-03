@@ -8,7 +8,7 @@ tags:
   - uuid
 
 abstract:
-  In any form of software development we often need a "name" to identify pieces of information
+  In any form of software development we often need a unique "name" to identify pieces of information
   (objects in memory, database entities, DOM elements, cars, persons and so on).
   This article will show how to generate such identifiers based on the needs, from simplest to more complex solutions.
 ---
@@ -28,7 +28,7 @@ We can even get rid of that `let nextId` variable if we define nextId as a prope
 
 ```js
 function generateId() {
-  return (generateId.nextId = (generateId.nextId || 0) + 1);
+  return (generateId._id = (generateId._id || 0) + 1);
 }
 ```
 
