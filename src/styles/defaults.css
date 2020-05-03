@@ -17,4 +17,12 @@ body {
 .small-caps {
     font-variant: small-caps;
 }
+
+a:not([class]) {
+    color: #1a0dab;
+}
+a:not([class]):hover {
+    color: hsl(245, 86%, 26%);
+    text-decoration: underline;
+}
 /* purgecss end ignore */
