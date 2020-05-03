@@ -9,6 +9,7 @@ import readArticles from '../../services/read-articles';
 import PageMetaTags from 'src/components/PageMetaTags';
 import SiteHeader from '../../components/SiteHeader';
 import SiteFooter from '../../components/SiteFooter';
+import { GitHub, Twitter, Linkedin, Xing, Email } from '../../components/Icons';
 
 type ArticlePageProps = {
     meta: PageMetaData;
@@ -32,52 +33,6 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
         import('../../services/prism').then((Prism) => Prism.default.highlightAll());
     });
 
-    // const iframesrcdoc = `
-    //     <style>
-    //     html, body, div, p { padding: 0; margin: 0; }
-    //     body {
-    //         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-    //             'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    //         color: #111;
-    //         background-color: #f1f1f1;
-    //     }
-    //     .bold { font-weight: bold; }
-    //     .tab-switcher {
-    //         background: none;
-    //         border: 0;
-    //         padding: 3px 12px;
-    //         border-bottom: 3px solid #ccc;
-    //     }
-    //     .tab-switcher.active {
-    //         color: purple;
-    //         border-bottom: 3px solid purple;
-    //     }
-    //     </style>
-    //     <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" id="alpine"></script>
-    //     <div x-data="{ tab: 'result' }">
-    //         <button :class="{ 'active': tab === 'source', 'tab-switcher': true }" @click="tab = 'source'">Source code</button>
-    //         <button :class="{ 'active': tab === 'result', 'tab-switcher': true }" @click="tab = 'result'">Result</button>
-
-    //         <div x-show="tab === 'source'">
-    //             <p>Sources</p>
-    //         </div>
-    //         <div x-show="tab === 'result'">
-    //             <div>Result</div>
-    //             <div>
-    //                 <div>ABCDEF</div>
-    //                 <script>
-    //                 console.log(document.body.clientHeight);
-    //                 var f = window.parent.document.getElementById('abcframe');
-    //                 var f = window.parent.document.querySelector('#abcdframe')
-    //                 console.log(f);
-    //                 </script>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    //     <script src="/source-viewer.js" id="source-viewer"></script>
-    // `;
-
     return (
         <>
             <PageMetaTags {...meta} />
@@ -85,11 +40,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
                 <SiteHeader />
                 <div className="flex-grow">
                     <div className="w-full max-w-screen-xl mx-auto px-6 pb-6 mb-4">
-                        <div
-                            // className="p-6 bg-blue-100 w-screen relative text-center mb-6"
-                            className="p-6 bg-blue-100 text-center mb-6"
-                            // style={{ marginLeft: '-50vw', left: '50%' }}
-                        >
+                        <div className="py-10">
                             <h1 className="font-bold text-2xl mb-2">{article.title}</h1>
                             <p className="text-gray-700">
                                 {article.dateFormatted} &middot; published by{' '}
@@ -119,46 +70,62 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
                                             <div>
                                                 <p className="font-bold text-xl">Adam Beres-Deak</p>
                                                 <p className="text-sm text-gray-700 small-caps">
-                                                    lead software engineer
+                                                    {/* lead software engineer */}
+                                                    software engineer
+                                                    {/* web enthusiast */}
                                                 </p>
                                             </div>
                                             {/* <span style={{ fontVariant: 'small-caps' }}>bdadam.com</span> */}
                                         </a>
                                     </Link>
                                     {/* <p>Adam is blah blubb</p> */}
-                                    <a href="https://github.com/bdadam" className="hover:underline mr-1" rel="external">
-                                        GitHub
-                                    </a>
-                                    <a
-                                        href="https://twitter.com/bdadamm"
-                                        className="hover:underline mr-1"
-                                        rel="external"
-                                    >
-                                        Twitter
-                                    </a>
-                                    <a
-                                        href="https://www.linkedin.com/in/bdadam/"
-                                        className="hover:underline mr-1"
-                                        rel="external"
-                                    >
-                                        LinkedIn
-                                    </a>
-                                    <a
-                                        href="https://www.xing.com/profile/Adam_BeresDeak"
-                                        className="hover:underline mr-1"
-                                        rel="external"
-                                    >
-                                        Xing
-                                    </a>
-                                    <a href="mailto:me@bdadam.com" className="hover:underline mr-1">
-                                        E-mail
-                                    </a>
+                                    <div className="">
+                                        <a
+                                            href="https://github.com/bdadam"
+                                            className="hover:underline mr-2 inline-block"
+                                            rel="external"
+                                            title="GitHub"
+                                        >
+                                            <GitHub width={32} height={32} />
+                                        </a>
+                                        <a
+                                            href="https://twitter.com/bdadamm"
+                                            className="hover:underline mr-2 inline-block"
+                                            rel="external"
+                                            title="Twitter"
+                                        >
+                                            <Twitter width={32} height={32} />
+                                        </a>
+                                        <a
+                                            href="https://www.linkedin.com/in/bdadam/"
+                                            className="hover:underline mr-2 inline-block"
+                                            rel="external"
+                                            title="LinkedIn"
+                                        >
+                                            <Linkedin width={32} height={32} />
+                                        </a>
+                                        <a
+                                            href="https://www.xing.com/profile/Adam_BeresDeak"
+                                            className="hover:underline mr-2 inline-block"
+                                            rel="external"
+                                            title="Xing"
+                                        >
+                                            <Xing width={32} height={32} />
+                                        </a>
+                                        <a
+                                            href="mailto:me@bdadam.com"
+                                            className="hover:underline mr-2 inline-block"
+                                            title="E-Mail"
+                                        >
+                                            <Email width={32} height={32} />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <hr className="my-6" />
-                        <h2 className="font-bold mb-3 text-2xl mt-20">Latest articles</h2>
+                        <h2 className="font-bold mb-3 text-2xl mt-10">Latest articles</h2>
                         <ul>
                             {latestArticles.map((a) => (
                                 <li className="mb-4" key={`latest-articles-${a.url}`}>

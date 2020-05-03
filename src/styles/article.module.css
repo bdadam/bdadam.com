@@ -61,4 +61,10 @@
 .article-body pre[class*='language'] {
     margin-bottom: 16px;
 }
+
+.article-body ul,
+.article-body ol {
+    list-style-type: initial;
+    padding-left: 40px;
+}
 /* purgecss end ignore */
