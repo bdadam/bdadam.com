@@ -13,8 +13,8 @@ const AboutPage: React.FC<{}> = () => {
                     <h1 className="py-10 text-2xl">Hi, this is Adam</h1>
                     <p className="mb-2">
                         I'm a software engineer in Munich, Germany. I currently work as a lead software engineer at
-                        AutoScout24 (the largest online car marketplace in Europe). Where over 10 millions of users see
-                        my work every month. I work on basically everything: frontend, backend, cloud-things and
+                        AutoScout24 (the largest online car marketplace in Europe). There over 10 million users see and
+                        use my work every month. I work on basically everything: frontend, backend, cloud-things and
                         sometimes ads and data analytics stuff.
                     </p>
                     <p className="mb-2">
