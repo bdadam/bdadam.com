@@ -67,4 +67,47 @@
     list-style-type: initial;
     padding-left: 40px;
 }
+
+.article-body dl {
+    margin-bottom: 0.6em;
+}
+
+.article-body dl dt {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.article-body dl dt:not(:first-of-type) {
+    margin-top: 8px;
+}
+
+.article-body dl dd {
+    margin-left: 10px;
+}
+
+.article-body dl dd::before {
+    content: '- ';
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.article-body table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+}
+
+.article-body table td,
+.article-body table th {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+}
+
+.article-body thead th {
+    border-bottom: 2px solid #ccc;
+}
+
+.article-body tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
 /* purgecss end ignore */
