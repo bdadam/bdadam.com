@@ -9,7 +9,8 @@ import readArticles from '../../services/read-articles';
 import PageMetaTags from 'src/components/PageMetaTags';
 import SiteHeader from '../../components/SiteHeader';
 import SiteFooter from '../../components/SiteFooter';
-import { GitHub, Twitter, Linkedin, Xing, Email } from '../../components/Icons';
+import TopArticles from 'src/components/TopArticles';
+import AboutAuthor from 'src/components/AboutAuthor';
 
 type ArticlePageProps = {
     meta: PageMetaData;
@@ -26,9 +27,14 @@ type ArticlePageProps = {
         title: string;
         intro: string;
     }>;
+    topArticles: Array<{
+        url: string;
+        title: string;
+        intro: string;
+    }>;
 };
 
-const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta }) => {
+const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta, topArticles }) => {
     useEffect(() => {
         import('../../services/prism').then((Prism) => Prism.default.highlightAll());
     });
@@ -52,74 +58,20 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
 
                         <div className="lg:flex">
                             <div className="lg:w-2/3 lg:mr-6">
-                                <div className="mb-2" dangerouslySetInnerHTML={{ __html: article.intro }} />
+                                <div className="mb-4" dangerouslySetInnerHTML={{ __html: article.intro }} />
                                 <div
                                     className={articleStyles['article-body']}
                                     dangerouslySetInnerHTML={{ __html: article.body }}
                                 ></div>
                             </div>
-                            <div className="flex-grow">
-                                <div className=" p-3 bg-blue-100 rounded">
-                                    {/* <p className="text-gray-600 mb-2">About the author</p> */}
-                                    <Link href="/about.html">
-                                        <a className="block flex items-center mb-2">
-                                            <div
-                                                style={{ backgroundImage: 'url(/face.jpg)' }}
-                                                className="rounded bg-contain w-12 h-12 mr-3"
-                                            ></div>
-                                            <div>
-                                                <p className="font-bold text-xl">Adam Beres-Deak</p>
-                                                <p className="text-sm text-gray-700 small-caps">
-                                                    {/* lead software engineer */}
-                                                    software engineer
-                                                    {/* web enthusiast */}
-                                                </p>
-                                            </div>
-                                            {/* <span style={{ fontVariant: 'small-caps' }}>bdadam.com</span> */}
-                                        </a>
-                                    </Link>
-                                    {/* <p>Adam is blah blubb</p> */}
-                                    <div className="">
-                                        <a
-                                            href="https://github.com/bdadam"
-                                            className="hover:underline mr-2 inline-block"
-                                            rel="external"
-                                            title="GitHub"
-                                        >
-                                            <GitHub width={32} height={32} />
-                                        </a>
-                                        <a
-                                            href="https://twitter.com/bdadamm"
-                                            className="hover:underline mr-2 inline-block"
-                                            rel="external"
-                                            title="Twitter"
-                                        >
-                                            <Twitter width={32} height={32} />
-                                        </a>
-                                        <a
-                                            href="https://www.linkedin.com/in/bdadam/"
-                                            className="hover:underline mr-2 inline-block"
-                                            rel="external"
-                                            title="LinkedIn"
-                                        >
-                                            <Linkedin width={32} height={32} />
-                                        </a>
-                                        <a
-                                            href="https://www.xing.com/profile/Adam_BeresDeak"
-                                            className="hover:underline mr-2 inline-block"
-                                            rel="external"
-                                            title="Xing"
-                                        >
-                                            <Xing width={32} height={32} />
-                                        </a>
-                                        <a
-                                            href="mailto:me@bdadam.com"
-                                            className="hover:underline mr-2 inline-block"
-                                            title="E-Mail"
-                                        >
-                                            <Email width={32} height={32} />
-                                        </a>
-                                    </div>
+                            <div className="lg:w-1/3 lg:max-w-xs">
+                                <div className=" p-5 bg-blue-100 rounded">
+                                    <AboutAuthor />
+                                </div>
+                                {/* TODO: fix improve colors to make text more readable */}
+                                <div className=" p-5 bg-yellow-100 mt-10 rounded text-gray-800">
+                                    <h4 className="font-bold mb-4 text-teal-600">Popular articles</h4>
+                                    <TopArticles articles={topArticles} />
                                 </div>
                             </div>
                         </div>
@@ -212,6 +164,22 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async (ctx) => {
                     intro: a.intro.html,
                 };
             }),
+            topArticles: [
+                articles.find((a) => a.slug === 'automatically-adapting-the-height-textarea.html'),
+                articles.find((a) => a.slug === 'finding-a-random-document-in-mongodb.html'),
+                articles.find(
+                    (a) => a.slug === 'panning-and-scrolling-background-images-using-the-canvas-element.html'
+                ),
+            ]
+                .filter((a) => a)
+                .filter((a) => a!.slug !== slug)
+                .map((a) => {
+                    return {
+                        title: a!.title,
+                        url: a!.url,
+                        intro: a!.intro.html,
+                    };
+                }),
         },
     };
 };
