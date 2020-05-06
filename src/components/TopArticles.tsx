@@ -13,7 +13,7 @@ const TopArticles: React.FC<Props> = ({ articles }) => {
         <ul>
             {articles.map((article) => {
                 return (
-                    <li className="mb-6">
+                    <li className="mb-6" key={`top-article-${article.url}`}>
                         <Link href="/blog/[slug]" as={article.url}>
                             <a className="block mb-1">
                                 <p className="font-bold hover:underline text-gray-800">{article.title}</p>
