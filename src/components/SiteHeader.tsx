@@ -7,10 +7,10 @@ const SiteHeader: React.FC<{}> = () => {
                 <nav className="w-full max-w-screen-xl mx-auto flex items-center px-3">
                     <Link href="/">
                         <a className="inline-block py-6 px-3 flex items-center hover:underline">
-                            <div
+                            {/* <div
                                 style={{ backgroundImage: 'url(/face.jpg)' }}
                                 className="rounded-full bg-contain w-12 h-12 mr-3"
-                            ></div>
+                            ></div> */}
                             {/* <span className="font-bold text-xl">Adam Beres-Deak</span> */}
                             <span className="font-bold text-2xl small-caps">bdadam.com</span>
                             {/* <span style={{ fontVariant: 'small-caps' }}>bdadam.com</span> */}

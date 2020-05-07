@@ -7,6 +7,7 @@ import { PageMetaData } from '../types';
 import PageMetaTags from '../components/PageMetaTags';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
+import { Feedly, Rss, GitHub, Twitter, Linkedin, Email, Xing } from 'src/components/Icons';
 
 type IndexPageProps = {
     meta: PageMetaData;
@@ -30,36 +31,105 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
             <div className="app flex flex-col min-h-screen">
                 <SiteHeader />
                 <div className="flex-grow">
-                    <div className="w-full max-w-screen-xl mx-auto p-6">
-                        <h1 className="font-bold mb-6">Hello</h1>
-                        <ul>
-                            {articleList.map((article) => (
-                                <li className="mb-6" key={`article-list-${article.url}`}>
-                                    <p className="mb-1 text-gray-700">{article.date}</p>
-                                    <Link href="/blog/[slug]" as={article.url}>
-                                        <a className="block font-bold mb-2 text-xl">{article.title}</a>
-                                    </Link>
-                                    {/* <p className="mb-3">
-                            {article.tags.length > 0 && (
-                                <ul className="flex">
-                                    {article.tags.map((t) => (
-                                        <li className="rounded-full border-purple-300 py-1 px-3 border-2 mr-2">{t}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </p> */}
-                                    <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
-                                    <Link href="/blog/[slug]" as={article.url}>
-                                        <a className="text-purple-700 font-bold hover:text-purple-900">Read article</a>
-                                    </Link>
-                                    {/* <Link href="/blog/[slug]" as={article.url}>
-                            <a className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                                Read article
-                            </a>
-                        </Link> */}
-                                </li>
-                            ))}
-                        </ul>
+                    <div className="lg:flex lg:max-w-screen-xl mx-auto p-6">
+                        {/* <div className="lg:w-1/3 lg:max-w-xs p-6 lg:mr-10 bg-blue-600 flex items-center"> */}
+                        <div className="lg:w-1/4 x-lg:max-w-xs lg:mr-10">
+                            <div
+                                style={{ backgroundImage: 'url(/face.jpg)' }}
+                                className="rounded-full bg-contain w-20 h-20 bg-no-repeat bg-center mx-auto mb-3"
+                            ></div>
+                            <div className="mb-3">
+                                Hi, I'm Adam. This is my devblog where I write for my future self to make it easier to
+                                find things I learned in the past. But I also try to add more context around the topics
+                                so that also others can benefit from my articles.
+                            </div>
+
+                            <div className="mb-3">
+                                <a
+                                    href="https://github.com/bdadam"
+                                    className="hover:underline mr-2 inline-block"
+                                    rel="external"
+                                    title="GitHub"
+                                >
+                                    <GitHub width={32} height={32} />
+                                </a>
+                                <a
+                                    href="https://twitter.com/bdadamm"
+                                    className="hover:underline mr-2 inline-block"
+                                    rel="external"
+                                    title="Twitter"
+                                >
+                                    <Twitter width={32} height={32} />
+                                </a>
+                                <a
+                                    href="mailto:me@bdadam.com"
+                                    className="hover:underline mr-2 inline-block"
+                                    title="E-Mail"
+                                >
+                                    <Email width={32} height={32} />
+                                </a>
+                                <a
+                                    href="https://www.linkedin.com/in/bdadam/"
+                                    className="hover:underline mr-2 inline-block"
+                                    rel="external"
+                                    title="LinkedIn"
+                                >
+                                    <Linkedin width={32} height={32} />
+                                </a>
+                                <a
+                                    href="https://www.xing.com/profile/Adam_BeresDeak"
+                                    className="hover:underline mr-2 inline-block"
+                                    rel="external"
+                                    title="Xing"
+                                >
+                                    <Xing width={32} height={32} />
+                                </a>
+                            </div>
+                            <div className="flex">
+                                <a href="/rss.xml">
+                                    <Rss width={32} height={32} />
+                                    RSS
+                                </a>
+                                <a
+                                    href="https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Fbdadam.com%2Frss.xml"
+                                    target="blank"
+                                >
+                                    <Feedly width={32} height={32} />
+                                    Feedly
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className="lg:w-3/4">
+                            <h1 className="font-bold mb-6 text-2xl">Recent articles</h1>
+                            <ul>
+                                {articleList.map((article) => (
+                                    <li className="mb-6" key={`article-list-${article.url}`}>
+                                        <p className="mb-1 text-gray-700">{article.date}</p>
+                                        <Link href="/blog/[slug]" as={article.url}>
+                                            <a className="block font-bold mb-2 text-xl">{article.title}</a>
+                                        </Link>
+                                        {/* <p className="mb-3">
+                                        {article.tags.length > 0 && (
+                                            <ul className="flex">
+                                                {article.tags.map((t) => (
+                                                    <li className="rounded-full border-purple-300 py-1 px-3 border-2 mr-2">
+                                                        {t}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </p> */}
+                                        <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
+                                        <Link href="/blog/[slug]" as={article.url}>
+                                            <a className="text-purple-700 font-bold hover:text-purple-900">
+                                                Read article
+                                            </a>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <SiteFooter />
