@@ -1,3 +1,28 @@
+/*
+Things on this page:
+- [x] Title
+- [x] Author
+- [x] Article body
+- [ ] Tags
+- [ ] Tags with links
+- [x] Publish date
+- [ ] Last revision/update/re-publish date
+- [x] About author
+- [x] Author ld+json
+- [ ] Breadcrumbs
+- [ ] Breadcrumbs ld+json
+- [ ] Share buttons
+- [ ] Native share button
+- [x] Most popular articles
+- [x] Latest articles
+- [ ] Article ld+json
+- [ ] Title
+- [ ] Title
+- [ ] Title
+- [ ] Title
+
+*/
+
 import { useEffect } from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
@@ -11,6 +36,8 @@ import SiteHeader from '../../components/SiteHeader';
 import SiteFooter from '../../components/SiteFooter';
 import TopArticles from 'src/components/TopArticles';
 import AboutAuthor from 'src/components/AboutAuthor';
+import Head from 'next/head';
+import Breadcrumbs from 'src/components/Breadcrumbs';
 
 type ArticlePageProps = {
     meta: PageMetaData;
@@ -42,22 +69,27 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
     return (
         <>
             <PageMetaTags {...meta} />
+            <Head>
+                <meta name="author" content="Adam Beres-Deak" />
+            </Head>
             <div className="app flex flex-col min-h-screen">
                 <SiteHeader />
                 <div className="flex-grow">
                     <div className="w-full max-w-screen-xl mx-auto px-6 pb-6 mb-4">
-                        <div className="py-10">
-                            <h1 className="font-bold text-2xl mb-2">{article.title}</h1>
-                            <p className="text-gray-700">
-                                {article.dateFormatted} &middot; published by{' '}
-                                <Link href="/about.html">
-                                    <a className="text-blue-700">Adam Beres-Deak</a>
-                                </Link>
-                            </p>
-                        </div>
-
+                        {/* <div className="mt-4">
+                            <Breadcrumbs />
+                        </div> */}
                         <div className="lg:flex">
                             <div className="lg:w-2/3 lg:mr-6">
+                                <div className="py-6">
+                                    <h1 className="font-bold text-2xl mb-2">{article.title}</h1>
+                                    <p className="text-gray-700">
+                                        {article.dateFormatted} &middot; published by{' '}
+                                        <Link href="/about.html">
+                                            <a className="text-blue-700">Adam Beres-Deak</a>
+                                        </Link>
+                                    </p>
+                                </div>
                                 <div className="mb-4" dangerouslySetInnerHTML={{ __html: article.intro }} />
                                 <div
                                     className={articleStyles['article-body']}
@@ -65,11 +97,11 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
                                 ></div>
                             </div>
                             <div className="lg:w-1/3 lg:max-w-xs">
-                                <div className=" p-5 bg-blue-100 rounded">
+                                <div className=" px-5 pt-6 x-bg-blue-100 rounded mb-2">
                                     <AboutAuthor />
                                 </div>
                                 {/* TODO: fix improve colors to make text more readable */}
-                                <div className=" p-5 bg-yellow-100 mt-10 rounded text-gray-800">
+                                <div className=" p-5 x-bg-yellow-100 rounded text-gray-800">
                                     <h4 className="font-bold mb-4 text-teal-600">Popular articles</h4>
                                     <TopArticles articles={topArticles} />
                                 </div>
