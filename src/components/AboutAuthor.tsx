@@ -15,6 +15,21 @@ import { GitHub, Twitter, Email, Linkedin, Xing } from './Icons';
 // };
 
 const AboutAuthor: React.FC<{}> = () => {
+    const authorLd = {
+        '@context': 'http://schema.org',
+        '@type': 'Person',
+        name: 'Adam Beres-Deak',
+        url: 'https://bdadam.com/',
+        email: 'me@bdadam.com',
+        image: 'https://bdadam.com/face.jpg',
+        jobTitle: 'Lead Software Engineer',
+        sameAs: [
+            'https://twitter.com/bdadamm',
+            'https://www.linkedin.com/in/bdadam/',
+            'https://www.xing.com/profile/Adam_BeresDeak',
+            'https://github.com/bdadam',
+        ],
+    };
     return (
         <>
             <Link href="/about.html">
@@ -66,6 +81,7 @@ const AboutAuthor: React.FC<{}> = () => {
                     <Xing width={32} height={32} />
                 </a>
             </div>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(authorLd) }}></script>
         </>
     );
 };
