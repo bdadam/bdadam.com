@@ -17,6 +17,16 @@ export type Article = {
     tags: string[];
 };
 
+export type Snippet = {
+    url: string;
+    slug: string;
+    title: string;
+    date: Date;
+    dateFormatted: string;
+    body: MarkdownResult;
+    tags: string[];
+};
+
 type OgType =
     | { type: 'website' }
     | {

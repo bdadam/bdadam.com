@@ -48,6 +48,7 @@
         "@types/react": "^16.9.34",
         "@types/react-dom": "^16.9.6",
         "@types/rss": "^0.0.28",
+        "@types/speakingurl": "^13.0.2",
         "prettier": "^2.0.5"
     }
 }
