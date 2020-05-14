@@ -22,6 +22,9 @@ const SiteHeader: React.FC<{}> = () => {
                     {/* <Link href="/blog">
                         <a className="inline-block py-6 px-3 flex items-center hover:underline">Articles</a>
                     </Link> */}
+                    <Link href="/snippets">
+                        <a className="inline-block py-6 px-3 hover:underline">Code snippets</a>
+                    </Link>
                     <Link href="/about.html">
                         <a className="inline-block py-6 px-3 hover:underline">About me</a>
                     </Link>
