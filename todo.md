@@ -20,6 +20,10 @@
 - [ ] sitemap.xml
 - [ ] comments
 - [ ] robots.txt
+- [ ] Create code snippets page and redirect [old JS Goodies](https://bdadam.com/javascript-goodies.html) to it
+- [ ] Google News sitemap
+- [ ] Create "My Tools page"
+- [ ] Put all articles into one category and optionally add some more tags
 
 ## Nice to have
 
