@@ -5,15 +5,6 @@ body {
     color: #111;
 }
 
-/* .full-width-screen {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-} */
-
 .small-caps {
     font-variant: small-caps;
 }
@@ -21,8 +12,25 @@ body {
 a:not([class]) {
     color: #1a0dab;
 }
+
 a:not([class]):hover {
     color: hsl(245, 86%, 26%);
     text-decoration: underline;
+}
+
+kbd {
+    display: inline-block;
+    margin: 0 0.1em;
+    padding: 0.1em 0.6em;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+
+    text-shadow: 0 1px 0 #fff;
+    background-color: #e4e6e8;
+    border: 1px solid #9fa6ad;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(12, 13, 14, 0.15), inset 0 1px 0 0 #fff;
+    white-space: nowrap;
 }
 /* purgecss end ignore */

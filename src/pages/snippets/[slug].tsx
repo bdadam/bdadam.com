@@ -2,6 +2,7 @@ import { NextPage, GetStaticPaths, GetStaticProps } from 'next';
 
 import { Snippet, PageMetaData } from '../../types';
 
+import articleStyles from '../../styles/article.module.css';
 import readSnippets from 'src/services/read-snippets';
 import { useEffect } from 'react';
 import PageMetaTags from 'src/components/PageMetaTags';
@@ -46,7 +47,11 @@ const SnippetsPage: NextPage<SnippetPageProps> = ({ meta, snippet }) => {
                                 </Link>
                             </p>
                         </div>
-                        <div className="mb-4" dangerouslySetInnerHTML={{ __html: snippet.body }} />
+
+                        <div
+                            className={articleStyles['article-body']}
+                            dangerouslySetInnerHTML={{ __html: snippet.body }}
+                        />
                     </div>
                 </div>
                 <SiteFooter />

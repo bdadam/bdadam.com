@@ -21,9 +21,9 @@ const AboutPage: React.FC<{}> = () => {
                         Besides my day-to-day work I also I have a lot of side and fun projects. Of course most of them
                         never see the light of day. To see a few of them please see my{' '}
                         <a href="https://github.com/bdadam" className="">
-                            GitHub
-                        </a>{' '}
-                        profile.
+                            GitHub profile
+                        </a>
+                        .
                     </p>
 
                     <p className="mb-2">

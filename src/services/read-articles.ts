@@ -40,30 +40,30 @@ function isPublishedMdArticle(article: {
 }
 
 export default async function (): Promise<Article[]> {
-    const x2 = readMd<ArticleFrontMatter>('content/blog');
+    // const x2 = readMd<ArticleFrontMatter>('content/blog');
 
-    const x3: Article[] = x2
-        .filter((a) => {
-            return !!a.data.title && !!a.data.date && a.data.published !== false;
-        })
-        .map((a) => {
-            const slug = a.data.slug ?? speakingurl(a.data.title!, { lang: 'en' });
-            return {
-                title: a.data.title!,
-                url: `/blog/${slug}`,
-                slug,
-                date: a.data.date!,
-                dateFormatted: format(a.data.date!, 'do MMMM yyyy'),
-                meta: {
-                    description: a.data.description ?? '',
-                },
-                intro: parseMarkdown(a.data.abstract ?? ''),
-                body: parseMarkdown(a.rawContent),
-                tags: a.data.tags || [],
-            };
-        });
+    // const x3: Article[] = x2
+    //     .filter((a) => {
+    //         return !!a.data.title && !!a.data.date && a.data.published !== false;
+    //     })
+    //     .map((a) => {
+    //         const slug = a.data.slug ?? speakingurl(a.data.title!, { lang: 'en' });
+    //         return {
+    //             title: a.data.title!,
+    //             url: `/blog/${slug}`,
+    //             slug,
+    //             date: a.data.date!,
+    //             dateFormatted: format(a.data.date ?? new Date(0, 0, 0), 'do MMMM yyyy'),
+    //             meta: {
+    //                 description: a.data.description ?? '',
+    //             },
+    //             intro: parseMarkdown(a.data.abstract ?? ''),
+    //             body: parseMarkdown(a.rawContent),
+    //             tags: a.data.tags || [],
+    //         };
+    //     });
 
-    console.log(x3);
+    // console.log(x3);
 
     const articleFilenames = fs.readdirSync('content/blog');
 

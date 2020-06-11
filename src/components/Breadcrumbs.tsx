@@ -6,7 +6,7 @@ const Breadcrumbs: React.FC<{}> = () => {
             <Link href="/">
                 <a>Home</a>
             </Link>
-            &nbsp;>&nbsp;
+            &nbsp;{'>'}&nbsp;
             <Link href="/blog">
                 <a>Articles</a>
             </Link>

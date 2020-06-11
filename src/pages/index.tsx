@@ -105,7 +105,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
                             <ul>
                                 {articleList.map((article) => (
                                     <li className="mb-6" key={`article-list-${article.url}`}>
-                                        <p className="mb-1 text-gray-700">{article.date}</p>
+                                        <p className="mb-1 text-gray-700 text-sm">{article.date}</p>
                                         <Link href="/blog/[slug]" as={article.url}>
                                             <a className="block font-bold mb-2 text-xl">{article.title}</a>
                                         </Link>
@@ -120,7 +120,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
                                             </ul>
                                         )}
                                     </p> */}
-                                        <p className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
+                                        <div className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
                                         <Link href="/blog/[slug]" as={article.url}>
                                             <a className="text-purple-700 font-bold hover:text-purple-900">
                                                 Read article

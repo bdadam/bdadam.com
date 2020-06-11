@@ -26,6 +26,7 @@ Things on this page:
 import { useEffect } from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
+import Head from 'next/head';
 
 import { PageMetaData } from '../../types';
 
@@ -36,7 +37,6 @@ import SiteHeader from '../../components/SiteHeader';
 import SiteFooter from '../../components/SiteFooter';
 import TopArticles from 'src/components/TopArticles';
 import AboutAuthor from 'src/components/AboutAuthor';
-import Head from 'next/head';
 import Breadcrumbs from 'src/components/Breadcrumbs';
 
 type ArticlePageProps = {
@@ -74,6 +74,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
             </Head>
             <div className="app flex flex-col min-h-screen">
                 <SiteHeader />
+
                 <div className="flex-grow">
                     <div className="w-full max-w-screen-xl mx-auto px-6 pb-6 mb-4">
                         {/* <div className="mt-4">

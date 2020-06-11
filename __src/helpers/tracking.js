@@ -9,7 +9,7 @@ const defaults = { aip: 1 };
 let firstPageView = true;
 
 function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = (Math.random() * 16) | 0,
             v = c == 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
@@ -22,7 +22,7 @@ const getcid = () => {
     return cid;
 };
 
-const generateParams = type => {
+const generateParams = (type) => {
     const doc = document;
     const screen = window.screen;
 
@@ -44,19 +44,20 @@ const generateParams = type => {
     };
 };
 
-const serialize = obj => {
+const serialize = (obj) => {
     return Object.keys(obj)
-        .map(key => `${key}=${encodeURIComponent(obj[key])}`)
+        .map((key) => `${key}=${encodeURIComponent(obj[key])}`)
         .join('&');
 };
 
-const send = payload => {
+const send = (payload) => {
     const url = 'https://www.google-analytics.com/collect';
     if (navigator.sendBeacon) {
         var contentType = 'application/x-www-form-urlencoded';
         var requestBlob = new Blob([payload], { type: contentType });
         navigator.sendBeacon(url, requestBlob);
     } else {
+        // TODO
         new Image().src = `${url}?payload`;
     }
 };
@@ -65,9 +66,9 @@ const removeUTMParamsFromUrl = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const paramsToDelete = [...searchParams]
         .filter(([name, value]) => name.startsWith('utm_') || name === 'gclid')
-        .map(p => p[0]);
+        .map((p) => p[0]);
 
-    paramsToDelete.forEach(p => searchParams.delete(p));
+    paramsToDelete.forEach((p) => searchParams.delete(p));
 
     const q = searchParams.toString();
     const query = q ? `?${q}` : '';
@@ -93,7 +94,7 @@ export const trackEvent = () => {
     console.log('EVENT');
 };
 
-export const setup = options => {
+export const setup = (options) => {
     // console.log('SETUP', defaults);
-    Object.keys(options).forEach(key => (defaults[key] = options[key]));
+    Object.keys(options).forEach((key) => (defaults[key] = options[key]));
 };
