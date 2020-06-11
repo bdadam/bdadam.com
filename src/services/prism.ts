@@ -21,20 +21,3 @@ import 'prismjs/components/prism-python';
 Prism.languages.sh = Prism.languages.bash;
 
 export default Prism;
-
-// // import hljs from 'highlight.js/lib/core';
-// import hljs from 'highlight.js';
-// // import javascript from 'highlight.js/lib/languages/javascript';
-// // @ts-ignore
-// import javascript from 'highlight.js/lib/languages/javascript';
-// // @ts-ignore
-// import javascript from 'highlight.js/lib/languages/';
-// // @ts-ignore
-// import shell from 'highlight.js/lib/languages/shell';
-// // @ts-ignore
-// import bash from 'highlight.js/lib/languages/bash';
-// hljs.registerLanguage('javascript', javascript);
-// hljs.registerLanguage('shell', shell);
-// hljs.registerLanguage('bash', bash);
-
-// export default { highlightAll: () => hljs.initHighlighting() };
