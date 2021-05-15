@@ -1,6 +1,8 @@
+import { h, FunctionComponent } from 'preact';
+
 type IconProps = { width: number; height: number; className?: string };
 
-export const GitHub: React.FC<IconProps> = ({ width = 32, height = 32, className = '' }) => {
+export const GitHub: FunctionComponent<IconProps> = ({ width = 32, height = 32, className = '' }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +20,7 @@ export const GitHub: React.FC<IconProps> = ({ width = 32, height = 32, className
     );
 };
 
-export const Twitter: React.FC<IconProps> = ({ width = 32, height = 32, className }) => {
+export const Twitter: FunctionComponent<IconProps> = ({ width = 32, height = 32, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +38,7 @@ export const Twitter: React.FC<IconProps> = ({ width = 32, height = 32, classNam
     );
 };
 
-export const Linkedin: React.FC<IconProps> = ({ width = 32, height = 32, className }) => {
+export const Linkedin: FunctionComponent<IconProps> = ({ width = 32, height = 32, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +56,7 @@ export const Linkedin: React.FC<IconProps> = ({ width = 32, height = 32, classNa
     );
 };
 
-export const Xing: React.FC<IconProps> = ({ width = 32, height = 32, className }) => {
+export const Xing: FunctionComponent<IconProps> = ({ width = 32, height = 32, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +74,7 @@ export const Xing: React.FC<IconProps> = ({ width = 32, height = 32, className }
     );
 };
 
-export const Email: React.FC<IconProps> = ({ width = 32, height = 32, className }) => {
+export const Email: FunctionComponent<IconProps> = ({ width = 32, height = 32, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +94,7 @@ export const Email: React.FC<IconProps> = ({ width = 32, height = 32, className 
     );
 };
 
-export const Feedly: React.FC<IconProps> = ({ width = 32, height = 32, className }) => {
+export const Feedly: FunctionComponent<IconProps> = ({ width = 32, height = 32, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +112,7 @@ export const Feedly: React.FC<IconProps> = ({ width = 32, height = 32, className
     );
 };
 
-export const Rss: React.FC<IconProps> = ({ width = 32, height = 32, className }) => {
+export const Rss: FunctionComponent<IconProps> = ({ width = 32, height = 32, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

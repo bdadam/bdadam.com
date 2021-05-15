@@ -1,15 +1,11 @@
-import Link from 'next/link';
+import { h } from 'preact';
 
 const Breadcrumbs: React.FC<{}> = () => {
     return (
         <div className="">
-            <Link href="/">
-                <a>Home</a>
-            </Link>
+            <a href="/">Home</a>
             &nbsp;{'>'}&nbsp;
-            <Link href="/blog">
-                <a>Articles</a>
-            </Link>
+            <a href="/blog">Articles</a>
         </div>
     );
 };

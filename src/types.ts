@@ -67,4 +67,5 @@ export type PageMetaData = {
         site: string;
         card: 'summary' | 'summary_large_image';
     };
+    author?: string;
 };

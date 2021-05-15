@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { h, Fragment } from 'preact';
 
 import { GitHub, Twitter, Email, Linkedin, Xing } from './Icons';
 
@@ -31,19 +31,14 @@ const AboutAuthor: React.FC<{}> = () => {
         ],
     };
     return (
-        <>
-            <Link href="/about.html">
-                <a className="block flex items-center mb-2">
-                    <div
-                        style={{ backgroundImage: 'url(/face.jpg)' }}
-                        className="rounded bg-contain w-12 h-12 mr-3"
-                    ></div>
-                    <div>
-                        <p className="font-bold text-xl">Adam Beres-Deak</p>
-                        <p className="text-sm text-gray-700 small-caps">software engineer</p>
-                    </div>
-                </a>
-            </Link>
+        <Fragment>
+            <a href="/about.html" className="block flex items-center mb-2">
+                <div style={{ backgroundImage: 'url(/face.jpg)' }} className="rounded bg-contain w-12 h-12 mr-3"></div>
+                <div>
+                    <p className="font-bold text-xl">Adam Beres-Deak</p>
+                    <p className="text-sm text-gray-700 small-caps">software engineer</p>
+                </div>
+            </a>
             <div className="">
                 <a
                     href="https://github.com/bdadam"
@@ -82,7 +77,7 @@ const AboutAuthor: React.FC<{}> = () => {
                 </a>
             </div>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(authorLd) }}></script>
-        </>
+        </Fragment>
     );
 };
 

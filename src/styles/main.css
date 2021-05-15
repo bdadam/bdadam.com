@@ -1,0 +1,4 @@
+@import './tailwind.css';
+@import './defaults.css';
+@import './article.module.css';
+@import './prism.css';

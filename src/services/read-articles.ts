@@ -1,4 +1,5 @@
-import fs from 'fs-extra';
+// import fs from 'fs-extra';
+import fs from 'fs';
 import matter from 'gray-matter';
 import speakingurl from 'speakingurl';
 
@@ -38,6 +39,8 @@ function isPublishedMdArticle(article: {
         article.data.published !== false
     );
 }
+
+console.log('QQQQ', process.cwd());
 
 export default async function (): Promise<Article[]> {
     // const x2 = readMd<ArticleFrontMatter>('content/blog');
