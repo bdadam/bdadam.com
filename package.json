@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "server": "NODE_ENV=production npx tsnd render/server.ts",
     "mirror": "node -r ts-node/register render/index.ts",
     "render": "node -r ts-node/register render/index.ts",
     "build:client": "vite build --outDir dist/client",
@@ -39,6 +40,7 @@
     "prismjs": "^1.23.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-ssr-prepass": "npm:preact-ssr-prepass",
     "rss": "^1.2.2",
     "serve-static": "^1.14.1",
@@ -55,6 +57,7 @@
     "@types/prismjs": "^1.16.5",
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.5",
+    "@types/react-helmet": "^6.1.1",
     "@types/rss": "^0.0.28",
     "@types/speakingurl": "^13.0.2",
     "autoprefixer": "^10.2.5",

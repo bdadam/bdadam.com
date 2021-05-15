@@ -58,9 +58,9 @@ async function createServer() {
             }
 
             const context = {};
-            const appHtml = render(url, context);
+            const { html: appHtml, title, meta } = render(url, context);
 
-            const html = template.replace(`<!--app-html-->`, appHtml);
+            const html: string = template.replace(`<!--app-html-->`, appHtml).replace('<!--meta-->', `${title}${meta}`);
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
         } catch (e) {
