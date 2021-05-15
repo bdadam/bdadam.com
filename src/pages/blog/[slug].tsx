@@ -23,6 +23,9 @@ Things on this page:
 
 */
 
+import articleStyles from '../../styles/article.module.css';
+
+import { h, Fragment} from 'preact';
 import { useEffect } from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
@@ -30,7 +33,6 @@ import Head from 'next/head';
 
 import { PageMetaData } from '../../types';
 
-import articleStyles from '../../styles/article.module.css';
 import readArticles from '../../services/read-articles';
 import PageMetaTags from 'src/components/PageMetaTags';
 import SiteHeader from '../../components/SiteHeader';
@@ -67,7 +69,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
     });
 
     return (
-        <>
+        <Fragment>
             <PageMetaTags {...meta} />
             <Head>
                 <meta name="author" content="Adam Beres-Deak" />
@@ -131,7 +133,7 @@ const ArticlePage: NextPage<ArticlePageProps> = ({ article, latestArticles, meta
                 </div>
                 <SiteFooter />
             </div>
-        </>
+        </Fragment>
     );
 };
 

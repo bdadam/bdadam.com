@@ -14,10 +14,10 @@ import 'prismjs/components/prism-js-extras';
 import 'prismjs/components/prism-js-templates';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-python';
-// import 'prismjs/components/prism-';
+// import 'prismjs/components/prism-bash';
 // import 'prismjs/plugins/show-language/prism-show-language';
 // import 'prismjs/plugins/line-numbers/prism-line-numbers';
 
-Prism.languages.sh = Prism.languages.bash;
+// Prism.languages.sh = Prism.languages.bash;
 
 export default Prism;

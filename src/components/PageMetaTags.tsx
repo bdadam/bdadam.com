@@ -1,3 +1,4 @@
+import { h, Fragment } from 'preact';
 import Head from 'next/head';
 
 import { PageMetaData } from '../types';
@@ -13,14 +14,14 @@ const PageMetaTags: React.FC<PageMetaData> = (meta) => {
             {meta.og?.description && <meta property="og:description" content={meta.og.description} />}
             {meta.og?.audio && <meta property="og:audio" content={meta.og.audio} />}
             {meta.og?.image && (
-                <>
+                <Fragment>
                     <meta property="og:image" content={meta.og.image.url} />
                     <meta property="og:width" content={'' + meta.og.image.width} />
                     <meta property="og:height" content={'' + meta.og.image.height} />
-                </>
+                </Fragment>
             )}
             {meta.og?.type === 'article' && meta.og?.article && (
-                <>
+                <Fragment>
                     {meta.og.article.authors?.map((author) => (
                         <meta property="article:author" content={author} key={`article-author-${author}`} />
                     ))}
@@ -30,7 +31,7 @@ const PageMetaTags: React.FC<PageMetaData> = (meta) => {
                     ))}
 
                     {meta.og.article.section && <meta property="article:section" content={meta.og.article.section} />}
-                </>
+                </Fragment>
             )}
             {meta.twitter?.site && <meta name="twitter:site" content={meta.twitter.site} />}
             {meta.twitter?.card && <meta name="twitter:card" content={meta.twitter.card} />}

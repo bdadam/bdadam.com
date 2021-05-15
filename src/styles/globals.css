@@ -1,0 +1,10 @@
+@import './defaults.css';
+@import 'prismjs/themes/prism-tomorrow.css';
+
+code:not([class*='language-']) {
+    background-color: #f5f2f0;
+    color: #905;
+    padding: 1px 3px;
+    /* font-size: 1em; */
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}

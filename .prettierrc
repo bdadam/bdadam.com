@@ -5,7 +5,7 @@
     "trailingComma": "es5",
     "overrides": [
         {
-            "files": ["*.yaml", ".*.yaml", "*.yml", ".*.yml"],
+            "files": ["*.yaml", ".*.yaml", "*.yml", ".*.yml", "package.json", "tsconfig.json"],
             "options": {
                 "tabWidth": 2
             }

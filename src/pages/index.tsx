@@ -1,3 +1,4 @@
+import { h, Fragment } from 'preact';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { GetStaticProps, NextPage } from 'next';
@@ -7,7 +8,7 @@ import { PageMetaData } from '../types';
 import PageMetaTags from '../components/PageMetaTags';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
-import { Feedly, Rss, GitHub, Twitter, Linkedin, Email, Xing } from './Icons';
+import { Feedly, Rss, GitHub, Twitter, Linkedin, Email, Xing } from '../components/Icons';
 
 type IndexPageProps = {
     meta: PageMetaData;
@@ -26,7 +27,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
     });
 
     return (
-        <>
+        <Fragment>
             <PageMetaTags {...meta} />
             <div className="app flex flex-col min-h-screen">
                 <SiteHeader />
@@ -134,7 +135,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
                 </div>
                 <SiteFooter />
             </div>
-        </>
+        </Fragment>
     );
 };
 
