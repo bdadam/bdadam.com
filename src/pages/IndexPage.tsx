@@ -1,17 +1,13 @@
-// import { h, Fragment } from 'preact';
-import React from 'react';
-import { useEffect } from 'react';
-import Link from 'next/link';
-import { GetStaticProps, NextPage } from 'next';
+import React, { FC } from 'react';
 
-import readArticles from '../services/read-articles';
 import { PageMetaData } from '../types';
 import PageMetaTags from '../components/PageMetaTags';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 import { Feedly, Rss, GitHub, Twitter, Linkedin, Email, Xing } from '../components/Icons';
+import readArticles from '../services/read-articles';
 
-type IndexPageProps = {
+export type IndexPageProps = {
     meta: PageMetaData;
     articleList: Array<{
         url: string;
@@ -22,11 +18,7 @@ type IndexPageProps = {
     }>;
 };
 
-const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
-    useEffect(() => {
-        import('../services/prism').then((Prism) => Prism.default.highlightAll());
-    });
-
+const IndexPage: FC<IndexPageProps> = ({ articleList, meta }) => {
     return (
         <>
             <PageMetaTags {...meta} />
@@ -108,9 +100,11 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
                                 {articleList.map((article) => (
                                     <li className="mb-6" key={`article-list-${article.url}`}>
                                         <p className="mb-1 text-gray-700 text-sm">{article.date}</p>
-                                        <Link href="/blog/[slug]" as={article.url}>
-                                            <a className="block font-bold mb-2 text-xl">{article.title}</a>
-                                        </Link>
+
+                                        <a href={article.url} className="block font-bold mb-2 text-xl">
+                                            {article.title}
+                                        </a>
+
                                         {/* <p className="mb-3">
                                         {article.tags.length > 0 && (
                                             <ul className="flex">
@@ -123,11 +117,12 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
                                         )}
                                     </p> */}
                                         <div className="mb-1" dangerouslySetInnerHTML={{ __html: article.intro }} />
-                                        <Link href="/blog/[slug]" as={article.url}>
-                                            <a className="text-purple-700 font-bold hover:text-purple-900">
-                                                Read article
-                                            </a>
-                                        </Link>
+                                        <a
+                                            href={article.url}
+                                            className="text-purple-700 font-bold hover:text-purple-900"
+                                        >
+                                            Read more
+                                        </a>
                                     </li>
                                 ))}
                             </ul>
@@ -135,45 +130,82 @@ const IndexPage: NextPage<IndexPageProps> = ({ articleList, meta }) => {
                     </div>
                 </div>
                 <SiteFooter />
+                <a href="/sitemap.xml" style={{ display: 'none' }}>
+                    sitemap.xml
+                </a>
             </div>
         </>
     );
 };
 
-export default IndexPage;
-
-export const getStaticProps: GetStaticProps<IndexPageProps> = async () => {
+export const fetchIndexPageProps = async (): Promise<IndexPageProps> => {
     const articles = await readArticles();
 
     return {
-        props: {
-            meta: {
-                canonical: 'https://bdadam.com/',
-                lang: 'en',
+        meta: {
+            canonical: 'https://bdadam.com/',
+            lang: 'en',
 
-                // TODO: improve title and description
-                title: 'Adam Beres-Deak',
-                description: 'My devblog about web development, JavaScript, NodeJS, CSS, less',
-                og: {
-                    site_name: 'bdadam.com',
-                    type: 'website',
-                    // TODO: add og:image
-                },
-                twitter: {
-                    site: '@bdadamm',
-                    // TODO: use summary_large_image when home page has large image to show
-                    card: 'summary',
-                },
+            // TODO: improve title and description
+            title: 'Adam Beres-Deak',
+            description: 'My devblog about web development, JavaScript, NodeJS, CSS, less',
+            og: {
+                site_name: 'bdadam.com',
+                type: 'website',
+                // TODO: add og:image
             },
-            articleList: articles.map((a) => {
-                return {
-                    title: a.title,
-                    url: `/blog/${a.slug}`,
-                    intro: a.intro.html,
-                    date: a.dateFormatted,
-                    tags: a.tags,
-                };
-            }),
+            twitter: {
+                site: '@bdadamm',
+                // TODO: use summary_large_image when home page has large image to show
+                card: 'summary',
+            },
         },
+        articleList: articles.map((a) => {
+            return {
+                title: a.title,
+                url: `/blog/${a.slug}`,
+                intro: a.intro.html,
+                date: a.dateFormatted,
+                tags: a.tags,
+            };
+        }),
     };
 };
+
+export default IndexPage;
+
+// export const getStaticProps: GetStaticProps<IndexPageProps> = async () => {
+//     const articles = await readArticles();
+
+//     return {
+//         props: {
+//             meta: {
+//                 canonical: 'https://bdadam.com/',
+//                 lang: 'en',
+
+//                 // TODO: improve title and description
+//                 title: 'Adam Beres-Deak',
+//                 description: 'My devblog about web development, JavaScript, NodeJS, CSS, less',
+//                 og: {
+//                     site_name: 'bdadam.com',
+//                     type: 'website',
+//                     // TODO: add og:image
+//                 },
+//                 twitter: {
+//                     site: '@bdadamm',
+//                     // TODO: use summary_large_image when home page has large image to show
+//                     card: 'summary',
+//                 },
+//             },
+//             articleList: articles.map((a) => {
+//                 return {
+//                     title: a.title,
+//                     url: `/blog/${a.slug}`,
+//                     intro: a.intro.html,
+//                     date: a.dateFormatted,
+//                     tags: a.tags,
+//                 };
+//             }),
+//         },
+//     };
+// };

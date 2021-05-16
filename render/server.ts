@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import express from 'express';
 
+import readArticles from '../src/services/read-articles';
+
 import { createServer as createViteServer, ViteDevServer } from 'vite';
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD;
@@ -30,20 +32,27 @@ async function createServer() {
     });
 
     app.use(vite.middlewares);
-    // } else {
-    //     // app.use(require('compression')());
-    //     app.use(
-    //         require('serve-static')(resolve('dist/client'), {
-    //             index: false,
-    //         })
-    //     );
-    // }
 
     if (process.env.NODE_ENV === 'production') {
         app.get('/assets/*', express.static('dist'));
     }
 
-    app.use('*', async (req, res) => {
+    app.get('/sitemap.xml', (req, res) => {
+        readArticles().then((articles) => {
+            const x = [
+                '<?xml version="1.0" encoding="utf-8"?>',
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+                '<url><loc>https://bdadam.com/</loc></url>',
+                '<url><loc>https://bdadam.com/about.html</loc></url>',
+                ...articles.map((a) => `<url><loc>https://bdadam.com${a.url}</loc></url>`),
+                '</urlset>',
+            ];
+
+            res.set('Content-Type', 'text/xml').send(x.join('\n'));
+        });
+    });
+
+    app.get('*', async (req, res) => {
         try {
             const url = req.originalUrl;
 
@@ -57,8 +66,7 @@ async function createServer() {
                 render = require('../dist/server/entry-server.js').render;
             }
 
-            const context = {};
-            const { html: appHtml, title, meta } = render(url, context);
+            const { html: appHtml, title, meta } = await render(url);
 
             const html: string = template.replace(`<!--app-html-->`, appHtml).replace('<!--meta-->', `${title}${meta}`);
 

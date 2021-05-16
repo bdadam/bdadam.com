@@ -40,8 +40,6 @@ function isPublishedMdArticle(article: {
     );
 }
 
-console.log('QQQQ', process.cwd());
-
 export default async function (): Promise<Article[]> {
     // const x2 = readMd<ArticleFrontMatter>('content/blog');
 

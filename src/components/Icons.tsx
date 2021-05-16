@@ -1,5 +1,4 @@
-import { FC } from 'react'
-import {h} from 'preact'
+import React, { FC } from 'react';
 
 type IconProps = { width: number; height: number; className?: string };
 

@@ -1,6 +1,6 @@
-import { h, FunctionComponent } from 'preact';
+import React, { FC } from 'react';
 
-const SiteFooter: FunctionComponent<{}> = () => {
+const SiteFooter: FC = () => {
     return (
         <footer className="site-footer text-center p-6 bg-gray-200">
             <p>Adam Beres-Deak © {new Date().getFullYear()}</p>
