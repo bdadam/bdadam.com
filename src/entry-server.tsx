@@ -25,7 +25,6 @@ async function getProps(url: string): Promise<IndexPageProps | BlogArticlePagePr
 
 export const render = async (url: string) => {
     const props = await getProps(url);
-    console.log(props);
 
     if (!props) {
         return <div>Not found</div>;
