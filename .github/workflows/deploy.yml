@@ -1,0 +1,28 @@
+name: Deploy Static Site
+
+on:
+  push:
+    branches:
+      - restart2020
+
+jobs:
+  deploy:
+    runs-on: Ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: S3 copy
+        run: |
+          yarn
+          yarn build
+          yarn render
+          aws s3 cp --recursive --exclude "*.html" --exclude "*.xml" --exclude "robots.txt" --cache-control "max-age=31536000" out s3://${{ secrets.BUCKET_ARN}}
+          aws s3 cp --recursive --exclude "*" --include "*.html" --include "*.xml" --include "robots.txt" out s3://${{ secrets.BUCKET_ARN}}
