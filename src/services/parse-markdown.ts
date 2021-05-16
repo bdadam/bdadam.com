@@ -24,6 +24,8 @@ import plantuml from 'markdown-it-plantuml';
 import mermaid from 'markdown-it-mermaid';
 // import diagrams from 'markdown-it-diagrams';
 
+import prism from 'markdown-it-prism';
+
 const md = markdownit({
     html: true,
     linkify: true,
@@ -39,7 +41,8 @@ const md = markdownit({
     .use(linkAttributes, [{ pattern: /^https?:/i, attrs: { target: '_blank', rel: 'noopener' } }])
     // .use(diagrams)
     .use(mermaid)
-    .use(plantuml);
+    .use(plantuml)
+    .use(prism);
 
 md.renderer.rules.image = function (tokens, idx, options, env, self) {
     const token = tokens[idx];

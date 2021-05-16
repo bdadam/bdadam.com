@@ -8,6 +8,7 @@ import { Feedly, Rss, GitHub, Twitter, Linkedin, Email, Xing } from '../componen
 import readArticles from '../services/read-articles';
 
 export type IndexPageProps = {
+    pageid: 'home';
     meta: PageMetaData;
     articleList: Array<{
         url: string;
@@ -22,8 +23,8 @@ const IndexPage: FC<IndexPageProps> = ({ articleList, meta }) => {
     return (
         <>
             <PageMetaTags {...meta} />
-            <div className="app flex flex-col min-h-screen">
-                <SiteHeader />
+            <SiteHeader />
+            <div className="page-width">
                 <div className="flex-grow">
                     <div className="lg:flex lg:max-w-screen-xl mx-auto p-6">
                         {/* <div className="lg:w-1/3 lg:max-w-xs p-6 lg:mr-10 bg-blue-600 flex items-center"> */}
@@ -129,11 +130,11 @@ const IndexPage: FC<IndexPageProps> = ({ articleList, meta }) => {
                         </div>
                     </div>
                 </div>
-                <SiteFooter />
-                <a href="/sitemap.xml" style={{ display: 'none' }}>
-                    sitemap.xml
-                </a>
             </div>
+            <SiteFooter />
+            <a href="/sitemap.xml" style={{ display: 'none' }}>
+                sitemap.xml
+            </a>
         </>
     );
 };
@@ -142,6 +143,7 @@ export const fetchIndexPageProps = async (): Promise<IndexPageProps> => {
     const articles = await readArticles();
 
     return {
+        pageid: 'home',
         meta: {
             canonical: 'https://bdadam.com/',
             lang: 'en',

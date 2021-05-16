@@ -18,9 +18,7 @@ deprecation: Please note that this article was written for AngularJS (a.k.a. Ang
 If you don't know what does dependency injection look like with AngularJS, here is an example:
 
 ```html
-<div ng-controller="GreetCtrl">
-  Hello {{name}}!
-</div>
+<div ng-controller="GreetCtrl">Hello {{name}}!</div>
 <script>
   function GreetCtrl($scope, $rootScope) {
     $scope.name = 'World';
@@ -36,9 +34,9 @@ it knows with parameters it has to call the function.
 
 It's fairly easy in JavaScript to get the source code of the every function. We just have to call the `.toString()` method of the function objects.
 
-```JavaScript
+```js
 function sum(x, y) {
-    alert(x + y);
+  alert(x + y);
 }
 
 console.log(sum.toString()); // prints the complete code of the function

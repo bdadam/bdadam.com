@@ -3,7 +3,7 @@ import React from 'react';
 const SiteHeader: React.FC<{}> = () => {
     return (
         <header className="site-header">
-            <nav>
+            <nav className="page-width">
                 <a href="/" className="small-caps">
                     bdadam.com
                 </a>

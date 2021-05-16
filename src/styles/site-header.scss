@@ -9,20 +9,15 @@
     margin-bottom: 20px;
 
     nav {
-        display: block;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+        font-size: 1.25rem;
     }
 
     a {
         line-height: 48px;
-        margin-left: 20px;
         text-decoration: none;
         color: orange;
         &:not(:last-of-type) {
-            margin-right: 20px;
+            margin-right: 32px;
         }
 
         &:hover,

@@ -1,27 +1,28 @@
 ---
-published:      false
-layout:         post.hbs
-date:           2014-02-09 12:00
-title:          Defining properties on prototype in JavaScript
+published: false
+layout: post.hbs
+date: 2014-02-09 12:00
+title: Defining properties on prototype in JavaScript
 description:
-abstract:       In the last post we were looking at defining JavaScript properties.
-                One (edge)case is when we define a property on the prototype and not on the object itself. Let's take a look at what happens.
+abstract: In the last post we were looking at defining JavaScript properties.
+  One (edge)case is when we define a property on the prototype and not on the object itself. Let's take a look at what happens.
 tags:
-- javascript
+  - javascript
 ---
 
 ## Defining properties on object prototypes
-```JavaScript
-var Car = function(doors) {
-    if (!isNaN(doors)) {
-        this.doors = doors;
-    }
+
+```js
+var Car = function (doors) {
+  if (!isNaN(doors)) {
+    this.doors = doors;
+  }
 };
 
 Object.defineProperty(Car.prototype, 'doors', {
-    value: 4,
-    writable: true,
-    configurable: false
+  value: 4,
+  writable: true,
+  configurable: false,
 });
 
 var bmw = new Car();

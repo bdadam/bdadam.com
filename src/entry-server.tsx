@@ -1,53 +1,40 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
 
-import TestComponent from './TestComponent';
-import IndexPage, { fetchIndexPageProps } from './pages/IndexPage';
-import readArticles from './services/read-articles';
+import { fetchIndexPageProps, IndexPageProps } from './pages/IndexPage';
+import { BlogArticlePageProps, fetchBlogArticlePageProps } from './pages/BlogArticlePage';
+import { AboutPageProps } from './pages/AboutPage';
+import App from './pages/App';
+
+async function getProps(url: string): Promise<IndexPageProps | BlogArticlePageProps | AboutPageProps | null> {
+    if (url === '/') {
+        return fetchIndexPageProps();
+    }
+
+    if (url.startsWith('/blog/')) {
+        return fetchBlogArticlePageProps(url);
+    }
+
+    if (url === '/about.html') {
+        return { pageid: 'about' };
+    }
+
+    return null;
+}
 
 export const render = async (url: string) => {
-    // const articles = await readArticles();
+    const props = await getProps(url);
+    console.log(props);
 
-    // const props: IndexPageProps = {
-    //     meta: {
-    //         canonical: 'https://bdadam.com/',
-    //         lang: 'en',
-
-    //         // TODO: improve title and description
-    //         title: 'Adam Beres-Deak',
-    //         description: 'My devblog about web development, JavaScript, NodeJS, CSS, less',
-    //         og: {
-    //             site_name: 'bdadam.com',
-    //             type: 'website',
-    //             // TODO: add og:image
-    //         },
-    //         twitter: {
-    //             site: '@bdadamm',
-    //             // TODO: use summary_large_image when home page has large image to show
-    //             card: 'summary',
-    //         },
-    //     },
-    //     articleList: articles.map((a) => {
-    //         return {
-    //             title: a.title,
-    //             url: `/blog/${a.slug}`,
-    //             intro: a.intro.html,
-    //             date: a.dateFormatted,
-    //             tags: a.tags,
-    //         };
-    //     }),
-    // };
-
-    if (url === '/') {
-        const props = await fetchIndexPageProps();
-
-        const html = renderToString(<IndexPage {...props} />);
-        const h = Helmet.renderStatic();
-        const title = h.title.toString();
-        const meta = h.meta.toString();
-
-        return { html, title, meta };
+    if (!props) {
+        return <div>Not found</div>;
     }
+
+    const html = renderToString(<App {...props} />);
+    const h = Helmet.renderStatic();
+    const title = h.title.toString();
+    const meta = h.meta.toString();
+
+    return { html, title, meta };
 };

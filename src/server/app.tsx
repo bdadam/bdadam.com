@@ -19,7 +19,7 @@ import styles from '../styles/main.css';
 // console.log(styles);
 
 import { IndexPage, getIndexPageProps } from './IndexPage';
-import { BlogArticlePage, getBlogArticleProps } from './BlogArticlePage';
+import { BlogArticlePage, getBlogArticleProps } from './xxBlogArticlePage';
 
 // if (app.get('env') === 'development') {
 //     const livereload = require('easy-livereload');

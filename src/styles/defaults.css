@@ -6,6 +6,14 @@ body {
     /* background-color: #a739e2; */
 }
 
+.page-width {
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .small-caps {
     font-variant: small-caps;
 }

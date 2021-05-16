@@ -1,4 +1,4 @@
-import { h, Fragment } from 'preact';
+import React from 'react';
 
 import { GitHub, Twitter, Email, Linkedin, Xing } from './Icons';
 
@@ -30,8 +30,9 @@ const AboutAuthor: React.FC<{}> = () => {
             'https://github.com/bdadam',
         ],
     };
+
     return (
-        <Fragment>
+        <>
             <a href="/about.html" className="block flex items-center mb-2">
                 <div style={{ backgroundImage: 'url(/face.jpg)' }} className="rounded bg-contain w-12 h-12 mr-3"></div>
                 <div>
@@ -77,7 +78,7 @@ const AboutAuthor: React.FC<{}> = () => {
                 </a>
             </div>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(authorLd) }}></script>
-        </Fragment>
+        </>
     );
 };
 

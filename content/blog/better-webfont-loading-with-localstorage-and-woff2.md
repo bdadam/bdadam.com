@@ -10,7 +10,7 @@ tags:
   - loading
 
 abstract:
-  In my previous [article about webfont loading](/blog/loading-webfonts-with-high-performance/) I showed a technique
+  In my previous [article about webfont loading](/blog/loading-webfonts-with-high-performance.html) I showed a technique
   about how to load webfonts without blocking page rendering and without annoying the users with flickering text on all pageloads.
   This time I show you an optimized version of the script and provide a solution for WOFF2 support for the newest browsers.
 ---
@@ -103,7 +103,7 @@ function loadFont(fontName, woffUrl, woff2Url) {
     // 6. Fetching the font data from the server
     var request = new XMLHttpRequest();
     request.open('GET', url);
-    request.onload = function() {
+    request.onload = function () {
       if (request.status >= 200 && request.status < 400) {
         // 7. Updating localStorage with the fresh data and applying the font data
         loSto[localStorageUrlKey] = url;
@@ -188,7 +188,7 @@ To illustrate the differences here are some filmstrip views:
 
 ### Resources
 
-- [My prevoius article about webfont loading on responsive sites](/blog/loading-webfonts-with-high-performance/)
+- [My prevoius article about webfont loading on responsive sites](/blog/loading-webfonts-with-high-performance.html)
 - [Woff2 feature test by Filament Group](https://github.com/filamentgroup/woff2-feature-test)
 - [WOFF2 support @ caniuse.com](https://caniuse.com/#feat=woff2)
 - [Font loading support @ caniuse.com](https://caniuse.com/#search=FontFace)

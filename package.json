@@ -31,6 +31,7 @@
     "markdown-it-link-attributes": "^3.0.0",
     "markdown-it-mermaid": "^0.2.5",
     "markdown-it-plantuml": "^1.4.1",
+    "markdown-it-prism": "^2.1.6",
     "markdown-it-task-lists": "^2.1.1",
     "markdown-it-toc-done-right": "^4.2.0",
     "minisearch": "^3.0.2",
