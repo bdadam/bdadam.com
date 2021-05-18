@@ -19,10 +19,11 @@ jobs:
           aws-region: us-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: S3 copy
+      - name: Build
+        run: yarn && yarn build
+      - name: Generate static site
+        run: yarn render
+      - name: S3 sync
         run: |
-          yarn
-          yarn build
-          yarn render
           aws s3 sync --exclude "*.html" --exclude "*.xml" --exclude "robots.txt" --cache-control "max-age=31536000" out s3://${{ secrets.BUCKET_ARN}}
           aws s3 sync --exclude "*" --include "*.html" --include "*.xml" --include "robots.txt" out s3://${{ secrets.BUCKET_ARN}}
