@@ -19,10 +19,14 @@ jobs:
           aws-region: us-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: S3 copy
+      - name: Install dependencies
+        run: yarn
+      - name: Build
+        run: yarn build
+      - name: Generate staic site
+        run: yarn render
+      - name: Upload to S3
         run: |
-          yarn
-          yarn build
-          yarn render
           aws s3 cp --recursive --exclude "*" --include "*.js" --include "*.css" --include "*.jpg" --include "*.png" --cache-control "max-age=31536000" out s3://${{ secrets.BUCKET_ARN}}
-          aws s3 cp --recursive --exclude "*" --include "*.html" --include "*.json" --include "*.xml" --include "*.txt" --cache-control "max-age=0" out s3://${{ secrets.BUCKET_ARN}}
+          aws s3 cp --recursive --include "*" --exclude "*.js" --exclude "*.css" --exclude "*.jpg" --exclude "*.png" --cache-control "max-age=0" out s3://${{ secrets.BUCKET_ARN}}
+          # aws s3 cp --recursive --exclude "*" --include "*.html" --include "*.json" --include "*.xml" --include "*.txt" --cache-control "max-age=0" out s3://${{ secrets.BUCKET_ARN}}
