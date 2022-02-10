@@ -22,7 +22,7 @@
     "markdown-it": "^8.4.1",
     "nedb": "^1.8.0",
     "nedb-promises": "^2.1.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.17.4",
     "nuxt": "^1.4.0",
     "sass-loader": "^7.0.1",
