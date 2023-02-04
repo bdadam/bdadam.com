@@ -3,7 +3,7 @@ name: Deploy Static Site
 on:
   push:
     branches:
-      - restart2020
+      - main
 
 jobs:
   deploy:
