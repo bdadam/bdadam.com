@@ -8,6 +8,14 @@ export default defineConfig({
         react(),
         // tailwind(),
         sitemap(),
+        {
+            name: 'Test',
+            hooks: {
+                'astro:config:setup': ({ injectScript }) => {
+                    injectScript('page-ssr', 'import "src/styles/abc.css";');
+                },
+            },
+        },
     ],
     trailingSlash: 'never',
     build: {

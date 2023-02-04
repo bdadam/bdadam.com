@@ -1,5 +1,9 @@
 ---
-import GlobalStyles from '../components/GlobalStyles.astro';
+// import GlobalStyles from '../components/GlobalStyles.astro';
+import '../styles/reset.scss';
+import '../styles/utilities.scss';
+
+import SiteHeader from '../components/SiteHeader.astro';
 ---
 
 <html lang="en">
@@ -7,17 +11,9 @@ import GlobalStyles from '../components/GlobalStyles.astro';
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <slot name="head" />
-        <!-- <GlobalStyles /> -->
-        <!-- <style>
-            @import '../styles/asdf.css';
-        </style> -->
     </head>
     <body>
-        <header class="site-header">
-            <nav>
-                <a href="/">Home</a>
-            </nav>
-        </header>
+        <SiteHeader />
         <slot />
         <footer class="site-footer">
             <p>&copy; 2023 bdadam.com</p>
@@ -30,8 +26,6 @@ import GlobalStyles from '../components/GlobalStyles.astro';
             </p>
         </footer>
     </body>
-
-    <GlobalStyles />
     <!-- <GlobalStyles />
 
 <style>
@@ -59,4 +53,7 @@ import GlobalStyles from '../components/GlobalStyles.astro';
         margin-bottom: 20px;
     }
 </style> -->
+    <!-- <style lang="scss">
+        @use '../styles/reset.scss';
+    </style> -->
 </html>
