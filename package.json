@@ -3,14 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "--dev": "next dev",
-    "dev": "tsnd render/server.ts",
-    "server": "NODE_ENV=production npx tsnd render/server.ts",
-    "mirror": "node -r ts-node/register render/index.ts",
-    "render": "node -r ts-node/register render/index.ts",
-    "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
-    "build": "vite build --outDir dist && vite build --outDir dist/server --ssr src/entry-server.tsx"
+    "dev": "astro dev",
+    "build": "astro build"
   },
   "dependencies": {
     "date-fns": "^2.21.3",
@@ -40,13 +34,21 @@
     "preact": "^10.5.13",
     "preact-render-to-string": "^5.1.19",
     "prismjs": "^1.23.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-ssr-prepass": "npm:preact-ssr-prepass",
     "rss": "^1.2.2",
-    "speakingurl": "^14.0.1"
+    "speakingurl": "^14.0.1",
+    "@astrojs/react": "^2.0.1",
+    "@astrojs/rss": "^2.1.0",
+    "@astrojs/sitemap": "^1.0.0",
+    "@astrojs/tailwind": "^3.0.0",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "astro": "^2.0.0",
+    "tailwindcss": "^3.0.24"
   },
   "devDependencies": {
     "@types/elasticlunr": "^0.9.1",
@@ -66,15 +68,16 @@
     "autoprefixer": "^10.2.5",
     "express": "^4.17.1",
     "postcss": "^8.2.15",
-    "prettier": "^2.3.0",
-    "sass": "^1.32.13",
+    "prettier": "^2.8.3",
+    "sass": "^1.57.1",
     "tailwindcss": "^2.1.2",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.4",
-    "vite": "^2.3.2"
+    "vite": "^2.3.2",
+    "prettier-plugin-astro": "^0.8.0"
   },
   "volta": {
-    "node": "16.1.0"
+    "node": "18.14.0"
   }
 }

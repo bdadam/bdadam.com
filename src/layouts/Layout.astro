@@ -1,0 +1,62 @@
+---
+import GlobalStyles from '../components/GlobalStyles.astro';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <slot name="head" />
+        <!-- <GlobalStyles /> -->
+        <!-- <style>
+            @import '../styles/asdf.css';
+        </style> -->
+    </head>
+    <body>
+        <header class="site-header">
+            <nav>
+                <a href="/">Home</a>
+            </nav>
+        </header>
+        <slot />
+        <footer class="site-footer">
+            <p>&copy; 2023 bdadam.com</p>
+            <p>
+                Except where otherwise noted, content on this site is licensed under a <a
+                    href="http://creativecommons.org/licenses/by/4.0/"
+                    rel="external nofollow noreferrer"
+                    target="_blank">Creative Commons Attribution 4.0 International license</a
+                >. Code samples are licensed under the MIT license.
+            </p>
+        </footer>
+    </body>
+
+    <GlobalStyles />
+    <!-- <GlobalStyles />
+
+<style>
+    .site-header {
+        padding: 20px;
+        border-bottom: 2px solid #dedede;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+        margin-bottom: 20px;
+    }
+
+    .site-header nav {
+        display: block;
+        max-width: 1200px;
+        margin-inline: auto;
+    }
+
+    .site-footer {
+        border-top: 1px solid #ccc;
+        padding: 20px;
+        text-align: center;
+        color: #777;
+    }
+
+    .site-footer p {
+        margin-bottom: 20px;
+    }
+</style> -->
+</html>

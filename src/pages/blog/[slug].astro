@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+
+    return posts.map((post) => {
+        return {
+            params: {
+                slug: post.slug,
+            },
+            props: {
+                post,
+            },
+        };
+    });
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<script>
+    console.log('Hello');
+</script>
+
+<Layout>
+    <Fragment slot="head">
+        <title>Hello World....</title>
+        <meta name="robots" content="hello" />
+    </Fragment>
+
+    <article class="blog-post">
+        <h1>{post.data.title}</h1>
+        <p class="article-date">
+            {
+                new Intl.DateTimeFormat('en-US', {
+                    dateStyle: 'long',
+                }).format(new Date(post.data.date))
+            }
+
+            | by <a href="/">Adam Beres-Deak</a>
+        </p>
+        {post.data.abstract && <p class="abstract">{post.data.abstract}</p>}
+        <div class="markdown-body">
+            <Content />
+        </div>
+    </article>
+</Layout>
+
+<style lang="scss">
+    h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+    }
+
+    .article-date {
+        color: #555;
+    }
+
+    // .blog-post :global(h2) {
+    //     font-weight: bold;
+    //     margin-block: 1.5rem 1rem;
+    //     font-size: 1.25rem;
+    //     line-height: 1.35;
+    // }
+
+    // .blog-post {
+    //     max-width: 900px;
+    //     padding: 20px;
+    //     margin-inline: auto;
+    // }
+
+    // .blog-post :global(p, .astro-code, ul, ol) {
+    //     margin-bottom: 20px;
+    // }
+
+    // .blog-post :global(.astro-code) {
+    //     padding: 8px;
+    //     border-radius: 4px;
+    // }
+
+    // .blog-post :global(table) {
+    //     th,
+    //     td {
+    //         color: red;
+    //     }
+    // }
+
+    // .blog-post :global(table) td {
+    //     padding: 2px;
+    // }
+
+    // .blog-post :global(table th) {
+    //     font-weight: 600;
+    // }
+
+    // .blog-post :global(table th),
+    // .blog-post :global(table td) {
+    //     padding: 6px 13px;
+    //     border: 1px solid #d0d7de;
+    // }
+
+    // .blog-post :global(table tr) {
+    //     background-color: #ffffff;
+    //     border-top: 1px solid hsla(210, 18%, 87%, 1);
+    // }
+
+    // .blog-post :global(table tr:nth-child(2n)) {
+    //     background-color: #f6f8fa;
+    // }
+
+    // .blog-post :global(table img) {
+    //     background-color: transparent;
+    // }
+
+    // .abstract {
+    //     font-weight: bold;
+    // }
+</style>

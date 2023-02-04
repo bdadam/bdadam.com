@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+
+const blogPosts = (await getCollection('blog')).filter((p) => p.data.published !== false);
+
+blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.date).getTime());
+---
+
+<Layout>
+    <h1>Adam Beres-Deak</h1>
+    <section class="article-list">
+        <ul>
+            {
+                blogPosts.map((post) => {
+                    return (
+                        <li>
+                            <h2 class="text-lg font-bold">
+                                <a href={`/blog/${post.slug}.html`}>{post.data.title}</a>
+                            </h2>
+                            <p class="text-slate-500">
+                                {new Intl.DateTimeFormat('en-US', {
+                                    dateStyle: 'long',
+                                }).format(new Date(post.data.date))}
+                            </p>
+                            {post.data.abstract && <p>{post.data.abstract}</p>}
+                            {post.data.tags && post.data.tags.length > 0 && (
+                                <p class="tags mt-1 flex gap-2">
+                                    {post.data.tags.map((tag) => (
+                                        <span class="p-2 bg-zinc-200 rounded">{tag}</span>
+                                    ))}
+                                </p>
+                            )}
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </section>
+</Layout>
+
+<style>
+    .article-list {
+        max-width: 900px;
+        margin-inline: auto;
+    }
+
+    li {
+        margin-bottom: 20px;
+    }
+</style>
