@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+// import { SocialImage } from 'astro-social-images';
+import { getCollection } from 'astro:content';
+
+import fs from 'fs/promises';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+
+    return posts.map((post) => {
+        return {
+            params: {
+                slug: post.slug,
+            },
+            props: {
+                post,
+            },
+        };
+    });
+}
+
+const { post, frontMatter } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await post.render();
+
+const b64 = await fs.readFile('public/bdadam.jpg', 'base64');
+---
+
+<div class="canvas">
+    <h1 class="x">
+        {post.data.title}
+        <p style="color: #ccc; font-size: 2rem; margin-top: 40px;">{remarkPluginFrontmatter.minutesRead}</p>
+    </h1>
+    <div class="author">
+        <img class="avatar" src={`data:image/jpeg;base64,${b64}`} />
+        <p>
+            Adam Beres-Deak<br />
+            bdadam.com
+        </p>
+    </div>
+</div>
+
+<style is:global is:inline>
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif,
+            'Apple Color Emoji', 'Segoe UI Emoji';
+    }
+
+    body,
+    h1,
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .canvas {
+        width: 1200px;
+        height: 630px;
+        background-color: #222;
+        color: #fff;
+        padding: 20px;
+        border: 5px solid orange;
+        position: relative;
+    }
+
+    .x,
+    h1 {
+        font-size: 4rem;
+        line-height: 1.2;
+    }
+
+    .author {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        color: #fff;
+        font-size: 2rem;
+        line-height: 1.3;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+    }
+
+    .avatar {
+        border-radius: 100%;
+        overflow: hidden;
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+    }
+</style>

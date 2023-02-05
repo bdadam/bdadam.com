@@ -6,6 +6,8 @@ export async function getStaticPaths() {
     const posts = await getCollection('blog');
 
     return posts.map((post) => {
+        console.log({ slug: post.slug });
+
         return {
             params: {
                 slug: post.slug,
@@ -29,6 +31,7 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
     <Fragment slot="head">
         <title>{post.data.title}</title>
         <meta name="description" content={post.data.abstract} />
+        <link rel="canonical" href={`https://bdadam.com/blog/${post.data.slug}.html`} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@bdadamm" />
         <meta name="twitter:creator" content="@bdadamm" />
@@ -39,6 +42,8 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
     </Fragment>
+
+    <!-- <p>{JSON.stringify(Astro.props)}</p> -->
 
     <article class="blog-post">
         <h1>{post.data.title}</h1>
