@@ -9,6 +9,8 @@ tags:
 abstract: Using feature flags is a pattern for safely releasing new features to users. This articles show a possible practical implementation of the pattern.
 ---
 
+## Table of contents
+
 <!--
   # Feature Flags Generate:
   - Intro

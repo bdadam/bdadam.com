@@ -17,8 +17,8 @@ export async function getStaticPaths() {
     });
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post, frontMatter } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await post.render();
 ---
 
 <script>
@@ -27,8 +27,17 @@ const { Content } = await post.render();
 
 <Layout>
     <Fragment slot="head">
-        <title>Hello World....</title>
-        <meta name="robots" content="hello" />
+        <title>{post.data.title}</title>
+        <meta name="description" content={post.data.abstract} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@bdadamm" />
+        <meta name="twitter:creator" content="@bdadamm" />
+        <meta property="og:url" content={`https://bdadam.com/blog/${post.data.slug}.html`} />
+        <meta property="og:title" content={post.data.title} />
+        <meta property="og:description" content={post.data.abstract} />
+        <meta property="og:image" content={`/og/${post.data.slug}.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
     </Fragment>
 
     <article class="blog-post">
@@ -40,7 +49,8 @@ const { Content } = await post.render();
                 }).format(new Date(post.data.date))
             }
 
-            | by <a href="/">Adam Beres-Deak</a>
+            &nbsp;&mdash;&nbsp; {remarkPluginFrontmatter.minutesRead}
+            <!-- <br />by <a href="/about.html">Adam Beres-Deak</a> -->
         </p>
         {post.data.abstract && <p class="abstract">{post.data.abstract}</p>}
         <div class="markdown-body">
@@ -49,74 +59,75 @@ const { Content } = await post.render();
     </article>
 </Layout>
 
-<!-- <style lang="scss">
-    // h1 {
-    //     font-size: 2rem;
-    //     font-weight: bold;
-    //     margin-bottom: 1.5rem;
-    // }
+<style lang="scss">
+    h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 16px;
+        line-height: 1.25;
+    }
 
-    // .article-date {
-    //     color: #555;
-    // }
+    .article-date {
+        color: #555;
+    }
 
-    // .blog-post :global(h2) {
-    //     font-weight: bold;
-    //     margin-block: 1.5rem 1rem;
-    //     font-size: 1.25rem;
-    //     line-height: 1.35;
-    // }
+    .blog-post :global(h2) {
+        font-weight: bold;
+        margin-block: 1.5rem 1rem;
+        font-size: 1.25rem;
+        line-height: 1.35;
+    }
 
-    // .blog-post {
-    //     max-width: 900px;
-    //     padding: 20px;
-    //     margin-inline: auto;
-    // }
+    .blog-post {
+        max-width: 900px;
+        padding: 20px;
+        margin-inline: auto;
+    }
 
-    // .blog-post :global(p, .astro-code, ul, ol) {
-    //     margin-bottom: 20px;
-    // }
+    .blog-post :global(p, .astro-code, ul, ol) {
+        margin-bottom: 20px;
+    }
 
-    // .blog-post :global(.astro-code) {
-    //     padding: 8px;
-    //     border-radius: 4px;
-    // }
+    .blog-post :global(.astro-code) {
+        padding: 8px;
+        border-radius: 4px;
+    }
 
-    // .blog-post :global(table) {
-    //     th,
-    //     td {
-    //         color: red;
-    //     }
-    // }
+    .blog-post :global(table) {
+        th,
+        td {
+            color: red;
+        }
+    }
 
-    // .blog-post :global(table) td {
-    //     padding: 2px;
-    // }
+    .blog-post :global(table) td {
+        padding: 2px;
+    }
 
-    // .blog-post :global(table th) {
-    //     font-weight: 600;
-    // }
+    .blog-post :global(table th) {
+        font-weight: 600;
+    }
 
-    // .blog-post :global(table th),
-    // .blog-post :global(table td) {
-    //     padding: 6px 13px;
-    //     border: 1px solid #d0d7de;
-    // }
+    .blog-post :global(table th),
+    .blog-post :global(table td) {
+        padding: 6px 13px;
+        border: 1px solid #d0d7de;
+    }
 
-    // .blog-post :global(table tr) {
-    //     background-color: #ffffff;
-    //     border-top: 1px solid hsla(210, 18%, 87%, 1);
-    // }
+    .blog-post :global(table tr) {
+        background-color: #ffffff;
+        border-top: 1px solid hsla(210, 18%, 87%, 1);
+    }
 
-    // .blog-post :global(table tr:nth-child(2n)) {
-    //     background-color: #f6f8fa;
-    // }
+    .blog-post :global(table tr:nth-child(2n)) {
+        background-color: #f6f8fa;
+    }
 
-    // .blog-post :global(table img) {
-    //     background-color: transparent;
-    // }
+    .blog-post :global(table img) {
+        background-color: transparent;
+    }
 
-    // .abstract {
-    //     font-weight: bold;
-    // }
-</style> -->
+    .abstract {
+        font-weight: bold;
+    }
+</style>

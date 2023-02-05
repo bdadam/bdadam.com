@@ -1,11 +1,16 @@
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
+// import react from '@astrojs/react';
+// import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import remarkToc from 'remark-toc';
+import compress from 'astro-compress';
 
+import { remarkReadingTime } from './src/plugins/remark-reading-time';
+
+// https://astro.build/config
 export default defineConfig({
     integrations: [
-        react(),
+        // react(),
         // tailwind(),
         sitemap(),
         {
@@ -16,13 +21,21 @@ export default defineConfig({
                 },
             },
         },
+        // compress({
+        //     css: true,
+        //     html: true,
+        // }),
     ],
+    server: {
+        host: '0.0.0.0',
+    },
     trailingSlash: 'never',
     build: {
         format: 'file',
     },
     site: 'https://bdadam.com/',
     markdown: {
+        remarkPlugins: [remarkReadingTime, () => remarkToc({})],
         shikiConfig: {
             // Choose from Shiki's built-in themes (or add your own)
             // https://github.com/shikijs/shiki/blob/main/docs/themes.md
