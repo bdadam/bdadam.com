@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 // import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import remarkToc from 'remark-toc';
+import remarkHint from 'remark-hint';
 import compress from 'astro-compress';
 
 import puppeteer from 'puppeteer';
@@ -59,7 +60,7 @@ export default defineConfig({
     },
     site: 'https://bdadam.com/',
     markdown: {
-        remarkPlugins: [remarkReadingTime, () => remarkToc({})],
+        remarkPlugins: [remarkReadingTime, remarkHint, () => remarkToc({})],
         shikiConfig: {
             // Choose from Shiki's built-in themes (or add your own)
             // https://github.com/shikijs/shiki/blob/main/docs/themes.md
