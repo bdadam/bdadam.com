@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 const blogPosts = (await getCollection('blog')).filter((p) =>
     process.env.NODE_ENV === 'production' ? p.data.published !== false : true
@@ -11,6 +13,8 @@ blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.d
 ---
 
 <Layout>
+    <SiteHeader />
+
     <h1>Adam Beres-Deak</h1>
     <section class="article-list">
         <ul>
@@ -40,6 +44,8 @@ blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.d
             }
         </ul>
     </section>
+
+    <SiteFooter />
 </Layout>
 
 <style>

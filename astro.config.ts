@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkToc from 'remark-toc';
 import remarkHint from 'remark-hint';
+import remarkDirective from 'remark-directive';
+import remarkCallouts from 'remark-callouts';
 import compress from 'astro-compress';
 
 import puppeteer from 'puppeteer';
@@ -18,14 +20,14 @@ export default defineConfig({
         // react(),
         // tailwind(),
         sitemap(),
-        {
-            name: 'Test',
-            hooks: {
-                'astro:config:setup': ({ injectScript }) => {
-                    injectScript('page-ssr', 'import "src/styles/abc.css";');
-                },
-            },
-        },
+        // {
+        //     name: 'Test',
+        //     hooks: {
+        //         'astro:config:setup': ({ injectScript }) => {
+        //             injectScript('page-ssr', 'import "src/styles/abc.css";');
+        //         },
+        //     },
+        // },
         {
             name: 'Generate screenshots',
             hooks: {
@@ -60,7 +62,30 @@ export default defineConfig({
     },
     site: 'https://bdadam.com/',
     markdown: {
-        remarkPlugins: [remarkReadingTime, remarkHint, () => remarkToc({})],
+        remarkPlugins: [
+            remarkReadingTime,
+            remarkHint,
+            remarkDirective,
+            remarkCallouts,
+            // () => {
+            //     return (tree) => {
+            //         visit(tree, (node) => {
+            //             if (
+            //                 node.type === 'textDirective' ||
+            //                 node.type === 'leafDirective' ||
+            //                 node.type === 'containerDirective'
+            //             ) {
+            //                 const data = node.data || (node.data = {});
+            //                 const hast = h(node.name, node.attributes);
+
+            //                 data.hName = hast.tagName;
+            //                 data.hProperties = hast.properties;
+            //             }
+            //         });
+            //     };
+            // },
+            () => remarkToc({}),
+        ],
         shikiConfig: {
             // Choose from Shiki's built-in themes (or add your own)
             // https://github.com/shikijs/shiki/blob/main/docs/themes.md
