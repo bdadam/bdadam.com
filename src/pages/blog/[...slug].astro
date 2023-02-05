@@ -29,19 +29,19 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
     <Fragment slot="head">
         <title>{post.data.title}</title>
         <meta name="description" content={post.data.abstract} />
-        <link rel="canonical" href={`https://bdadam.com/blog/${post.data.slug}.html`} />
+        <link rel="canonical" href={`https://bdadam.com/blog/${post.slug}.html`} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@bdadamm" />
         <meta name="twitter:creator" content="@bdadamm" />
-        <meta property="og:url" content={`https://bdadam.com/blog/${post.data.slug}.html`} />
+        <meta property="og:url" content={`https://bdadam.com/blog/${post.slug}.html`} />
         <meta property="og:title" content={post.data.title} />
         <meta property="og:description" content={post.data.abstract} />
-        <meta property="og:image" content={`/og/${post.data.slug}.png`} />
+        <meta property="og:image" content={`/og/${post.slug}.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
     </Fragment>
 
-    <!-- <p>{JSON.stringify(Astro.props)}</p> -->
+    <p>{JSON.stringify(Astro.props)}</p>
 
     <article class="blog-post">
         <h1>{post.data.title}</h1>
