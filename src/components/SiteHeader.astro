@@ -4,9 +4,12 @@
 
 <header class="site-header">
     <nav>
-        <!-- <a href="/">bdadam.com</a> -->
-        <a href="/">Adam's Blog</a>
-        <a href="/about.html">about</a>
+        <a class="brand" href="/"><i></i>Adam Beres-Deak</a>
+        <a href="/about.html">About</a>
+        <a href="/about.html">Cool Tools</a>
+        <a href="/about.html">Video Library</a>
+        <!-- <a href="/about.html">video library</a> -->
+        <!-- <a href="/about.html">contact</a> -->
         <!-- <a href="/about.html">articles</a>
         <a href="/about.html">video library</a>
         <a href="/about.html">tools</a> -->
@@ -17,19 +20,76 @@
     .site-header {
         margin-bottom: 20px;
         border-bottom: 2px solid #dcdcdc;
+        background-color: #f7f4e8;
+        background-color: #444;
+        background-color: #c8d9f0;
+        background-color: #fff;
     }
 
     nav {
         max-width: 1200px;
         margin-inline: auto;
         text-align: center;
+        display: flex;
+        flex-direction: row;
+        line-height: 1;
     }
+
+    .brand {
+        margin-right: auto;
+        color: #f41f56;
+        display: flex;
+        align-items: center;
+    }
+
+    .brand > i {
+        aspect-ratio: 1/1;
+        width: 32px;
+        /* height: 24px; */
+        border-radius: 6px;
+        /* border: 1px solid #ccc; */
+        margin-right: 12px;
+        transform: rotate(24deg);
+        background-color: #ff2255;
+        position: relative;
+    }
+
+    .brand > i::before {
+        content: 'A';
+        font-size: 1.5rem;
+        /* content: ''; */
+        color: #fff;
+        text-align: center;
+        /* transform: translate(-1px, -2px) rotate(-24deg); */
+        transform: rotate(-24deg) scale(0.87) translateY(2px);
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* .brand > i::after {
+        content: 'A';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        color: #fff;
+        z-index: 1;
+    } */
 
     a {
         padding: 1em;
         font-size: 1.125rem;
         display: inline-block;
-        font-variant: small-caps;
+        /* font-variant: small-caps; */
         font-weight: bold;
+        line-height: 1;
+
+        /* color: #f41f56;
+        color: #e09016;
+        color: #ff2255; */
     }
 </style>

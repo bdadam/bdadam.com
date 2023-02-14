@@ -49,25 +49,25 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
 
     <!-- <p>{JSON.stringify(post)}</p>
     <p>{JSON.stringify(remarkPluginFrontmatter)}</p> -->
+    <main>
+        <article class="blog-post">
+            <h1>{post.data.title}</h1>
+            <p class="article-date">
+                {
+                    new Intl.DateTimeFormat('en-US', {
+                        dateStyle: 'long',
+                    }).format(new Date(post.data.date))
+                }
 
-    <article class="blog-post">
-        <h1>{post.data.title}</h1>
-        <p class="article-date">
-            {
-                new Intl.DateTimeFormat('en-US', {
-                    dateStyle: 'long',
-                }).format(new Date(post.data.date))
-            }
-
-            &nbsp;&mdash;&nbsp; {remarkPluginFrontmatter.minutesRead}
-            <!-- <br />by <a href="/about.html">Adam Beres-Deak</a> -->
-        </p>
-        {post.data.abstract && <p class="abstract">{post.data.abstract}</p>}
-        <div class="markdown-body">
-            <Content />
-        </div>
-    </article>
-
+                &nbsp;&mdash;&nbsp; {remarkPluginFrontmatter.minutesRead}
+                <!-- <br />by <a href="/about.html">Adam Beres-Deak</a> -->
+            </p>
+            {post.data.abstract && <p class="abstract">{post.data.abstract}</p>}
+            <div class="markdown-body">
+                <Content />
+            </div>
+        </article>
+    </main>
     <SiteFooter />
 </Layout>
 
@@ -92,7 +92,6 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
 
     .blog-post {
         max-width: 900px;
-        padding: 20px;
         margin-inline: auto;
     }
 
