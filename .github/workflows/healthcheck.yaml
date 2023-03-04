@@ -1,0 +1,11 @@
+on:
+  schedule:
+    - cron: '18 8-20 * * *'
+
+jobs:
+  healthcheck:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          curl -sSf https://bdadam.com/ > /dev/null
+          curl -sSf https://expired.badssl.com/ > /dev/null
