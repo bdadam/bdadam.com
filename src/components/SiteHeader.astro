@@ -3,41 +3,125 @@
 ---
 
 <header class="site-header">
-    <nav>
+    <div class="site-header-container">
         <a class="brand" href="/"><i></i>Adam Beres-Deak</a>
         <a href="/about.html">About me</a>
-        <a href="/about.html">Today I Learned</a>
-        <a href="/about.html">Cool Tools</a>
-        <a href="/about.html">Video Library</a>
-        <!-- <a href="/about.html">video library</a> -->
-        <!-- <a href="/about.html">contact</a> -->
-        <!-- <a href="/about.html">articles</a>
-        <a href="/about.html">video library</a>
-        <a href="/about.html">tools</a> -->
-    </nav>
+        <!-- <div class="navlinks">
+            <a href="/about.html">Today I Learned</a>
+            <a href="/about.html">Cool Tools</a>
+            <a href="/about.html">Video Library</a>
+        </div>
+        <button class="burger"><span></span></button> -->
+    </div>
 </header>
+
+<script>
+    // @ts-ignore
+    document.querySelector('.site-header .burger').addEventListener('click', (e) => {
+        //@ts-ignore
+        document.querySelector('.site-header').classList.toggle('active');
+    });
+</script>
 
 <style>
     .site-header {
         margin-bottom: 20px;
-        /* border-bottom: 2px solid #dcdcdc; */
-        /* background-color: #f7f4e8;
-        background-color: #444;
-        background-color: #c8d9f0; */
         background-color: #fff;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
+        position: relative;
     }
 
-    nav {
-        max-width: 1200px;
+    .site-header-container {
+        max-width: 1100px;
         margin-inline: auto;
-        text-align: center;
         display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        line-height: 1;
-        justify-content: stretch;
-        gap: 20px;
+        width: 100%;
+        padding-inline: 20px;
+    }
+
+    .burger {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        background: none;
+        border: 0;
+    }
+
+    .burger span {
+        background-color: #777;
+        height: 3px;
+        display: block;
+        position: relative;
+    }
+
+    .burger span::before,
+    .burger span::after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 100%;
+        top: -8px;
+        position: absolute;
+        background-color: #777;
+    }
+
+    .burger span::after {
+        top: 8px;
+    }
+
+    .navlinks {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        background-color: #fff;
+        width: 100%;
+        padding: 20px;
+        box-shadow: 0 48px 48px rgba(0, 0, 0, 0.25);
+    }
+
+    .active .navlinks {
+        display: block;
+        border-top: 1px solid rgba(0, 0, 0, 0.45);
+        top: 68px;
+    }
+
+    @media (min-width: 1100px) {
+        .burger {
+            display: none;
+        }
+
+        .site-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand {
+            width: 250px;
+            margin-right: auto;
+        }
+
+        .navlinks {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex-wrap: nowrap;
+            gap: 20px;
+            box-shadow: none;
+            position: relative;
+        }
+
+        nav {
+            /* margin-inline: auto; */
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            line-height: 1;
+            justify-content: stretch;
+            gap: 20px;
+        }
     }
 
     .brand {
@@ -45,11 +129,12 @@
         color: #f41f56;
         display: flex;
         align-items: center;
+        flex-wrap: nowrap;
     }
 
     .brand > i {
-        aspect-ratio: 1/1;
         width: 32px;
+        height: 32px;
         border-radius: 6px;
         margin-right: 12px;
         transform: rotate(24deg);
@@ -60,10 +145,8 @@
     .brand > i::before {
         content: 'A';
         font-size: 1.5rem;
-        /* content: ''; */
         color: #fff;
         text-align: center;
-        /* transform: translate(-1px, -2px) rotate(-24deg); */
         transform: rotate(-24deg) scale(0.87) translateY(2px);
         display: block;
         width: 100%;
@@ -71,14 +154,13 @@
     }
 
     a {
-        padding: 1em;
+        padding-block: 1em;
         font-size: 1.125rem;
         display: inline-block;
         font-weight: bold;
         line-height: 1;
         align-items: center;
         display: flex;
-
         /* color: #f41f56;
         color: #e09016;
         color: #ff2255; */
