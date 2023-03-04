@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: '21 8-20 * * *'
+    - cron: '30 8-20 * * *'
 
 jobs:
   healthcheck:
