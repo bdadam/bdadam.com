@@ -2,6 +2,10 @@ name: Healthcheck
 on:
   schedule:
     - cron: '43 7,10,13,16,19 * * *'
+  workflow_run:
+    workflows: ['Deploy Static Site']
+    types:
+      - completed
 
 jobs:
   healthcheck:
