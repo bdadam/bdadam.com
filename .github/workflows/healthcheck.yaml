@@ -9,4 +9,7 @@ jobs:
     steps:
       - run: |
           curl -sSf https://bdadam.com/ > /dev/null
-          curl -sSf https://expired.badssl.com/ > /dev/null
+          curl -sSf https://bdadam.com/about.html > /dev/null
+          curl -sSf https://bdadam.com/blog/displaying-icons-with-custom-elements.html > /dev/null
+          curl -sSf https://bdadam.com/sitemap.xml > /dev/null
+          curl -sSf https://bdadam.com/rss.xml > /dev/null
