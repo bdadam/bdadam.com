@@ -18,14 +18,6 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
       - uses: actions/checkout@v3
-      # - name: Cache node modules
-      #   id: cache-npm
-      #   uses: actions/cache@v3
-      #   env:
-      #     cache-name: cache-node-modules
-      #   with:
-      #     path: node_modules
-      #     key: node_modules
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -38,3 +30,17 @@ jobs:
           aws s3 cp --recursive --exclude "*" --include "*.js" --include "*.css" --include "*.jpg" --include "*.png" --cache-control "max-age=31536000" dist s3://${{ secrets.BUCKET_ARN}}
           aws s3 cp --recursive --include "*" --exclude "*.js" --exclude "*.css" --exclude "*.jpg" --exclude "*.png" --cache-control "max-age=0" dist s3://${{ secrets.BUCKET_ARN}}
           # aws s3 cp --website-redirect "/about.html" --cache-control "max-age=900" 0byte.txt s3://${{ secrets.BUCKET_ARN}}/test-redirect.html
+      - name: Success notification
+        if: success()
+        run: |
+          curl -X POST \
+                -H 'Content-Type: application/json' \
+                -d '{"chat_id": "859819541", "text": "\u2705 Deployment succeeded", "disable_notification": true}' \
+                ${{ secrets.TELEGRAM_URL }}/sendMessage
+      - name: Failure notification
+        if: failure()
+        run: |
+          curl -X POST \
+                -H 'Content-Type: application/json' \
+                -d '{"chat_id": "859819541", "text": "\u26a0 - Deployment failed", "disable_notification": false}' \
+                ${{ secrets.TELEGRAM_URL }}/sendMessage
