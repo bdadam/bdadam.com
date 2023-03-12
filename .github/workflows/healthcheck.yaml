@@ -22,12 +22,12 @@ jobs:
         run: |
           curl -X POST \
                 -H 'Content-Type: application/json' \
-                -d '{"chat_id": "859819541", "text": "\u2b06 - OK", "disable_notification": false}' \
+                -d '{"chat_id": "859819541", "text": "\u2b06 - OK", "disable_notification": true}' \
                 ${{ secrets.TELEGRAM_URL }}/sendMessage
       - name: Failure notification
         if: failure()
         run: |
           curl -X POST \
                 -H 'Content-Type: application/json' \
-                -d '{"chat_id": "859819541", "text": "\u26a0 - ERROR", "disable_notification": true}' \
+                -d '{"chat_id": "859819541", "text": "\u26a0 - ERROR", "disable_notification": false}' \
                 ${{ secrets.TELEGRAM_URL }}/sendMessage
