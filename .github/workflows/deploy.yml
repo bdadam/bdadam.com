@@ -44,3 +44,9 @@ jobs:
                 -H 'Content-Type: application/json' \
                 -d '{"chat_id": "859819541", "text": "\u26a0 - Deployment failed", "disable_notification": false}' \
                 ${{ secrets.TELEGRAM_URL }}/sendMessage
+      - name: Site Tests
+        continue-on-error: true
+        working-directory: page-tests
+        run: |
+          yarn
+          yarn test

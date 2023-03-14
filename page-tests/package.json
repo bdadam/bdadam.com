@@ -2,6 +2,9 @@
   "name": "page-tests",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "vitest"
+  },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "glob": "^9.2.1",
