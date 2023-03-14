@@ -1,0 +1,10 @@
+{
+  "name": "page-tests",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "glob": "^9.2.1",
+    "vitest": "^0.29.2"
+  }
+}

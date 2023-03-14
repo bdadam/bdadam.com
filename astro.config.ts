@@ -19,7 +19,16 @@ export default defineConfig({
     integrations: [
         // react(),
         // tailwind(),
-        sitemap(),
+        sitemap({
+            filter: (page) => !page.includes('/og/'),
+            serialize(item) {
+                if (!item.url.endsWith('/')) {
+                    item.url = item.url + '.html';
+                }
+
+                return item;
+            },
+        }),
         // {
         //     name: 'Test',
         //     hooks: {
