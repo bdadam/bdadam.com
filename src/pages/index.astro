@@ -13,6 +13,19 @@ blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.d
 ---
 
 <Layout>
+    <Fragment slot="head">
+        <title>Adam Beres-Deak's Personal Website</title>
+        <meta name="description" content="" />
+        <link rel="canonical" href="https://bdadam.com/" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@bdadamm" />
+        <meta name="twitter:creator" content="@bdadamm" />
+        <!-- TODO: Add og:image -->
+        <!-- <meta property="og:image" content={`/og/bdadam.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" /> -->
+    </Fragment>
+
     <SiteHeader />
 
     <main>
