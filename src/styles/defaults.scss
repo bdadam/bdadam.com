@@ -23,3 +23,26 @@ a[target='_blank']::after {
     content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
     margin: 0 3px 0 5px;
 }
+
+code {
+    color: #c210e6;
+    // font-weight: bold;
+}
+
+.astro-code {
+    padding: 16px;
+    border-radius: 8px;
+}
+
+[data-remark-code-title] {
+    background-color: #3f3e3e;
+    padding: 12px 16px;
+    color: #fff;
+    border-bottom: 2px solid #ccc;
+    border-radius: 8px 8px 0 0;
+}
+
+[data-remark-code-title] + pre {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}

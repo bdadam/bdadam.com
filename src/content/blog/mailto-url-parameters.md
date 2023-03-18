@@ -12,6 +12,8 @@ abstract: |
   This article wants to be a quick summary of all the available parameters. We also have examples for HTML pages and JSX components.
 ---
 
+## Table of contents
+
 ## What are `mailto:` links URLs
 
 If we want to provide users with an easy way to send some content over e-mail one of the simplest solutions is to add a `mailto:` link to a website.
@@ -37,24 +39,36 @@ We can also prefill some of the values to save some time for our users. Here is 
 
 This is what it looks like <a href="mailto:?to=jane%40example.com%2Ccustomercare%40example.com&cc=john%40example.com&bcc=info%40example.com&subject=Hello%20world!&body=This%20is%20an%20example%0Awith%20linebreaks!%0A%0Aand%20some%20funny%20letters%3A%20%C3%81%C3%89%C5%90%C3%9A%C3%9A" target="_blank">jane@example.com</a>
 
-## For JSX users (React and its variants, some Vue users)
+## For React and other JSX users
 
 Here is a React component which generates such `mailto:` links.
 
-```js
-const mailtoLink = ({ to, cc, bcc, subject, body }) => {
+```tsx title="components/Mailto.jsx"
+type MailtoProps = Partial<{
+  to: string;
+  cc: string;
+  bcc: string;
+  subject: string;
+  body: string;
+}>;
+
+function MailtoLink({ to, cc, bcc, subject, body }: Props) {
+  const encoded = {
+    to: encodeURIComponent(to ?? ''),
+    cc: encodeURIComponent(cc ?? ''),
+    bcc: encodeURIComponent(bcc ?? ''),
+    body: encodeURIComponent(body ?? ''),
+    subject: encodeURIComponent(subject ?? ''),
+  };
+
   return (
     <a
-      href={`mailto:?to=${encodeURIComponent(to)}&cc=${encodeURIComponent(
-        cc
-      )}&bcc=${encodeURIComponent(bcc)}&subject=${encodeURIComponent(
-        subject
-      )}&body=${encodeURIComponent(body)}`}
+      href={`mailto:?to=${encoded.to}&cc=${encoded.cc}&bcc=${encoded.bcc}&subject=${encoded.subject}&body=${encoded.body}`}
     >
-      {to}
+      Send an email to: {to}
     </a>
   );
-};
+}
 ```
 
 ## Where are my spaces and new lines?
