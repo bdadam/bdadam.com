@@ -72,7 +72,6 @@ describe('Site Checks', async () => {
             });
 
             it('has an open graph image', () => {
-                // const image = $('html head meta[property="og:image"]').attr('content');
                 const image = /** @type {string} */ ($('html head meta[property="og:image"]').attr('content'));
                 const width = $('html head meta[property="og:image:width"]').attr('content');
                 const height = $('html head meta[property="og:image:height"]').attr('content');

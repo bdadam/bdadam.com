@@ -1,0 +1,152 @@
+---
+import { readFile } from 'fs/promises';
+
+const b64 = await readFile('public/bdadam.jpg', 'base64');
+---
+
+<div class="canvas">
+    <img class="avatar" src={`data:image/jpeg;base64,${b64}`} />
+
+    <h1 class="title">Adam Beres-Deak</h1>
+
+    <div class="contact-grid">
+        <div>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                ><path
+                    style="fill: #1DA1F2;"
+                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                ></path></svg
+            >
+            @bdadamm
+        </div>
+        <div>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                ><path
+                    style="fill: #fff"
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                ></path></svg
+            >
+            bdadam
+        </div>
+    </div>
+
+    <p class="site-url">
+        <svg
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            style="width: 1.25em; heiht: 1.25em;"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+            ></path>
+        </svg> bdadam.com
+    </p>
+
+    <p class="description">
+        Articles about JavaScript, TypeScript, AWS, CI/CD, Web Architecture, System Design, Frontend, Backend and
+        Databases
+    </p>
+</div>
+
+<style is:global is:inline>
+    html {
+        box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif,
+            'Apple Color Emoji', 'Segoe UI Emoji';
+        color: #eee;
+    }
+
+    body,
+    h1,
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .canvas {
+        width: 1200px;
+        height: 630px;
+        background-color: #222;
+        color: #fff;
+        padding: 20px;
+        border: 5px solid orange;
+        position: relative;
+    }
+
+    .title {
+        font-size: 4rem;
+        line-height: 1;
+        padding: 20px;
+    }
+
+    .contact-grid {
+        padding: 0 20px;
+        display: grid;
+        grid-template-rows: 100px;
+        grid-template-columns: 300px 300px;
+        grid-template-columns: max-content max-content;
+        gap: 40px;
+    }
+
+    .contact-grid > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 2rem;
+        gap: 18px;
+    }
+
+    .contact-grid > div > svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .avatar {
+        border-radius: 100%;
+        overflow: hidden;
+        width: 144px;
+        height: 144px;
+        object-fit: cover;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .site-url {
+        font-size: 2.5rem;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 80px;
+        letter-spacing: 0.05em;
+        color: #fff;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .description {
+        color: #eee;
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 80px;
+        line-height: 1.5;
+    }
+</style>
