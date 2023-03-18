@@ -14,8 +14,11 @@ blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.d
 
 <Layout>
     <Fragment slot="head">
-        <title>Adam Beres-Deak's Personal Website</title>
-        <meta name="description" content="" />
+        <title>Adam Beres-Deak's Personal Website and Blog</title>
+        <meta
+            name="description"
+            content="Blog about JavaScript, TypeScript, React, Vue, AWS, Infrastructure as Code, CI/CD, HTML, CSS"
+        />
         <link rel="canonical" href="https://bdadam.com/" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@bdadamm" />
@@ -29,7 +32,7 @@ blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.d
     <SiteHeader />
 
     <main>
-        <h1>Adam Beres-Deak</h1>
+        <h1>Adam Beres-Deak's Blog and Personal Website</h1>
         <section class="article-list">
             <ul>
                 {
