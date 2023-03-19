@@ -7,6 +7,11 @@ import remarkHint from 'remark-hint';
 import remarkDirective from 'remark-directive';
 import remarkCallouts from 'remark-callouts';
 import compress from 'astro-compress';
+import remarkDefinitionList from 'remark-definition-list';
+import remarkEmoji from 'remark-emoji';
+import remarkCodeTitle from 'remark-code-title';
+import remarkFlexibleContainers from 'remark-flexible-containers';
+// import remarkMermaid from 'remark-mermaidjs';
 
 import puppeteer from 'puppeteer';
 import path from 'path';
@@ -73,9 +78,18 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [
             remarkReadingTime,
-            remarkHint,
-            remarkDirective,
-            remarkCallouts,
+            remarkDefinitionList,
+
+            //@ts-ignore
+            [remarkEmoji, { accessible: true }],
+
+            remarkCodeTitle,
+            // [remarkMermaid, { launchOptions: { executablePath: 'google-chrome-unstable' } }],
+            remarkFlexibleContainers,
+
+            // remarkHint,
+            // remarkDirective,
+            // remarkCallouts,
             // () => {
             //     return (tree) => {
             //         visit(tree, (node) => {
@@ -100,7 +114,16 @@ export default defineConfig({
             // https://github.com/shikijs/shiki/blob/main/docs/themes.md
             // theme: 'dracula',
             // theme: 'one-dark-pro',
-            theme: 'dark-plus',
+            // theme: 'dark-plus',
+            // theme: 'one-dark-pro',
+            /*
+              | 'rose-pine-dawn'
+  | 'rose-pine-moon'
+  | 'rose-pine'
+  | 'slack-dark'
+  | 'slack-ochin'
+            */
+            theme: 'slack-dark',
             // theme: 'github-light',
             // Add custom languages
             // Note: Shiki has countless langs built-in, including .astro!

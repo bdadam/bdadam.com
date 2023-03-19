@@ -24,15 +24,37 @@ a[target='_blank']::after {
     margin: 0 3px 0 5px;
 }
 
-code {
-    color: #c210e6;
-    // font-weight: bold;
+strong {
+    font-weight: bold;
 }
+
+em {
+    font-style: italic;
+}
+
+code {
+    color: #a60fc4;
+    font-weight: bold;
+}
+
+// code::before,
+// code::after {
+//     content: '`';
+// }
 
 .astro-code {
     padding: 16px;
     border-radius: 8px;
 }
+
+.astro-code code {
+    font-weight: normal;
+}
+
+// .astro-code code::before,
+// .astro-code code::after {
+//     content: '';
+// }
 
 [data-remark-code-title] {
     background-color: #3f3e3e;

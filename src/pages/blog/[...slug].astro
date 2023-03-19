@@ -96,6 +96,28 @@ const urlEncoded = {
                 </button>
 
                 <a
+                    href={`mailto:?subject=${urlEncoded.title}&body=${encodeURIComponent(
+                        title + '\n\n' + post.data.abstract + '\n\n' + canonicalUrl
+                    )}`}
+                >
+                    <svg
+                        fill="none"
+                        stroke="#EA4335"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                        ></path>
+                    </svg>
+                    E-mail</a
+                >
+
+                <a
                     rel="external nofollow noopener"
                     target="_blank"
                     href={`https://twitter.com/intent/tweet?text=${urlEncoded.title}&url=${urlEncoded.url}&via=bdadamm`}
@@ -170,7 +192,7 @@ const urlEncoded = {
 
 <style>
     h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: bold;
         line-height: 1.3;
         padding: 1em 0 0.75em;
@@ -184,7 +206,7 @@ const urlEncoded = {
     .blog-post :global(h2) {
         font-weight: bold;
         margin-block: 1.5rem 1rem;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         line-height: 1.35;
     }
 

@@ -1,6 +1,6 @@
 ---
-date: 2020-05-05
-title: Quick "mailto:" URL parameter reference with full HTML and JSX examples
+date: 2023-03-25
+title: Quick "mailto:" parameter reference
 description: Overview - "mailto:" links are simple, effective and valuable tools on the Web.
 tags:
   - mailto
@@ -8,8 +8,8 @@ tags:
   - email
 
 abstract: |
-  The good old `mailto:` links are still an integral part of the Web. They still provide great value for little investment.
-  This article wants to be a quick summary of all the available parameters. We also have examples for HTML pages and JSX components.
+  The good old `mailto:` links are still an integral part of the Web. Mailto links provide great value for little investment.
+  Let's see how to construct mailto linksin plain HTML and in JSX.
 ---
 
 ## Table of contents
@@ -90,22 +90,24 @@ We can use any character in the parameters but they have to be URL encoded. Plea
 | `ü`        |      `%C3%BC` |
 | `ű`        |      `%C5%B1` |
 
-## Do we still use `mailto:` links in 2020?
+## Do we still use `mailto:` links in 2023?
 
 Yes, maybe more than ever. Here are the pros and cons for using mailto links.
 
-Pros
-: The e-mail is sent by the user's email client.
-: The recepient is more likely to recognize the sender than a random website.
-: Less chance for spam issues, each e-mail is sent by a person.
-: No third party tools or code needed.
-: Works without JavaScript.
-: No privacy concerns.
-: Better privacy. No chance for tracking (we can still put UTM params and stuff into links in body text).
+**Pros**
 
-Cons
-: The user needs to send the e-mail. What if they don't want to expose their e-mail address?
-: We have no control over how the e-mail looks. Users will most likely edit the e-mail before sending.
-: We cannot know for sure to whom and if the e-mail was sent.
-: We cannot know if the e-mail was received.
-: Crawlers can harvest e-mail addresses if `cc` or `bcc` parameters are present.
+- The e-mail is sent by the user's email client.
+- The recepient is more likely to recognize the sender than a random website.
+- Less chance for spam issues, each e-mail is sent by a person.
+- No third party tools or code needed.
+- Works without JavaScript.
+- No privacy concerns.
+- Better privacy. No chance for tracking (we can still put UTM params and stuff into links in body text).
+
+**Cons**
+
+- The user needs to send the e-mail. What if they don't want to expose their e-mail address?
+- We have no control over how the e-mail looks. Users will most likely edit the e-mail before sending.
+- We cannot know for sure to whom and if the e-mail was sent.
+- We cannot know if the e-mail was received.
+- Crawlers can harvest e-mail addresses if `cc` or `bcc` parameters are present.
