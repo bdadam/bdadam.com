@@ -6,7 +6,7 @@ body {
 main {
     max-width: 1200px;
     margin-inline: auto;
-    padding-inline: 20px;
+    padding-inline: 24px;
 }
 
 a {
@@ -67,4 +67,29 @@ code {
 [data-remark-code-title] + pre {
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
+}
+
+.anchor {
+    --bg: url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%221.5%22%20aria-hidden%3D%22true%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M13.19%208.688a4.5%204.5%200%200%201%201.242%207.244l-4.5%204.5a4.5%204.5%200%200%201-6.364-6.364l1.757-1.757m13.35-.622%201.757-1.757a4.5%204.5%200%200%200-6.364-6.364l-4.5%204.5a4.5%204.5%200%200%200%201.242%207.244%22%2F%3E%3C%2Fsvg%3E);
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-left: -20px;
+    margin-top: 8px;
+    background-image: var(--bg);
+    background-size: 16px 16px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    color: #555;
+}
+
+@media (min-width: 1024px) {
+    .anchor {
+        background-image: none;
+    }
+
+    .anchor:hover,
+    :hover > .anchor {
+        background-image: var(--bg);
+    }
 }

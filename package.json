@@ -52,6 +52,8 @@
     "react-router-dom": "^5.2.0",
     "react-ssr-prepass": "npm:preact-ssr-prepass",
     "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-slug": "^5.1.0",
     "remark-callouts": "^2.0.0",
     "remark-code-title": "^0.2.5",
     "remark-definition-list": "^1.2.0",

@@ -3,15 +3,16 @@ import { defineConfig } from 'astro/config';
 // import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import remarkToc from 'remark-toc';
-import remarkHint from 'remark-hint';
-import remarkDirective from 'remark-directive';
-import remarkCallouts from 'remark-callouts';
-import compress from 'astro-compress';
-import remarkDefinitionList from 'remark-definition-list';
+// import remarkHint from 'remark-hint';
+// import remarkDirective from 'remark-directive';
+// import remarkCallouts from 'remark-callouts';
+// import compress from 'astro-compress';
+import xremarkDefinitionList, { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import remarkEmoji from 'remark-emoji';
 import remarkCodeTitle from 'remark-code-title';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkFlexibleContainers from 'remark-flexible-containers';
-// import remarkMermaid from 'remark-mermaidjs';
 
 import puppeteer from 'puppeteer';
 import path from 'path';
@@ -19,7 +20,6 @@ import glob from 'glob-promise';
 
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
 
-// https://astro.build/config
 export default defineConfig({
     integrations: [
         // react(),
@@ -76,15 +76,18 @@ export default defineConfig({
     },
     site: 'https://bdadam.com/',
     markdown: {
+        extendDefaultPlugins: true,
+        rehypePlugins: [
+            rehypeSlug,
+            [rehypeAutolinkHeadings, { behavior: 'prepend', content: {}, properties: { className: 'anchor' } }],
+        ],
         remarkPlugins: [
             remarkReadingTime,
-            remarkDefinitionList,
+            // remarkDefinitionList,
 
             //@ts-ignore
             [remarkEmoji, { accessible: true }],
-
             remarkCodeTitle,
-            // [remarkMermaid, { launchOptions: { executablePath: 'google-chrome-unstable' } }],
             remarkFlexibleContainers,
 
             // remarkHint,
@@ -107,7 +110,9 @@ export default defineConfig({
             //         });
             //     };
             // },
-            () => remarkToc({}),
+            // [remarkToc, { heading: 'contents' }],
+            [remarkToc, {}],
+            remarkDefinitionList,
         ],
         shikiConfig: {
             // Choose from Shiki's built-in themes (or add your own)
