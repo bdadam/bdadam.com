@@ -79,7 +79,7 @@ export default defineConfig({
         extendDefaultPlugins: true,
         rehypePlugins: [
             rehypeSlug,
-            [rehypeAutolinkHeadings, { behavior: 'prepend', content: {}, properties: { className: 'anchor' } }],
+            [rehypeAutolinkHeadings, { behavior: 'prepend', content: {}, properties: { className: 'heading-anchor' } }],
         ],
         remarkPlugins: [
             remarkReadingTime,

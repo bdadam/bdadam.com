@@ -26,17 +26,37 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
 
 const canonicalUrl = `https://bdadam.com/blog/${post.slug}.html`;
 const title = post.data.title;
+const abstract = post.data.abstract;
 const formattedDate = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(post.data.date));
+const publishedDate = new Date(post.data.date).toISOString().slice(0, 10);
 const urlEncoded = {
     title: encodeURIComponent(title),
     url: encodeURIComponent(canonicalUrl),
+};
+const mailtoUrl = `mailto:?subject=${urlEncoded.title}&body=${encodeURIComponent(
+    title + '\n\n' + abstract + '\n\n' + canonicalUrl
+)}`;
+
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    image: `https://bdadam.com/og/blog/${post.slug}.png`,
+    genre: 'Web Development',
+    url: canonicalUrl,
+    datePublished: publishedDate,
+    description: abstract,
+    author: {
+        '@type': 'Person',
+        name: 'Adam Beres-Deak',
+    },
 };
 ---
 
 <Layout>
     <Fragment slot="head">
         <title>{title}</title>
-        <meta name="description" content={post.data.abstract} />
+        <meta name="description" content={abstract} />
         <link rel="canonical" href={canonicalUrl} />
         {remarkPluginFrontmatter.published === false && <meta name="robots" content="noindex" />}
         <meta name="twitter:card" content="summary" />
@@ -44,7 +64,7 @@ const urlEncoded = {
         <meta name="twitter:creator" content="@bdadamm" />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:title" content={post.data.title} />
-        <meta property="og:description" content={post.data.abstract} />
+        <meta property="og:description" content={abstract} />
         <meta property="og:image" content={`/og/blog/${post.slug}.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -64,7 +84,7 @@ const urlEncoded = {
                 &nbsp;&mdash;&nbsp;
                 <a href="/about.html">Adam Beres-Deak</a>
             </p>
-            {post.data.abstract && <p class="abstract">{post.data.abstract}</p>}
+            {abstract && <p class="abstract">{abstract}</p>}
             <div class="markdown-body">
                 <Content />
             </div>
@@ -95,11 +115,7 @@ const urlEncoded = {
                     Share
                 </button>
 
-                <a
-                    href={`mailto:?subject=${urlEncoded.title}&body=${encodeURIComponent(
-                        title + '\n\n' + post.data.abstract + '\n\n' + canonicalUrl
-                    )}`}
-                >
+                <a href={mailtoUrl}>
                     <svg
                         fill="none"
                         stroke="#EA4335"
@@ -185,6 +201,7 @@ const urlEncoded = {
                     Hackernews
                 </a>
             </section>
+            <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
         </article>
     </main>
     <SiteFooter />

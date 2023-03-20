@@ -69,6 +69,22 @@ import SiteFooter from '../components/SiteFooter.astro';
             <a href="https://www.xing.com/profile/Adam_BeresDeak">Xing</a>
         </li>
     </ul>
+
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'ProfilePage',
+            name: 'About Adam Beres-Deak',
+            description:
+                'Adam is a curious full-stack software engineer who codes in JavaScript, TypeScript, Rust, C# and uses AWS, CDK, Imfrastructure as Code',
+            publisher: {
+                '@type': 'Person',
+                name: 'Adam Beres-Deak',
+            },
+        })}
+    ></script>
+
     <SiteFooter />
 </Layout>
 

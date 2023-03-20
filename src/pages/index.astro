@@ -10,6 +10,51 @@ const blogPosts = (await getCollection('blog')).filter((p) =>
 );
 
 blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.date).getTime());
+
+const jsonld = {
+    '@context': 'http://schema.org',
+    '@type': 'Blog',
+    name: `Adam Beres-Deak's Personal Website and Blog`,
+    url: 'https://bdadam.com',
+    description:
+        'rticles about JavaScript, TypeScript, AWS, CI/CD, Web Architecture, System Design, Frontend, Backend and Databases',
+    publisher: {
+        '@type': 'Person',
+        name: 'Adam Beres-Deak',
+    },
+    // potentialAction: {
+    //     '@type': 'SearchAction',
+    //     target: 'https://example.com/search.php?q={search_term}',
+    //     'query-input': 'required name=search_term',
+    // },
+    blogPosts: blogPosts.map((post) => {
+        return {
+            '@type': 'BlogPosting',
+            mainEntityOfPage: `https://bdadam.com/blog/${post.slug}.html`,
+            headline: post.data.title,
+            // author: {
+            //     '@type': 'Person',
+            //     name: 'Adam Beres-Deak',
+            // },
+            //         datePublished: '10 May, 2016',
+            //         dateModified: '10 May, 2016',
+            //         image: {
+            //             '@type': 'imageObject',
+            //             url: 'https://example.com/image/post-one-thumbnail.jpg',
+            //             height: '200',
+            //             width: '400',
+            //         },
+            //         publisher: {
+            //             '@type': 'Organization',
+            //             name: 'Blog name',
+            //             logo: {
+            //                 '@type': 'imageObject',
+            //                 url: 'https://example.com/logo.png',
+            //             },
+            //         },
+        };
+    }),
+};
 ---
 
 <Layout>
@@ -60,13 +105,14 @@ blogPosts.sort((p1, p2) => new Date(p2.data.date).getTime() - new Date(p1.data.d
                 }
             </ul>
         </section>
+        <script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
     </main>
     <SiteFooter />
 </Layout>
 
 <style>
     .article-list {
-        max-width: 900px;
+        max-width: 80ch;
         margin-inline: auto;
     }
 

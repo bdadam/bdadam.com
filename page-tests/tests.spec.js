@@ -84,6 +84,12 @@ describe('Site Checks', async () => {
                 expect(parseInt(height ?? '')).toEqual(630);
                 expect(existsSync(path.resolve('../dist', image.replace('/og', 'og')))).toEqual(true);
             });
+
+            it('has JSON+LD', () => {
+                const jsonld = JSON.parse($('script[type=application/ld+json]').text());
+                expect(jsonld).toBeDefined();
+                expect(jsonld.author ?? jsonld.publisher).toEqual({ '@type': 'Person', name: 'Adam Beres-Deak' });
+            });
         });
     });
 
