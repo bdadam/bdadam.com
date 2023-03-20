@@ -7,13 +7,13 @@
     "build": "astro build"
   },
   "dependencies": {
-    "@astrojs/rss": "^2.1.0",
+    "@astrojs/rss": "^2.3.0",
     "@astrojs/sitemap": "^1.2.1",
-    "astro": "^2.0.0",
-    "astro-compress": "^1.1.29",
+    "astro": "^2.1.3",
+    "astro-compress": "^1.1.35",
     "glob": "^9.3.0",
     "mdast-util-to-string": "^3.1.1",
-    "puppeteer": "^19.6.3",
+    "puppeteer": "^19.7.5",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-slug": "^5.1.0",
@@ -26,13 +26,13 @@
     "remark-toc": "^8.0.1"
   },
   "devDependencies": {
-    "@types/node": "^15.3.0",
-    "prettier": "^2.8.3",
+    "@types/node": "^18.15.5",
+    "prettier": "^2.8.5",
     "prettier-plugin-astro": "^0.8.0",
-    "sass": "^1.57.1",
-    "typescript": "^4.9.5"
+    "sass": "^1.59.3",
+    "typescript": "^5.0.2"
   },
   "volta": {
-    "node": "18.14.0"
+    "node": "18.15.0"
   }
 }
