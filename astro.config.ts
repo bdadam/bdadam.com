@@ -1,11 +1,6 @@
 import { defineConfig } from 'astro/config';
-// import react from '@astrojs/react';
-// import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import remarkToc from 'remark-toc';
-// import remarkHint from 'remark-hint';
-// import remarkDirective from 'remark-directive';
-// import remarkCallouts from 'remark-callouts';
 // import compress from 'astro-compress';
 import xremarkDefinitionList, { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import remarkEmoji from 'remark-emoji';
@@ -16,14 +11,12 @@ import remarkFlexibleContainers from 'remark-flexible-containers';
 
 import puppeteer from 'puppeteer';
 import path from 'path';
-import glob from 'glob-promise';
+import glob from 'glob';
 
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
 
 export default defineConfig({
     integrations: [
-        // react(),
-        // tailwind(),
         sitemap({
             filter: (page) => !page.includes('/og/'),
             serialize(item) {
@@ -83,34 +76,11 @@ export default defineConfig({
         ],
         remarkPlugins: [
             remarkReadingTime,
-            // remarkDefinitionList,
 
             //@ts-ignore
             [remarkEmoji, { accessible: true }],
             remarkCodeTitle,
             remarkFlexibleContainers,
-
-            // remarkHint,
-            // remarkDirective,
-            // remarkCallouts,
-            // () => {
-            //     return (tree) => {
-            //         visit(tree, (node) => {
-            //             if (
-            //                 node.type === 'textDirective' ||
-            //                 node.type === 'leafDirective' ||
-            //                 node.type === 'containerDirective'
-            //             ) {
-            //                 const data = node.data || (node.data = {});
-            //                 const hast = h(node.name, node.attributes);
-
-            //                 data.hName = hast.tagName;
-            //                 data.hProperties = hast.properties;
-            //             }
-            //         });
-            //     };
-            // },
-            // [remarkToc, { heading: 'contents' }],
             [remarkToc, {}],
             remarkDefinitionList,
         ],

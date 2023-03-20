@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import path from 'path';
-import glob from 'glob-promise';
+import glob from 'glob';
 
 (async () => {
     // 1. Launch the browser
