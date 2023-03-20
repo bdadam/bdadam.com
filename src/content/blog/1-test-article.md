@@ -56,11 +56,9 @@ adadasdasd
 asdasdasd
 
 Term 1
-
 : Definition 1
 
 Term 2 with _inline markup_
-
 : Definition 2
 
     `{ some code, part of Definition 2 }`

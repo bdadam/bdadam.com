@@ -90,6 +90,11 @@ describe('Site Checks', async () => {
                 expect(jsonld).toBeDefined();
                 expect(jsonld.author ?? jsonld.publisher).toEqual({ '@type': 'Person', name: 'Adam Beres-Deak' });
             });
+
+            it('has html[lang=en]', () => {
+                const htmlLang = $('html').attr('lang');
+                expect(htmlLang).toEqual('en');
+            });
         });
     });
 

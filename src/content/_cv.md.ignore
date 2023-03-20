@@ -1,11 +1,11 @@
 ---
+title: CV
+description: "Adam Beres-Deak's CV"
 published: false
-layout:         page.hbs
-title:          CV
-description:    Adam Beres-Deak's CV
+draft: true
 ---
 
-<dl>
+<!-- <dl>
     <dt>Nationality</dt>
     <dd>Hungarian</dd>
 
@@ -14,9 +14,11 @@ description:    Adam Beres-Deak's CV
 
     <dt>Current location</dt>
     <dd>Munich, Germany</dd>
-</dl>
+
+</dl> -->
 
 ## Work experience
+
 <dl>
     <dt>Oct 2011 - Present</dt>
     <dd>
@@ -61,9 +63,11 @@ description:    Adam Beres-Deak's CV
             <li>Server administration - Windows Server and Linux</li>
         </ul>
     </dd>
+
 </dl>
 
 ## Education
+
 <dl>
     <dt>Sep 2002 - May 2007</dt>
     <dd>
@@ -80,6 +84,7 @@ description:    Adam Beres-Deak's CV
         <p>Transportation Engineering</p>
         <p>Master's degree - not finished</p>
     </dd>
+
 </dl>
 
 ## Talks and workshops
@@ -101,4 +106,5 @@ description:    Adam Beres-Deak's CV
 
     <dt>Italian</dt>
     <dd>lower-intermediate (B1)</dd>
+
 </dl>
