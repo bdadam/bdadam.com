@@ -98,34 +98,13 @@ describe('Site Checks', async () => {
         });
     });
 
-    describe('Sitemap Index', async () => {
-        const sitemapIndexXml = readFileSync('../dist/sitemap-index.xml', 'utf-8');
-        const $ = cheerio.load(sitemapIndexXml);
-
-        it('is xml', () => {
-            expect(sitemapIndexXml).toMatch(
-                new RegExp(
-                    '^<\\?xml version="1.0" encoding="UTF-8"\\?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-                )
-            );
-        });
-
-        it('points to sitemap-0.xml file', () => {
-            expect($('sitemap loc').length).toEqual(1);
-            expect($('sitemap loc').text()).toEqual('https://bdadam.com/sitemap-0.xml');
-        });
-    });
-
     describe('Sitemap', async () => {
-        const sitemapXml = readFileSync('../dist/sitemap-0.xml', 'utf-8');
+        const sitemapXml = readFileSync('../dist/sitemap.xml', 'utf-8');
         const $ = cheerio.load(sitemapXml);
 
         it('is xml', () => {
-            expect(sitemapXml).toMatch(
-                new RegExp(
-                    '<\\?xml version="1.0" encoding="UTF-8"\\?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'
-                )
-            );
+            expect(sitemapXml.startsWith('<?xml version="1.0" encoding="utf-8"?>')).toEqual(true);
+            expect(sitemapXml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
         });
 
         it('has links to home', () => {
@@ -144,8 +123,8 @@ describe('Site Checks', async () => {
             expect(aboutLink).toHaveLength(1);
         });
 
-        it('has links to at least 40 pages', () => {
-            expect($('url loc').length).toBeGreaterThan(40);
+        it('has links to at least 39 pages', () => {
+            expect($('url loc').length).toBeGreaterThanOrEqual(39);
         });
     });
 
@@ -157,7 +136,7 @@ describe('Site Checks', async () => {
         });
 
         it('has link to sitemap xml', () => {
-            expect(content).toContain('Sitemap: https://bdadam.com/sitemap-index.xml');
+            expect(content).toContain('Sitemap: https://bdadam.com/sitemap.xml');
         });
     });
 

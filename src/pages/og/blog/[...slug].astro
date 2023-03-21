@@ -1,4 +1,5 @@
 ---
+import Layout from '../../../layouts/OpenGraphLayout.astro';
 import { getCollection } from 'astro:content';
 
 import fs from 'fs/promises';
@@ -24,19 +25,21 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
 const b64 = await fs.readFile('public/bdadam.jpg', 'base64');
 ---
 
-<div class="canvas">
-    <h1 class="x">
-        {post.data.title}
-        <p style="color: #ccc; font-size: 2rem; margin-top: 40px;">{remarkPluginFrontmatter.minutesRead}</p>
-    </h1>
-    <div class="author">
-        <img class="avatar" src={`data:image/jpeg;base64,${b64}`} />
-        <p>
-            Adam Beres-Deak<br />
-            bdadam.com
-        </p>
+<Layout>
+    <div class="canvas">
+        <h1 class="x">
+            {post.data.title}
+            <p style="color: #ccc; font-size: 2rem; margin-top: 40px;">{remarkPluginFrontmatter.minutesRead}</p>
+        </h1>
+        <div class="author">
+            <img class="avatar" src={`data:image/jpeg;base64,${b64}`} />
+            <p>
+                Adam Beres-Deak<br />
+                bdadam.com
+            </p>
+        </div>
     </div>
-</div>
+</Layout>
 
 <style is:global is:inline>
     html {

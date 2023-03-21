@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@astrojs/rss": "^2.3.0",
-    "@astrojs/sitemap": "^1.2.1",
     "astro": "^2.1.3",
     "astro-compress": "^1.1.35",
     "glob": "^9.3.0",
