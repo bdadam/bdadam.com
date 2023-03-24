@@ -1,6 +1,5 @@
 import { readFileSync } from 'fs';
 import { writeFile } from 'fs/promises';
-import path from 'path';
 
 export default async function (paths: string[]) {
     const sitemapDataString = readFileSync('dist/sitemap-data.json', 'utf-8');
