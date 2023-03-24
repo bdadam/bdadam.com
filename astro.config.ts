@@ -9,18 +9,9 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkFlexibleContainers from 'remark-flexible-containers';
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
 import generateOgImages from './src/tools/generate-og-images';
-import generateSitemap from './src/tools/generate-sitemap';
 
 export default defineConfig({
     integrations: [
-        {
-            name: 'Generate sitemap.xml',
-            hooks: {
-                'astro:build:done': async ({ pages }) => {
-                    await generateSitemap(pages.map((p) => p.pathname));
-                },
-            },
-        },
         {
             name: 'Generate screenshots',
             hooks: {
