@@ -11,6 +11,7 @@ abstract:
   In any form of software development we often need a unique "name" to identify pieces of information
   (objects in memory, database entities, DOM elements, cars, persons and so on).
   This article will show how to generate such identifiers based on the needs, from simplest to more complex solutions.
+published: false
 ---
 
 ## The simplest solution
@@ -110,7 +111,8 @@ Version 4 UUIDs include 122 randomly generated bits and 6 predetermined bits to 
 
 ```js
 function isValidUUID(uuid) {
-  const re = /[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}/i;
+  const re =
+    /[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}/i;
   return re.test(uuid);
 }
 
