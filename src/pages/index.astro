@@ -75,30 +75,34 @@ const jsonld = {
 
     <SiteHeader />
 
+    <div class="hero">
+        <h1>Adam Beres-Deak's Tech&nbsp;Blog</h1>
+    </div>
+
     <main>
-        <h1>Adam Beres-Deak's Blog and Personal Website</h1>
-        <section class="article-list">
-            <ul>
+        <section>
+            <h2>Articles</h2>
+            <ul class="article-list">
                 {
                     blogPosts.map((post) => {
                         return (
-                            <li>
-                                <h2 class="text-lg font-bold">
-                                    <a href={`/blog/${post.slug}.html`}>{post.data.title}</a>
-                                </h2>
-                                <p class="text-slate-500">
+                            <li class="post-card">
+                                <a class="post-link" href={`/blog/${post.slug}.html`}>
+                                    {post.data.title}
+                                </a>
+
+                                <time
+                                    class="post-date"
+                                    datetime={new Date(post.data.date).toISOString().substring(0, 10)}
+                                >
                                     {new Intl.DateTimeFormat('en-US', {
                                         dateStyle: 'long',
                                     }).format(new Date(post.data.date))}
-                                </p>
-                                {post.data.abstract && <p>{post.data.abstract}</p>}
-                                {post.data.tags && post.data.tags.length > 0 && (
-                                    <p class="tags mt-1 flex gap-2">
-                                        {post.data.tags.map((tag) => (
-                                            <span class="p-2 bg-zinc-200 rounded">{tag}</span>
-                                        ))}
-                                    </p>
-                                )}
+                                </time>
+                                {post.data.abstract && <p class="post-abstract">{post.data.abstract}</p>}
+                                <a class="read-more" href={`/blog/${post.slug}.html`}>
+                                    Read more
+                                </a>
                             </li>
                         );
                     })
@@ -111,12 +115,52 @@ const jsonld = {
 </Layout>
 
 <style>
-    .article-list {
-        max-width: 80ch;
-        margin-inline: auto;
+    .hero {
+        background-color: #f1f1ff;
+        /* height: 350px; */
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        padding-inline: 24px;
+        padding-block: 80px;
     }
 
-    li {
-        margin-bottom: 20px;
+    h1 {
+        font-weight: bold;
+        font-size: 2rem;
+        line-height: 1.3;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 1.5rem;
+        border-bottom: 5px dotted #ccc;
+        max-width: 800px;
+        margin-inline: auto;
+        margin-block: 40px;
+    }
+
+    .article-list {
+        max-width: 800px;
+        margin-inline: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .post-link {
+        font-weight: bold;
+        font-size: 1.25rem;
+    }
+
+    .post-date {
+        display: block;
+        color: #555;
+        font-size: 0.9125rem;
+        margin-block: 6px;
+    }
+
+    .post-abstract {
+        /*  */
     }
 </style>

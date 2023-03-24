@@ -9,7 +9,7 @@ tags:
 
 abstract: |
   The good old `mailto:` links are still an integral part of the Web. Mailto links provide great value for little investment.
-  Let's see how to construct mailto linksin plain HTML and in JSX.
+  Let's see how to construct mailto links in plain HTML and in JSX.
 published: false
 ---
 

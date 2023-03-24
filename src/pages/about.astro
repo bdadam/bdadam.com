@@ -23,7 +23,7 @@ import SiteFooter from '../components/SiteFooter.astro';
     <SiteHeader />
 
     <main>
-        <h1>Hi! I'm Adam Beres-Deak</h1>
+        <h1>Hi! I'm Adam&nbsp;Beres-Deak</h1>
 
         <p>
             I'm a curious peron who loves learning, teaching and creating tech. I mostly work on Web projects, I mostly
@@ -92,9 +92,29 @@ import SiteFooter from '../components/SiteFooter.astro';
 </Layout>
 
 <style>
+    main {
+        max-width: 848px;
+    }
+
     h1 {
+        font-size: 2.5rem;
         font-weight: bold;
-        font-size: 1.5rem;
+        line-height: 1.3;
+        padding: 1em 0 0.75em;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    h1::before {
+        content: '';
+        background-color: #f1f1ff;
+        position: absolute;
+        /* height: 100%; */
+        top: 0;
+        bottom: 0;
+        width: 4000px;
+        left: -2000px;
+        z-index: -1;
     }
 
     h2 {

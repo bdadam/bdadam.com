@@ -213,6 +213,20 @@ const jsonLd = {
         font-weight: bold;
         line-height: 1.3;
         padding: 1em 0 0.75em;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    h1::before {
+        content: '';
+        background-color: #f1f1ff;
+        position: absolute;
+        /* height: 100%; */
+        top: 0;
+        bottom: 0;
+        width: 4000px;
+        left: -2000px;
+        z-index: -1;
     }
 
     .article-date {
@@ -228,7 +242,7 @@ const jsonLd = {
     }
 
     .blog-post {
-        max-width: 80ch;
+        max-width: 800px;
         margin-inline: auto;
     }
 
