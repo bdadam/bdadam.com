@@ -3,32 +3,38 @@ import { writeFile } from 'fs/promises';
 import path from 'path';
 
 export default async function (paths: string[]) {
-    const pathsWithoutOgImages = paths.filter((p) => !p.startsWith('og/'));
-    const pathsWithHtmlExtension = pathsWithoutOgImages.map((p) => {
-        if (p === '' || p.endsWith('.html')) {
-            return p;
+    const sitemapDataString = readFileSync('dist/sitemap-data.json', 'utf-8');
+
+    const sitemapData = JSON.parse(sitemapDataString) as Array<{
+        title: string;
+        formattedPublicationDate: string;
+        url: string;
+    }>;
+
+    const articleUrls: string[] = sitemapData.map((item) => {
+        if (new Date(item.formattedPublicationDate).getTime() < Date.now() - 3 * 24 * 60 * 60 * 1000) {
+            return `<url><loc>https://bdadam.com/${item.url}</loc></url>`;
         }
 
-        return p + '.html';
+        return `<loc>${item.url}</loc>
+<news:news>
+<news:publication>
+<news:name>Adam Beres-Deak</news:name>
+<news:language>en</news:language>
+</news:publication>
+<news:publication_date>${item.formattedPublicationDate}</news:publication_date>
+<news:title>${item.title}</news:title>
+</news:news>`;
     });
 
-    const pathsWithHtmlExtensionFiltered = pathsWithHtmlExtension.filter((p) => {
-        if (!p.endsWith('.html')) {
-            return true;
-        }
-        const content = readFileSync(path.resolve('dist', p), 'utf-8');
-
-        return !content.includes('<meta name="robots" content="noindex">');
-    });
-
-    const articleUrls = pathsWithHtmlExtensionFiltered.map((p) => `<url><loc>https://bdadam.com/${p}</loc></url>`);
-
-    const x = [
+    const sitempLines = [
         '<?xml version="1.0" encoding="utf-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        '<url><loc>https://bdadam.com/</loc></url>',
+        '<url><loc>https://bdadam.com/about.html</loc></url>',
         ...articleUrls,
         '</urlset>',
     ];
 
-    await writeFile('dist/sitemap.xml', x.join('\n'));
+    await writeFile('dist/sitemap.xml', sitempLines.join('\n'));
 }

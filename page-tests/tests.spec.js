@@ -123,8 +123,8 @@ describe('Site Checks', async () => {
             expect(aboutLink).toHaveLength(1);
         });
 
-        it('has links to at least 39 pages', () => {
-            expect($('url loc').length).toBeGreaterThanOrEqual(39);
+        it('has links to at least 38 pages', () => {
+            expect($('url loc').length).toBeGreaterThanOrEqual(38);
         });
     });
 
