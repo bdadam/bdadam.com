@@ -16,7 +16,7 @@ export const get: APIRoute = async function get() {
 
     const articleUrls: string[] = sitemapData.map((item) => {
         if (new Date(item.formattedPublicationDate).getTime() < Date.now() - 3 * 24 * 60 * 60 * 1000) {
-            return `<url><loc>https://bdadam.com/${item.url}</loc></url>`;
+            return `<url><loc>${item.url}</loc></url>`;
         }
 
         return `<url>
