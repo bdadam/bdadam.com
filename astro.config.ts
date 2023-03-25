@@ -79,8 +79,8 @@ export default defineConfig({
                                 removeScriptTypeAttributes: true,
                             });
 
-                            writeFileSync(htmlPath, f);
-                            console.log(`Minified ${htmlPath}`);
+                            // writeFileSync(htmlPath, f);
+                            // console.log(`Minified ${htmlPath}`);
                         });
                 },
             },
