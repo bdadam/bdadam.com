@@ -27,7 +27,7 @@ jobs:
         run: yarn build
       - name: Upload to S3
         run: |
-          aws s3 cp --recursive --exclude "*" --include "*.js" --include "*.css" --include "*.jpg" --include "*.png" --cache-control "max-age=31536000" dist s3://${{ secrets.BUCKET_ARN}}
+          aws s3 cp --recursive --exclude "*" --include "*.js" --include "*.css" --include "*.jpg" --include "*.png" --cache-control "public, max-age=31536000, immutable" dist s3://${{ secrets.BUCKET_ARN}}
           aws s3 cp --recursive --include "*" --exclude "*.js" --exclude "*.css" --exclude "*.jpg" --exclude "*.png" --cache-control "max-age=0" dist s3://${{ secrets.BUCKET_ARN}}
           # aws s3 cp --website-redirect "/about.html" --cache-control "max-age=900" 0byte.txt s3://${{ secrets.BUCKET_ARN}}/test-redirect.html
       - name: Success notification
