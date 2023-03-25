@@ -88,7 +88,11 @@ describe('Site Checks', async () => {
             it('has JSON+LD', () => {
                 const jsonld = JSON.parse($('script[type=application/ld+json]').text());
                 expect(jsonld).toBeDefined();
-                expect(jsonld.author ?? jsonld.publisher).toEqual({ '@type': 'Person', name: 'Adam Beres-Deak' });
+                expect(jsonld.author ?? jsonld.publisher).toEqual({
+                    '@type': 'Person',
+                    name: 'Adam Beres-Deak',
+                    url: 'https://bdadam.com/about.html',
+                });
             });
 
             it('has html[lang=en]', () => {
