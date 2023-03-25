@@ -9,6 +9,12 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkFlexibleContainers from 'remark-flexible-containers';
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
 import generateOgImages from './src/tools/generate-og-images';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
+import { glob } from 'glob';
+import * as cheerio from 'cheerio';
+import { resolve, join } from 'path';
+import CleanCSS from 'clean-css';
+import htmlMinifier from 'html-minifier';
 
 export default defineConfig({
     integrations: [
@@ -17,6 +23,65 @@ export default defineConfig({
             hooks: {
                 'astro:build:done': async ({ pages }) => {
                     await generateOgImages();
+                },
+            },
+        },
+        {
+            name: 'Minify HTML, inline CSS',
+            hooks: {
+                'astro:build:done': async ({ dir }) => {
+                    const x = await glob('**/*.html', { cwd: dir.pathname });
+
+                    const assets = new Map<string, string>();
+
+                    x.map((f) => join('./dist/', f))
+                        .filter((f) => !/\/og\//.test(f))
+                        .forEach((htmlPath) => {
+                            const content = readFileSync(htmlPath, 'utf-8');
+
+                            const $ = cheerio.load(content);
+                            const links = $('link[rel="stylesheet"]');
+                            for (const l of links) {
+                                const q = l.attribs['href'];
+
+                                if (q.startsWith('https://')) {
+                                    continue;
+                                }
+
+                                const assetPath = join('./dist', q);
+
+                                const minifiedCss =
+                                    assets.get(assetPath) ??
+                                    new CleanCSS({}).minify(readFileSync(join('./dist', q), 'utf-8')).styles;
+
+                                assets.set(assetPath, minifiedCss);
+
+                                $(l).replaceWith($(`<style>${minifiedCss}</style>`));
+                            }
+
+                            // const scripts = $('script[src]');
+                            // for (const script of scripts) {
+                            //     const src = script.attribs['src'];
+
+                            //     if (src.startsWith('https://')) {
+                            //         continue;
+                            //     }
+
+                            //     const assetPath = join('./dist', src);
+                            //     console.log({ assetPath });
+                            // }
+
+                            const f = htmlMinifier.minify($.html(), {
+                                collapseBooleanAttributes: true,
+                                collapseWhitespace: true,
+                                decodeEntities: true,
+                                removeComments: true,
+                                removeScriptTypeAttributes: true,
+                            });
+
+                            writeFileSync(htmlPath, f);
+                            console.log(`Minified ${htmlPath}`);
+                        });
                 },
             },
         },
