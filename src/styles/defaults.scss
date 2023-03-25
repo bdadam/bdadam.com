@@ -98,3 +98,12 @@ code {
     list-style-type: disc;
     margin-left: 24px;
 }
+
+.markdown-body {
+    dt {
+        font-weight: bold;
+    }
+    dd {
+        margin-left: 32px;
+    }
+}

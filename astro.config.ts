@@ -43,6 +43,10 @@ export default defineConfig({
     site: 'https://bdadam.com/',
     markdown: {
         extendDefaultPlugins: true,
+        remarkRehype: {
+            // @ts-ignore
+            handlers: defListHastHandlers,
+        },
         rehypePlugins: [
             rehypeSlug,
             [rehypeAutolinkHeadings, { behavior: 'prepend', content: {}, properties: { className: 'heading-anchor' } }],
