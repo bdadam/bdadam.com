@@ -31,7 +31,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 
         <p>
             Although most of my daily work happens in private git repositories, you can still find some things on my <a
-                href="http://github.com/bdadam">GitHub profile</a
+                href="https://github.com/bdadam">GitHub profile</a
             >.
         </p>
 
@@ -60,15 +60,28 @@ import SiteFooter from '../components/SiteFooter.astro';
         type="application/ld+json"
         set:html={JSON.stringify({
             '@context': 'http://schema.org',
-            '@type': 'ProfilePage',
+            '@type': 'Person',
             name: 'About Adam Beres-Deak',
-            description:
-                'Adam is a curious full-stack software engineer who codes in JavaScript, TypeScript, Rust, C# and uses AWS, CDK, Imfrastructure as Code',
-            publisher: {
-                '@type': 'Person',
-                name: 'Adam Beres-Deak',
-                url: 'https://bdadam.com/about.html',
-            },
+            url: 'https://bdadam.com/',
+            jobTitle: 'Lead Software Engineer',
+            // image: 'TODO',
+            sameAs: [
+                'https://twitter.com/bdadamm',
+                'https://linkedin.com/in/bdadam',
+                'https://www.xing.com/profile/Adam_BeresDeak',
+                'https://github.com/bdadam',
+            ],
+
+            // '@context': 'http://schema.org',
+            // '@type': 'ProfilePage',
+            // name: 'About Adam Beres-Deak',
+            // description:
+            //     'Adam is a curious full-stack software engineer who codes in JavaScript, TypeScript, Rust, C# and uses AWS, CDK, Imfrastructure as Code',
+            // publisher: {
+            //     '@type': 'Person',
+            //     name: 'Adam Beres-Deak',
+            //     url: 'https://bdadam.com/about.html',
+            // },
         })}
     ></script>
 </Layout>
