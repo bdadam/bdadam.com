@@ -1,6 +1,7 @@
 body {
     color: #333;
     font-size: 1.125rem;
+    line-height: 1.5;
 }
 
 main {
@@ -106,4 +107,13 @@ code {
     dd {
         margin-left: 32px;
     }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }

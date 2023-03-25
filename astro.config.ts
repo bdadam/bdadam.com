@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import remarkToc from 'remark-toc';
-// import compress from 'astro-compress';
-import xremarkDefinitionList, { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
+import compress from 'astro-compress';
+import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import remarkEmoji from 'remark-emoji';
 import remarkCodeTitle from 'remark-code-title';
 import rehypeSlug from 'rehype-slug';

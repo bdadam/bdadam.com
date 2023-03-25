@@ -9,13 +9,13 @@ import SiteFooter from '../components/SiteFooter.astro';
         <title>Adam Beres-Deak (lead software engineer)</title>
         <meta
             name="description"
-            content="Adam is a curious full-stack software engineer who codes in JavaScript, TypeScript, Rust, C# and uses AWS, CDK, Imfrastructure as Code"
+            content="Adam is a curious full-stack software engineer who codes in JavaScript, TypeScript, Rust, C# and uses AWS, CDK, Infrastructure as Code"
         />
         <link rel="canonical" href="https://bdadam.com/about.html" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@bdadamm" />
         <meta name="twitter:creator" content="@bdadamm" />
-        <meta property="og:image" content={`/og/home.png`} />
+        <meta property="og:image" content="https://bdadam.com/og/home.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
     </Fragment>
@@ -26,8 +26,15 @@ import SiteFooter from '../components/SiteFooter.astro';
         <h1>Hi! I'm Adam&nbsp;Beres-Deak</h1>
 
         <p>
-            I'm a curious peron who loves learning, teaching and creating tech. I mostly work on Web projects, I mostly
-            deploy my services to AWS.
+            I'm a curious peron who loves learning, coding and teaching others what I know. I mostly work on Web
+            projects - both on the frontend and also on the backend. I deploy my services to AWS with Infrastructure as
+            Code.
+        </p>
+
+        <p>
+            Although most of my daily work happens in private git repositories, you can still find some things on my <a
+                href="http://github.com/bdadam">GitHub profile</a
+            >.
         </p>
 
         <h2>Contact me</h2>
@@ -37,41 +44,19 @@ import SiteFooter from '../components/SiteFooter.astro';
                 >me@bdadam.com</a
             >.
             <br />
-            You can also send me a message on <a href="https://twitter.com/bdadamm">Twitter (@bdadamm)</a>, on <a
-                href="https://linkedin.com/in/bdadam">Linkedin</a
-            > or on <a href="https://www.xing.com/profile/Adam_BeresDeak">Xing</a>.
+            You can also send me a message on <a href="https://twitter.com/bdadamm">Twitter (@bdadamm)</a>, or see my
+            professional profile on <a href="https://linkedin.com/in/bdadam">Linkedin</a> or <a
+                href="https://www.xing.com/profile/Adam_BeresDeak">Xing</a
+            >.
             <br />
         </p>
-        <p>
-            Although most of my daily work happens in private git repositories, you can still find some things on my <a
-                href="http://github.com/bdadam">GitHub profile</a
-            >.
-        </p>
 
-        <h2>My current tech stack</h2>
+        <!-- <h2>My current tech stack</h2>
         <p></p>
 
         <h2>Quotes</h2>
-        <p>The Web is the Platform &mdash; Mozilla</p>
+        <p>The Web is the Platform &mdash; Mozilla</p> -->
     </main>
-
-    <ul>
-        <li>
-            <a href="mailto:me@bdadam.com">E-mail</a>
-        </li>
-        <li>
-            <a href="http://github.com/bdadam">github/bdadam</a>
-        </li>
-        <li>
-            <a href="https://twitter.com/bdadamm">Twitter</a>
-        </li>
-        <li>
-            <a href="https://linkedin.com/in/bdadam">Linkedin</a>
-        </li>
-        <li>
-            <a href="https://www.xing.com/profile/Adam_BeresDeak">Xing</a>
-        </li>
-    </ul>
 
     <script
         type="application/ld+json"
@@ -119,7 +104,9 @@ import SiteFooter from '../components/SiteFooter.astro';
 
     h2 {
         font-weight: bold;
-        font-size: 1.125rem;
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-block: 2rem 1rem;
     }
 
     p {
