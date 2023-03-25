@@ -32,26 +32,11 @@ const jsonld = {
             '@type': 'BlogPosting',
             mainEntityOfPage: `https://bdadam.com/blog/${post.slug}.html`,
             headline: post.data.title,
-            // author: {
-            //     '@type': 'Person',
-            //     name: 'Adam Beres-Deak',
-            // },
-            //         datePublished: '10 May, 2016',
-            //         dateModified: '10 May, 2016',
-            //         image: {
-            //             '@type': 'imageObject',
-            //             url: 'https://example.com/image/post-one-thumbnail.jpg',
-            //             height: '200',
-            //             width: '400',
-            //         },
-            //         publisher: {
-            //             '@type': 'Organization',
-            //             name: 'Blog name',
-            //             logo: {
-            //                 '@type': 'imageObject',
-            //                 url: 'https://example.com/logo.png',
-            //             },
-            //         },
+            author: {
+                '@type': 'Person',
+                name: 'Adam Beres-Deak',
+            },
+            image: `https://bdadam.com/og/blog/${post.slug}.png`,
         };
     }),
 };
@@ -117,7 +102,6 @@ const jsonld = {
 <style>
     .hero {
         background-color: #f1f1ff;
-        /* height: 350px; */
         display: grid;
         align-items: center;
         justify-content: center;
@@ -162,5 +146,9 @@ const jsonld = {
 
     .post-abstract {
         /*  */
+    }
+
+    .read-more {
+        color: #f41f56;
     }
 </style>

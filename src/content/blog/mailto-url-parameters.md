@@ -15,7 +15,7 @@ published: false
 
 ## Table of contents
 
-## What are `mailto:` links URLs
+## What are `mailto:` links
 
 If we want to provide users with an easy way to send some content over e-mail one of the simplest solutions is to add a `mailto:` link to a website.
 When a user clicks on such a link it will bring them to their default mail client - whatever they configured on their device (Gmail, Outlook, Thunderbird, etc.).
