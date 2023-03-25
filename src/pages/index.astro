@@ -56,11 +56,11 @@ const jsonld = {
         <meta property="og:image:height" content="630" />
     </Fragment>
 
-    <div class="hero">
-        <h1>Adam Beres-Deak's Tech&nbsp;Blog</h1>
-    </div>
-
-    <main>
+    <main class="content-container">
+        <div class="hero">
+            <h1>Adam's Tech&nbsp;Blog</h1>
+            <a class="who" href="/about.html">Who is Adam?</a>
+        </div>
         <section>
             <h2>Articles</h2>
             <ul class="article-list">
@@ -95,19 +95,51 @@ const jsonld = {
 </Layout>
 
 <style>
-    .hero {
+    /* .hero {
         background-color: #f1f1ff;
         display: grid;
         align-items: center;
         justify-content: center;
         padding-inline: 24px;
         padding-block: 80px;
-    }
+    } */
 
-    h1 {
+    /* h1 {
         font-weight: bold;
         font-size: 2rem;
         line-height: 1.3;
+    } */
+
+    .hero {
+        margin-bottom: 48px;
+        position: relative;
+        text-align: center;
+    }
+
+    h1 {
+        padding: 1.25em 0 0.5em;
+        font-size: 2.5rem;
+        font-weight: bold;
+        line-height: 1.3;
+        color: #222;
+    }
+
+    .hero::before {
+        content: '';
+        background-color: #f1f1ff;
+        position: absolute;
+        /* height: 100%; */
+        top: 0;
+        bottom: 0;
+        width: 4000px;
+        left: -2000px;
+        z-index: -1;
+    }
+
+    .who {
+        display: inline-block;
+        margin-inline: auto;
+        margin-bottom: 1.5rem;
     }
 
     h2 {

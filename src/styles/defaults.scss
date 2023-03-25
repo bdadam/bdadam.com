@@ -4,12 +4,6 @@ body {
     line-height: 1.5;
 }
 
-main {
-    max-width: 1200px;
-    margin-inline: auto;
-    padding-inline: 24px;
-}
-
 a {
     color: #0969da;
     text-decoration: none;
@@ -36,6 +30,15 @@ em {
 code {
     color: #a60fc4;
     font-weight: bold;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #222;
 }
 
 // code::before,
@@ -109,11 +112,7 @@ code {
     }
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
+.content-container {
+    max-width: 800px;
+    margin-inline: auto;
 }
