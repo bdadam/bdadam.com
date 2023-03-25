@@ -2,6 +2,8 @@
 import '../styles/reset.scss';
 import '../styles/defaults.scss';
 import '../styles/utilities.scss';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 ---
 
 <html lang="en">
@@ -12,6 +14,14 @@ import '../styles/utilities.scss';
         <slot name="head" />
     </head>
     <body>
+        <slot name="header">
+            <SiteHeader />
+        </slot>
+
         <slot />
+
+        <slot name="footer">
+            <SiteFooter />
+        </slot>
     </body>
 </html>

@@ -2,8 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
 
 const blogPosts = (await getCollection('blog')).filter((p) =>
     process.env.NODE_ENV === 'production' ? p.data.published !== false : true
@@ -58,8 +56,6 @@ const jsonld = {
         <meta property="og:image:height" content="630" />
     </Fragment>
 
-    <SiteHeader />
-
     <div class="hero">
         <h1>Adam Beres-Deak's Tech&nbsp;Blog</h1>
     </div>
@@ -96,7 +92,6 @@ const jsonld = {
         </section>
         <script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
     </main>
-    <SiteFooter />
 </Layout>
 
 <style>

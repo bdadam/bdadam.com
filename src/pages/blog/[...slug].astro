@@ -1,9 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
-
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -70,10 +67,6 @@ const jsonLd = {
         <meta property="og:image:height" content="630" />
     </Fragment>
 
-    <SiteHeader />
-
-    <!-- <p>{JSON.stringify(post)}</p>-->
-    <!-- <p>{JSON.stringify(remarkPluginFrontmatter)}</p> -->
     <main>
         <article class="blog-post">
             <h1>{title}</h1>
@@ -204,7 +197,6 @@ const jsonLd = {
             <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
         </article>
     </main>
-    <SiteFooter />
 </Layout>
 
 <style>
