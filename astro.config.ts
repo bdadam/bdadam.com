@@ -72,7 +72,8 @@ export default defineConfig({
                             // }
 
                             const f = htmlMinifier.minify($.html(), {
-                                collapseBooleanAttributes: true,
+                                // collapseBooleanAttributes: true,
+                                collapseBooleanAttributes: false,
                                 collapseWhitespace: true,
                                 decodeEntities: true,
                                 removeComments: true,
