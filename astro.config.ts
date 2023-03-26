@@ -72,8 +72,7 @@ export default defineConfig({
                             // }
 
                             const f = htmlMinifier.minify($.html(), {
-                                // collapseBooleanAttributes: true,
-                                collapseBooleanAttributes: false,
+                                collapseBooleanAttributes: true,
                                 collapseWhitespace: true,
                                 decodeEntities: true,
                                 removeComments: true,
@@ -120,7 +119,7 @@ export default defineConfig({
                 {
                     behavior: 'prepend',
                     content: {},
-                    properties: { className: 'heading-anchor', ariaHidden: true, tabIndex: -1 },
+                    properties: { className: 'heading-anchor', ariaHidden: 'true', tabIndex: -1 },
                 },
             ],
         ],
