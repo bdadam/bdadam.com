@@ -82,10 +82,16 @@ const jsonld = {
                                         dateStyle: 'long',
                                     }).format(new Date(post.data.date))}
                                 </time>
-                                {post.data.abstract && <p class="post-abstract">{post.data.abstract}</p>}
-                                <a class="read-more" href={`/blog/${post.slug}.html`} aria-hidden="true">
-                                    Read more
-                                </a>
+                                {post.data.abstract && (
+                                    <p class="post-abstract">
+                                        {post.data.abstract}
+
+                                        <br />
+                                        <a class="read-more" href={`/blog/${post.slug}.html`}>
+                                            Read more
+                                        </a>
+                                    </p>
+                                )}
                             </li>
                         );
                     })
