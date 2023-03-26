@@ -114,7 +114,14 @@ export default defineConfig({
         },
         rehypePlugins: [
             rehypeSlug,
-            [rehypeAutolinkHeadings, { behavior: 'prepend', content: {}, properties: { className: 'heading-anchor' } }],
+            [
+                rehypeAutolinkHeadings,
+                {
+                    behavior: 'prepend',
+                    content: {},
+                    properties: { className: 'heading-anchor', ariaHidden: true, tabIndex: -1 },
+                },
+            ],
         ],
         remarkPlugins: [
             remarkReadingTime,
