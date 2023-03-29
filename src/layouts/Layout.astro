@@ -10,7 +10,6 @@ import SiteFooter from '../components/SiteFooter.astro';
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         <slot name="head" />
     </head>
     <body>
@@ -25,49 +24,10 @@ import SiteFooter from '../components/SiteFooter.astro';
         <slot name="footer">
             <SiteFooter />
         </slot>
+
+        <script src="../scripts/main.ts"></script>
     </body>
 </html>
-
-<script src="../main.ts"></script>
-
-<script is:inline>
-    console.log('inline');
-    // import { isDomNode } from '../utils';
-
-    // const u = sessionStorage.getItem('u') || crypto.randomUUID();
-    // sessionStorage.removeItem('u');
-
-    // console.log('Use u', u);
-
-    // window.addEventListener('visibilitychange', (e) => {
-    //     if (document.hidden) {
-    //         sessionStorage.setItem('u', u);
-    //     } else {
-    //         sessionStorage.removeItem('u');
-    //     }
-
-    //     // navigator.sendBeacon(`/events/pageview/${uid}`);
-    // });
-
-    // window.addEventListener('click', (e) => {
-    //     if (!isDomNode(e.target) || !e.target.closest('a')) {
-    //         return;
-    //     }
-
-    //     console.log('Click on link');
-    // });
-</script>
-
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-39SY2WEEKX"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'G-39SY2WEEKX');
-</script> -->
 
 <style>
     body {
