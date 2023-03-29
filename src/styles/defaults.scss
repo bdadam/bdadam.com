@@ -112,6 +112,11 @@ h6 {
     }
 }
 
+.markdown-body iframe {
+    border: 1px solid #cdcdcd;
+    display: block;
+}
+
 .content-container {
     max-width: 800px;
     margin-inline: auto;

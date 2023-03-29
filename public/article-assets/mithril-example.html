@@ -1,65 +1,78 @@
-<!doctype html><html lang="en"><head><style>nav a {
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            nav a {
                 margin-right: 16px;
             }
 
             a.selected {
                 background-color: #eee;
-            }</style></head><body><div id="container"></div><script src="//cdn.jsdelivr.net/mithril/0.1.6/mithril.min.js"></script><script>var app = {};
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container"></div>
+        <script src="https://cdn.jsdelivr.net/mithril/0.1.6/mithril.min.js"></script>
+        <script>
+            var app = {};
 
             app.navigation = {
-                controller: function() {},
-                view: function(category) {
+                controller: function () {},
+                view: function (category) {
                     var children = [
-                        m('a', { href: '', config: m.route, className: !category ? 'selected' : '' }, 'Home')
+                        m('a', { href: '', config: m.route, className: !category ? 'selected' : '' }, 'Home'),
                     ];
 
                     var categories = ['sport', 'nightlife', 'qwe', 'asd'];
 
-                    categories.forEach(function(cat) {
+                    categories.forEach(function (cat) {
                         var tag = cat === category ? 'a.selected' : 'a';
                         children.push(m(tag, { href: '/' + cat, config: m.route }, cat));
                     });
 
                     return m('nav', children);
-                }
+                },
             };
 
             app.home = {
-                controller: function() {
-                },
+                controller: function () {},
 
-                view: function(controller) {
+                view: function (controller) {
                     return m('div', [app.navigation.view(), 'home']);
-                }
+                },
             };
 
             app.category = {
-                controller: function() {
-                    this.category = m.route.param("category");
+                controller: function () {
+                    this.category = m.route.param('category');
                 },
 
-                view: function(controller) {
+                view: function (controller) {
                     return m('div', [app.navigation.view(controller.category), controller.category]);
-                }
+                },
             };
 
             app.details = {
-                controller: function() {
-                    this.category = m.route.param("category");
-                    this.id = m.route.param("id");
+                controller: function () {
+                    this.category = m.route.param('category');
+                    this.id = m.route.param('id');
                 },
 
-                view: function(controller) {
+                view: function (controller) {
                     return m('', [app.navigation.view(controller.category), controller.category + ':' + controller.id]);
-                }
+                },
             };
 
             var appContainer = document.getElementById('container');
 
-            m.route.mode = "hash";
+            m.route.mode = 'hash';
 
             m.route(appContainer, '/', {
                 '/': app.home,
                 '/:category': app.category,
-                '/:category/:id': app.details
-            });</script></body></html>
+                '/:category/:id': app.details,
+            });
+        </script>
+    </body>
+</html>

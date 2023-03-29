@@ -16,4 +16,4 @@ tags:
 
 ## Demo
 
-<iframe src="/static/article-assets/mithril-example.html" style="min-height: 350px;"></iframe>
+<iframe src="/article-assets/mithril-example.html" style="min-height: 350px;"></iframe>
