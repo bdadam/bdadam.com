@@ -15,11 +15,11 @@
     </div>
 </header>
 
-<!-- <script>
-    // @ts-ignore
-    document.querySelector('.site-header .burger').addEventListener('click', (e) => {
-        //@ts-ignore
-        document.querySelector('.site-header').classList.toggle('active');
+<!-- <script is:inline>
+    document.querySelector('.site-header').addEventListener('click', (e) => {
+        if (e.target?.closest('.burger')) {
+            document.querySelector('.site-header').classList.toggle('active');
+        }
     });
 </script> -->
 
