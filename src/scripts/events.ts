@@ -1,8 +1,8 @@
 import { getSession } from './session';
 
-type Event = {
-    /** Pageview */
-    pv: '1';
+export type Event = {
+    /** Event name */
+    en: 'page_view' | 'share';
 
     /** Session start */
     st: '0' | '1';
@@ -23,32 +23,56 @@ type Event = {
     ul: string;
 };
 
+export type EventParams = Record<string, string>;
+
 export function pageview() {
     const [sid, isNewSession] = getSession();
     const event: Event = {
-        pv: '1',
         st: isNewSession ? '1' : '0',
         dt: document.title,
         dl: location.href,
         dr: document.referrer,
         sr: window.screen ? `${window.screen.width}x${window.screen.height}` : '',
         ul: navigator.language.toLowerCase(),
+        en: 'page_view',
     };
 
     sendEvent(sid, event);
 }
 
-function sendEvent(sid: string, event: Event) {
-    requestIdleCallback(() => {
-        if (location.href.startsWith('https://')) {
-            const query = new URLSearchParams({
-                sid,
-                ...event,
-            });
+export function shareEvent(method: string, url: string) {
+    const [sid, isNewSession] = getSession();
+    const event: Event = {
+        st: isNewSession ? '1' : '0',
+        dt: document.title,
+        dl: location.href,
+        dr: document.referrer,
+        sr: window.screen ? `${window.screen.width}x${window.screen.height}` : '',
+        ul: navigator.language.toLowerCase(),
+        en: 'share',
+    };
 
-            navigator.sendBeacon('/flamingo/hello?' + query.toString());
-        } else {
-            console.log({ sid, event });
+    const params: EventParams = {
+        method,
+        url,
+    };
+
+    sendEvent(sid, event, params);
+}
+
+function sendEvent(sid: string, event: Event, params?: EventParams) {
+    requestIdleCallback(() => {
+        const query = new URLSearchParams({
+            sid,
+            ...event,
+        });
+
+        if (params) {
+            Object.keys(params).forEach((key) => {
+                query.append(`epn.${key}`, params[key]);
+            });
         }
+
+        navigator.sendBeacon('flamingo/hello?' + query.toString());
     });
 }

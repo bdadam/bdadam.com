@@ -15,7 +15,7 @@ export function saveSession(): void {
 export function manageSession(): void {
     window.addEventListener('visibilitychange', (e) => {
         if (document.hidden) {
-            sessionStorage.setItem(sessionStorageKey, sid);
+            saveSession();
         } else {
             sessionStorage.removeItem(sessionStorageKey);
         }
