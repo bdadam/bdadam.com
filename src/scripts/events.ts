@@ -73,6 +73,6 @@ function sendEvent(sid: string, event: Event, params?: EventParams) {
             });
         }
 
-        navigator.sendBeacon('flamingo/hello?' + query.toString());
+        navigator.sendBeacon('/flamingo/hello?' + query.toString());
     });
 }
