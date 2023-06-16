@@ -15,9 +15,13 @@ import * as cheerio from 'cheerio';
 import { resolve, join } from 'path';
 import CleanCSS from 'clean-css';
 import htmlMinifier from 'html-minifier';
+import UnoCSS from 'unocss/astro';
 
 export default defineConfig({
     integrations: [
+        UnoCSS({
+            injectReset: false,
+        }),
         {
             name: 'Generate screenshots',
             hooks: {

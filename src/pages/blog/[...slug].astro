@@ -54,15 +54,18 @@ const jsonLd = {
 <Layout>
     <Fragment slot="head">
         <title>{title}</title>
+        <meta property="og:title" content={post.data.title} />
+
         <meta name="description" content={abstract} />
+        <meta property="og:description" content={abstract} />
+
         <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+
         {remarkPluginFrontmatter.published === false && <meta name="robots" content="noindex" />}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@bdadamm" />
         <meta name="twitter:creator" content="@bdadamm" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={post.data.title} />
-        <meta property="og:description" content={abstract} />
         <meta property="og:image" content={`/og/blog/${post.slug}.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -71,6 +74,7 @@ const jsonLd = {
     <main>
         <article class="blog-post">
             <h1>{title}</h1>
+
             <p class="article-date">
                 {formattedDate}
                 &nbsp;&mdash;&nbsp;
@@ -78,13 +82,15 @@ const jsonLd = {
                 &nbsp;&mdash;&nbsp;
                 <a href="/about.html">Adam Beres-Deak</a>
             </p>
+
             {abstract && <p class="abstract">{abstract}</p>}
+
             <div class="markdown-body">
                 <Content />
             </div>
 
             <section class="share-buttons">
-                <script>
+                <script is:inline>
                     if ('share' in navigator) {
                         document.querySelector('.share-buttons')!.classList.add('native');
                     }
@@ -207,10 +213,6 @@ const jsonLd = {
     </main>
 </Layout>
 
-<script>
-    // console.log('Hello');
-</script>
-
 <style>
     h1 {
         font-size: 2.5rem;
@@ -250,7 +252,7 @@ const jsonLd = {
         margin-inline: auto;
     }
 
-    .blog-post :global(p, .astro-code, ul, ol, iframe) {
+    .blog-post :global(p, .astro-code, ul, ol, iframe, table) {
         margin-bottom: 20px;
     }
 
