@@ -4,33 +4,36 @@ import Layout from '../../layouts/Layout.astro';
 
 <Layout>
     <main class="content-container">
-        <h1 class="font-bold my-4 text-6">Base64 Encoder</h1>
+        <h1 class="font-bold mt-4 text-6">Base64 Encoder</h1>
 
-        <p class="mb-3 text-bluegray-600">
-            Base64 encoding converts binary data into a safe ASCII format for transmission. Three bytes become four
-            characters. This enables the exchange of information over text-based protocols.
-        </p>
+        <div>
+            <label>
+                <input type="checkbox" id="urlsafe" />
+                Use URL-safe encoding
+            </label>
+            <label>
+                <input type="checkbox" id="wraplines" />
+                Wrap lines after
+                <input type="number" id="line-length" min="1" value="76" disabled />
+                characters
+            </label>
+        </div>
 
-        <p class="mb-3 text-bluegray-600">
-            URL-safe Base64 encoding modifies characters to ensure compatibility with URLs. It replaces the standard
-            Base64 characters '+' and '/' with '-' and '_', respectively.
-        </p>
-
-        <label class="text-black mb-3">
-            <input type="checkbox" id="urlsafe" />
-            Use URL-safe encoding
-        </label>
-
-        <label for="text" class="mb-6 font-bold">
+        <label for="text" class="font-bold">
             Input text
-            <textarea id="text" placeholder="Text to be decoded..." class="rounded"></textarea>
+            <span class="text-gray-500 font-normal">
+                (byte length: <span id="raw-length">0</span>)
+            </span>
+            <textarea id="text" placeholder="Text to be decoded..." class="rounded font-mono"></textarea>
         </label>
 
         <label class="font-bold">
             Base64 encoded output
-            <textarea id="b64" readonly class="bg-warmgray-100 rounded"></textarea>
+            <span class="text-gray-500 font-normal">
+                (byte length: <span id="encoded-length">0</span>)
+            </span>
+            <textarea id="b64" readonly class="bg-warmgray-100 rounded font-mono"></textarea>
         </label>
-        <p id="encoded-length"></p>
 
         <button class="copy-to-clipboard bg-bluegray-600 text-white">
             <svg
@@ -65,16 +68,41 @@ import Layout from '../../layouts/Layout.astro';
 
             Copy to clipboard
         </button>
+
+        <p class="text-bluegray-600">
+            The output of this online tool is fully compatible with <code>base64</code> present on most unix or linux based
+            systems. The enocded output can be decoded by calling <code>printf "SGVsbG8K" | base64 -d</code>. For more
+            details see the <a href="https://www.unix.com/man-page/linux/1/base64/" target="_blank"
+                >man page of base64</a
+            >.
+        </p>
+
+        <p class="text-bluegray-600 mb-3">
+            Base64 encoding converts binary data into a safe ASCII format for transmission. Three bytes become four
+            characters. This enables the exchange of information over text-based protocols.
+        </p>
+
+        <p class="text-bluegray-600 mb-3">
+            URL-safe Base64 encoding modifies characters to ensure compatibility with URLs. It replaces the standard
+            Base64 characters '+' and '/' with '-' and '_', respectively.
+        </p>
+
+        <p class="text-bluegray-600">
+            Base64 encoding produces an output that is on average 33% larger than the original input.
+        </p>
     </main>
 </Layout>
 
 <script>
     import { encode } from 'js-base64';
 
+    const urlsafe = document.querySelector<HTMLInputElement>('#urlsafe')!;
+    const wraplines = document.querySelector<HTMLInputElement>('#wraplines')!;
+    const lineLength = document.querySelector<HTMLInputElement>('#line-length')!;
     const textarea = document.querySelector<HTMLTextAreaElement>('#text')!;
     const output = document.querySelector<HTMLTextAreaElement>('#b64')!;
-    const urlsafe = document.querySelector<HTMLInputElement>('#urlsafe')!;
     const encodedLength = document.querySelector<HTMLParagraphElement>('#encoded-length')!;
+    const rawLength = document.querySelector<HTMLParagraphElement>('#raw-length')!;
     const copy = document.querySelector<HTMLButtonElement>('.copy-to-clipboard')!;
 
     output.addEventListener('click', () => {
@@ -82,11 +110,20 @@ import Layout from '../../layouts/Layout.astro';
         output.select();
     });
 
+    wraplines.addEventListener('change', () => {
+        lineLength.disabled = !wraplines.checked;
+        encodeInput();
+    });
+
     textarea.addEventListener('input', () => {
         encodeInput();
     });
 
     urlsafe.addEventListener('change', () => {
+        encodeInput();
+    });
+
+    lineLength.addEventListener('input', () => {
         encodeInput();
     });
 
@@ -99,19 +136,40 @@ import Layout from '../../layouts/Layout.astro';
     });
 
     function encodeInput() {
-        output.value = encode(textarea.value, urlsafe.checked);
+        const shouldWrap = wraplines.checked;
+        const line = Number(lineLength.value);
+
+        const encodedValue = encode(textarea.value, urlsafe.checked);
+
+        if (shouldWrap) {
+            output.value = encodedValue.replace(new RegExp(`[^\n]{1,${line}}`, 'g'), '$&\n');
+        } else {
+            output.value = encodedValue;
+        }
+
         encodedLength.innerHTML = String(output.value.length);
+        rawLength.innerHTML = String(new TextEncoder().encode(textarea.value).length);
     }
 </script>
 
 <style>
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    p {
+        color: #555;
+    }
+
     textarea {
         font-weight: normal;
         display: block;
         width: 100%;
         height: 20vh;
         padding: 8px;
-        font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+        /* font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; */
         font-size: 1rem;
     }
 
@@ -120,11 +178,14 @@ import Layout from '../../layouts/Layout.astro';
         display: block;
     }
 
+    #line-length {
+        width: 6ch;
+        text-align: right;
+    }
+
     button {
         padding: 6px 1.5rem;
         border-radius: 4px;
-        /* background-color: #ff4200; */
-        /* color: #fff; */
         border: 0;
         display: flex;
         align-items: center;
