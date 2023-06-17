@@ -4,38 +4,20 @@ import Layout from '../../layouts/Layout.astro';
 
 <Layout>
     <main class="content-container">
-        <h1 class="font-bold mt-4 text-6">Encode Text into Base64 Format</h1>
-
+        <h1 class="font-bold mt-4 text-6">Decode Text from Base64 Format</h1>
         <p class="text-4">
-            Looking for a base64 decoder? <a href="/tools/base64-decode.html">Go to base64 decoder.</a>
+            Looking for a an encoder? <a href="/tools/base64-encode.html">Go to base64-encoder</a>
         </p>
 
-        <div>
-            <label>
-                <input type="checkbox" id="urlsafe" />
-                Use URL-safe encoding
-            </label>
-            <br />
-            <label>
-                <input type="checkbox" id="wraplines" />
-                Wrap lines after
-                <input type="number" id="line-length" min="1" value="76" disabled />
-                characters
-            </label>
-        </div>
-
         <label for="text" class="font-bold">
-            Input text
-            <span class="text-gray-500 font-normal">
-                (byte length: <span id="raw-length">0</span>)
-            </span>
-            <textarea id="text" placeholder="Text to be encoded..." class="rounded font-mono"></textarea>
+            Base64-encoded text
+            <textarea id="text" placeholder="Text to be decoded..." class="rounded font-mono"></textarea>
         </label>
 
         <label class="font-bold">
-            Base64 encoded output
+            Decoded output
             <span class="text-gray-500 font-normal">
-                (byte length: <span id="encoded-length">0</span>)
+                (byte length: <span id="decoded-length">0</span>)
             </span>
             <textarea id="b64" readonly class="bg-warmgray-100 rounded font-mono"></textarea>
         </label>
@@ -75,9 +57,10 @@ import Layout from '../../layouts/Layout.astro';
         </button>
 
         <p class="text-bluegray-600">
-            The output of this online tool is fully compatible with <code>base64</code> present on most unix or linux based
-            systems. The enocded output can be decoded by calling <code>printf "SGVsbG8K" | base64 -d</code>. For more
-            details see the <a href="https://www.unix.com/man-page/linux/1/base64/" target="_blank"
+            The output of this online tool identical with the output from <code>base64 command line tool</code> that is present
+            on most unix or linux based systems. Any text input can be encoded by calling <code
+                >printf "Hello" | base64</code
+            >. For more details see the <a href="https://www.unix.com/man-page/linux/1/base64/" target="_blank"
                 >man page of base64</a
             >.
         </p>
@@ -87,27 +70,18 @@ import Layout from '../../layouts/Layout.astro';
             characters. This enables the exchange of information over text-based protocols.
         </p>
 
-        <p class="text-bluegray-600 mb-3">
-            URL-safe Base64 encoding modifies characters to ensure compatibility with URLs. It replaces the standard
-            Base64 characters '+' and '/' with '-' and '_', respectively.
-        </p>
-
         <p class="text-bluegray-600">
-            Base64 encoding produces an output that is on average 33% larger than the original input.
+            Base64 decoding produces an output that is on average 25% smaller than the original base64-encoded input.
         </p>
     </main>
 </Layout>
 
 <script>
-    import { encode } from 'js-base64';
+    import { decode } from 'js-base64';
 
-    const urlsafe = document.querySelector<HTMLInputElement>('#urlsafe')!;
-    const wraplines = document.querySelector<HTMLInputElement>('#wraplines')!;
-    const lineLength = document.querySelector<HTMLInputElement>('#line-length')!;
     const textarea = document.querySelector<HTMLTextAreaElement>('#text')!;
     const output = document.querySelector<HTMLTextAreaElement>('#b64')!;
-    const encodedLength = document.querySelector<HTMLParagraphElement>('#encoded-length')!;
-    const rawLength = document.querySelector<HTMLParagraphElement>('#raw-length')!;
+    const decodedLength = document.querySelector<HTMLParagraphElement>('#decoded-length')!;
     const copy = document.querySelector<HTMLButtonElement>('.copy-to-clipboard')!;
 
     output.addEventListener('click', () => {
@@ -115,20 +89,7 @@ import Layout from '../../layouts/Layout.astro';
         output.select();
     });
 
-    wraplines.addEventListener('change', () => {
-        lineLength.disabled = !wraplines.checked;
-        encodeInput();
-    });
-
     textarea.addEventListener('input', () => {
-        encodeInput();
-    });
-
-    urlsafe.addEventListener('change', () => {
-        encodeInput();
-    });
-
-    lineLength.addEventListener('input', () => {
         encodeInput();
     });
 
@@ -141,19 +102,10 @@ import Layout from '../../layouts/Layout.astro';
     });
 
     function encodeInput() {
-        const shouldWrap = wraplines.checked;
-        const line = Number(lineLength.value);
+        const decodedValue = decode(textarea.value);
 
-        const encodedValue = encode(textarea.value, urlsafe.checked);
-
-        if (shouldWrap) {
-            output.value = encodedValue.replace(new RegExp(`[^\n]{1,${line}}`, 'g'), '$&\n');
-        } else {
-            output.value = encodedValue;
-        }
-
-        encodedLength.innerHTML = String(new TextEncoder().encode(output.value).length);
-        rawLength.innerHTML = String(new TextEncoder().encode(textarea.value).length);
+        output.value = decodedValue;
+        decodedLength.innerHTML = String(new TextEncoder().encode(decodedValue).length);
     }
 </script>
 
@@ -180,7 +132,7 @@ import Layout from '../../layouts/Layout.astro';
 
     label {
         margin-bottom: 4px;
-        display: inline-block;
+        display: block;
     }
 
     #line-length {

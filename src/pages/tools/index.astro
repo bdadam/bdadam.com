@@ -4,10 +4,20 @@ import Layout from '../../layouts/Layout.astro';
 
 <Layout>
     <main class="content-container">
-        <h1>Webdev Tools</h1>
+        <h1 class="font-bold text-6 my-4">Webdev Tools</h1>
 
-        <nav>
-            <a href="/tools/base64-encode.html">Base64 Encode</a>
-        </nav>
+        <ul>
+            <li class="mb-3">
+                <a href="/tools/base64-encode.html">Base64 Encoder</a>
+                <p>
+                    A simple online base64 encoder that is compatible with the base64 command line tool shipped on most
+                    linux/unix systems.
+                </p>
+            </li>
+            <li class="mb-3">
+                <a href="/tools/base64-decode.html">Base64 Decoder</a>
+                <p>A simple online base64 decoder that also supports URL-safe encoded texts.</p>
+            </li>
+        </ul>
     </main>
 </Layout>
