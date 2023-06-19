@@ -15,6 +15,7 @@
     "glob": "^9.3.0",
     "html-minifier": "^4.0.0",
     "js-base64": "^3.7.5",
+    "json5": "^2.2.3",
     "mdast-util-to-string": "^3.1.1",
     "puppeteer": "^19.7.5",
     "reading-time": "^1.5.0",

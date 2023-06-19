@@ -63,6 +63,7 @@ const placeholder = JSON.stringify({ hello: 'world' });
 
 <script>
     import { getHighlighter, setCDN } from 'shiki';
+    import JSON5 from 'json5';
 
     setCDN('/shiki/');
 
@@ -176,7 +177,8 @@ const placeholder = JSON.stringify({ hello: 'world' });
 
     function tryParse(str: string) {
         try {
-            return JSON.parse(str);
+            // return JSON.parse(str);
+            return JSON5.parse(str);
         } catch (e) {
             return null;
         }
