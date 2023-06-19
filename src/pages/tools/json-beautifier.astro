@@ -1,0 +1,264 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const placeholder = JSON.stringify({ hello: 'world' });
+---
+
+<Layout>
+    <main class="content-container">
+        <h1 class="font-bold mt-4 mb-6 text-6">JSON Beautifier</h1>
+
+        <label class="font-bold mb-6 inline-block">
+            Indentation
+            <select id="indentation">
+                <option value="t">Indent Using Tabs</option>
+                <option value="1">Indent Using 1 Space</option>
+                <option value="2">Indent Using 2 Spaces</option>
+                <option value="3">Indent Using 3 Spaces</option>
+                <option value="4">Indent Using 4 Spaces</option>
+                <option value="5">Indent Using 5 Spaces</option>
+                <option value="6">Indent Using 6 Spaces</option>
+                <option value="7">Indent Using 7 Spaces</option>
+                <option value="8">Indent Using 8 Spaces</option>
+            </select>
+        </label>
+        <br />
+        <label class="font-bold mb-6 block">
+            Unformatted JSON Text
+            <textarea id="input" rows="5" class="w-full" placeholder={placeholder}></textarea>
+        </label>
+
+        <!-- <div id="drop-zone" class="mb-6">
+            Drag and drop a file here
+            <button id="select-file" onclick="
+            document.querySelector('[type=file]').click()
+            "
+                >Choose a file</button
+            >
+
+            <input type="file" class="w-full bg-gray-700" id="filefile" style="display: none;" />
+
+            <i>The file will not leave your computer.</i>
+        </div> -->
+
+        <label class="mb-4 block">
+            <span class="font-bold">Open Local File</span>
+            <input type="file" class="w-full block" id="filefile" />
+            <i>The file never leaves your computer</i>
+        </label>
+
+        <div id="output" class="mb-4">
+            <pre
+                class="shiki slack-dark"
+                style="background-color: #222222"
+                tabindex="0"><code><span class="line"><span style="color: #6A9955">// Output comes here...</span></span></code></pre>
+        </div>
+
+        <div>
+            <button id="copy">Copy to clipboard</button>
+            <a id="download">Download as file</a>
+        </div>
+    </main>
+</Layout>
+
+<script>
+    import { getHighlighter, setCDN } from 'shiki';
+
+    setCDN('/shiki/');
+
+    const input = document.querySelector<HTMLInputElement>('#input')!;
+    const indentation = document.querySelector<HTMLSelectElement>('#indentation')!;
+    // const dropzone = document.querySelector<HTMLDivElement>('#drop-zone')!;
+    const filechooser = document.querySelector<HTMLInputElement>('#filefile')!;
+    const output = document.querySelector('#output')!;
+    const download = document.querySelector<HTMLAnchorElement>('#download')!;
+    const copy = document.querySelector<HTMLButtonElement>('#copy')!;
+
+    const highlighter = await getHighlighter({
+        theme: 'slack-dark',
+        langs: ['json'],
+    });
+
+    input.addEventListener('input', () => {
+        beautify();
+    });
+
+    indentation.addEventListener('input', () => {
+        beautify();
+    });
+
+    // let dragenter = 0;
+
+    // dropzone.addEventListener('dragenter', (e) => {
+    //     dragenter++;
+    //     dropzone.classList.add('active');
+
+    //     console.log(e.dataTransfer?.effectAllowed);
+    //     console.log(e.dataTransfer?.dropEffect);
+
+    //     if (e.dataTransfer) {
+    //         e.dataTransfer.effectAllowed = 'all';
+    //         e.dataTransfer.dropEffect = 'copy';
+    //     }
+    // });
+
+    // dropzone.addEventListener('dragleave', (e) => {
+    //     dragenter--;
+    //     if (dragenter <= 0) {
+    //         dropzone.classList.remove('active');
+    //     }
+    // });
+
+    // dropzone.addEventListener('dragover', (e) => {
+    //     e.preventDefault();
+    //     if (e.dataTransfer) {
+    //         e.dataTransfer.effectAllowed = 'all';
+    //         e.dataTransfer.dropEffect = 'copy';
+    //     }
+    // });
+
+    filechooser.addEventListener('change', async (e) => {
+        const f = filechooser.files?.[0];
+        if (!f) {
+            return;
+        }
+
+        const t = await f.text();
+        input.value = t;
+        beautify();
+    });
+
+    // dropzone.addEventListener('drop', async (e) => {
+    //     e.preventDefault();
+
+    //     dropzone.classList.remove('active');
+    //     dragenter = 0;
+
+    //     const file = e.dataTransfer?.files[0];
+
+    //     if (!file) {
+    //         return;
+    //     }
+
+    //     const fc = await file.text();
+
+    //     input.value = fc;
+    //     beautify();
+    // });
+
+    copy.addEventListener('click', () => {
+        navigator.clipboard.writeText(output.textContent!);
+    });
+
+    beautify();
+
+    function beautify() {
+        if (!input.value.trim()) {
+            output.innerHTML = highlighter.codeToHtml('// Output comes here...', { lang: 'json' });
+            return;
+        }
+
+        const json = tryParse(input.value);
+
+        if (!json) {
+            output.innerHTML = highlighter.codeToHtml('// Warning: Invalid json!', { lang: 'json' });
+            return;
+        }
+
+        const space = indentation.value === 't' ? '\t' : Number(indentation.value);
+        const str = JSON.stringify(json, null, space);
+
+        output.innerHTML = highlighter.codeToHtml(str, { lang: 'json' });
+
+        download.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(str);
+        download.download = 'beautified.json';
+    }
+
+    function tryParse(str: string) {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            return null;
+        }
+    }
+</script>
+
+<style>
+    #drop-zone {
+        border: 2px dashed #ccc;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        padding-block: 1.5rem;
+        gap: 1rem;
+        color: #555;
+    }
+
+    #drop-zone.active {
+        border-color: #000;
+        position: relative;
+        background-color: #f1f1f1;
+    }
+
+    #drop-zone.active::before {
+        content: '';
+        display: block;
+        inset: 0;
+        z-index: 1;
+        position: absolute;
+    }
+
+    #select-file {
+        border: 0;
+        background: none;
+        border: 2px solid #cc42cc;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        color: #333;
+    }
+
+    #output :global(pre) {
+        tab-size: var(--tab-size, 1) !important;
+        padding: 0.5rem;
+        border-radius: 4px;
+    }
+
+    textarea {
+        /* width: 100%; */
+        padding: 0.5em;
+        display: block;
+        border-radius: 4px;
+    }
+
+    #output :global(pre.shiki) {
+        overflow-x: auto;
+    }
+
+    #output :global(code) {
+        counter-reset: step;
+        counter-increment: step 0;
+    }
+
+    #output :global(code .line::before) {
+        content: counter(step);
+        counter-increment: step;
+        width: 1rem;
+        margin-right: 1.5rem;
+        display: inline-block;
+        text-align: right;
+        color: rgba(115, 138, 148, 0.4);
+    }
+
+    #copy,
+    #download {
+        border: 1px solid #3344ee;
+        border-radius: 4px;
+        background-color: #5577ff;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        line-height: 1;
+        font-weight: bold;
+        appearance: none;
+        cursor: pointer;
+    }
+</style>

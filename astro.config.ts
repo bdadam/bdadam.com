@@ -18,6 +18,11 @@ import htmlMinifier from 'html-minifier';
 import UnoCSS from 'unocss/astro';
 
 export default defineConfig({
+    vite: {
+        resolve: {
+            preserveSymlinks: true,
+        },
+    },
     integrations: [
         UnoCSS({
             injectReset: false,

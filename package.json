@@ -26,7 +26,8 @@
     "remark-emoji": "^3.1.1",
     "remark-flexible-containers": "^1.0.3",
     "remark-hint": "^1.0.10",
-    "remark-toc": "^8.0.1"
+    "remark-toc": "^8.0.1",
+    "shiki": "^0.14.2"
   },
   "devDependencies": {
     "@types/clean-css": "^4.2.6",

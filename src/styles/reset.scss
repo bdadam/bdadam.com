@@ -6,7 +6,6 @@
     box-sizing: inherit;
     padding: 0;
     margin: 0;
-    font: inherit;
 }
 
 html {
@@ -58,4 +57,14 @@ ol {
     html {
         scroll-behavior: initial;
     }
+}
+
+input,
+select,
+textarea,
+button {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    line-height: inherit;
 }

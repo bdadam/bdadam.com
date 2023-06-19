@@ -29,7 +29,7 @@ em {
 
 code {
     color: #a60fc4;
-    font-weight: bold;
+    tab-size: 4;
 }
 
 h1,
@@ -132,4 +132,27 @@ h6 {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='file'],
+textarea,
+select,
+button {
+    color: #333;
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type='text']:focus,
+input[type='number']:focus,
+input[type='file']:focus,
+textarea:focus,
+select:focus,
+button:focus {
+    // border-color: #86b7fe;
+    box-shadow: 0 0 0 3px #86b7fe;
 }
