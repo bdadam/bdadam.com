@@ -56,69 +56,44 @@ This is what it looks like [jane@example.com](mailto:jane1%40example.com%2Cqwe2@
 
 ## For React users
 
-Here is a React component which generates such `mailto:` links.
+Here is a function that generates such `mailto:` URLs and a React component that displays such a link.
 
 ```tsx title="MailtoLink.jsx"
-type MailtoProps = Omit<React.HTMLProps<HTMLAnchorElement>, 'href'> &
-  Partial<{
-    to: string | string[];
-    cc: string | string[];
-    bcc: string | string[];
-    subject: string;
-    body: string;
-  }>;
+type MailtoParams = Partial<{
+  to: string | string[];
+  cc: string | string[];
+  bcc: string | string[];
+  subject: string;
+  body: string;
+}>;
 
-function MailtoLink(props: MailtoProps) {
-  const { to, cc, bcc, subject, body, children, ...linkProps } = props;
-  const url = new URL('mailto:');
-
-  const fields = ['to', 'cc', 'bcc', 'subject', 'body'];
-
-  for (const field of fields) {
-    if (!(field in props)) {
-      continue;
-    }
-
-    urlSearchParams.append(field, props[field]);
-  }
-
-  // for (const field of ['to', 'cc', 'bcc', 'subject', 'body']) {
-  //   const value =
-  //     ['to', 'cc', 'bcc'].includes(field) && Array.isArray(props.field)
-  //       ? props[field].join(',')
-  //       : props[field];
-
-  //   if (value) {
-  //     url.searchParams.append(
-  //       field,
-  //       Array.isArray(value) ? value.join(',') : value
-  //     );
-  //   }
-  // }
-
-  // if (to) {
-  //   url.searchParams.append('to', Array.isArray(to) ? to.join(',') : to);
-  // }
-
-  // if (cc) {
-  //   url.searchParams.append('cc', Array.isArray(cc) ? cc.join(',') : cc);
-  // }
-
-  // if (bcc) {
-  //   url.searchParams.append('bcc', Array.isArray(bcc) ? bcc.join(',') : bcc);
-  // }
-
-  // if (subject) {
-  //   url.searchParams.append('subject', subject);
-  // }
-
-  // if (body) {
-  //   url.searchParams.append('body', body);
-  // }
-
+function createMailtoUrl(options: MailtoParams): string {
   return (
-    <a {...linkProps} href={url.toString()}>
-      {children}
+    'mailto:?' +
+    [
+      options.to && `to=${options.to}`,
+      options.cc ? `cc=${options.cc}` : '',
+      options.bcc && `bcc=${options.bcc}`,
+      options.subject ? `subject=${encodeURIComponent(options.subject)}` : '',
+      options.body ? `body=${encodeURIComponent(options.body)}` : '',
+    ]
+      .filter(Boolean)
+      .join('&')
+  );
+}
+
+export function ExampleMailtoLink() {
+  return (
+    <a
+      href={createMailtoUrl({
+        to: 'hello@example.com',
+        cc: ['cc1@example.com', 'cc@example.com'],
+        bcc: 'bcc@example.com',
+        subject: 'Hello World',
+        body: 'Hello\n\n\n   Qwe.',
+      })}
+    >
+      Mailto mailto
     </a>
   );
 }
