@@ -61,7 +61,8 @@ const jsonld = {
     <main class="content-container">
         <div class="hero">
             <h1>Adam's Tech&nbsp;Blog</h1>
-            <a class="who" href="/about.html">Who is Adam?</a>
+
+            <a class="whoami" href="/about.html" title="Who is Adam?">whoami</a>
         </div>
         <section>
             <h2>Articles</h2>
@@ -92,7 +93,7 @@ const jsonld = {
                 }
             </ul>
         </section>
-        <script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
+        <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
     </main>
 </Layout>
 
@@ -138,12 +139,6 @@ const jsonld = {
         z-index: -1;
     }
 
-    .who {
-        display: inline-block;
-        margin-inline: auto;
-        margin-bottom: 1.5rem;
-    }
-
     h2 {
         font-weight: bold;
         font-size: 1.5rem;
@@ -180,5 +175,56 @@ const jsonld = {
     .read-more {
         /* color: #f41f56; */
         color: #db003a;
+    }
+
+    .whoami {
+        display: inline-block;
+        font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+        margin-bottom: 1.5rem;
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.25);
+        background-color: #222;
+        border-radius: 6px;
+        padding: 0.75rem 2rem;
+        color: #eee;
+    }
+
+    .whoami:hover {
+        color: #fff;
+    }
+
+    .whoami::before {
+        content: '$ ';
+    }
+
+    @keyframes cursor-blink {
+        0% {
+            opacity: 0;
+        }
+        15% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        85% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .whoami::after {
+        content: '';
+        position: relative;
+        display: inline-block;
+        width: 10px;
+        height: 1.25em;
+        top: 0.25em;
+        left: 2px;
+        background-color: #fff;
+        margin-left: 2px;
+        animation: cursor-blink 1.5s infinite forwards;
     }
 </style>
