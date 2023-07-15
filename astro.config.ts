@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import remarkToc from 'remark-toc';
-import compress from 'astro-compress';
 import { remarkDefinitionList, defListHastHandlers } from 'remark-definition-list';
 import remarkEmoji from 'remark-emoji';
 import remarkCodeTitle from 'remark-code-title';
@@ -18,6 +17,7 @@ import htmlMinifier from 'html-minifier';
 import UnoCSS from 'unocss/astro';
 
 export default defineConfig({
+    compressHTML: true,
     vite: {
         resolve: {
             preserveSymlinks: true,
@@ -102,10 +102,6 @@ export default defineConfig({
         //         },
         //     },
         // },
-        // compress({
-        //     css: true,
-        //     html: true,
-        // }),
     ],
     server: {
         host: '0.0.0.0',
