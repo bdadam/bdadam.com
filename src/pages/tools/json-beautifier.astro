@@ -62,10 +62,8 @@ const placeholder = JSON.stringify({ hello: 'world' });
 </Layout>
 
 <script>
-    import { getHighlighter, setCDN } from 'shiki';
+    import { getHighlighter } from 'shiki';
     import JSON5 from 'json5';
-
-    setCDN('/shiki/');
 
     const input = document.querySelector<HTMLInputElement>('#input')!;
     const indentation = document.querySelector<HTMLSelectElement>('#indentation')!;
@@ -76,7 +74,7 @@ const placeholder = JSON.stringify({ hello: 'world' });
     const copy = document.querySelector<HTMLButtonElement>('#copy')!;
 
     const highlighter = await getHighlighter({
-        theme: 'slack-dark',
+        themes: ['slack-dark'],
         langs: ['json'],
     });
 
@@ -155,21 +153,24 @@ const placeholder = JSON.stringify({ hello: 'world' });
 
     function beautify() {
         if (!input.value.trim()) {
-            output.innerHTML = highlighter.codeToHtml('// Output comes here...', { lang: 'json' });
+            output.innerHTML = highlighter.codeToHtml('// Output comes here...', { lang: 'json', theme: 'slack-dark' });
             return;
         }
 
         const json = tryParse(input.value);
 
         if (!json) {
-            output.innerHTML = highlighter.codeToHtml('// Warning: Invalid json!', { lang: 'json' });
+            output.innerHTML = highlighter.codeToHtml('// Warning: Invalid json!', {
+                lang: 'json',
+                theme: 'slack-dark',
+            });
             return;
         }
 
         const space = indentation.value === 't' ? '\t' : Number(indentation.value);
         const str = JSON.stringify(json, null, space);
 
-        output.innerHTML = highlighter.codeToHtml(str, { lang: 'json' });
+        output.innerHTML = highlighter.codeToHtml(str, { lang: 'json', theme: 'slack-dark' });
 
         download.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(str);
         download.download = 'beautified.json';

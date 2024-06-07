@@ -24,7 +24,7 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
 
 const canonicalUrl = `https://bdadam.com/blog/${post.slug}.html`;
 const title = post.data.title;
-const abstract = post.data.abstract;
+const abstract = post.data.abstract || '';
 const formattedDate = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(post.data.date));
 const publishedDate = new Date(post.data.date).toISOString().slice(0, 10);
 
@@ -71,9 +71,9 @@ const jsonLd = {
 
             <p class="article-date">
                 {formattedDate}
-                 &nbsp;&mdash;&nbsp;
+                &nbsp;&mdash;&nbsp;
                 {remarkPluginFrontmatter.minutesRead}
-                 &nbsp;&mdash;&nbsp;
+                &nbsp;&mdash;&nbsp;
                 <a href="/about.html">Adam Beres-Deak</a>
             </p>
 

@@ -113,7 +113,7 @@ export default defineConfig({
     },
     site: 'https://bdadam.com/',
     markdown: {
-        extendDefaultPlugins: true,
+        // extendDefaultPlugins: true,
         remarkRehype: {
             // @ts-ignore
             handlers: defListHastHandlers,
