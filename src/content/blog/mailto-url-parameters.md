@@ -97,6 +97,68 @@ export function ExampleMailtoLink() {
     </a>
   );
 }
+
+type MailtoParams = Partial<{
+  to: string | string[];
+  cc: string | string[];
+  bcc: string | string[];
+  subject: string;
+  body: string;
+}>;
+
+function createMailtoUrl(options: MailtoParams): string {
+  return (
+    'mailto:?' +
+    [
+      options.to && `to=${options.to}`,
+      options.cc ? `cc=${options.cc}` : '',
+      options.bcc && `bcc=${options.bcc}`,
+      options.subject ? `subject=${encodeURIComponent(options.subject)}` : '',
+      options.body ? `body=${encodeURIComponent(options.body)}` : '',
+    ]
+      .filter(Boolean)
+      .join('&')
+  );
+}
+
+type MailtoLinkSearchParams = Partial<{
+  to: string | string[];
+  cc: string | string[];
+  bcc: string | string[];
+  subject: string;
+  body: string;
+}>;
+
+type MailtoProps = Omit<React.HTMLProps<HTMLAnchorElement>, 'href'> &
+  Partial<MailtoLinkSearchParams>;
+
+function MailtoLink(props: MailtoProps) {
+  const { to, cc, bcc, subject, body, children, ...linkProps } = props;
+
+  const url = createMailtoUrl({ to, cc, bcc, subject, body });
+
+  return (
+    <a {...linkProps} href={url}>
+      {children}
+    </a>
+  );
+}
+
+function X() {
+  return (
+    <MailtoLink
+      to="asdf@qwe.com"
+      cc={['a@test.com', 'b@qwe.com', 'c@fsdfs.com']}
+      bcc="bcc@test.com"
+      subject="Hello     world"
+      body={`as#+#df ghjhjg 87                   89
+            
+            asdasd`}
+    >
+      Hello asdf
+    </MailtoLink>
+  );
+}
 ```
 
 ## Where are my spaces and new lines?

@@ -15,7 +15,7 @@ const jsonld = {
     name: `Adam Beres-Deak's Personal Website and Blog`,
     url: 'https://bdadam.com',
     description:
-        'rticles about JavaScript, TypeScript, AWS, CI/CD, Web Architecture, System Design, Frontend, Backend and Databases',
+        'Articles about JavaScript, TypeScript, AWS, CI/CD, Web Architecture, System Design, Frontend, Backend and Databases',
     publisher: {
         '@type': 'Person',
         name: 'Adam Beres-Deak',
@@ -93,7 +93,7 @@ const jsonld = {
                 }
             </ul>
         </section>
-        <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+        <script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>
     </main>
 </Layout>
 
@@ -175,6 +175,8 @@ const jsonld = {
     .read-more {
         /* color: #f41f56; */
         color: #db003a;
+        display: inline-block;
+        margin-top: 8px;
     }
 
     .whoami {

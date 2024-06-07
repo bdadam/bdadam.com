@@ -171,7 +171,7 @@ const placeholder = JSON.stringify({ hello: 'world' });
 
         output.innerHTML = highlighter.codeToHtml(str, { lang: 'json' });
 
-        download.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(str);
+        download.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(str);
         download.download = 'beautified.json';
     }
 

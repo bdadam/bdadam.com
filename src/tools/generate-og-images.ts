@@ -3,7 +3,7 @@ import { glob } from 'glob';
 import puppeteer from 'puppeteer';
 
 export default async function () {
-    const browser = await puppeteer.launch({ defaultViewport: { width: 1200, height: 630 } });
+    const browser = await puppeteer.launch({ headless: 'new', defaultViewport: { width: 1200, height: 630 } });
     const page = await browser.newPage();
 
     const files = await glob('./dist/og/**/*.html');

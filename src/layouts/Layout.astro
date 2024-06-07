@@ -12,6 +12,9 @@ import SiteFooter from '../components/SiteFooter.astro';
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <slot name="head" />
+        <script is:inline>
+            document.documentElement.classList.add('js');
+        </script>
     </head>
     <body>
         <slot name="header">

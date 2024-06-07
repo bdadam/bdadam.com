@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 import { getCollection } from 'astro:content';
 
-export const get: APIRoute = async function get() {
+export const GET: APIRoute = async function get() {
     const blogPosts = await getCollection('blog');
     const sitemapData = blogPosts
         .filter((post) => post.data.published !== false)
@@ -43,10 +43,11 @@ export const get: APIRoute = async function get() {
         '</urlset>',
     ];
 
-    return {
+    const body = sitempLines.join('\n');
+
+    return new Response(body, {
         headers: {
             'Content-Type': 'application/xml',
         },
-        body: sitempLines.join('\n'),
-    };
+    });
 };

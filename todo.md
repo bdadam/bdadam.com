@@ -5,24 +5,24 @@
 - [ ] Finish about page
 - [ ] Fix inline code demos
 - [ ] Check/fix/improve all existing articles
-- [ ] meta tags, og tags, twitter meta tags
+- [x] meta tags, og tags, twitter meta tags
 - [ ] rethink path to articles (/blog/slug/)
 - [ ] style comment loading
 - [ ] handle old comments
 - [ ] new comments (if at all)
 - [ ] Hashtags for articles
 - [ ] Fix/create PWA images, also in rss
-- [ ] Pageview tracking
+- [x] Pageview tracking
 - [ ] rss.xml
-- [ ] Share buttons for articles
+- [x] Share buttons for articles
 - [ ] style article content
 - [ ] code highlighting
-- [ ] sitemap.xml
+- [x] sitemap.xml
 - [ ] comments
-- [ ] robots.txt
+- [x] robots.txt
 - [ ] Create code snippets page and redirect [old JS Goodies](https://bdadam.com/javascript-goodies.html) to it
 - [ ] Google News sitemap
-- [ ] Create "My Tools page"
+- [x] Create "My Tools page"
 - [ ] Put all articles into one category and optionally add some more tags
 
 ## Nice to have

@@ -73,6 +73,8 @@ function sendEvent(sid: string, event: Event, params?: EventParams) {
             });
         }
 
-        navigator.sendBeacon('/flamingo/hello?' + query.toString());
+        if (location.hostname === 'bdadam.com') {
+            navigator.sendBeacon('/flamingo/hello?' + query.toString());
+        }
     });
 }

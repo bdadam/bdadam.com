@@ -10,9 +10,40 @@ tags:
 abstract:
   In any form of software development we often need a unique "name" to identify pieces of information
   (objects in memory, database entities, DOM elements, cars, persons and so on).
-  This article will show how to generate such identifiers based on the needs, from simplest to more complex solutions.
+  This article will show how to generate such identifiers based on different needs.
 published: false
 ---
+
+## The modern solution
+
+This works both in the browser and in JS runtimes.
+
+```ts
+crypto.randomUUID(); // 'c75cd4dd-d876-4865-8504-665ddfa0efff'
+```
+
+In Node.js we also need to `import` or `require` the `crypto` module.
+
+```ts
+import crypto from 'node:crypto';
+crypto.randomUUID(); // 'bb01d370-6b98-481d-b482-ff20ca44937c'
+```
+
+## What is a universally unique identifier?
+
+The above code generates [universally unique identifiers (UUID)](https://en.wikipedia.org/wiki/Universally_unique_identifier). Sometimes a UUID is also called a globally unique identifier (GUID).
+
+The chance to generate the same id twice is incredibly small for most practical use-cases. In other words, there are no collisions.
+
+## Differences between UUID versions
+
+The eagle-eyed readers have spotted that the code above always generates version 4 UUIDs. The reason behind this is that v4 UUIDs only rely on a source of randomness. Other UUID versions also include some other information in the generated UUIDs to further reduce the chance of a collision.
+
+A version 1 based id includes the timestamp when the id was generated and also the MAC address of the machine which was used to generate the id.
+
+Version 3 and 5 based ids include the hashes of a namespace (v3 uses MD5 and v5 uses SHA-1).
+
+Version 4 UUIDs include 122 randomly generated bits and 6 predetermined bits to signal the version.
 
 ## The simplest solution
 
