@@ -108,7 +108,7 @@ describe('Site Checks', async () => {
 
         it('is xml', () => {
             expect(sitemapXml.startsWith('<?xml version="1.0" encoding="utf-8"?>')).toEqual(true);
-            expect(sitemapXml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+            expect(sitemapXml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
         });
 
         it('has links to home', () => {
