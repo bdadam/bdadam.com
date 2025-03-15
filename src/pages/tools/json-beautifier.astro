@@ -62,7 +62,7 @@ const placeholder = JSON.stringify({ hello: 'world' });
 </Layout>
 
 <script>
-    import { getHighlighter } from 'shiki';
+    import { getSingletonHighlighter } from 'shiki';
     import JSON5 from 'json5';
 
     const input = document.querySelector<HTMLInputElement>('#input')!;
@@ -73,7 +73,7 @@ const placeholder = JSON.stringify({ hello: 'world' });
     const download = document.querySelector<HTMLAnchorElement>('#download')!;
     const copy = document.querySelector<HTMLButtonElement>('#copy')!;
 
-    const highlighter = await getHighlighter({
+    const highlighter = await getSingletonHighlighter({
         themes: ['slack-dark'],
         langs: ['json'],
     });
