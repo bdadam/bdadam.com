@@ -34,20 +34,24 @@ export const GET: APIRoute = async function get() {
 </url>`;
     });
 
+    const toolUrls = [
+        //
+        'base64-decode',
+        'base64-encode',
+        'json-beautifier',
+    ].map((item) => `<url><loc>https://bdadam.com/tools/${item}.html</loc></url>`);
+
     const sitempLines = [
         '<?xml version="1.0" encoding="utf-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
         '<url><loc>https://bdadam.com/</loc><image:image><image:loc>https://bdadam.com/og/home.png</image:loc></image:image></url>',
         '<url><loc>https://bdadam.com/about.html</loc><image:image><image:loc>https://bdadam.com/og/home.png</image:loc></image:image></url>',
         ...articleUrls,
+        ...toolUrls,
         '</urlset>',
     ];
 
     const body = sitempLines.join('\n');
 
-    return new Response(body, {
-        headers: {
-            'Content-Type': 'application/xml',
-        },
-    });
+    return new Response(body, { headers: { 'Content-Type': 'application/xml' } });
 };
