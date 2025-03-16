@@ -72,7 +72,7 @@ describe('Site Checks', async () => {
             });
 
             it('has an open graph image', () => {
-                const image = /** @type {string} */ ($('html head meta[property="og:image"]').attr('content'));
+                const image = /** @type {string} */ $('html head meta[property="og:image"]').attr('content');
                 const width = $('html head meta[property="og:image:width"]').attr('content');
                 const height = $('html head meta[property="og:image:height"]').attr('content');
 
@@ -82,7 +82,7 @@ describe('Site Checks', async () => {
                 expect(image).toMatch(/\/og\/.+\.png/);
                 expect(parseInt(width ?? '')).toEqual(1200);
                 expect(parseInt(height ?? '')).toEqual(630);
-                expect(existsSync(path.resolve('../dist', image.replace('/og', 'og')))).toEqual(true);
+                expect(existsSync(path.resolve('../dist', image!.replace('/og', 'og')))).toEqual(true);
             });
 
             it('has JSON+LD', () => {

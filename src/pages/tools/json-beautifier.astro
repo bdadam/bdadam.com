@@ -2,9 +2,47 @@
 import Layout from '../../layouts/Layout.astro';
 
 const placeholder = JSON.stringify({ hello: 'world' });
+
+const canonicalUrl = 'https://bdadam.com/tools/json-beautifier.html';
+const description = 'Web developers often need to pretty pring arbitrary JSON texts.';
 ---
 
 <Layout>
+    <Fragment slot="head">
+        <title>JSON Beautifier a.k.a. Pretty Printer</title>
+        <meta property="og:title" content="JSON Beautifier a.k.a. Pretty Printer" />
+
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@bdadamm" />
+        <meta name="twitter:creator" content="@bdadamm" />
+        <!-- <meta property="og:image" content={`/og/blog/${post.slug}.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" /> -->
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'BlogPosting',
+                headline: 'JSON Beautifier a.k.a. Pretty Printer',
+                //image: `https://bdadam.com/og/blog/${post.slug}.png`,
+                genre: 'Web Development',
+                url: canonicalUrl,
+                description,
+                author: {
+                    '@type': 'Person',
+                    name: 'Adam Beres-Deak',
+                    url: 'https://bdadam.com/about.html',
+                },
+            })}
+        />
+    </Fragment>
+
     <main class="content-container">
         <h1 class="font-bold mt-4 mb-6 text-6">JSON Beautifier Tool</h1>
 

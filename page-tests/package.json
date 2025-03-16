@@ -3,11 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "vitest run"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "glob": "^9.2.1",
+    "cheerio": "^1.0.0",
+    "glob": "^11.0.1",
     "vitest": "^3.0.8"
   }
 }
