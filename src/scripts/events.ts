@@ -69,7 +69,7 @@ function sendEvent(sid: string, event: Event, params?: EventParams) {
 
         if (params) {
             Object.keys(params).forEach((key) => {
-                query.append(`epn.${key}`, params[key]);
+                query.append(`epn.${key}`, params[key] ?? '');
             });
         }
 

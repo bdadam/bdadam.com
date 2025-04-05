@@ -1,8 +1,7 @@
 import type { APIRoute } from 'astro';
 
-export const post: APIRoute = async function () {
-    return {
+export const POST: APIRoute = async function () {
+    return new Response('', {
         status: 204,
-        body: '',
-    };
+    });
 };

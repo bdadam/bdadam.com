@@ -53,6 +53,10 @@ export default defineConfig({
                             for (const l of links) {
                                 const q = l.attribs['href'];
 
+                                if (!q) {
+                                    throw new Error('No href attribute found');
+                                }
+
                                 if (q.startsWith('https://')) {
                                     continue;
                                 }
